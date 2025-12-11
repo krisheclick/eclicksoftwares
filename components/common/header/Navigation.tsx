@@ -285,19 +285,11 @@ function MenuItem({ item, pathname }: MenuItemProps) {
             {item.title}
             {(item.megaMenu || item.megaMenuBlocks || item.portfolioBlocks) && <FontAwesomeIcon icon={faAngleDown} />}
          </Link>
-         <div className={open ? Styles.showMegaMenu : ""}>
-            {item.megaMenu && (
-               <MegaMenuComponent megaMenu={item.megaMenu} activeTab={activeTab} setActiveTab={setActiveTab} />
-            )}
-         </div>
-         <div className={open ? Styles.showMegaMenu : ""}>
-
-            {item.megaMenuBlocks && <MegaMenuBlocks megaMenu={item.megaMenuBlocks} />}
-         </div>
-
-         <div className={open ? Styles.showMegaMenu : ""}>
-            {item.portfolioBlocks && <PortfolioMegaMenu megaMenu={item.portfolioBlocks} />}
-         </div>
+         {item.megaMenu && (
+            <MegaMenuComponent megaMenuActive={open} megaMenu={item.megaMenu} activeTab={activeTab} setActiveTab={setActiveTab} />
+         )}
+         {item.megaMenuBlocks && <MegaMenuBlocks megaMenuActive={open} megaMenu={item.megaMenuBlocks} />}
+         {item.portfolioBlocks && <PortfolioMegaMenu megaMenuActive={open} megaMenu={item.portfolioBlocks} />}
       </li>
    );
 }
@@ -305,14 +297,14 @@ function MenuItem({ item, pathname }: MenuItemProps) {
 // ----------------------
 // MEGA MENU COMPONENT
 // ----------------------
-type MegaMenuProps = { megaMenu: MegaMenu; activeTab: number; setActiveTab: (index: number) => void };
+type MegaMenuProps = { megaMenu: MegaMenu; activeTab: number; megaMenuActive: boolean; setActiveTab: (index: number) => void };
 
-function MegaMenuComponent({ megaMenu, activeTab, setActiveTab }: MegaMenuProps) {
+function MegaMenuComponent({ megaMenu, activeTab, setActiveTab, megaMenuActive}: MegaMenuProps) {
    const tabs = megaMenu.tabs;
    const current = tabs[activeTab];
 
    return (
-      <div className={Styles.megaMenu}>
+      <div className={`${Styles.megaMenu} ${megaMenuActive ? Styles.showMegaMenu : ""}`}>
          <Container className="ps-2 pe-2">
             <Row className={`gx-3 ${Styles.mega_menu_row}`}>
                <Col lg={4}>
@@ -362,13 +354,13 @@ function MegaMenuComponent({ megaMenu, activeTab, setActiveTab }: MegaMenuProps)
 // ----------------------
 // MEGA MENU BLOCKS
 // ----------------------
-type MegaMenuBlocksProps = { megaMenu: MegaMenuBlock[] };
+type MegaMenuBlocksProps = { megaMenu: MegaMenuBlock[]; megaMenuActive: boolean; };
 
-function MegaMenuBlocks({ megaMenu }: MegaMenuBlocksProps) {
+function MegaMenuBlocks({ megaMenu, megaMenuActive}: MegaMenuBlocksProps) {
    const posterBlock = megaMenu[0];
 
    return (
-      <div className={`${Styles.megaMenu} ${Styles.megaMenuBlock}`}>
+      <div className={`${Styles.megaMenu} ${megaMenuActive ? Styles.showMegaMenu : ""} ${Styles.megaMenuBlock}`}>
          <Container className="ps-2 pe-2">
             <Row className={`gx-3 ${Styles.mega_menu_row}`}>
                <Col lg={6}>
@@ -403,11 +395,11 @@ function MegaMenuBlocks({ megaMenu }: MegaMenuBlocksProps) {
 }
 
 /* =====Portflio Menu Blocks===== */
-type PortfolioMenuProps = { megaMenu: PortfoiloData }
-const PortfolioMegaMenu = ({ megaMenu }: PortfolioMenuProps) => {
+type PortfolioMenuProps = { megaMenu: PortfoiloData; megaMenuActive: boolean;}
+const PortfolioMegaMenu = ({ megaMenu, megaMenuActive}: PortfolioMenuProps) => {
    const mediaUrl = process.env.NEXT_PUBLIC_assetPrefix || "";
    return (
-      <div className={`${Styles.megaMenu} ${Styles.megaMenuPortfolio}`}>
+      <div className={`${Styles.megaMenu} ${Styles.megaMenuPortfolio} ${megaMenuActive ? Styles.showMegaMenu : ""}`}>
          <Container className="ps-2 pe-2">
             <div className={Styles.portfolioList}>
                <ul>

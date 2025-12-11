@@ -53,7 +53,7 @@
 .megaMenu.megaMenuBlock{
     background: var(--white-color);
 }
-.showMegaMenu .megaMenu{
+.showMegaMenu.megaMenu{
     margin-top: 0;
     opacity: 1;
     visibility: visible;
