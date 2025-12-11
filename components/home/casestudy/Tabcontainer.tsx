@@ -63,47 +63,43 @@ const TabContainer = ({ data }: Props) => {
           return (
             <div key={category.service_category_slug} className={Styles.smallList}>
               {category.projects && category.projects.length > 0 ? (
-              <Row className="rowGap">
-                {category.projects?.map((item, index) => {
-                  const {
-                    proj_feature_image_path,
-                    proj_name,
-                    proj_short_desc,
-                    proj_tools_used,
-                  } = item;
+                <Row className="rowGap">
+                  {category.projects?.map((item, index) => {
+                    const {
+                      proj_feature_image_path,
+                      proj_name,
+                      proj_short_desc,
+                      proj_tools_used,
+                    } = item;
 
-                  let tools: { name?: string; value?: string }[] = [];
-                  if (typeof proj_tools_used === "string") {
-                    try {
-                      tools = JSON.parse(proj_tools_used);
-                    } catch (err) {
-                      console.error("Error parsing proj_tools_used:", err);
+                    let tools: { name?: string; value?: string }[] = [];
+                    if (typeof proj_tools_used === "string") {
+                      try {
+                        tools = JSON.parse(proj_tools_used);
+                      } catch (err) {
+                        console.error("Error parsing proj_tools_used:", err);
+                      }
+                    } else if (Array.isArray(proj_tools_used)) {
+                      tools = proj_tools_used;
                     }
-                  } else if (Array.isArray(proj_tools_used)) {
-                    tools = proj_tools_used;
-                  }
 
-                  return (
-                    <Col lg={6} key={index}>
-                      <div className={Styles.rowList}>
-                        <Row>
-                          <Col lg={6}>
-                            <figure>
+                    return (
+                      <Col lg={6} key={index}>
+                        <div className={Styles.rowList}>
+                          <div className={Styles.card}>
+                            <figure className={Styles.cardPoster}>
                               <Image
-                                src={
-                                  proj_feature_image_path
-                                    ? `${process.env.NEXT_PUBLIC_MEDIA_URL}${proj_feature_image_path}`
-                                    : `${process.env.NEXT_PUBLIC_assetPrefix}/assets/images/about-poster.webp`
-                                }
+                                src={`${process.env.NEXT_PUBLIC_MEDIA_URL}${proj_feature_image_path}`}
                                 alt={proj_name || "Project Image"}
                                 fill
-                                sizes="(max-width: 768px) 100vw, 500px"
+                                onError={(e) => {
+                                  (e.target as HTMLImageElement).src =
+                                    `${process.env.NEXT_PUBLIC_assetPrefix}/assets/images/noimage.jpg`;
+                                }}
                                 priority
+                                style={{ objectFit: "cover" }}
                               />
                             </figure>
-                          </Col>
-
-                          <Col lg={6} className="align-self-center">
                             <aside>
                               <div className={Styles.boxTitle}>{proj_name}</div>
                               <p
@@ -116,7 +112,7 @@ const TabContainer = ({ data }: Props) => {
                                 <ul>
                                   {tools.slice(0, 2).map((tool, idx) => (
                                     <li key={idx}>
-                                      <span>{tool.name}</span> {tool.value}
+                                      <span>{tool.name}</span> <em>{tool.value}</em>
                                     </li>
                                   ))}
                                 </ul>
@@ -132,15 +128,14 @@ const TabContainer = ({ data }: Props) => {
                                 </Link>
                               </div>
                             </aside>
-                          </Col>
-                        </Row>
-                      </div>
-                    </Col>
-                  );
-                })}
-              </Row>
+                          </div>
+                        </div>
+                      </Col>
+                    );
+                  })}
+                </Row>
               ) : (
-                <h2 className="text-center">Case Study Not Found</h2>
+                <p className="notFound text-center">Case Study Not Found</p>
               )}
             </div>
           );

@@ -14,7 +14,7 @@ type props = {
 const Card = ({ value_points }: props) => {
     return (
         value_points && value_points.length > 0 && value_points.map((item: ValuePoint, index: number) => (
-            <Col lg={3} key={index}>
+            <Col lg={3} key={index} className={Styles.columnBox}>
                 <div className={Styles.box}>
                     <figure className={Styles.icon}>
                         <Image

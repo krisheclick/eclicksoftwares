@@ -10,9 +10,9 @@ import Organization from "@/components/organization/Organization";
 import { useEffect, useState } from "react";
 import { Col, Container, Row } from "react-bootstrap";
 import Image from "next/image";
-import Portfolio from "@/components/solutions/portfolio";
 import { useThemeContext } from "@/context/ThemeContext";
 import Styles from "./style.module.css";
+import Process from "@/components/organization/Process";
 
 type ServiceCta = {
     cta_title: string;
@@ -100,7 +100,7 @@ export default function Page({ params }: { params: Promise<{ category: string, s
     const { setHeaderExtraClass } = useThemeContext();
     useEffect(() => {
         // Apply the header class ONLY for this page
-        setHeaderExtraClass("headerAbsolute");
+        setHeaderExtraClass("");
 
         // Optional: cleanup when leaving this page
         return () => setHeaderExtraClass(null);
@@ -138,7 +138,7 @@ export default function Page({ params }: { params: Promise<{ category: string, s
     if (error) {
         return <div>{error}</div>;
     }
-    
+
     return (
         <div>
             <Banner isLoading={isLoading} title={data?.service_title} subtitle={data?.service_sub_title} image={data?.service_banner_image_path} short_description={data?.service_short_description} />
@@ -182,9 +182,9 @@ export default function Page({ params }: { params: Promise<{ category: string, s
                                         </div>
                                     ) : (
                                         <>
-                                            <div className="skeleton w-100 mb-2" style={{height: 32}}></div>
-                                            <div className="skeleton w-75 mb-2" style={{height: 32}}></div>
-                                            <div className="skeleton w-50 mb-4" style={{height: 32}}></div>
+                                            <div className="skeleton w-100 mb-2" style={{ height: 32 }}></div>
+                                            <div className="skeleton w-75 mb-2" style={{ height: 32 }}></div>
+                                            <div className="skeleton w-50 mb-4" style={{ height: 32 }}></div>
                                             <div className="skeleton skeletonText w-100"></div>
                                             <div className="skeleton skeletonText w-100"></div>
                                             <div className="skeleton skeletonText w-100"></div>
@@ -207,14 +207,17 @@ export default function Page({ params }: { params: Promise<{ category: string, s
                     </Row>
                 </Container>
             </div>
-            <Portfolio isLoading={isLoading} title={data?.heading_portfolio ?? ''} projects={data?.projects} />
-            <Technologies isLoading={isLoading} title={data?.heading_technology ?? ''} technologies={data?.technologies ?? []} />
-            <Trustownership isLoading={isLoading} {...(data?.service_cta ?? { cta_title: '', cta_description: '', cta_image: '' })} />
-            {data?.wcp && data.wcp.length > 0 && <WhatWeDo isLoading={isLoading} services={data.wcp} />}
             <Organization
                 isLoading={isLoading}
                 values_title={data?.heading_proposition ?? ''}
                 value_points={data?.value_points ?? []}
+            />
+            {/* <Portfolio isLoading={isLoading} title={data?.heading_portfolio ?? ''} projects={data?.projects} /> */}
+            <Technologies isLoading={isLoading} title={data?.heading_technology ?? ''} technologies={data?.technologies ?? []} />
+            <Trustownership isLoading={isLoading} {...(data?.service_cta ?? { cta_title: '', cta_description: '', cta_image: '' })} />
+            {data?.wcp && data.wcp.length > 0 && <WhatWeDo isLoading={isLoading} services={data.wcp} />}
+            <Process
+                isLoading={isLoading}
                 process_title={data?.heading_process_step ?? ''}
                 process_steps={data?.process_steps ?? []}
             />

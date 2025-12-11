@@ -10,7 +10,7 @@ type props = {
     image?: string | null;
     short_description?: string | null;
 }
-const Banner = ({ isLoading, title, subtitle, image, short_description }: props) => {
+const Banner = ({isLoading, title, subtitle, image, short_description}:props) => {
 
     if (isLoading) {
         return (
@@ -61,23 +61,23 @@ const Banner = ({ isLoading, title, subtitle, image, short_description }: props)
                         <div className={Styles.content}>
                             <div className={Styles.bannerText}>
                                 <div className={Styles.subtitle} dangerouslySetInnerHTML={{
-                                    __html: title ?? 'Custom Software <br /> Development'
-                                        .replace(/Â+/g, "")
-                                        .replace(/\s+/g, " ")
-                                        .trim(),
-                                }} />
-                                <div className={Styles.bannerTitle} dangerouslySetInnerHTML={{
-                                    __html: subtitle ?? 'Custom Software <br /> Development'
-                                        .replace(/Â+/g, "")
-                                        .replace(/\s+/g, " ")
-                                        .trim(),
+                                    __html: title??'Custom Software <br /> Development'
+                                    .replace(/Â+/g, "")
+                                    .replace(/\s+/g, " ")
+                                    .trim(),
+                                }}/>
+                                <div className={`title ${Styles.bannerTitle}`} dangerouslySetInnerHTML={{
+                                     __html: subtitle??'Custom Software <br /> Development'
+                                    .replace(/Â+/g, "")
+                                    .replace(/\s+/g, " ")
+                                    .trim(),
                                 }} />
                                 <div className={Styles.bannerContent} dangerouslySetInnerHTML={{
                                     __html: short_description ?? '<p>We help entrepreneurs and business leaders build and launch innovative custom software solutions. </p>'
-                                        .replace(/Â+/g, "")
-                                        .replace(/\s+/g, " ")
-                                        .trim(),
-                                }} />
+                                    .replace(/Â+/g, "")
+                                    .replace(/\s+/g, " ")
+                                    .trim(),
+                                }}/>                                    
                             </div>
                             <div className={Styles.btn_wrap}>
                                 <Link href={`${process.env.NEXT_PUBLIC_ENV_URL}`} className={`eclick-btn-connect ${Styles.bannerBtn ?? ''}`}>
@@ -137,16 +137,12 @@ const Banner = ({ isLoading, title, subtitle, image, short_description }: props)
                         </div>
                     </Col>
                     <Col lg={6} xl={7}>
-                        <figure className={Styles.posterBanner}>
+                        <figure className={Styles.poster}>
                             <Image
-                                src={`${process.env.NEXT_PUBLIC_MEDIA_URL}${image}`}
-                                alt={title || "Banner Poster"}
+                                src={image?`${process.env.NEXT_PUBLIC_MEDIA_URL}${image}`:`${process.env.NEXT_PUBLIC_assetPrefix}/assets/images/laptop.png`}
+                                alt="Laptop"
                                 fill
-                                priority
-                                onError={(e) => {
-                                    (e.target as HTMLImageElement).src =
-                                        `${process.env.NEXT_PUBLIC_assetPrefix}/assets/images/noimage.jpg`;
-                                }}
+                                priority={true}
                             />
                         </figure>
                     </Col>

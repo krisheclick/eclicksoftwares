@@ -22,10 +22,13 @@
 .card{
     display: grid;
     align-items: center;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 24px;
+    grid-template-columns: 50% 50%;
+    gap: var(--gap);
     color: #707070;
     font-size: 16px;
+}
+.card aside{
+    padding-left: 20px;
 }
 .card p{
     height: 3lh;
@@ -88,16 +91,15 @@
     font-weight: 600;
     gap: 5px;
     display: flex;
-    align-items: center;
+    align-items: start;
+}
+.listTarget a svg{
+    margin-top: 5px;
 }
 
 @media only screen and (max-width: 1600px) {
     .card{
         font-size: 13px;
-    }
-    .card aside p{
-        height: 4lh;
-        overflow: hidden;
     }
     .boxTitle{
         font-size: 22px;
@@ -108,10 +110,6 @@
 @media only screen and (max-width: 1399px) {
     .card{
         font-size: 12px;
-    }
-    .card aside p{
-        height: 4lh;
-        overflow: hidden;
     }
     .boxTitle{
         font-size: 20px;

@@ -199,8 +199,21 @@
         gap: 18px;
         font-size: 14px;
     }
+    .tabSubmenu .navItem{
+        font-size: 14px;
+        padding-block: 8px;
+    }
+    .submenu a{
+        font-size: 13px;
+    }
     .megaMenu{
         background: linear-gradient(90deg, var(--white-color) 36%, #f3f6fd 36%, #f3f6fd 100%);
+    }
+    .navPoster {
+        height: 320px;
+    }
+    .navPoster img{
+        border-radius: 8px;
     }
     .posterTitle{
         font-size: 14px;
@@ -217,8 +230,14 @@
     .megaMenu{
         background: linear-gradient(90deg, var(--white-color) 36%, #f3f6fd 36%, #f3f6fd 100%);
     }
+    .submenuLayout{
+        grid-template-columns: 36% 63%;
+    }
     .posterTitle{
         font-size: 13px;
+    }
+    .navPoster {
+        height: 280px;
     }
     .portfolioList ul{
         grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));

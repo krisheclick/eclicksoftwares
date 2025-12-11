@@ -86,6 +86,7 @@ const Portfolio = ({ isLoading, title, projects }: props) => {
                                                         (e.target as HTMLImageElement).src =
                                                             `${process.env.NEXT_PUBLIC_assetPrefix}/assets/images/noimage.jpg`;
                                                     }}
+                                                    style={{objectFit: "cover"}}
                                                 />
                                             </figure>
                                             <aside>

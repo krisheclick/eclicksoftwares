@@ -6,9 +6,7 @@ import { useEffect, useState } from "react";
 import { Container } from "react-bootstrap";
 import Styles from "@/components/portfoilo/style.module.css";
 import LogoDesign from "@/components/portfoilo/LogoDesign";
-const bannerData = {
-   title: "Portfolio Details"
-}
+import Tshirt from "@/components/portfoilo/t-shirt";
 type Portfolios = {
    portfolio_feature_image_path?: string;
    portfolio_title?: string;
@@ -43,20 +41,31 @@ const Page = ({ params }: { params: { slug: string } }) => {
    useEffect(() => {
       fetchData();
    }, []);
+   const pageSlug = data?.portfolio_group_slug;
+   const items = data?.Portfolios ?? [];
+   const title = data?.portfolio_group_title;
+
+   console.log('data', data)
+   let content;
+
+   if (pageSlug === "logo-design" || pageSlug === "illustration") {
+      content = <LogoDesign hasLoading={hasLoading} title={title ?? ''} portfolios={items} />;
+   } else if (pageSlug === "website-design") {
+      content = <PortfolioList />;
+   } else {
+      content = <Tshirt hasLoading={hasLoading} title={title ?? ''} portfolios={items} />;
+   }
+
    return (
       notFoundPage ? (
          <NotFound />
       ) : (
          <>
-            <Banner data={bannerData} />
+            <Banner title={title} />
 
             <div className={`sectionArea ${Styles.sectionArea ?? ''}`}>
                <Container>
-                  {data?.portfolio_group_slug === "logo-design" ? (
-                     <LogoDesign portfolios={data.Portfolios ?? []} />
-                  ) : (
-                     <PortfolioList />
-                  )}
+                  {content}
                </Container>
             </div>
          </>

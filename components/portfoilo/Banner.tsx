@@ -1,18 +1,15 @@
 import { Container } from "react-bootstrap";
 import Styles from "./style.module.css";
 
-type DataItem = {
+type Props = {
     title?: string;
 }
-type Props = {
-    data?: DataItem;
-}
-const Banner = ({data}: Props) => {
+const Banner = ({title}: Props) => {
   return (
     <div className={Styles.bannerSection}>
         <Container>
             <article className={Styles.bannerContent}>
-                <h1 className={Styles.pageTitle}>{data?.title}</h1>
+                <h1 className={Styles.pageTitle}>{title}</h1>
             </article>
         </Container>
     </div>

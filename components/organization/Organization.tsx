@@ -1,29 +1,18 @@
 import { Col, Container, Row } from 'react-bootstrap'
 import Styles from './style.module.css'
 import Card from './Card'
-import List from './List'
 
 type ValuePoint = {
     title: string;
     filename: string;
 }
-
-type ProcessStep = {
-    filename: string;
-    name: string;
-    title: string;
-    description: string;
-}
-
 type props = {
     isLoading: boolean;
     value_points: ValuePoint[];
-    process_steps: ProcessStep[];
     values_title: string;
-    process_title: string;
 }
 
-const Organization = ({ isLoading, values_title, value_points, process_title, process_steps }: props) => {
+const Organization = ({ isLoading, values_title, value_points }: props) => {
     return (
         <>
             <div className={`sectionArea ${Styles.valuesArea}`}>
@@ -36,12 +25,12 @@ const Organization = ({ isLoading, values_title, value_points, process_title, pr
                         )}
                     </div>
                     <div className={Styles.cardList}>
-                        <Row>
+                        <Row className='justify-content-center'>
                             {!isLoading ? (
                                 <Card value_points={value_points} />
                             ) : (
                                 [...Array(4)].map((_, index) => (
-                                    <Col lg={3} key={index}>
+                                    <Col lg={3} key={index} className={Styles.columnBox}>
                                         <div className={Styles.box}>
                                             <figure className={`skeleton ${Styles.icon}`}></figure>
                                             <div className="skeleton w-100" style={{ height: 22, marginBottom: 4 }}></div>
@@ -53,19 +42,6 @@ const Organization = ({ isLoading, values_title, value_points, process_title, pr
                         </Row>
                     </div>
 
-                </Container>
-            </div>
-
-            <div className={Styles.processSection}>
-                <Container>
-                    <div className={`section-content full text-center ${Styles.section_content ?? ''}`}>
-                        {!isLoading ? (
-                            <h3 className={`title fw-normal ${Styles.title ?? ''}`}>{process_title ? process_title : 'Our Process'}</h3>
-                        ) : (
-                            <div className="skeleton w-100 skeletonTitle"></div>
-                        )}
-                    </div>
-                    <List isLoading={isLoading} process_steps={process_steps} />
                 </Container>
             </div>
         </>

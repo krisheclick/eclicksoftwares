@@ -1,7 +1,19 @@
+.valuesArea{
+    position: relative;
+    z-index: 1;
+    padding-block: 90px;
+    background: var(--primary-background);
+}
+@media screen and (min-width: 1200px) {
+    .columnBox{
+        width: 20%;
+    }    
+}
 .box {
+    background: var(--white-color);
     border: 1px solid rgba(215, 215, 215, 1);
     border-radius: 10px;
-    padding: 40px 30px;
+    padding: 24px 20px;
     text-align: center;
     min-height: 100%;
     display: grid;
@@ -9,8 +21,8 @@
     transition: all .3s ease-in-out;
 }
 .box:hover {
-    background: var(--primary-background);
-    border-color: var(--primary-background);
+    background: var(--secondary-background);
+    border-color: var(--secondary-background);
     transform: translateY(-4px);
 }
 .icon {
@@ -21,15 +33,15 @@
     margin: 0 auto 12px;
 }
 .boxtitle {
-    font-size: 1.1em;
-    font-weight: 500;
+    font: 600 1.1em / 1.25 var(--primary-font);
+    text-wrap: balance;
 }
-.processSection{
+/* .processSection{
     position: relative;
     z-index: 1;
     padding-block: 90px;
     background: var(--primary-background);
-}
+} */
 .listView ul{
     list-style: none;
     padding: 0;
@@ -88,4 +100,10 @@
     max-height: calc(var(--size) / 1.84 );
     object-fit: contain;
     margin: auto;
+}
+@media only screen and (max-width:1600px) {
+    .boxtitle{
+        font-size: 15px;
+        max-width: 180px;
+    }
 }
