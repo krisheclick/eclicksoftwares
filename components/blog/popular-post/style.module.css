@@ -1,0 +1,32 @@
+.postParent:not(:last-child){
+    margin-bottom: 12px;
+    border-bottom: 1px solid var(--primary-background);
+    padding-bottom: 12px;
+}
+.postBox{
+    display: grid;
+    grid-template-columns: 35% 65%;
+}
+.poster{
+    position: relative;
+    padding-top: 40%;
+    border-radius: 8px;
+    overflow: hidden;
+}
+.title{
+    font: 600 16px / 1.2 var(--primary-font);
+    color: var(--black-color);
+    margin-bottom: 4px;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+.postcontent{
+    padding-left: 10px;
+}
+.postDate{
+    font-weight: 600;
+    font-size: 13px;
+    color: var(--primary-color);
+}

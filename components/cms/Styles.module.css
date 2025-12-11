@@ -1,0 +1,22 @@
+.cmsBanner{
+    background: var(--primary-background);
+    padding: 100px 0;
+    min-height: 380px;
+    display: grid;
+    align-items: center;
+    font-size: 1.1em;
+    letter-spacing: 0.5px;
+}
+.updateDate{
+    color: var(--secondary-color);
+    font-weight: 500;
+}
+.sectionArea{
+    position: relative;
+    z-index: 1;
+    margin-block: 70px;
+}
+.editorText{
+    font-size: 1.05em;
+    line-height: 1.9;
+}

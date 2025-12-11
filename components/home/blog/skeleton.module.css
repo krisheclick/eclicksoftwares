@@ -1,0 +1,24 @@
+.box{
+    background: #c4d3f242;
+    padding: 20px;
+}
+.title{
+    height: 24px;
+    margin-bottom: 4px;
+    width: 80%;
+    border-radius: 20px;
+}
+.title + .title{
+    width: 60%;
+}
+.button{
+    margin-top: 24px;
+    margin-bottom:5px;
+    height: 36px;
+    width: 120px;
+    border-radius: 36px;
+}
+.poster{
+    aspect-ratio: 3/2;
+    margin-top: 24px;
+}

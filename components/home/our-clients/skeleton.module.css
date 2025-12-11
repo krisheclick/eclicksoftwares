@@ -1,0 +1,30 @@
+.cardLogo{
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+    padding-right: 1.5rem;
+}
+.skeletonItem{
+    height: 100px;
+}
+.card{
+    padding-left: 1.5rem;
+}
+.brands::after{
+    content: '';
+    display: block;
+    background: url(../../../public/assets/images/quote.png) no-repeat center / contain;
+    width: 44px;
+    height: 44px;
+    margin: 0 -14px 24px auto;
+}
+.skeletonLogo{
+    width: 84px;
+    height: 84px;
+    margin-bottom: 20px;
+}
+.skeletonsubtitle{
+    height: 32px;
+    width: 220px;
+    margin-top: 30px;
+}

@@ -1,0 +1,120 @@
+.sectionArea{
+    position: relative;
+    z-index: 1;
+    padding-block: 85px;
+    background: var(--primary-background);
+}
+.subtitle {
+	font: 600 18px / 1.35 var(--primary-font);
+	color: #04bdc4;
+	text-transform: uppercase;
+	margin-bottom: 20px;
+}
+.title {
+	text-transform: capitalize;
+	font-weight: 400;
+}
+.rowList{
+    background: var(--white-color);
+    border-radius: 20px; 
+    padding: 16px;
+}
+.card{
+    display: grid;
+    align-items: center;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 24px;
+    color: #707070;
+    font-size: 16px;
+}
+.card p{
+    height: 3lh;
+    overflow: hidden;
+}
+.boxTitle{
+    color: var(--black-color);
+    margin: 0 0 12px 0;
+    font-size: 24px;
+    font-weight: 600;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+.card ul{
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 6px 12px;
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+.card ul:has(li:only-child){
+    grid-template-columns: inherit;
+}
+.card li{
+    position: relative;
+    margin-bottom: 0;
+    padding-right: 6px;
+}
+.card li:after{
+    content: "";
+    position: absolute;
+    right: -2px;
+    inset-block: 0;
+    border-right: 1px solid #D9D9D9;
+}
+.card ul li:last-child:after{
+    display: none;
+}
+.card li span{
+    font-size: 0.9em;
+    display: block;
+}
+.card li em{
+    color: var(--black-color);
+    display: block;
+}
+.cardPoster{
+    position: relative;
+    padding-top: 100%;
+    border-radius: 10px;
+    overflow: hidden;
+}
+.listTarget{
+    margin: 15px 0 0 0;
+}
+.listTarget a{
+    color:var(--black-color);
+    font-weight: 600;
+    gap: 5px;
+    display: flex;
+    align-items: center;
+}
+
+@media only screen and (max-width: 1600px) {
+    .card{
+        font-size: 13px;
+    }
+    .card aside p{
+        height: 4lh;
+        overflow: hidden;
+    }
+    .boxTitle{
+        font-size: 22px;
+        margin-bottom: 6px;
+    }
+}
+
+@media only screen and (max-width: 1399px) {
+    .card{
+        font-size: 12px;
+    }
+    .card aside p{
+        height: 4lh;
+        overflow: hidden;
+    }
+    .boxTitle{
+        font-size: 20px;
+        margin-bottom: 4px;
+    }
+}

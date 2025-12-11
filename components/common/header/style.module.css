@@ -1,0 +1,28 @@
+.logo{
+    max-width: 230px;
+}
+.logo img{
+    width: 100%;
+    height: auto;
+}
+.navWrapper{
+    display: flex;
+    align-items: center;
+    gap: 48px;
+}
+.navWrapper li{
+    margin-bottom: 0;
+}
+@media only screen and (max-width:1600px) {
+    .logo{
+        max-width: 210px;
+    }
+}
+@media only screen and (max-width:1399px) {
+    .logo{
+        max-width: 180px;
+    }
+    .navWrapper{
+        gap: 24px;
+    }
+}

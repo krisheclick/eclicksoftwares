@@ -1,0 +1,181 @@
+.locationArea{
+    margin: 90px 0px;
+}
+.locationArea.innerLocation{
+    background: var(--primary-background);
+    margin: 0;
+    padding-block: 60px;
+}
+.locationRow{
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 48px 16px;
+    margin-top: 48px;
+}
+.innerLocation .locationRow{
+    grid-template-columns: repeat(4, 1fr);
+    column-gap: 20px;
+    margin-top: 0;
+}
+.infoBox{
+    max-width: 660px;
+}
+.innerLocation .infoBox{
+    max-width: 100%;
+}
+.locationBox{
+    font-size: 17px;
+    font-weight: 500;
+    cursor: pointer;
+}
+.innerLocation .locationCol{
+    border-right: 1px solid #ccc;
+    padding: 4px 0px 4px 16px;
+}
+.innerLocation .locationCol:nth-child(4n + 4){
+    border-color: transparent;
+}
+.locationBoxTitle{
+    display: flex;
+    align-items: start;
+    gap: 16px;
+}
+.locationBox img{
+    flex-shrink: 0;
+    overflow: hidden;
+}
+.title{
+    font: 600 20px / 1.25 var(--primary-font);
+    margin-bottom: 10px;
+    color: var(--black-color);
+}
+.locationArea ul{
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    --margin: 10px;
+}
+.iframeBox{
+    background-color: #1A1A1A;
+    margin-bottom: -6px;
+    border-radius: 16px;
+    overflow: hidden;
+    position: relative;
+    height: 610px;
+}
+.iframeBox iframe{
+    object-fit: cover;
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    inset: 0;
+    opacity: 0.6;
+}
+.frameAddress{
+    background: var(--primary-color);
+    color: var(--white-color);
+    z-index: 1;
+    border-radius: 16px;
+    max-width: 420px;
+    padding: 30px;
+    font-size: 18px;
+    position: absolute;
+    bottom: 24px;
+    right: 24px;
+}
+.country{
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 24px 8px 8px;
+    border-radius: 30px;
+    font: 400 20px / 1.2 var(--tertiary-font);
+    background: var(--white-color);
+    color: var(--black-color);
+    max-width: max-content;
+    min-width: 160px;
+}
+.country img{
+    --size: 36px;
+    width: var(--size);
+    height: var(--size);
+    border-radius: 100%;
+}
+.frameAddress ul{
+    max-width: 350px;
+    margin: 32px 0px 0px;
+}
+.frameAddress li{
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+.address svg {
+    align-self: start;
+    margin-top: 6px;
+}
+.frameAddress a:hover{
+    color: var(--white-color);
+    text-decoration: underline;
+}
+
+/* Skeleton */
+.skeletonTitle{
+    width: 220px;
+    height: 40px;
+}
+.skeletonDot{
+    height: 4px;
+}
+.skeletonIcon{
+    width: 36px;
+    height: 36px;
+    flex-shrink: 0;
+}
+.skeletonSubtitle{
+    width: 80%;
+    height: 30px;
+    margin-bottom: 24px;
+}
+.frameAddressSkeleton{
+    background: var(--primary-background);
+}
+@media only screen and (max-width: 1600px) {
+    .locationArea{
+        margin: 70px 0px;
+    }
+}
+@media only screen and (max-width: 1399px) {
+    .locationBox{
+        font-size: 14px;
+    }
+    .locationBoxTitle{
+        gap: 10px;
+    }
+    .title{
+        font-size: 17px;
+    }
+    .locationBoxTitle img{
+        width: 32px;
+        height: 26px;
+        object-fit: contain;
+    }
+    .frameAddress{
+        font-size: 16px;
+        bottom: 20px;
+        right: 20px;
+        max-width: 360px;
+        padding: 20px;
+    }
+    .country{
+        font-size: 17px;
+        min-width: 140px;
+    }
+    .country img{
+        --size: 30px;
+    }
+    .frameAddress ul{
+        max-width: 100%;
+        margin-top: 24px;
+    }
+}

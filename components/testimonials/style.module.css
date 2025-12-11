@@ -1,0 +1,118 @@
+.cmsBanner{
+    background: var(--primary-background);
+    padding: 50px 0;
+    min-height: 380px;
+    display: grid;
+    align-items: center;
+    font-size: 1.1em;
+    letter-spacing: 0.5px;
+}
+.poster img{
+    max-height: 480px;
+    clip-path: polygon(0% 0%, 100% 0%, 100% 85%, 45% 85%, 30% 100%, 30% 85%, 0 85%);
+    border-radius: 10px;
+}
+.cardPoster{
+    position: relative;
+    border-radius: 8px;
+    border: 1px solid #f7f7f7;
+    padding-top: 56.25%;
+    display: grid;
+    place-items: center;
+}
+.cardPoster img{
+    width: auto !important;
+    height: auto !important;
+    object-fit: contain;
+    margin: auto;
+}
+.videoIcon{
+    --size: 48px;
+    width: var(--size);
+    height: var(--size);
+    background: #ff0000;
+    color: var(--white-color);
+    display: grid;
+    place-items: center;
+    border-radius: 100%;
+    position: absolute;
+    z-index: 2;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 18px;
+    padding-left: 2px;
+}
+.cardText{
+    font-size: 16px;
+    padding: 16px 12px;
+}
+.cardTitle{
+    font: 600 24px / 1.25 var(--primary-font);
+    margin-bottom: 8px;
+    color: var(--primary-color);
+}
+.designation{
+    margin-bottom: 20px;
+    font-size: 1.2em;
+    color: #a49999;
+    letter-spacing: 0.3px;
+}
+.testmonial_paragraph {
+    height: 6lh;
+    overflow: hidden auto;
+    line-height: 1.7;
+    padding-right: 8px;
+}
+.testmonial_paragraph p{
+    line-height: inherit;
+}
+.cardRow{
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    align-items: center;
+    gap: 30px;
+    margin-bottom: 40px;
+    overflow: hidden;
+}
+.cardRow .cardText {
+    font-size: 18px;
+}
+.tag{
+    background: var(--primary-color);
+    color: var(--white-color);
+    display: inline-block;
+    vertical-align: middle;
+    padding: 8px 16px;
+    font: 500 15px / 1 var(--primary-font);
+    border-radius: 24px;
+    margin-bottom: 16px;
+}
+.cardRow .cardTitle{
+    font-size: 42px;
+    font-weight: 700;
+}
+.cardRow .testmonial_paragraph{
+    height: 6lh;
+    line-height: 1.8;
+}
+.videoContainer iframe {
+    width: 100%;
+    height: 100%;
+    aspect-ratio: 9/6;
+}
+@media only screen and (max-width: 1600px) {
+    .cardTitle{
+        font-size: 20px;
+    }
+    .cardText{
+        font-size: 14px;
+    }
+    .cardRow .cardTitle{
+        font-size: 32px;
+    }
+    .tag{
+        font-size: 13px;
+        padding: 6px 15px;
+    }
+}

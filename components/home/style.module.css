@@ -1,0 +1,111 @@
+/* =============About Section Start============= */
+.content{
+    color: var(--black-color);
+    font-size: 17px;
+    max-width: 660px;
+}
+.content p{
+    line-height: 1.8;
+}
+.title{
+    color: var(--primary-title-color);
+}
+.usp ul{
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px 20px;
+    margin-top: 50px;
+}
+.uspBox{
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    font-size: .9em;
+    font-weight: 600;
+    background: var(--primary-background);
+    padding: 8px 24px 8px 8px;
+    color: var(--primary-title-color);
+    border-radius: 30px;
+}
+.uspIcon{
+    --size: 46px;
+    align-self: flex-start;
+    width: var(--size);
+    height: var(--size);
+    position: relative;
+    background: var(--primary-color);
+    display: grid;
+    place-items: center;
+    border-radius: 100%;
+    flex-shrink: 0;
+}
+.uspIcon img{
+    padding: 10px;
+}
+.aboutPoster {
+    width: 100%;
+    padding-top: 85%;
+    position: relative;
+    border-radius: 12px;
+    overflow: hidden;
+}
+.skeltonTitle{
+    margin-bottom: 40px;
+}
+.skeltonTitle * {
+    height: 28px;
+    width: 75%;
+    margin-bottom: 8px;
+}
+.skeltonTitle div:last-child{
+    width: 45%;
+}
+/* =============About Section Ends============= */
+
+/* =============Call to Action Section Start============= */
+.spaceAdd{
+    margin-top: 60px;
+}
+.calltoAction_wrapper{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px 30px;
+    background: var(--primary-background);
+    border-radius: 20px;
+    box-shadow: 0px 4px 4px #2c2c2c40;
+    padding: 40px 48px;
+}
+.calltoAction_content .title{
+    color: #313131;
+}
+.calltoAction_content .title span{
+    display: block;
+    color: var(--black-color);
+}
+/* =============Call to Action Section Ends============= */
+
+@media only screen and (max-width:1600px) {
+    .content{
+        font-size: 15px;
+    }
+    .usp ul {
+        gap: 8px 10px;
+        margin-top: 36px;
+    }
+    .uspBox{
+        gap: 8px;
+        font-size: 12px;
+        padding: 6px 20px 6px 6px;
+    }
+    .uspIcon{
+        --size: 36px;
+        padding: 8px;
+    }
+    .spaceAdd{
+        margin-top: 48px;
+    }
+    .calltoAction_wrapper{
+        padding: 36px 32px;
+    }
+}

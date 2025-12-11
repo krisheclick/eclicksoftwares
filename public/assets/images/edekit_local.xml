@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<FileZilla3 version="3.69.1" platform="windows">
+	<Servers>
+		<Server>
+			<Host>192.168.2.244</Host>
+			<Port>22</Port>
+			<Protocol>1</Protocol>
+			<Type>0</Type>
+			<User>edekit_new</User>
+			<Pass encoding="base64">ZWRla2l0X25ldw==</Pass>
+			<Logontype>1</Logontype>
+			<EncodingType>Auto</EncodingType>
+			<BypassProxy>0</BypassProxy>
+			<Name>Edekit_eclickprojects</Name>
+			<Comments>192.168.2.244
+edekit_new
+22
+sftp </Comments>
+			<SyncBrowsing>0</SyncBrowsing>
+			<DirectoryComparison>0</DirectoryComparison>
+		</Server>
+	</Servers>
+</FileZilla3>

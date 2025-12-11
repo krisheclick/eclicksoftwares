@@ -1,0 +1,19 @@
+.catLink {
+    display: flex;
+    align-items: start;
+    justify-content: space-between;
+    gap: 8px;
+    padding: 10px 12px;
+    font: 500 16px / 1.5 var(--primary-font);
+}
+.catLinkParent:nth-child(odd) .catLink {
+    background: color-mix(in srgb, var(--primary-background) 30%, transparent 60%);
+}
+.active .catLink{
+    background: var(--primary-color) !important;
+    color: var(--white-color);
+}
+.catLink em {
+    flex-shrink: 0;
+    font-size: 0.9em;
+}

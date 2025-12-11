@@ -1,0 +1,138 @@
+.shadowClinets > div{
+  box-shadow: 0px 4px 4px 0px rgba(44, 44, 44, 0.25);
+}
+.fullBox{
+  box-shadow: none;
+  max-width: 100%;
+  margin: 0 !important;
+  box-shadow: none !important;
+}
+
+.rowReverse {
+  display: flex;
+  flex-direction: row-reverse;
+}
+.banner{
+  background: linear-gradient(180deg,var(--primary-background)80%,#d9ebff 80%,#d9ebff 100%);
+  overflow: hidden;
+}
+.row{
+  height: 650px;
+}
+.bannerText{
+  margin-top: -50px;
+}
+.bannerTitle{
+  font: 500 48px / 1.25 var(--primary-font);
+  color: #282828;
+  margin-bottom: 30px;
+}
+.bannerTitle span{
+  font-size: 0.625em;
+  color: rgb(0, 0, 0);
+  margin-top: 4px;
+}
+.bannerContent{
+  font-size: 1.15em;
+  color: rgb(44, 44, 44);
+  margin-bottom: 40px;
+}
+.poster{
+  height: 100%;
+  position: relative;
+  width: 66vw;
+}
+.posterImg {
+  clip-path: polygon(20% 0%, 100% 0, 100% 100%, 0% 100%);
+}
+.brandLogo{
+  --size: 116px;
+  width: var(--size);
+  height: var(--size);
+  background: #0d43b2;
+  padding: 20px;
+  position: absolute;
+  top: 50%;
+  border-radius: 100%;
+  outline: 8px solid var(--white-color);
+  transform: translateY(-50%);
+  left: 3.5vw;
+  z-index: 1;
+}
+/* Box */
+.sectionArea{
+  position: relative;
+  z-index: 1;
+  margin-block: 80px;
+}
+.serviceContent{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  border-bottom: 1px solid rgba(217, 217, 217, 1);
+  padding-bottom: 24px;
+}
+.contentBtn .actionBtn{
+  color: rgba(77, 77, 77, 1);
+}
+.serviceRow{
+  margin-top: 70px;
+}
+.servicePoster{
+  height: 500px;
+  position: relative;
+  border-radius: 15px;
+  overflow: hidden;
+}
+.boxText{
+  max-width: 500px;
+}
+.rowReverse .boxText{
+  margin-left: auto;
+}
+.serviceIcon{
+  background: rgb(230, 246, 255);
+  border-radius: 100%;
+  --size: 66px;
+  width: var(--size);
+  height: var(--size);
+  display: grid;
+  place-items: center;
+  padding: 10px;
+  margin-bottom: 36px;
+}
+.subheading{
+  font-size: 25px;
+  font-weight: normal;
+  margin-bottom: 20px;
+}
+.viewBtn{
+  padding-inline: 36px;
+  margin-top: 36px;
+}
+@media only screen and (max-width: 1800px){
+  .brandLogo{
+    left: 3vw;
+  }
+}
+
+@media only screen and (max-width: 1440px){
+  .brandLogo{
+    left: 2.5vw;
+    --size: 100px;
+  }
+}
+@media only screen and (max-width: 1600px){
+  .row{
+    height: 540px;
+  }
+  .bannerTitle{
+    font-size: 44px;
+    margin-bottom: 20px;
+  }
+  .bannerContent{
+    font-size: 1.05em;
+    margin-bottom: 30px;
+  }
+}

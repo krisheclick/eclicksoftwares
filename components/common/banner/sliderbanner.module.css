@@ -1,0 +1,138 @@
+.sliderBanner{
+    background: var(--primary-background);
+    padding: 90px 0px 156px;
+}
+.content{
+    max-width: 530px;
+}
+.titleTag{
+    color: var(--primary-color);
+    font-size: 24px;
+    margin-bottom: 30px;
+}
+.titleTag::after{
+    height: 2px;
+}
+.bannerContent{
+    color: var(--black-color);
+    font-size: 18px;
+    max-width: 520px;
+}
+.row{
+    row-gap: var(--bs-gutter-x);
+    margin-top: 32px;
+}
+.uspBox{
+    text-align: center;
+    font-size: 15px;
+}
+.uspBox img{
+    margin-bottom: 8px;
+}
+.imagePart{
+    max-width: 630px;
+    margin-left: auto;
+    position: relative;
+}
+.big_img{
+    background: var(--white-color);
+    padding: 20px;
+    --radius: 20px;
+    border-radius: var(--radius);  
+    box-shadow: 0px 4px 8px rgb(101, 101, 101, 25%);
+}
+.big_img img{
+    border-radius: var(--radius);    
+}
+.small_img{
+    --size: 320px;
+    outline: 16px solid var(--white-color);
+    background: var(--primary-background);
+    max-width: var(--size);
+    box-shadow: 0px 4px 4px rgb(101, 101, 101, 25%);
+    padding: 16px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    position: absolute;
+    bottom: 18%;
+    left: calc(-.4 * var(--size));
+    animation: leftright 3s ease-in-out infinite;
+}
+.slogan_list ul{
+    padding: 0;
+    margin: 0;
+    list-style: none;
+}
+.slogan_list li{
+    margin: 0;
+    min-width: 130px;
+    border-radius: 30px;
+    background: var(--white-color);
+    font: 500 16px / 1 var(--primary-font);
+    padding: 16px 24px;
+    position: absolute;
+    animation: leftright 3s ease-in-out infinite;
+}
+@keyframes leftright {
+   0% {
+    transform: translateX(0);
+  }
+  50% {
+    transform: translateX(15px);
+  }
+  100% {
+    transform: translateX(0);
+  }
+}
+.slogan_list li:first-child{
+    top: 36px;
+    left: -56px;
+
+}
+.slogan_list li:nth-child(2){
+    top: 25%;
+    right: -90px;
+    
+}
+.slogan_list li:nth-child(3){
+    top: calc(25% + 60px);
+    right: -54px;
+    background: var(--primary-color);
+    color: var(--white-color);
+}
+.slogan_list li:nth-child(4){
+    bottom: 40px;
+    right: -90px;
+}
+
+@media only screen and (max-width:1600px){
+    .content{
+        max-width: 420px;
+    }
+    .row{
+        --bs-gutter-x: 10px;
+        margin-top: 24px;
+    }
+    .titleTag{
+        font-size: 22px;
+        margin-bottom: 20px;
+    }
+    .small_img{
+        size:300px;
+    }
+    .slogan_list li{
+        font-size: 14px;
+        padding: 14px 20px;
+    }
+    .slogan_list li:nth-child(2) {
+        right: -60px;
+    }
+    .slogan_list li:nth-child(3) {
+        right: -32px;
+    }
+    .uspBox{
+        font-size: 13px;
+    }
+}
