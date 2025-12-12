@@ -51,7 +51,7 @@
     transition: all .3s ease-in-out;
 }
 .megaMenu.megaMenuBlock{
-    background: var(--white-color);
+    background: #f3f6fd;
 }
 .showMegaMenu.megaMenu{
     margin-top: 0;

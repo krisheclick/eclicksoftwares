@@ -288,7 +288,7 @@ function MenuItem({ item, pathname }: MenuItemProps) {
          {item.megaMenu && (
             <MegaMenuComponent megaMenuActive={open} megaMenu={item.megaMenu} activeTab={activeTab} setActiveTab={setActiveTab} />
          )}
-         {item.megaMenuBlocks && <MegaMenuBlocks megaMenuActive={open} megaMenu={item.megaMenuBlocks} />}
+         {item.megaMenuBlocks && <MegaMenuBlocks itemClass={item.slug} megaMenuActive={open} megaMenu={item.megaMenuBlocks} />}
          {item.portfolioBlocks && <PortfolioMegaMenu megaMenuActive={open} megaMenu={item.portfolioBlocks} />}
       </li>
    );
@@ -306,7 +306,7 @@ function MegaMenuComponent({ megaMenu, activeTab, setActiveTab, megaMenuActive}:
    return (
       <div className={`${Styles.megaMenu} ${megaMenuActive ? Styles.showMegaMenu : ""}`}>
          <Container className="ps-2 pe-2">
-            <Row className={`gx-3 ${Styles.mega_menu_row}`}>
+            <Row className={`gx-3 ${Styles.mega_menu_row ?? ''}`}>
                <Col lg={4}>
                   <ul className={Styles.tabSubmenu}>
                      {tabs.map((tab, index) => (
@@ -354,22 +354,31 @@ function MegaMenuComponent({ megaMenu, activeTab, setActiveTab, megaMenuActive}:
 // ----------------------
 // MEGA MENU BLOCKS
 // ----------------------
-type MegaMenuBlocksProps = { megaMenu: MegaMenuBlock[]; megaMenuActive: boolean; };
+type MegaMenuBlocksProps = { megaMenu: MegaMenuBlock[]; megaMenuActive: boolean; itemClass: string;};
 
-function MegaMenuBlocks({ megaMenu, megaMenuActive}: MegaMenuBlocksProps) {
+function MegaMenuBlocks({ megaMenu, megaMenuActive, itemClass}: MegaMenuBlocksProps) {
    const posterBlock = megaMenu[0];
+   let col1, col2;
+   console.log('itemClass', itemClass)
+   if(itemClass === "#"){
+      col1 = 9;
+      col2 = 3;
+   }else{
+      col1 = 6;
+      col2 = 6;
+   }
 
    return (
       <div className={`${Styles.megaMenu} ${megaMenuActive ? Styles.showMegaMenu : ""} ${Styles.megaMenuBlock}`}>
          <Container className="ps-2 pe-2">
-            <Row className={`gx-3 ${Styles.mega_menu_row}`}>
-               <Col lg={6}>
+            <Row className={`gx-3 ${Styles.mega_menu_row ?? ''}`}>
+               <Col lg={col1}>
                   <figure className={Styles.navPoster}>
                      <Image src={posterBlock.poster} alt={posterBlock.title} fill style={{ objectFit: "cover", objectPosition: "center" }} />
                   </figure>
                </Col>
 
-               <Col lg={6}>
+               <Col lg={col2}>
                   <div className={Styles.subMenuBlockWrapper}>
                      {megaMenu.map((block) => (
                         <div className={Styles.subMenuBlock} key={block.title}>
