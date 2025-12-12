@@ -70,7 +70,7 @@ export default function Home() {
   const fetchData = async () => {
     setLoading(true);
     try {
-      const API = `${process.env.NEXT_PUBLIC_API_URL}page/home`;
+      const API = `${process.env.NEXT_PUBLIC_API_URL}page/home?is_home=1`;
 
       const response = await fetch(API);
       if (!response.ok) {
