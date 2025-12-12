@@ -8,10 +8,8 @@ import HookClients from "@/components/home/our-clients/Clients";
 import Workaction from "@/components/home/casestudy/Workaction";
 import Platformscomponent from "@/components/home/platforms/Platforms";
 import Coreservice from "@/components/home/service/Coreservice";
-import Styles from "./page.module.css"
 import { useEffect, useState } from "react";
 import SliderBannerSkeleton from "@/components/common/banner/SliderBannerSkeleton";
-import Area from "@/components/common/footer/Area";
 
 type SEO = {
   og_image_path: string;
