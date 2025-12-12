@@ -43,7 +43,7 @@ const menuMaps = {
                      { title: "Web Design", slug: "/solutions/web-design-development/website-design" },
                      { title: "Content Based Website", slug: "/solutions/web-design-development/content-based-website" },
                      { title: "e-Commerce", slug: "/solutions/web-design-development/e-commerce" },
-                     { title: "Maintenance & Support", slug: "/solutions/web-design-development/maintenance-support" },
+                     { title: "Maintenance & Support", slug: "/solutions/web-design-development/website-maintenance-support" },
                      { title: "API-Integration", slug: "/solutions/web-design-development/api-integration" },
                      { title: "Customized Website", slug: "/solutions/web-design-development/customized-website" },
                   ],

@@ -68,6 +68,10 @@ type Project = {
     proj_short_desc: string;
     proj_tools_used: string
 }
+type Usp = {
+    service_usp_feature_image_path: string;
+    service_usp_title?: string;
+}
 type Service = {
     service_title: string;
     service_sub_title: string;
@@ -92,6 +96,7 @@ type Service = {
     ParentService: { service_title: string; service_slug: string; } | null;
     heading_portfolio: string;
     projects: Project[];
+    usp: Usp[] | undefined;
 }
 export default function Page({ params }: { params: Promise<{ category: string, service: string }> }) {
     const [isLoading, setLoading] = useState(true);
@@ -139,6 +144,7 @@ export default function Page({ params }: { params: Promise<{ category: string, s
         return <div>{error}</div>;
     }
 
+    console.log('data', data)
     return (
         <div>
             <Banner isLoading={isLoading} title={data?.service_title} subtitle={data?.service_sub_title} image={data?.service_banner_image_path} short_description={data?.service_short_description} />
@@ -179,6 +185,25 @@ export default function Page({ params }: { params: Promise<{ category: string, s
                                                     .replace(/\s+/g, " ")
                                                     .trim(),
                                             }} />
+
+                                            {data?.usp && data.usp.length > 0 && (
+                                                <div className={Styles.usp}>
+                                                    {data.usp.map((item, index) => (
+                                                        <div key={index} className={Styles.uspItem}>
+                                                            <figure className={Styles.uspIcon}>
+                                                                <Image
+                                                                    src={`${process.env.NEXT_PUBLIC_MEDIA_URL}${item.service_usp_feature_image_path}`}
+                                                                    alt={item.service_usp_title ?? "USP image"}
+                                                                    fill
+                                                                    priority
+                                                                />
+                                                            </figure>
+                                                            <div className={Styles.uspTitle}>{item.service_usp_title}</div>
+                                                        </div>
+                                                    ))}
+                                                </div>
+                                            )}
+
                                         </div>
                                     ) : (
                                         <>

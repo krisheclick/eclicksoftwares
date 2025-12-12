@@ -9,3 +9,32 @@
     overflow: hidden;
     margin-left: calc(100% - 50vw);
 }
+.usp{
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 6px;
+}
+.uspItem{
+    min-height: 100%;
+    text-align: center;
+}
+.uspIcon{
+    position: relative;
+    z-index: 1;
+    --size: 60px;
+    width: var(--size);
+    height: var(--size);
+    border-radius: 100%;
+    margin: 0 auto 12px;
+}
+.uspIcon img{
+    object-fit: contain;
+}
+.uspTitle{
+    font: 500 16px / 1.25 var(--primary-font);
+}
+@media only screen and (max-width:1399px) {
+    .uspTitle{
+        font-size: 14px;
+    }
+}
