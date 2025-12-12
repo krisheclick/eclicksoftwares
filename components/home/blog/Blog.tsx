@@ -44,7 +44,7 @@ const Blog = () => {
     return (
         <div className={`sectionArea ${Styles.sectionArea ?? ''}`}>
             <Container>
-                <div className={`section-content full d-lg-flex align-items-start justify-content-between gap-3 ${Styles.section_content ?? ''}`}>
+                <div className={`section-content d-lg-flex align-items-start justify-content-between gap-3 ${Styles.section_content ?? ''}`}>
                     {!hasLoading ? (
                         <>
                             <h2 className="heading mb-0">Blogs & Insights</h2>

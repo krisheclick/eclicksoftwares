@@ -462,7 +462,7 @@ input[type=number] {
 .sectionArea{
 	position: relative;
 	z-index: 1;
-	margin-block: 90px;
+	margin-block: 70px;
 }
 .stickyContent{
 	position: sticky;
@@ -478,11 +478,11 @@ input[type=number] {
 	row-gap: calc(var(--bs-gutter-x) * 1.5);
 }
 .section-content{
-	max-width: 840px;
 	margin-bottom: 48px;
 }
-.section-content.full{
-	max-width: 100%;
+.section-content.max-content{
+	max-width: 840px;
+	margin-inline: auto;
 }
 .section-content:last-child{
 	margin-bottom: 0;
@@ -711,7 +711,7 @@ input[type=number] {
 
 @media only screen and (max-width:1600px) {
 	.sectionArea{
-		margin-block: 70px;
+		margin-block: 60px;
 	}
 	.heading{
 		font-size: 42px;

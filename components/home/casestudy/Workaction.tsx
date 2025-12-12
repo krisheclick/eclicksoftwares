@@ -46,7 +46,7 @@ const Workaction = () => {
         <div className={`sectionArea ${Styles.sectionArea}`}>
             <Container className='container-full'>
                 <div className={Styles.section_wrapper}>
-                    <div className={`section-content text-white full d-lg-flex align-items-start justify-content-between gap-3 ${Styles.section_content ?? ''}`}>
+                    <div className={`section-content text-white d-lg-flex align-items-start justify-content-between gap-3 ${Styles.section_content ?? ''}`}>
                         {!hasLoading ? (
                             <>
                                 <h2 className={`heading mb-0 ${Styles.heading ?? ''}`}>Our Work in Action</h2>

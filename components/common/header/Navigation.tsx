@@ -307,7 +307,7 @@ function MegaMenuComponent({ megaMenu, activeTab, setActiveTab, megaMenuActive}:
       <div className={`${Styles.megaMenu} ${megaMenuActive ? Styles.showMegaMenu : ""}`}>
          <Container className="ps-2 pe-2">
             <Row className={`gx-3 ${Styles.mega_menu_row ?? ''}`}>
-               <Col lg={4}>
+               <Col lg={4} xl={3}>
                   <ul className={Styles.tabSubmenu}>
                      {tabs.map((tab, index) => (
                         <li
@@ -327,7 +327,7 @@ function MegaMenuComponent({ megaMenu, activeTab, setActiveTab, megaMenuActive}:
                   </ul>
                </Col>
 
-               <Col lg={8}>
+               <Col lg={8} xl={9}>
                   <div className={Styles.submenuLayout}>
                      <ul className={Styles.submenu}>
                         {current.submenu.map((sub) => (

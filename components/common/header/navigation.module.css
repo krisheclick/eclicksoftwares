@@ -39,7 +39,8 @@
     z-index: 9;
     top: 100%;
     inset-inline: 0;
-    background: linear-gradient(90deg, var(--white-color) 38%, #f3f6fd 38%, #f3f6fd 100%);
+    /* background: linear-gradient(90deg, var(--white-color) 38%, #f3f6fd 38%, #f3f6fd 100%); */
+    background: linear-gradient(90deg, var(--white-color) 32%, #f3f6fd 32%, #f3f6fd 100%);
     width: 100%;
     border-block: 1px solid rgba(217, 217, 217, 1);
     padding-block: 36px;
@@ -194,20 +195,25 @@
     position: relative;
     padding-top: 68%;
 }
+@media only screen and (max-width:1760px){
+    .megaMenu{
+        background: linear-gradient(90deg, var(--white-color) 30%, #f3f6fd 30%, #f3f6fd 100%);
+    }
+}
 @media only screen and (max-width:1600px) {
     .menu_wrapper{
         gap: 18px;
-        font-size: 14px;
     }
     .tabSubmenu .navItem{
         font-size: 14px;
         padding-block: 8px;
     }
     .submenu a{
-        font-size: 13px;
+        font-size: 14px;
     }
     .megaMenu{
-        background: linear-gradient(90deg, var(--white-color) 36%, #f3f6fd 36%, #f3f6fd 100%);
+        /* background: linear-gradient(90deg, var(--white-color) 36%, #f3f6fd 36%, #f3f6fd 100%); */
+        background: linear-gradient(90deg, var(--white-color) 30%, #f3f6fd 30%, #f3f6fd 100%);
     }
     .navPoster {
         height: 320px;
@@ -222,16 +228,21 @@
         gap: 12px;
     }
 }
+@media only screen and (max-width:1480px){
+    .megaMenu{
+        background: linear-gradient(90deg, var(--white-color) 28%, #f3f6fd 28%, #f3f6fd 100%);
+    }
+}
 @media only screen and (max-width:1399px) {
     .menu_wrapper{
         gap: 12px;
         font-size: 13px;
     }
-    .megaMenu{
-        background: linear-gradient(90deg, var(--white-color) 36%, #f3f6fd 36%, #f3f6fd 100%);
-    }
     .submenuLayout{
         grid-template-columns: 36% 63%;
+    }
+    .submenu a{
+        font-size: 13px;
     }
     .posterTitle{
         font-size: 13px;

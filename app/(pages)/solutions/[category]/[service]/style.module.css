@@ -12,7 +12,7 @@
 .aboutPoster{
     position: relative;
     z-index: 1;
-    border-radius: 16px;
-    padding-top: 80%;
+    padding-top: 82%;
     overflow: hidden;
+    margin-left: calc(100% - 50vw);
 }

@@ -216,13 +216,13 @@ export default function Page({ params }: { params: Promise<{ category: string, s
             <Technologies isLoading={isLoading} title={data?.heading_technology ?? ''} technologies={data?.technologies ?? []} />
             <Trustownership isLoading={isLoading} {...(data?.service_cta ?? { cta_title: '', cta_description: '', cta_image: '' })} />
             {data?.wcp && data.wcp.length > 0 && <WhatWeDo isLoading={isLoading} services={data.wcp} />}
+            <CalltoAction spaceClass='callToAction' content={{ 'tpdc_title': data?.service_tagline }} isLoading={isLoading} />
             <Process
                 isLoading={isLoading}
                 process_title={data?.heading_process_step ?? ''}
                 process_steps={data?.process_steps ?? []}
             />
             <WhoWeAre />
-            <CalltoAction spaceClass='callToAction' content={{ 'tpdc_title': data?.service_tagline }} isLoading={isLoading} />
             <div className={Styles.shadowClinets}>
                 <Clients classValue={Styles.fullBox} />
             </div>
