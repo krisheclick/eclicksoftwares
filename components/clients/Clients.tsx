@@ -19,37 +19,38 @@ const Clients = ({ classValue }: classProps) => {
     const [hasLoading, setLoading] = useState(true);
     const [data, setdata] = useState<ClientData[]>([]);
 
-    const fetchAPI = async() => {
-        try{
+    const fetchAPI = async () => {
+        try {
             const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}clients`);
-            const {response_data} = await response.json();
+            const { response_data } = await response.json();
             setdata(response_data?.data || []);
-        }catch(err: unknown){
+        } catch (err: unknown) {
             console.log('Cliens data is something wrong:', (err as Error).message)
-        }finally{
+        } finally {
             setLoading(false);
         }
     }
     useEffect(() => {
         fetchAPI();
     }, []);
-    
+
     return (
         <div className={Styles.clients}>
             <Container>
                 <div className={`${Styles.boxwrapper} ${classValue ? Styles[classValue] : ""}`}>
                     <Swiper
-                        loop={data.length > 6} 
-                        slidesPerGroup= {1}
+                        loop={data.length > 6}
+                        slidesPerGroup={1}
                         slidesPerView={'auto'}
                         spaceBetween={16}
+                        autoplay={{ delay: 3000 }}
                         modules={[Autoplay, Navigation]}
                     >
                         {!hasLoading ? (
                             data.slice(0, 12).map((value, index) => {
-                                const {client_name, client_logo} = value;
+                                const { client_name, client_logo } = value;
                                 const image = client_logo;
-                                return(
+                                return (
                                     <SwiperSlide className={Styles.sliderItem} key={index}>
                                         <div className={Styles.box}>
                                             <Image
