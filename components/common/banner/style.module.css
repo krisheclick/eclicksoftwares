@@ -58,10 +58,10 @@
     object-fit: contain;
 }
 .posterBanner{
-    margin-inline: auto -50px;
+    /* margin-inline: auto -50px;
+    max-width: 90%; */
     height: 480px;
     position: relative;
-    max-width: 90%;
 }
 .posterBanner img{
     object-fit: scale-down;
@@ -136,7 +136,7 @@
         max-width: 420px;
     } */
     .posterBanner {
-        max-width: 100%;
+        /* max-width: 100%; */
         height: 380px;
     }
     .subtitle {
