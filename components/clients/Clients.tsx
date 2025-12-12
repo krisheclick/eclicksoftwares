@@ -2,10 +2,10 @@
 import { useEffect, useState } from "react";
 import { Container } from "react-bootstrap";
 import 'swiper/css';
-import Styles from "./style.module.css";
 import Image from "next/image";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay, Navigation } from "swiper/modules";
+import Styles from "./style.module.css";
 
 type classProps = {
     classValue?: string;
@@ -37,7 +37,7 @@ const Clients = ({ classValue }: classProps) => {
     return (
         <div className={Styles.clients}>
             <Container>
-                <div className={`${Styles.boxwrapper} ${classValue ?? ''}`}>
+                <div className={`${Styles.boxwrapper} ${classValue ? Styles[classValue] : ""}`}>
                     <Swiper
                         loop={data.length > 6} 
                         slidesPerGroup= {1}

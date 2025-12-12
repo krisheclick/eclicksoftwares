@@ -359,7 +359,6 @@ type MegaMenuBlocksProps = { megaMenu: MegaMenuBlock[]; megaMenuActive: boolean;
 function MegaMenuBlocks({ megaMenu, megaMenuActive, itemClass}: MegaMenuBlocksProps) {
    const posterBlock = megaMenu[0];
    let col1, col2;
-   console.log('itemClass', itemClass)
    if(itemClass === "#"){
       col1 = 9;
       col2 = 3;

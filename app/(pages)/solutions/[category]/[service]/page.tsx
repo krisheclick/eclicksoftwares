@@ -223,9 +223,7 @@ export default function Page({ params }: { params: Promise<{ category: string, s
                 process_steps={data?.process_steps ?? []}
             />
             <WhoWeAre />
-            <div className={Styles.shadowClinets}>
-                <Clients classValue={Styles.fullBox} />
-            </div>
+            <Clients classValue="fullBox" />
         </div>
     );
 }
