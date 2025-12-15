@@ -143,7 +143,7 @@ const PortfolioList = () => {
                 </Row>
             </div>
             <div className={`btn_center ${Styles.btn_center ?? ''}`}>
-                <Link href={`javascript:void(0);`} className="eclick-btn-portfolio lg">View More Portfolio</Link>
+                <Link href="#" className="eclick-btn-portfolio lg">View More Portfolio</Link>
             </div>
         </>
     );

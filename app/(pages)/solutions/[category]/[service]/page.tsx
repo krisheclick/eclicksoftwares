@@ -144,7 +144,6 @@ export default function Page({ params }: { params: Promise<{ category: string, s
         return <div>{error}</div>;
     }
 
-    console.log('data', data)
     return (
         <div>
             <Banner isLoading={isLoading} title={data?.service_title} subtitle={data?.service_sub_title} image={data?.service_banner_image_path} short_description={data?.service_short_description} />

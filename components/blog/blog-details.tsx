@@ -1,9 +1,15 @@
-const BlogDetails = () => {
-  return (
-    <div>
-      <div className="heading text-center">How to Optimize  Your Landing Page to Grab  More Leads?</div>
-    </div>
-  )
+type Props = {
+  slug: string[];
 }
 
-export default BlogDetails
+const BlogDetails = ({ slug }: Props) => {
+  const blogSlug = slug[1];
+
+  return (
+    <div>
+      <h1 className="heading text-center">{blogSlug}</h1>
+    </div>
+  );
+};
+
+export default BlogDetails;

@@ -44,8 +44,7 @@ const Page = ({ params }: { params: { slug: string } }) => {
    const pageSlug = data?.portfolio_group_slug;
    const items = data?.Portfolios ?? [];
    const title = data?.portfolio_group_title;
-
-   console.log('data', data)
+   
    let content;
 
    if (pageSlug === "logo-design" || pageSlug === "illustration") {

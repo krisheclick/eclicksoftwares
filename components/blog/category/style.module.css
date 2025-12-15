@@ -17,3 +17,8 @@
     flex-shrink: 0;
     font-size: 0.9em;
 }
+
+.skeletonList li {
+    height: 36px;
+    margin-bottom: 8px;
+}

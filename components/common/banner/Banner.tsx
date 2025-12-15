@@ -16,8 +16,8 @@ const Banner = ({ isLoading, title, subtitle, image, short_description }: props)
         return (
             <div className={`${Styles.sliderBanner} ${Styles.skeletonBanner}`}>
                 <Container>
-                    <Row className="align-items-center">
-                        <Col lg={6} xl={5}>
+                    <Row className="justify-content-between align-items-center">
+                        <Col lg={6} xl={5} className={Styles.contentItem}>
                             <div className={Styles.content}>
                                 <div className={Styles.bannerText}>
                                     <div className={`${Styles.skeleton} ${Styles.titleSkeleton}`}></div>
@@ -43,7 +43,7 @@ const Banner = ({ isLoading, title, subtitle, image, short_description }: props)
                                 </div>
                             </div>
                         </Col>
-                        <Col lg={6} xl={7}>
+                        <Col lg={6} xl={7} className={Styles.PosterItem}>
                             <figure className={Styles.poster}>
                                 <div className={`${Styles.skeleton} ${Styles.imageSkeleton}`}></div>
                             </figure>
@@ -56,8 +56,8 @@ const Banner = ({ isLoading, title, subtitle, image, short_description }: props)
     return (
         <div className={Styles.sliderBanner}>
             <Container>
-                <Row className="align-items-center">
-                    <Col lg={6} xl={5}>
+                <Row className="justify-content-between align-items-center">
+                    <Col lg={6} xl={5} className={Styles.contentItem}>
                         <div className={Styles.content}>
                             <div className={Styles.bannerText}>
                                 <div className={Styles.subtitle} dangerouslySetInnerHTML={{
@@ -136,7 +136,7 @@ const Banner = ({ isLoading, title, subtitle, image, short_description }: props)
                             </div>
                         </div>
                     </Col>
-                    <Col lg={6} xl={7}>
+                    <Col lg={6} xl={7} className={Styles.PosterItem}>
                         <figure className={Styles.posterBanner}>
                             <Image
                                 src={`${process.env.NEXT_PUBLIC_MEDIA_URL}${image}`}
@@ -147,6 +147,7 @@ const Banner = ({ isLoading, title, subtitle, image, short_description }: props)
                                     (e.target as HTMLImageElement).src =
                                         `${process.env.NEXT_PUBLIC_assetPrefix}/assets/images/noimage.jpg`;
                                 }}
+                                style={{objectFit: "cover"}}
                             />
                         </figure>
                     </Col>

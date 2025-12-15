@@ -97,6 +97,7 @@ const HookIndustry = () => {
                       alt={activeItem?.industry_title || "Industry Title"}
                       fill
                       priority
+                      style={{objectFit: "cover"}}
                     />
                   </figure>
                 ): (

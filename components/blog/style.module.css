@@ -13,6 +13,7 @@
   inset: 0;
   background: url(./bulb-line.png) no-repeat left center;
   background-size: contain;
+  z-index: -1;
 }
 .bannertext{
   text-align: center;
@@ -28,16 +29,12 @@
   margin-bottom: 16px;
 }
 .card {
-  background: #fff;
+  background: var(--white-color);
   border-radius: 10px;
   overflow: hidden;
   padding-top: 4px;
   min-height: 100%;
   transition: all 0.3s ease;
-}
-.card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
 }
 .imageWrapper {
   position: relative;
