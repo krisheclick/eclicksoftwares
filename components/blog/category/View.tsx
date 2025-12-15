@@ -4,11 +4,13 @@ import { usePathname } from "next/navigation";
 import Parentstyles from "../style.module.css";
 import Styles from "./style.module.css";
 
+type Category = {
+  blog_category_slug: string;
+  blog_category_title: string;
+};
+
 type Props = {
-  categories: {
-    blog_category_slug: string;
-    blog_category_title: string;
-  }[];
+  categories: Category[];
 };
 
 const Blogcategory = ({ categories }: Props) => {

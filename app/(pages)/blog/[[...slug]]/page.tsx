@@ -7,11 +7,17 @@ import SearchBox from "@/components/blog/Search";
 import BlogDetails from "@/components/blog/blog-details";
 import { Col, Container, Row } from "react-bootstrap";
 import Styles from "@/components/blog/style.module.css";
+export const dynamic = "force-dynamic";
+export const revalidate = 60;
+
+type Props = {
+    params: { slug?: string[] }
+}
 
 const getCategories = async () => {
   const res = await fetch(
     `${process.env.NEXT_PUBLIC_API_URL}blogs/category`,
-    { cache: "no-store" } 
+    { next: { revalidate: 60} } 
   );
 
   const data = await res.json();
@@ -21,25 +27,23 @@ const getCategories = async () => {
 const popularPost = async () => {
   const res = await fetch(
     `${process.env.NEXT_PUBLIC_API_URL}blogs`,
-    { cache: "no-store" } 
+    { next: { revalidate: 60} } 
   );
 
   const data = await res.json();
   return data.response_data.blogData;
 };
-
-type Props = {
-    params: { slug?: string[] }
-}
 const Blogpage = async({ params }: Props) => {
-    const categories = await getCategories();
-    const recentPost = await popularPost();
+
     let {slug} = await params;
     if (!slug) slug = [];
+    if (slug.length > 2) return <NotFound />;
+
+    const categories = await getCategories();
+    const recentPost = await popularPost();
+    
     const isListing = slug.length <= 1;
     const isDetails = slug.length === 2;
-
-    if (slug.length > 2) return <NotFound />;
 
     return (
         <>
