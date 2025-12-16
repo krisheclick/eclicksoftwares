@@ -10,6 +10,7 @@ import Header from "@/components/common/header/Header";
 import Footer from "@/components/common/footer/Footer";
 import { ThemeProvider } from "@/context/ThemeContext";
 import RouteLoader from "@/components/RouteLoader";
+export const dynamic = 'force-dynamic';
 
 const primaryFont = Instrument_Sans({
   variable: "--primary-font",
