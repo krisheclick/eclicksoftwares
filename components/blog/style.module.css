@@ -126,9 +126,9 @@
   outline: none;
   box-shadow: none;
   color: var(--primary-title-color);
-  font-size: 20px;
+  font-size: 18px;
   position: absolute;
-  top: 2px;
+  top: 3px;
   right: 6px;
   padding: 8px;
   z-index: 5;

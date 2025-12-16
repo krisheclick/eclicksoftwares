@@ -32,7 +32,7 @@ const Clients = () => {
 
   const fetchAPI = async () => {
     try {
-      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}testimonial?is_home=9`);
+      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}testimonial?is_home=1`);
       const { response_data } = await response.json();
       setData(response_data);
     } catch (err: unknown) {

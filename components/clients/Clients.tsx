@@ -21,7 +21,7 @@ const Clients = ({ classValue }: classProps) => {
 
     const fetchAPI = async () => {
         try {
-            const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}clients`);
+            const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}clients?is_home=1`);
             const { response_data } = await response.json();
             setdata(response_data?.data || []);
         } catch (err: unknown) {

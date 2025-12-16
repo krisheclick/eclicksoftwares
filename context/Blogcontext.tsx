@@ -36,6 +36,20 @@ type Pagination = {
     has_prev: boolean;
     has_next: boolean;
 }
+
+/* ====== Type Define Details Page ======  */
+type DetailsData = {
+    blog_banner_image_path: string;
+    blog_feature_image_path: string;
+    blog_title: string;
+    blog_slug: string;
+    blog_description: string;
+    publish_date: string;
+    Category: {
+        blog_category_title: string;
+        blog_category_slug: string;
+    }
+}
 type BlogcontextData = {
     hasLoading: boolean | null;
     setHasLoading: (hasLoading: boolean) => void;
@@ -49,6 +63,10 @@ type BlogcontextData = {
     setAllBlogs: (allBlogs: BlogData[]) => void;
     allCategory: CategoryData[] | null;
     setCategoryData: (allCategory: CategoryData[]) => void;
+
+    /* Details */
+    pageData: DetailsData | null;
+    setPageData: (pageData: DetailsData) => void;
 }
 const blogContext = createContext<BlogcontextData | undefined>(undefined);
 export const BlogProvider = ({children}: {children: ReactNode}) => {
@@ -58,6 +76,8 @@ export const BlogProvider = ({children}: {children: ReactNode}) => {
     const [categoryData, setDategoryData] = useState<CategoryData[] | null>(null);
     const [allBlogs, setAllBlogs] = useState<BlogData[] | null>(null);
     const [allCategory, setCategoryData] = useState<CategoryData[] | null>(null);
+
+    const [pageData, setPageData] = useState<DetailsData | null>(null)
     return(
         <blogContext.Provider value={{
             hasLoading, setHasLoading,
@@ -65,7 +85,8 @@ export const BlogProvider = ({children}: {children: ReactNode}) => {
             recentPost, setRecentPost,
             categoryData, setDategoryData,
             allBlogs, setAllBlogs,
-            allCategory, setCategoryData
+            allCategory, setCategoryData,
+            pageData, setPageData
         }}>
             {children}
         </blogContext.Provider>

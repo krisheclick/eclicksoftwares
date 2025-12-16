@@ -142,7 +142,7 @@
 }
 @media only screen and (max-width: 1600px) {
     .locationArea{
-        margin: 70px 0px;
+        margin: 70px 0px 50px;
     }
 }
 @media only screen and (max-width: 1399px) {

@@ -239,7 +239,7 @@ export default function Page({ params }: { params: Promise<{ category: string, s
             {/* <Portfolio isLoading={isLoading} title={data?.heading_portfolio ?? ''} projects={data?.projects} /> */}
             <Technologies isLoading={isLoading} title={data?.heading_technology ?? ''} technologies={data?.technologies ?? []} />
             <Trustownership isLoading={isLoading} {...(data?.service_cta ?? { cta_title: '', cta_description: '', cta_image: '' })} />
-            {data?.wcp && data.wcp.length > 0 && <WhatWeDo isLoading={isLoading} services={data.wcp} />}
+            {data?.wcp && data.wcp.length > 0 && <WhatWeDo isLoading={isLoading} services={data.wcp} title={data?.service_title} />}
             <CalltoAction spaceClass='callToAction' content={{ 'tpdc_title': data?.service_tagline }} isLoading={isLoading} />
             <Process
                 isLoading={isLoading}

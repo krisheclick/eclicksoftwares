@@ -1,7 +1,7 @@
 import { Col, Container, Row } from 'react-bootstrap';
 import Styles from './style.module.css';
 import Image from 'next/image';
-import Link from 'next/link';
+import ModalForm from './Form';
 
 type services = {
     wcp_title: string;
@@ -13,9 +13,10 @@ type services = {
 type props = {
     isLoading: boolean;
     services: services[];
+  title: string;
 }
 
-const WhatWeDo = ({ isLoading, services }: props) => {
+const WhatWeDo = ({ isLoading, services, title}: props) => {
     const serviceCount = services.length;
     let col = 3;
     if (serviceCount % 4 === 2) {
@@ -88,7 +89,12 @@ const WhatWeDo = ({ isLoading, services }: props) => {
                                 <div className={Styles.smallTitle}>Special Offers</div>
                                 <div className={Styles.boldTitle}>Let’s connect!</div>
                                 {/* <p>Development & Digital marketing company committed to assisting brands</p> */}
-                                <Link href="javascript:void(0);" className={`eclick-btn-connect sm mt-2 ${Styles.button}`}>Let’s Connect</Link>
+                                <span
+                                    role='button'
+                                    className={`eclick-btn-connect sm mt-2 ${Styles.button}`}
+                                >
+                                    Let’s Connect
+                                </span>
                             </div>
                         </Col>
 
@@ -103,6 +109,7 @@ const WhatWeDo = ({ isLoading, services }: props) => {
                         </Col>
                     )}
                 </Row>
+                {/* <ModalForm title={title} /> */}
             </Container>
         </div>
     )
