@@ -1,7 +1,6 @@
 import { Col, Container, Row } from 'react-bootstrap';
 import Styles from './style.module.css';
 import Image from 'next/image';
-import ModalForm from './Form';
 
 type services = {
     wcp_title: string;
@@ -13,10 +12,9 @@ type services = {
 type props = {
     isLoading: boolean;
     services: services[];
-  title: string;
 }
 
-const WhatWeDo = ({ isLoading, services, title}: props) => {
+const WhatWeDo = ({ isLoading, services}: props) => {
     const serviceCount = services.length;
     let col = 3;
     if (serviceCount % 4 === 2) {
