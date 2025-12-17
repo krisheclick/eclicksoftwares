@@ -537,6 +537,15 @@ input[type=number] {
 .notFound.lg{
 	font-size: 1.5em;
 }
+.pagination{
+	justify-content: center;
+	margin: 40px 0 0px;
+	--bs-pagination-active-bg: var(--primary-color);
+	--bs-pagination-active-border-color: var(--primary-color);
+}
+.page-link{
+	cursor: pointer;
+}
 /* ============== slider section ========= */
 .sliderSection {
   	padding: 0 0 80px 0 !important;
@@ -559,7 +568,6 @@ input[type=number] {
 	opacity: 1;
 }
 
-
 /* ============== slider section end========= */
 .callToAction{
 	background: var(--primary-background);
@@ -572,17 +580,7 @@ input[type=number] {
 	padding-inline: 0;
 }
 
-/* ============== Blog Section Start========= */
-.swiper-pagination-bullet {
-  background: var(--primary-color);
-  opacity: 0.25;
-}
-.blogSlider .swiper-pagination-bullet-active {
-    opacity: 1;
-}
-/* ============== Blog Section Ends========= */
-
-/* ============== TestimonialSlider Slider Section Start========= */
+/* ============== Swiper Pagination Section Start========= */
 .swiper-pagination{
 	position: static !important;
 	transform: none !important;
@@ -591,6 +589,16 @@ input[type=number] {
 .swiper-pagination-bullet {
 	cursor: pointer;
 }
+.swiper-pagination-bullet {
+  background: var(--primary-color);
+  opacity: 0.25;
+}
+.swiper-pagination-bullet-active {
+    opacity: 1;
+}
+/* ============== Swiper Pagination Section Ends========= */
+
+/* ============== TestimonialSlider Slider Section Start========= */
 .TestimonialSlider .swiper-pagination-bullet{
 	opacity: 1;
 	background: var(--white-color);

@@ -59,7 +59,7 @@ const Card = ({ data = [] }: Props) => {
       <Row className="gx-5 align-items-center">
         <Col lg={6}>
           <div className={Styles.cardLogo}>
-            {data.slice(0, 8).map((value, index) => {
+            {data.slice(0, 9).map((value, index) => {
               return (
                 <div
                   key={index}

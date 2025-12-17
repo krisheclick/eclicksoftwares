@@ -81,7 +81,7 @@ const HookIndustry = () => {
                 [...Array(8)].map((_, index) => (
                   <li key={index} className={`${Styles.navLink}`}>
                     <div className={`${Styles.navIcon} skeleton`}></div>
-                    <div className="skeleton skeletonText" style={{height: "32px"}}></div>
+                    <div className="skeleton h-100 w-75"></div>
                   </li>
                 ))
               )}

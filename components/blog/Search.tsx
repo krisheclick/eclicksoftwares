@@ -1,4 +1,4 @@
-import { Button, Form, FormControl, InputGroup } from "react-bootstrap";
+import { Form, FormControl, InputGroup } from "react-bootstrap";
 import Styles from "./style.module.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSearch } from "@fortawesome/free-solid-svg-icons";
@@ -10,7 +10,7 @@ const SearchBox = () => {
                 <InputGroup>
                     <FormControl className={Styles.formInput} type="text" placeholder="Enter Search Keyword" />
                 </InputGroup>
-                <Button className={Styles.searchBtn}><FontAwesomeIcon icon={faSearch} /></Button>
+                <button className={Styles.searchBtn}><FontAwesomeIcon icon={faSearch} /></button>
             </Form>
         </div>
     )

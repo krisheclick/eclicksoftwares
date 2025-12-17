@@ -4,8 +4,8 @@ import Styles from "./style.module.css";
 import { usePathname } from "next/navigation";
 import Link from "next/link";
 import Image from "next/image";
-import { useBlogContext } from "@/context/Blogcontext";
-type post = {
+import { useEffect, useState } from "react";
+type Post = {
     blog_feature_image_path: string;
     blog_title: string;
     blog_slug: string;
@@ -17,20 +17,33 @@ type post = {
         blog_category_slug: string;
     };
 }
-type Props = {
-    post: post[];
-};
-const PopularPost = ({post} : Props) => {
-    const { hasLoading } = useBlogContext();
+const PopularPost = () => {
+    const [hasLoading, setHasLoading] = useState(true)
+    const [recentPost, setRecentPost] = useState<Post[] | null>(null);
+    const dataFetch = async() => {
+        try{
+            const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}blogs`);
+            const {response_data} = await response.json();
+            setRecentPost(response_data?.blogData);
+        }catch(err: unknown){
+            console.log('Data fetching is something wrong ', (err as Error).message)
+        }finally{
+            setHasLoading(false)
+        }
+    }
+
+    useEffect(() => {
+        dataFetch();
+    }, []);
     const pathname = usePathname();
     return (
-        (post?.length ?? 0) > 0 && (
+        (recentPost?.length ?? 0) > 0 && (
             <div className={`${Parentstyles.widget} ${Styles.recent_posts ?? ''}`}>
                 <div className={Parentstyles.widget_title}>Recent Posts</div>
                 <div className={Styles.postList}>
-                    {hasLoading ? (
+                    {!hasLoading ? (
                         <ul className="noList">
-                            {post?.slice(0, 5)?.map((postData, postIndex) => {
+                            {recentPost?.slice(0, 5)?.map((postData, postIndex) => {
                                 const { blog_feature_image_path: blog_poster, Category: blog_category, blog_title, blog_slug, publish_date } = postData;
                                 const blogLink = `${process.env.NEXT_PUBLIC_ENV_URL}`;
                                 const dateObj = publish_date ? new Date(publish_date) : null;
@@ -68,7 +81,7 @@ const PopularPost = ({post} : Props) => {
                             })}
                         </ul>
                     ) : (
-                        <ul className={`noList ${Styles.skeletonList}`}>
+                        <ul className={`noList ${Styles.skeletonList ?? ''}`}>
                             {[...Array(5)].map((_, postIndex) => (
                                 <li
                                     key={postIndex}
