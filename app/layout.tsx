@@ -37,8 +37,18 @@ export default async function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const menuBar = await fetch(`${process.env.NEXT_PUBLIC_API_URL}menu/07e44c0de79cdf07b8b1`);
-  const response = await menuBar.json();
+  let response = null;
+
+try {
+  // const res = await fetch(API_URL, { cache: 'no-store' });
+  const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}menu/07e44c0de79cdf07b8b1`, { cache: 'no-store' });
+  if (!res.ok) throw new Error('API failed');
+  response = await res.json();
+} catch (err) {
+  console.error('API fetch failed:', err);
+}
+  // const menuBar = await fetch(`${process.env.NEXT_PUBLIC_API_URL}menu/07e44c0de79cdf07b8b1`);
+  // const response = await menuBar.json();
   return (
     <ThemeProvider>
       <html lang="en">
