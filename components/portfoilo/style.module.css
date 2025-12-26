@@ -15,16 +15,23 @@
     text-align: center;
     gap: 30px;
     display: grid;
-    padding-top: 20px;
+    /* padding-top: 20px; */
+    position: relative;
+    z-index: 1;
 }
 .posterTitle{
     padding: 20px;
-    color: var(--white-color);
+    color: var(--text-color);
     font: 600 24px / 1.25 var(--primary-font);
+    letter-spacing: 0.5px;
+    position: absolute;
+    top: 0;
+    inset-inline: 0;
+    z-index: 1;
 }
 .portfolioPoster {
     position: relative;
-    padding-top: 75%;
+    padding-top: 111%;
     margin-top: auto;
 }
 .logoBox, .shirtBox{
