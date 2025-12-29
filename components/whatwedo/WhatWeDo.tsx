@@ -55,6 +55,7 @@ const WhatWeDo = ({ isLoading, services}: props) => {
                                                 alt={`${item.wcp_title}`}
                                                 fill
                                                 priority
+                                                style={{objectFit: "contain"}}
                                             />
                                         </figure>
                                         <div className={Styles.content}>
