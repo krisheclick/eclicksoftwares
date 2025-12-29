@@ -12,6 +12,7 @@ type ServiceItem = {
   service_title?: string;
   service_slug?: string;
   service_feature_image?: string;
+  service_text_color?: string;
 };
 
 type ServiceData = {
@@ -80,28 +81,33 @@ export default function CoreServices() {
             <div className={Styles.serviceContent}>
               {activeServices.length > 0 ? (
                 <Row>
-                  {activeServices.slice(0, 4).map((service, index) => (
-                    <Col lg={4} xl={3} key={index} className={Styles.item}>
-                      <Link
-                        href={`/solutions/${activeData}/${service.service_slug}`}
-                        className={Styles.box}
-                      >
-                        <div className={Styles.subtitle}>{service?.service_title}</div>
-                        <figure className={Styles.poster}>
-                          <Image
-                            src={
-                              service?.service_feature_image_path
-                                ? `${process.env.NEXT_PUBLIC_MEDIA_URL}${service.service_feature_image_path}`
-                                : '/Rectangle 2.png'
-                            }
-                            alt={service?.service_title || 'Service Image'}
-                            fill
-                            priority
-                          />
-                        </figure>
-                      </Link>
-                    </Col>
-                  ))}
+                  {activeServices.slice(0, 4).map((service, index) => {
+                    const textColor = service?.service_text_color ? service?.service_text_color : '#000000';
+                    return (
+                      <Col lg={4} xl={3} key={index} className={Styles.item}>
+                        <Link
+                          href={`/solutions/${activeData}/${service.service_slug}`}
+                          className={Styles.box}
+                          style={{ '--text-color': textColor } as React.CSSProperties}
+                        >
+                          <div className={Styles.subtitle}>{service?.service_title}</div>
+                          <figure className={Styles.poster}>
+                            <Image
+                              src={
+                                service?.service_feature_image_path
+                                  ? `${process.env.NEXT_PUBLIC_MEDIA_URL}${service.service_feature_image_path}`
+                                  : '/Rectangle 2.png'
+                              }
+                              alt={service?.service_title || 'Service Image'}
+                              fill
+                              priority
+                              style={{ objectFit: 'cover' }}
+                            />
+                          </figure>
+                        </Link>
+                      </Col>
+                    )
+                  })}
                 </Row>
               ) : (
                 <p className='text-center notFound lg'>Service Not Found</p>

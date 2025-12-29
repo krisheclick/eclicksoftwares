@@ -39,10 +39,12 @@
     min-height: 100%;
     border-radius: 16px;
     border: 1px solid var(--primary-background);
-    color: var(--black-color);
-    background: linear-gradient(135deg, #DFF0FF 0%, #A8D3FF 50%, #6FA8FF 100%);
+    position: relative;
+    z-index: 1;
+    color: var(--text-color) !important;
+    /* background: linear-gradient(135deg, #DFF0FF 0%, #A8D3FF 50%, #6FA8FF 100%); */
 }
-.item:nth-child(2) .box{
+/* .item:nth-child(2) .box{
     background: linear-gradient(180deg, #0F56F2 0%, #2A7CFF 100%);
     color: var(--white-color);
 }
@@ -73,24 +75,24 @@ background:
     );
     color: var(--white-color);
 
-}
+} */
 .poster{
     position: relative;
     z-index: 1;
-    padding-top: 70%;
+    padding-top: 108%;
+    border-radius: 8px;
     overflow: hidden;
 }
-.poster img{
-    object-fit: contain;
-}
 .subtitle{
-    font: 700 30px / 1.25 var(--primary-font);
+    font: 500 24px / 1.25 var(--primary-font);
     color: inherit;
     text-align: center;
     padding: 20px;
-    max-width: 350px;
-    margin: 0 auto;
     text-wrap: balance;
+    position: absolute;
+    top: 8px;
+    inset-inline: 0;
+    z-index: 2;
 }
 /* skeleton */
 .skeletonBox{
