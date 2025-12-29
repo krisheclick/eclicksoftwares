@@ -11,8 +11,8 @@ import { useEffect, useState } from "react";
 import { Col, Container, Row } from "react-bootstrap";
 import Image from "next/image";
 import { useThemeContext } from "@/context/ThemeContext";
-import Styles from "./style.module.css";
 import Process from "@/components/organization/Process";
+import Styles from "./style.module.css";
 
 type ServiceCta = {
     cta_title: string;

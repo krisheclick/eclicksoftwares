@@ -119,7 +119,6 @@ export default function Page() {
     if (error) {
         return <div>{error}</div>;
     }
-    console.log(cmsdata);
     return (
         <>
         <div className={Styles.banner}>
@@ -230,9 +229,8 @@ export default function Page() {
                                         .replace(/\s+/g, " ")
                                         .trim(),
                                     }}/>
-                                    <Link href={`/solutions/${category.service_category_slug}`} className={`eclick-btn-view ${Styles.viewBtn}`}>Learn More</Link>
+                                    <Link href={category.service_category_slug} className={`eclick-btn-view ${Styles.viewBtn}`}>Learn More</Link>
                                 </div>
-                                
                             </div>
                         </Col>                        
                     </Row>
