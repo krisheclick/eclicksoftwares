@@ -37,6 +37,18 @@ const menuMaps = {
          megaMenu: {
             tabs: [
                {
+                  title: "AI Automations",
+                  icon: "/assets/images/navigation/ms.png",
+                  slug: "ai-automations",
+                  submenu: [
+                     { title: "Gen AI & Agentic AI", slug: "/solutions/ai-automations/gen-ai-agentic-ai" },
+                     { title: "AI Chatbots", slug: "/solutions/ai-automations/ai-chatbots" },
+                     { title: "AI Virtual Assistants", slug: "/solutions/ai-automations/ai-virtual-assistants" },
+                     { title: "Custom AI Models", slug: "/solutions/ai-automations/custom-ai-models" },
+                  ],
+                  poster: "/assets/images/navigation/workflow-automation.jpg",
+               },
+               {
                   title: "Web Design & Development",
                   icon: "/assets/images/navigation/wdd.png",
                   slug: "web-design-development",
@@ -110,18 +122,6 @@ const menuMaps = {
                      { title: "Security & Compliance", slug: "/solutions/managed-services-support/security-compliance" },
                   ],
                   poster: "/assets/images/navigation/manage-service.jpg",
-               },
-               {
-                  title: "AI Automations",
-                  icon: "/assets/images/navigation/ms.png",
-                  slug: "ai-automations",
-                  submenu: [
-                     { title: "Gen AI & Agentic AI", slug: "/solutions/ai-automations/gen-ai-agentic-ai" },
-                     { title: "AI Chatbots", slug: "/solutions/ai-automations/ai-chatbots" },
-                     { title: "AI Virtual Assistants", slug: "/solutions/ai-automations/ai-virtual-assistants" },
-                     { title: "Custom AI Models", slug: "/solutions/ai-automations/custom-ai-models" },
-                  ],
-                  poster: "/assets/images/navigation/workflow-automation.jpg",
                },
             ],
          },

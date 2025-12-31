@@ -108,6 +108,8 @@ export default function Home() {
       }
     }
   }, [pagedata]);
+
+  console.log('aboutContent', aboutContent)
   return (
     <>
       {isLoading ?<SliderBannerSkeleton/>:<SliderBanner isLoading={isLoading} banner={pagedata?.banner} bannerdata={bannerContent}/>}

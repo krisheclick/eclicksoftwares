@@ -79,7 +79,7 @@ const Footer = () => {
                                                 <Link href={`${process.env.NEXT_PUBLIC_ENV_URL}/casestudies`} className={Styles.navLink}>Case Studies</Link>
                                             </li>
                                             <li className={Styles.navItem}>
-                                                <Link href={`${process.env.NEXT_PUBLIC_ENV_URL}/testimonials`} className={Styles.navLink}>Testimonials</Link>
+                                                <Link href={`${process.env.NEXT_PUBLIC_ENV_URL}/our-testimonials`} className={Styles.navLink}>Testimonials</Link>
                                             </li>
                                             <li className={Styles.navItem}>
                                                 <Link href={`${process.env.NEXT_PUBLIC_ENV_URL}/about-us`} className={Styles.navLink}>About Us</Link>

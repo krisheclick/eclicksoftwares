@@ -12,6 +12,7 @@
   --navigation-active: #121212;
   --submenu-color: #515151;
   --primary-title-color: #282828;
+  --secondary-title-color: #024e72;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -286,7 +287,7 @@ em{
 :is(.heading.text-center, .titleTag.text-center)::after {
   margin-inline: auto;
 }
-.text-white :is(.heading, .titleTag){
+.text-white :is(.heading, .titleTag, .title){
 	color: inherit;
 }
 .text-white :is(.heading, .titleTag)::after,

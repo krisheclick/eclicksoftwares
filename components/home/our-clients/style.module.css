@@ -93,7 +93,7 @@
 }
 .card .content{
     height: 7lh;
-    overflow: hidden auto;
+    overflow: hidden;
     position: relative;
 }
 figure.content{

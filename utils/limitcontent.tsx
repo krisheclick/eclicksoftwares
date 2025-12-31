@@ -15,5 +15,5 @@ export const limitHtmlWords = (html: string, maxWords: number) => {
     }
   }
 
-  return words.join(" ") + "…";
+  return words.join(" ") +'';
 };
