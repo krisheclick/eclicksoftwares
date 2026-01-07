@@ -107,7 +107,9 @@ const PaymentForm = () => {
                     setFormData(prev => ({
                         ...prev,
                         phone_number: number,
-                        country: countryData.name || ''
+                        country: countryData.name || '',
+                        country_code: countryData.dialCode || '',
+                        country_code_alpha2: countryData.iso2 || ''
                     }));
                     setErrors(prev => ({ ...prev, phone_number: "" }));
                 }

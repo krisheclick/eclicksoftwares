@@ -86,6 +86,26 @@ const PaymentCenterModal = ({ show, onClose, formData }: Props) => {
                                         },
                                     },
                                 ],
+                                payer: {
+                                    name: {
+                                        given_name: formData.first_name || formData.name.split(" ")[0],
+                                        surname: formData.last_name || formData.name.split(" ")[1] || "",
+                                    },
+                                    email_address: formData.email,
+                                    phone: {
+                                        phone_number: {
+                                            national_number: formData.phone_number.replace(/\D/g, ""), // digits only
+                                            country_code: formData.country_code || "91",
+                                        },
+                                    },
+                                    address: {
+                                        address_line_1: formData.address || "",
+                                        admin_area_2: formData.city || "",
+                                        admin_area_1: formData.state || "",
+                                        postal_code: formData.postal_code || "",
+                                        country_code: formData.country_code || "US",
+                                    },
+                                },
                             })
                         }
                         onApprove={async (data, actions) => {
