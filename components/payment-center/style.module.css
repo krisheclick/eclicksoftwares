@@ -1,0 +1,80 @@
+.sectionArea{
+	position: relative;
+	z-index: 1;
+	margin-block: 70px;
+}
+.contentArea {
+    height: 100%;
+    width: calc(50vw - 28px);
+    background: var(--primary-background);
+    padding: 50px;
+    border-radius: 0px 10px 10px 0px;
+}
+.information{
+    height: 100%;
+    width: calc(50vw - 28px);
+    background: var(--primary-background);
+    padding: 50px;
+    border-radius: 10px 0px 0px 10px;
+}
+.informationContent{
+    max-width: 640px;
+}
+.informationContent ul{
+    display: grid;
+    --gap: 20px;
+    row-gap: var(--gap);
+    grid-template-columns: repeat(1, 1fr);
+    position: relative;
+    z-index: 1;
+}
+.informationContent ul::after{
+    content: '';
+    position: absolute;
+    inset-inline: 0;
+    bottom: 0;
+    background: var(--primary-background);
+    height: 1px;
+    z-index: 1;
+}
+.informationContent li{
+    border-bottom: 1px solid #ccc;
+    padding: 0px var(--gap) var(--gap) 0px;
+}
+.icon{
+    --area: 42px;
+    width: var(--area);
+    height: var(--area);
+    display: grid;
+    place-items: center;
+    background: var(--white-color);
+    color: var(--primary-color);
+    border: 1px solid #ccc;
+    border-radius: 100%;
+    margin-bottom: 16px;
+}
+.subtitle{
+    font: 600 20px / 1.25 var(--primary-font);
+    margin-bottom: 8px;
+    color: var(--primary-color);
+}
+.information a{
+    font-weight: 500;
+}
+.accountInfo {
+    font-size: 14px;
+    line-height: 1.4;
+}
+.accountInfo p {
+    margin-bottom: 4px;
+    color: var(--text-color);
+}
+.accountInfo strong {
+    color: var(--primary-color);
+}
+
+@media only screen and (max-width: 1600px) {
+    .contentArea, .information {
+        padding: 36px;
+    }
+}

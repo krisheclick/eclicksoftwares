@@ -1,0 +1,29 @@
+.accountDetails {
+    padding: 20px;
+}
+
+.accountDetails h2 {
+    margin-bottom: 20px;
+    color: var(--primary-color);
+}
+
+.accountSection {
+    margin-bottom: 30px;
+    border: 1px solid #ddd;
+    padding: 15px;
+    border-radius: 8px;
+}
+
+.accountSection h3 {
+    margin-bottom: 15px;
+    color: var(--secondary-color);
+}
+
+.details p {
+    margin-bottom: 8px;
+    line-height: 1.5;
+}
+
+.details strong {
+    color: #333;
+}

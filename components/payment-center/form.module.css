@@ -1,0 +1,53 @@
+.contactForm form{
+    display: grid;
+    row-gap: 16px;
+}
+.inquiryOption{
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 8px;
+    margin-bottom: 16px;
+}
+.inquiryOption label{
+    display: flex;
+    align-items: start;
+    font-weight: 500;
+    gap: 8px;
+    cursor: pointer;
+}
+.service{
+    margin-bottom: 16px;
+}
+.policyCheck label{
+    margin-block: 8px;
+    cursor: pointer;
+}
+.policyCheck input{
+    --area: 20px;
+}
+.contactForm a{
+    color: var(--primary-color);
+}
+.contactForm a:hover{
+    color: var(--hover-color);
+    text-decoration: underline;
+}
+.submitBtn{
+    margin-top: 16px;
+}
+.phoneInputContainer {
+    width: 100%;
+}
+
+.phoneInputContainer .iti {
+    width: 100%;
+}
+
+.phoneInputContainer .iti__country-container {
+    display: none; /* Hide the country selector since we have a separate field */
+}
+
+.phoneInputContainer .iti input {
+    width: 100% !important;
+    border-radius: 4px;
+}
