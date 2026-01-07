@@ -1,51 +1,50 @@
-import Styles  from "@/components/casestudy/casestudy.module.css"
-import Singlebanner from "@/components/casestudy/banner/Singlebanner";
-import Serviceslist from "@/components/casestudy/banner/Serviceslist";
-import Requirements from "@/components/casestudy/banner/Requirements";
-import Challenges from "@/components/casestudy/banner/Challenges";
-import MySlider from "@/components/casestudy/banner/Casestudyslider";
+import Banner from '@/components/casestudy/Banner';
+import Challenges from '@/components/casestudy/banner/Challenges';
+import Requirements from '@/components/casestudy/banner/Requirements';
+import Styles from '@/components/casestudy/style.module.css';
 import Testimonial from "@/components/casestudy/banner/Testimonial";
-import NotFound from "@/app/not-found";
+import MySlider from '@/components/casestudy/banner/Casestudyslider';
+import Technologies from '@/components/casestudy/Technologies';
+import CalltoAction from '@/components/casestudy/CalltoAction';
+import Singlebanner from '@/components/casestudy/banner/Singlebanner';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faArrowDownLong } from '@fortawesome/free-solid-svg-icons/faArrowDownLong';
+const data = {
+    title: "Luxury Watch Ecommerce Platform",
+    content: "Our team designed a user-friendly, mobile-first website with a clean UI and optimized UX. We focused on speed optimization, SEO-friendly structure, and clear call-to-action placement.",
+    poster: "details-poster.png"
+}
 
-const allCaseStudies = ['linda-jewellers', 'cable-grommet', 'buy-wines'];
 const APIURL = process.env.NEXT_PUBLIC_API_URL;
-
-export async function generateStaticParams() {
-  return allCaseStudies.map((slug) => ({ slug }));
+const CasestudyDeatils = async ({ params }: { params: { slug: string } }) => {
+    const { slug } = await params;
+    const response = await fetch(`${APIURL}project/${slug}`);
+    const { response_data } = await response.json();
+    return (
+        <div className={Styles.singlePage}>
+            <div className={Styles.singlePageBanner}>
+                {slug == 'perth-blinds' ? (
+                    <>
+                        <Singlebanner data={response_data} />
+                        <span className={Styles.bannerArrow}>
+                            <FontAwesomeIcon icon={faArrowDownLong} />
+                        </span>
+                    </>
+                ) : (
+                    <Banner data={data} />
+                )}
+            </div>
+            <Requirements data={response_data} />
+            <Technologies
+                title={slug == 'perth-blinds' ? 'Marketing Automation' : 'Use Technologies'}
+                technologies={response_data?.technologies}
+            />
+            <Challenges data={response_data} />
+            <MySlider />
+            <Testimonial />
+            <CalltoAction />
+        </div>
+    )
 }
 
-const Page = async ({ params }: { params: { slug: string } }) => {
-  const { slug } = await params;
-  const response = await fetch(`${APIURL}project/${slug}`);
-  const {response_data} = await response.json();
-
-  // const caseStudy = allCaseStudies.find((c) => c === slug);
-
-  // if (!caseStudy) return <NotFound />;
-  console.log('response_data', response_data)
-
-  return (
-    <div className={Styles.singleSection}>
-        <div className={Styles.singleTop}>
-          <Singlebanner data={response_data} />
-        </div>
-        <div className={Styles.singleServiceList}>
-          <Serviceslist data={response_data} />
-        </div>
-        <div className={Styles.requirementsSection}>
-          <Requirements data={response_data} />
-        </div>
-        <div className={Styles.challengesPart}>
-          <Challenges data={response_data} />
-        </div>
-        <div className={Styles.TestimonialSection}>
-          <Testimonial />
-        </div>
-        <div className={Styles.MySlider}>
-          <MySlider />
-        </div>
-    </div>
-  )
-}
-
-export default Page;
+export default CasestudyDeatils

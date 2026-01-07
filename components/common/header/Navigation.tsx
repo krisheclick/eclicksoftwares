@@ -3,11 +3,11 @@
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import Styles from "./navigation.module.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faAngleDown, faAngleRight } from "@fortawesome/free-solid-svg-icons";
 import { Col, Container, Row } from "react-bootstrap";
 import { usePathname } from "next/navigation";
+import Styles from "./navigation.module.css";
 
 // ----------------------
 // MENU DATA
@@ -27,7 +27,7 @@ const menuMaps = {
                   { title: "About the Company", slug: "/about-us" },
                   { title: "Our Journey & Milestones", slug: "/our-journey" },
                ],
-               poster: "/assets/images/navigation/welcome-poster.jpg",
+               poster: "/assets/images/navigation/about-poster.jpg",
             },
          ],
       },
@@ -46,7 +46,7 @@ const menuMaps = {
                      { title: "AI Virtual Assistants", slug: "/solutions/ai-automations/ai-virtual-assistants" },
                      { title: "Custom AI Models", slug: "/solutions/ai-automations/custom-ai-models" },
                   ],
-                  poster: "/assets/images/navigation/workflow-automation.jpg",
+                  poster: "/assets/images/navigation/ai-agents.jpg",
                },
                {
                   title: "Web Design & Development",
@@ -64,7 +64,7 @@ const menuMaps = {
                      { title: "Performance & SEO", slug: "/solutions/web-design-development/performance-seo" },
                      { title: "Maintenance & Support", slug: "/solutions/web-design-development/website-maintenance-support" },
                   ],
-                  poster: "/assets/images/navigation/menu-poster.png",
+                  poster: "/assets/images/navigation/web-design-development.jpg",
                },
                {
                   title: "Mobile App Solutions",
@@ -76,7 +76,7 @@ const menuMaps = {
                      { title: "Hybrid App Development", slug: "/solutions/mobile-app-solutions/hybrid-app-development" },
                      { title: "Progressive Web Apps", slug: "/solutions/mobile-app-solutions/progressive-web-apps" },
                   ],
-                  poster: "/assets/images/navigation/mad.jpg",
+                  poster: "/assets/images/navigation/mobile-app-solutions.jpg",
                },
                {
                   title: "Creative & Graphic Design",
@@ -91,7 +91,7 @@ const menuMaps = {
                      { title: "Infographic", slug: "/solutions/graphics-design/infographic" },
                      { title: "Packaging Design", slug: "/solutions/graphics-design/packaging-design" },
                   ],
-                  poster: "/assets/images/navigation/graphic.jpg",
+                  poster: "/assets/images/navigation/graphics-design.jpg",
                },
                {
                   title: "Digital Marketing & Growth",
@@ -121,7 +121,7 @@ const menuMaps = {
                      { title: "Cloud & Infrastructure Management", slug: "/solutions/managed-services-support/cloud-infrastructure-management" },
                      { title: "Security & Compliance", slug: "/solutions/managed-services-support/security-compliance" },
                   ],
-                  poster: "/assets/images/navigation/manage-service.jpg",
+                  poster: "/assets/images/navigation/manage-support.jpg",
                },
             ],
          },
@@ -164,42 +164,42 @@ const menuMaps = {
                {
                   title: "Logo Design",
                   slug: "logo-design",
-                  image: "/assets/images/navigation/1.png",
+                  image: "/assets/images/navigation/logo-design.jpg",
                },
                {
                   title: "Website Design",
                   slug: "website-design",
-                  image: "/assets/images/navigation/website.png",
+                  image: "/assets/images/navigation/website.jpg",
                },
                {
                   title: "T-Shirt Design",
                   slug: "t-shirt-design",
-                  image: "/assets/images/navigation/illustration.png",
+                  image: "/assets/images/navigation/t-shirt-design.jpg",
                },
                {
                   title: "Mobile App Design",
                   slug: "mobile-app-design",
-                  image: "/assets/images/navigation/mobile.png",
+                  image: "/assets/images/navigation/mobile-app-design.jpg",
                },
                {
                   title: "Business Card",
                   slug: "business-card",
-                  image: "/assets/images/navigation/location-2.jpg",
+                  image: "/assets/images/navigation/business-card.jpg",
                },
                {
                   title: "Packaging Design",
                   slug: "packaging-design",
-                  image: "/assets/images/navigation/graphic-design.png",
+                  image: "/assets/images/navigation/packaging-design.jpg",
                },
                {
                   title: "Flyer Design",
                   slug: "flyer-design",
-                  image: "/assets/images/navigation/3d.png",
+                  image: "/assets/images/navigation/flyer-design.jpg",
                },
                {
                   title: "Illustration",
                   slug: "illustration",
-                  image: "/assets/images/navigation/location-4.jpg",
+                  image: "/assets/images/navigation/illustration.jpg",
                }
             ]
          }
@@ -381,8 +381,8 @@ function MegaMenuBlocks({ megaMenu, megaMenuActive, itemClass}: MegaMenuBlocksPr
    const posterBlock = megaMenu[0];
    let col1, col2;
    if(itemClass === "#"){
-      col1 = 9;
-      col2 = 3;
+      col1 = 3;
+      col2 = 9;
    }else{
       col1 = 6;
       col2 = 6;
@@ -393,12 +393,6 @@ function MegaMenuBlocks({ megaMenu, megaMenuActive, itemClass}: MegaMenuBlocksPr
          <Container className="ps-2 pe-2">
             <Row className={`gx-3 ${Styles.mega_menu_row ?? ''}`}>
                <Col lg={col1}>
-                  <figure className={Styles.navPoster}>
-                     <Image src={posterBlock.poster} alt={posterBlock.title} fill style={{ objectFit: "cover", objectPosition: "center" }} />
-                  </figure>
-               </Col>
-
-               <Col lg={col2}>
                   <div className={Styles.subMenuBlockWrapper}>
                      {megaMenu.map((block) => (
                         <div className={Styles.subMenuBlock} key={block.title}>
@@ -416,6 +410,12 @@ function MegaMenuBlocks({ megaMenu, megaMenuActive, itemClass}: MegaMenuBlocksPr
                         </div>
                      ))}
                   </div>
+               </Col>
+
+               <Col lg={col2}>
+                  <figure className={Styles.navPoster}>
+                     <Image src={posterBlock.poster} alt={posterBlock.title} fill style={{ objectFit: "cover", objectPosition: "center" }} />
+                  </figure>
                </Col>
             </Row>
          </Container>

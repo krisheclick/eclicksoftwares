@@ -1,6 +1,6 @@
-import Comeingsoon from '@/components/common/Comeingsoon'
+import Aboutcomponent from '@/components/about-us/About';
 const Aboutpage = () => {
-  return <Comeingsoon />
+  return <Aboutcomponent />
 }
 
 export default Aboutpage

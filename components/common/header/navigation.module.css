@@ -51,9 +51,9 @@
     -webkit-transition: all .3s ease-in-out;
     transition: all .3s ease-in-out;
 }
-.megaMenu.megaMenuBlock{
+/* .megaMenu.megaMenuBlock{
     background: #f3f6fd;
-}
+} */
 .showMegaMenu.megaMenu{
     margin-top: 0;
     opacity: 1;
@@ -70,7 +70,6 @@
     color: var(--black-color);
     cursor: pointer;
     padding: 12px 0px;
-    text-transform: uppercase;
     border-bottom: 1px solid #D9D9D9;
     transition: all .3s ease-in-out;
 }
@@ -121,8 +120,10 @@
 }
 .navPoster {
     position: relative;
-    width: 100%;
+    --xLeft: 48px;
+    width: calc(100% - var(--xLeft));
     height: 340px;
+    margin-left: auto;
 }
 .navPoster img{
     border-radius: 16px;
@@ -227,6 +228,9 @@
     }
     .portfolioList ul{
         gap: 12px;
+    }
+    .navPoster {
+        --xLeft: 48px;
     }
 }
 @media only screen and (max-width:1480px){

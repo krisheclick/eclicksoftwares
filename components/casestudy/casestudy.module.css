@@ -1,28 +1,28 @@
 /* ===== case stedy banner section ===== */
 .bannerSection{
-background: url(../casestudy/images/case-study.jpg) center top no-repeat;
-padding: 170px 0;
-text-align: center;
-background-size: cover;
+    background: url(../casestudy/images/case-study.jpg) center top no-repeat;
+    padding: 170px 0;
+    text-align: center;
+    background-size: cover;
 }
 .pageTitle{
-font: 500 50px var(--primary-font);
-line-height: 1.1;
-color: var(--primary-title-color);
-padding: 0;
+    font: 500 50px var(--primary-font);
+    line-height: 1.1;
+    color: var(--primary-title-color);
+    padding: 0;
 }
 .bannerSection aside {
-max-width:650px;
-margin: 0 auto;
-text-align: center;
-font-size: 18px;
-color: var(--black-color);
+    max-width:650px;
+    margin: 0 auto;
+    text-align: center;
+    font-size: 18px;
+    color: var(--black-color);
 }
 .bannerSection aside > p{
-/* font: 400 18px var(--primary-font);
-line-height: 1.1; */
-padding: 0;
-margin: 20px 0 35px 0;
+    /* font: 400 18px var(--primary-font);
+    line-height: 1.1; */
+    padding: 0;
+    margin: 20px 0 35px 0;
 }
 /* ===== case stedy top search section ===== */
 .bannerSection article form{
@@ -417,7 +417,8 @@ grid-template-columns: inherit;
 
 /* ===== case stedy single section ===== */
 .singleBannerSection{
-    background-color: #E5F1FF;
+    background-color: var(--primary-color);
+    color: var(--white-color);
     padding: 85px 0;
 }
 .leftContent{
@@ -427,51 +428,51 @@ grid-template-columns: inherit;
 .leftContent h1{
     font: 500 45px var(--primary-font);
     line-height: 55px;
-    color: #222222;
+    /* color: #222222; */
     padding: 0;
     margin: 0;
 }
 .leftContent h1 span{
     display: inline-block;
-    font: 500 20px var(--primary-font);
-    line-height: 52px;
-    color: #060606;
-    padding: 0 35px;
+    font: 500 20px / 1 var(--primary-font);
+    color: var(--black-color);
+    background-color: var(--white-color);
+    padding: 16px 30px;
     margin: 0 0 20px 0;
     border-radius: 30px;
-    background-color: var(--white-color);
+}
+.anotherPart{
+    margin-top: 32px;
 }
 .middleContent{
-    padding: 0;
-    margin: 0;
+    font-size: 1.15em;
 }
 .tagLine{
     display: inline-block;
-    font: 500 20px var(--primary-font);
+    font: 500 21px var(--primary-font);
     line-height: 35px;
-    color: #636363;
+    /* color: #636363; */
     border-bottom: 2px solid #D9D9D9;
     padding: 0 0 3px 0;
     margin: 0 0 25px 0;
 }
-.middleContent p{
+/* .middleContent p{
     font: 400 18px var(--primary-font);
     line-height: 30px;
     color: #211B1B;
     padding: 0 0 18px 0;
     margin: 0;
-}
+} */
 .projectName{
-    font: 500 22px var(--primary-font);
-    line-height: 28px;
-    color:var(--black-color);
+    font: 400 21px / 1.25em var(--primary-font);
+    /* color:var(--black-color); */
     padding: 0 0 0px 0;
     margin: 0 0 28px 0;
 }
 .projectName span{
+    font-size: .85em;
     display: block;
-    font-size: 15px;
-    color: #2C2C2C;
+    letter-spacing: 0.5px;
 }
 .ListSection{
     padding: 90px 0;
@@ -485,13 +486,18 @@ grid-template-columns: inherit;
 .leftContentList ul li{
     font: 400 15px var(--primary-font);
     line-height: 42px;
-    color:#010101;
+    /* color:#010101; */
     padding: 0 20px;
     margin: 0 10px 10px 0;
     background-color: var(--white-color);
     border: 1px solid #C3C3C3;
     border-radius: 30px;
     display: inline-block;
+}
+.campaignList{
+    /* color: var(--black-color); */
+    font-weight: 500;
+    font-size: 1.1em;
 }
 .technologies ul{
     grid-template-columns: repeat(3, 1fr);
@@ -574,18 +580,9 @@ grid-template-columns: inherit;
 .singleSection{
     background-color: #F6F6F6;
 }
-.reqRight{
-    display: flex;
-    justify-content: flex-end;
-    position: relative;
-    padding-left: 32px;
-}
-.gallerySlider{
-    padding-bottom: 36px !important;
-}
 .galleryPoster{
-    background-color: var(--white-color);
-    padding: 20px;
+    /* background-color: var(--white-color);
+    padding: 20px; */
     overflow: hidden;
     border-radius: 20px;
 }
@@ -594,7 +591,7 @@ grid-template-columns: inherit;
     width: 100%;
 }
 .requirementsList{
-    padding: 0 0 130px 0;
+    padding: 50px 0;
 }
 .requirSec{
     align-items: center;
@@ -658,7 +655,7 @@ grid-template-columns: inherit;
     color: #5FBB47;
 }
 .MySliderSection{
-    padding: 80px 0;
+    padding: 0px 0px 80px 0;
 }
 .MySliderSection .title{
     color: var(--black-color);
@@ -805,5 +802,20 @@ grid-template-columns: inherit;
 .smallList h2{
     font-size: 22px;
     margin-bottom: 6px;
+}
+.galleryPoster img{
+    height: 480px;
+}
+.TestimonialContainer{
+    padding: 80px 0px;
+}
+.feedBackText p {
+    padding: 32px 0;
+    font-size: 21px;
+    line-height: 1.5em;
+}
+.challengesSection h6{
+    font-size: 32px;
+    margin-bottom: 30px;
 }
 }

@@ -20,7 +20,7 @@ type Props = {
 const Requirements = ({ data }: Props) => {
     const galleryArray = data?.proj_gallery ? data.proj_gallery.split(",").filter(item => item.trim() !== "") : [];
     return (
-        <section className={Styles.requirementsList}>
+        <div className={Styles.requirementsList}>
             <Container>
                 <Row className={Styles.requirSec}>
                     <Col lg={6}>
@@ -33,7 +33,7 @@ const Requirements = ({ data }: Props) => {
                     </Col>
                     <Col lg={6}>
                         <div className={Styles.reqRight}>
-                            <FontAwesomeIcon icon={faCaretLeft} className={Styles.faCaretLeft} />
+                            {/* <FontAwesomeIcon icon={faCaretLeft} className={Styles.faCaretLeft} /> */}
                             {galleryArray.length > 0 ? (
                                 <Swiper
                                     modules={[Autoplay, Pagination, FreeMode]}
@@ -73,7 +73,7 @@ const Requirements = ({ data }: Props) => {
                     </Col>
                 </Row>
             </Container>
-        </section>
+        </div>
     )
 }
 

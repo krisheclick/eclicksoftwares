@@ -21,8 +21,7 @@ const Card = ({ value_points }: props) => {
                             src={`${process.env.NEXT_PUBLIC_MEDIA_URL}${item.filename}`}
                             alt={item.title || 'Productivity & Efficiency'}
                             fill
-                            priority={true}
-                            style={{objectFit: "contain"}}
+                            priority
                         />
                     </figure>
                     <div className={Styles.boxtitle}>{item.title}</div>

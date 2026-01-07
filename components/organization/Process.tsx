@@ -16,11 +16,13 @@ type props = {
 
 const Process = ({ isLoading, process_title, process_steps }: props) => {
     return (
-        <div className={`sectionArea ${Styles.processSection}`}>
+        <div className={`sectionArea ${Styles.processSection ?? ''}`}>
             <Container>
                 <div className={`section-content full text-center ${Styles.section_content ?? ''}`}>
                     {!isLoading ? (
-                        <h3 className={`title fw-normal ${Styles.title ?? ''}`}>{process_title ? process_title : 'Our Process'}</h3>
+                        <h3 className={`title fw-normal ${Styles.title ?? ''}`} 
+                            dangerouslySetInnerHTML={{__html: process_title ? process_title : 'Our Process'}}
+                        />
                     ) : (
                         <div className="skeleton w-100 skeletonTitle"></div>
                     )}
