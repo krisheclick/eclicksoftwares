@@ -1,28 +1,16 @@
 import { Col, Container, Row } from 'react-bootstrap';
 import Styles from './style.module.css';
-import Image from 'next/image';
 const Banner = () => {
+    const poster = `${process.env.NEXT_PUBLIC_assetPrefix}/assets/images/banner/banner-poster.webp`;
     return (
-        <div className={Styles.cmsBanner}>
+        <div className={Styles.cmsBanner} style={{background: `url('${poster}') center / cover`}}>
             <Container>
-                <Row className='align-items-center'>
+                <Row className='text-white align-items-center'>
                     <Col lg={6}>
                         <div className={Styles.bannerText}>
-                            <h1 className="heading">We Love what you say…</h1>
-                            <p>Trusted across the Globe, we VALUE your Business Emotions </p>
+                            <h1 className={`title ${Styles.bannerTitle}`}>Our Testimonials</h1>
+                            <p>Our team designed a user-friendly, mobile-first website with a clean UI and optimized UX. We focused on speed optimization, SEO-friendly structure, and clear call-to-action placement.</p>
                         </div>
-                    </Col>
-                    <Col lg={6}>
-                        <figure className={Styles.poster}>
-                            <Image
-                                className="auto-img"
-                                src={`${process.env.NEXT_PUBLIC_assetPrefix}/assets/images/spanempoweringspan-collaborative-efforts-to-establ.webp`}
-                                alt="Eclick Member"
-                                width={400}
-                                height={450}
-                                priority={true}
-                            />
-                        </figure>
                     </Col>
                 </Row>
             </Container>

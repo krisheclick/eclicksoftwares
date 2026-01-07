@@ -2,6 +2,8 @@ import { Col, Container, Row } from "react-bootstrap";
 import Image from "next/image";
 import Styles from "./style.module.css";
 import CalltoAction from "./CalltoAction";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faPlay, faStar } from "@fortawesome/free-solid-svg-icons";
 
 type Content = {
     c0be_title?: string;
@@ -25,17 +27,18 @@ type Props = {
 }
 
 const Aboutcomponent = ({ isLoading, content, calltoaction }: Props) => {
+    const mediaUrl = `${process.env.NEXT_PUBLIC_assetPrefix}/assets/images`;
     return (
         <div className={`sectionArea ${Styles.aboutArea ?? ''}`}>
             <Container>
-                <Row>
+                <Row className="align-items-center">
                     <Col lg={6}>
 
                         {!isLoading ? (
                             <div className="stickyContent">
                                 <div className={Styles.about_content}>
                                     <div className={Styles.content}>
-                                        <h1 className={`title ${Styles.title}`} dangerouslySetInnerHTML={{
+                                        <h1 className={Styles.aboutTitle} dangerouslySetInnerHTML={{
                                             __html: content?.c0be_title ?? ''
                                                 .replace(/Â+/g, "")
                                                 .replace(/\s+/g, " ")
@@ -48,51 +51,68 @@ const Aboutcomponent = ({ isLoading, content, calltoaction }: Props) => {
                                                 .trim(),
                                         }} />
                                     </div>
-                                    <div className={Styles.usp}>
-                                        <ul className="noList">
-                                            <li>
-                                                <div className={Styles.uspBox}>
-                                                    <span className={Styles.uspIcon}>
-                                                        <Image
-                                                            className="auto-img"
-                                                            src={`${process.env.NEXT_PUBLIC_MEDIA_URL}/uploads/page_image/${content?.c0be_usp_icon1 ?? ''}`}
-                                                            alt="Clutch"
-                                                            fill
-                                                            priority={true}
-                                                        />
-                                                    </span>
-                                                    <em>{content?.c0be_usp_title1 ?? ''}</em>
+                                    <div className={Styles.supportRow}>
+                                        <div className={Styles.supportBox}>
+                                            <div>
+                                                <div className={Styles.review}>
+                                                    4.5
+                                                    <Image
+                                                        className="flex-shrink-0"
+                                                        src={`${mediaUrl}/star-icon.png`}
+                                                        alt="clutch"
+                                                        width={22} height={22}
+                                                        priority
+                                                        style={{objectFit: "contain"}}
+                                                    />
                                                 </div>
-                                            </li>
-                                            <li>
-                                                <div className={Styles.uspBox}>
-                                                    <span className={Styles.uspIcon}>
-                                                        <Image
-                                                            className="auto-img"
-                                                            src={`${process.env.NEXT_PUBLIC_MEDIA_URL}/uploads/page_image/${content?.c0be_usp_icon2 ?? ''}`}
-                                                            alt="Clutch"
-                                                            fill
-                                                            priority={true}
-                                                        />
-                                                    </span>
-                                                    <em>{content?.c0be_usp_title2 ?? ''}</em>
+                                                <div className={`d-flex align-items-start gap-2${Styles.supportBoxText ?? ''}`}>
+                                                    <Image
+                                                        className="flex-shrink-0"
+                                                        src={`${mediaUrl}/clutch-icon.png`}
+                                                        alt="clutch"
+                                                        width={26} height={26}
+                                                        priority
+                                                    />
+                                                    <span>Clutch Verified</span>
                                                 </div>
-                                            </li>
-                                            <li>
-                                                <div className={Styles.uspBox}>
-                                                    <span className={Styles.uspIcon}>
-                                                        <Image
-                                                            className="auto-img"
-                                                            src={`${process.env.NEXT_PUBLIC_MEDIA_URL}/uploads/page_image/${content?.c0be_usp_icon3 ?? ''}`}
-                                                            alt="Clutch"
-                                                            fill
-                                                            priority={true}
-                                                        />
-                                                    </span>
-                                                    <em>{content?.c0be_usp_title4 ?? ''}</em>
+                                            </div>
+                                        </div>
+                                        <div className={Styles.supportBox}>
+                                            <div>
+                                                <div className={Styles.review}>
+                                                    4.5
+                                                    <Image
+                                                        className="flex-shrink-0"
+                                                        src={`${mediaUrl}/star-icon.png`}
+                                                        alt="clutch"
+                                                        width={22} height={22}
+                                                        priority
+                                                        style={{objectFit: "contain"}}
+                                                    />
                                                 </div>
-                                            </li>
-                                        </ul>
+                                                <div className={`d-flex align-items-start gap-2${Styles.supportBoxText ?? ''}`}>
+                                                    <Image
+                                                        className="flex-shrink-0"
+                                                        src={`${mediaUrl}/google-icon.png`}
+                                                        alt="Google"
+                                                        width={26} height={26}
+                                                        priority
+                                                    />
+                                                    <span>Google Rating</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div className={Styles.supportBox}>
+                                            <div>
+                                                <div className={Styles.review}>
+                                                    4.5
+                                                    <em>+</em>
+                                                </div>
+                                                <div className={`d-flex align-items-start gap-2${Styles.supportBoxText ?? ''}`}>
+                                                    <span>Tech supported</span>
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -134,12 +154,28 @@ const Aboutcomponent = ({ isLoading, content, calltoaction }: Props) => {
                         <div className="stickyContent">
                             <figure className={Styles.aboutPoster}>
                                 {!isLoading ? (
-                                    <Image
-                                        src={`${process.env.NEXT_PUBLIC_MEDIA_URL}/uploads/page_image/${content?.c0be_image ?? ''}`}
-                                        alt="About Poster"
-                                        fill
-                                        priority={true}
-                                    />
+                                    <>
+                                        <Image
+                                            src={`${process.env.NEXT_PUBLIC_MEDIA_URL}/uploads/page_image/${content?.c0be_image ?? ''}`}
+                                            alt="About Poster"
+                                            fill
+                                            priority
+                                            style={{objectFit: "cover"}}
+                                        />
+                                        <span className={Styles.weAreBrand}>
+                                            <Image
+                                                className="auto-img"
+                                                src={`${process.env.NEXT_PUBLIC_assetPrefix}/assets/images/we-are-eclick.png`}
+                                                alt="We Are Brand"
+                                                width={309} height={74}
+                                                priority
+                                                style={{objectFit: "cover"}}
+                                            />
+                                        </span>
+                                        <em className={Styles.videoPopup}>
+                                            <FontAwesomeIcon icon={faPlay} />
+                                        </em>
+                                    </>
                                 ) : (
                                     <div className={`${Styles.skeletonPoster ?? ''} skeleton skeletonFill`}></div>
                                 )}

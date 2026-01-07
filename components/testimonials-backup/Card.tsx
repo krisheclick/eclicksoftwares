@@ -8,34 +8,29 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlay } from '@fortawesome/free-solid-svg-icons';
 import { limitHtmlWords } from '@/utils/limitcontent';
 type Client = {
-    client_logo?: string;
-    client_name?: string;
+  client_logo?: string;
+  client_name?: string;
 }
 type TestimonialData = {
-    testimonial_title?: string;
-    testimonial_author_name?: string;
-    testimonial_designation?: string;
-    testimonial_rating?: string;
-    testimonial_description?: string;
-    testimonial_feature_image?: string;
-    testimonial_type?: string;
-    testimonial_video?: string;
-    testimonial_video_poster_image?: string;
-    client?: Client;
+  testimonial_title?: string;
+  testimonial_author_name?: string;
+  testimonial_designation?: string;
+  testimonial_rating?: string;
+  testimonial_description?: string;
+  testimonial_feature_image?: string;
+  testimonial_type?: string;
+  testimonial_video?: string;
+  testimonial_video_poster_image?: string;
+  client?: Client;
 }
 
 type CardProps = {
     cardData: TestimonialData[];
 };
-const Card = ({ cardData }: CardProps) => {
+const Card = ({cardData} : CardProps) => {
     const [showVideo, setShowVideo] = useState<boolean>(false);
     const [videoUrl, setVideoUrl] = useState<string>("");
     const [videoTitle, setVideoTitle] = useState<string>("");
-
-    // Video Type
-    const [modalType, setModalType] = useState<'video' | 'content' | null>(null);
-    const [fullContent, setFullContent] = useState<string>("");
-
 
     const handleOpenVideo = (url: string, title?: string) => {
         setVideoUrl(normalizeYouTubeUrl(url));
@@ -43,44 +38,42 @@ const Card = ({ cardData }: CardProps) => {
         setShowVideo(true);
     };
 
-    const handleOpenContent = (title?: string, description?: string) => {
-        setModalType('content');
-        setVideoTitle(title || "");
-        setFullContent(description || "");
-        setShowVideo(true);
-    };
-
-
     const handleCloseVideo = (): void => {
         setShowVideo(false);
         setTimeout(() => {
             setVideoUrl("");
             setVideoTitle("");
-            setFullContent("");
-            setModalType(null);
         }, 300);
     };
-
 
 
     return (
         <>
             {cardData?.map((userValue, useIndex) => {
-                const { testimonial_title, testimonial_designation, testimonial_author_name, testimonial_description, testimonial_feature_image, testimonial_type, testimonial_video_poster_image, testimonial_video, client } = userValue;
+                const {testimonial_title, testimonial_designation, testimonial_author_name, testimonial_description, testimonial_feature_image, testimonial_type, testimonial_video_poster_image, testimonial_video, client} = userValue;
+                let colDefine: number = 4;
+                let cardRow: string = "";
+                let newTag: React.ReactNode = null;
 
+                if (useIndex === 0) {
+                    colDefine = 12;
+                    cardRow = Styles.cardRow;
+                    newTag = <div className={Styles.tag}>New</div>;
+                }
                 const videoFunction = testimonial_type === 'video';
-                return (
-                    <Col lg={4} key={useIndex}>
+                return(
+                    <Col lg={colDefine} key={useIndex}>
                         <div
-                            className={Styles.card}
+                            className={
+                                useIndex === 0
+                                    ? `${Styles.card} ${Styles.cardRow}`
+                                    : Styles.card
+                            }
                         >
                             <figure
                                 className={Styles.cardPoster}
-                                onClick={() =>
-                                    videoFunction
-                                        ? handleOpenVideo(testimonial_video ?? "", client?.client_name ?? "")
-                                        : handleOpenContent(testimonial_author_name, testimonial_description)
-                                }
+                                onClick={() => videoFunction && handleOpenVideo(testimonial_video ?? "", client?.client_name ?? "")}
+                                style={{ cursor: videoFunction ? "pointer" : "default" }}
                             >
                                 <Image
                                     src={`${process.env.NEXT_PUBLIC_MEDIA_URL}${videoFunction ? testimonial_video_poster_image : testimonial_feature_image}`}
@@ -92,12 +85,13 @@ const Card = ({ cardData }: CardProps) => {
                             </figure>
 
                             <div className={Styles.cardText}>
+                                {newTag}
                                 <div className={Styles.cardTitle}>{testimonial_author_name}</div>
-
+                                
                                 <div className={Styles.designation}>{client?.client_name} {testimonial_designation ? <span>({testimonial_designation})</span> : ''}</div>
                                 <div className={Styles.testmonial_paragraph}>
                                     <p
-                                        dangerouslySetInnerHTML={{ __html: limitHtmlWords(testimonial_description ?? '', 20) }}
+                                        dangerouslySetInnerHTML={{ __html: limitHtmlWords(testimonial_description ?? '', 50)}}
                                     />
                                 </div>
                             </div>
@@ -111,28 +105,13 @@ const Card = ({ cardData }: CardProps) => {
                 <Modal.Header closeButton>
                     <Modal.Title className="fw-semibold">{videoTitle}</Modal.Title>
                 </Modal.Header>
-
-                <Modal.Body>
-                    {modalType === 'content' ? (
-                        <div
-                            className={Styles.fullContent}
-                            dangerouslySetInnerHTML={{ __html: fullContent }}
-                        />
-                    ) : (
-                        <div style={{ position: "relative", paddingTop: "56.25%" }}>
-                            <iframe
-                                src={videoUrl}
-                                title="YouTube video player"
-                                frameBorder="0"
-                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                                allowFullScreen
-                                style={{ position: "absolute", top: 0, left: 0, width: "100%", height: "100%" }}
-                            />
-                        </div>
-                    )}
+                <Modal.Body style={{ padding: 0 }}>
+                <div style={{ position: "relative", paddingTop: "56.25%" }}>
+                    <iframe width="100%" height="100%" src={videoUrl} title="YouTube video player" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerPolicy="strict-origin-when-cross-origin" allowFullScreen 
+                        style={{ position: "absolute", top: 0, left: 0 }}></iframe>
+                </div>
                 </Modal.Body>
             </Modal>
-
         </>
     )
 }

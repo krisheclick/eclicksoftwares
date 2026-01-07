@@ -60,7 +60,7 @@ const Clients = () => {
         <div className={`section-content d-lg-flex align-items-start justify-content-between gap-3 ${Styles.section_content ?? ''}`}>
           {hasLoading ? <Skeleton /> : <h2 className="heading">Hear From Our Clients</h2>}
           <div className="mt-2 pt-1">
-            <Link className={`eclick-btn-viewBtn ${Styles.viewBtn ?? ''}`} href={`${process.env.NEXT_PUBLIC_ENV_URL}/testimonials`}>
+            <Link className={`eclick-btn-viewBtn ${Styles.viewBtn ?? ''}`} href={`${process.env.NEXT_PUBLIC_ENV_URL}/our-testimonials`}>
               <span className={Styles.icon}>
                 <FontAwesomeIcon icon={faArrowRight} />
               </span>

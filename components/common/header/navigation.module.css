@@ -65,11 +65,12 @@
 .tabSubmenu .navItem{
     display: flex;
     align-items: start;
-    font: 400 16px / 1.5 var(--primary-font);
+    font: 500 16px / 1.5 var(--primary-font);
     gap: 8px;
     color: var(--black-color);
     cursor: pointer;
     padding: 12px 0px;
+    text-transform: uppercase;
     border-bottom: 1px solid #D9D9D9;
     transition: all .3s ease-in-out;
 }
