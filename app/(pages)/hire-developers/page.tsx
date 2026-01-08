@@ -1,6 +1,8 @@
 "use client";
 
 import React, { useEffect, useState } from "react";
+import { Col, Container, Row } from "react-bootstrap";
+import Styles from "@/components/hire-developer/style.module.css";
 
 const Hirepage = () => {
   const [data, setData] = useState<any>(null);
@@ -39,7 +41,9 @@ const Hirepage = () => {
     : [];
 
   return (
-    <div style={{ padding: "40px", fontFamily: "Arial" }}>
+
+    <div className={Styles.papa}>
+      <Container>
       {/* ================= Page Header ================= */}
       <h1>{data.page_title}</h1>
       <p>{data.page_short_description}</p>
@@ -103,6 +107,7 @@ const Hirepage = () => {
           </div>
         ))}
       </section>
+      </Container>
     </div>
   );
 };
