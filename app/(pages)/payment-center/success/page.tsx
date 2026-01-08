@@ -13,7 +13,7 @@ export default function SuccessPage() {
             router.replace("/");
         } else {
             // remove the flag so refresh will redirect next time
-            sessionStorage.removeItem("paymentSuccess");
+            // sessionStorage.removeItem("paymentSuccess");
         }
     }, [router]);
 
