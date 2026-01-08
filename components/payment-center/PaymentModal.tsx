@@ -78,6 +78,7 @@ const PaymentCenterModal = ({ show, onClose, formData }: Props) => {
                         style={{ layout: "vertical" }}
                         createOrder={(data, actions) =>
                             actions.order.create({
+                                intent: "CAPTURE",
                                 purchase_units: [
                                     {
                                         amount: {
