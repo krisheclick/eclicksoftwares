@@ -1,23 +1,60 @@
 "use client";
 import Image from "next/image";
 import { useEffect, useState } from "react";
-import Styles from "./style.module.css";
 import Banner from "./banner/Banner";
-import Clients from "../clients/Clients";
-import CalltoAction from "../home/CalltoAction";
+import Clients from "@/components/clients/Clients";
+import CalltoAction from "@/components/call-to-action/CalltoAction";
 import CoreServices from "../home/service/Coreservice";
-import MissionVission from "./mission-vission/MissionVission";
+import MissionVission from "./MissionVission";
+import Counters from "@/components/counters/Counters";
+import WhatWeDo from "./WhatWeDo";
+import { Col, Container, Row } from "react-bootstrap";
+import Styles from "./style.module.css";
+import Review_rating from "./Review_rating";
+import WhatsKeep from "./keep/WhatsKeep";
 
-// ================= TYPES =================
-
-interface ApiResponse<T> {
-    response_code: boolean;
-    response_message: string;
-    response_data: T;
+type UspCategory = {
+    usp_category_title: string;
+    usp_category_description: string;
+    usps: Usp[];
 }
 
-interface AboutcomponentData {
-    id: number;
+type Usp = {
+    usp_feature_image_path: string;
+    usp_title: string;
+    usp_short_description: string;
+    usp_description: string;
+    usp_feature_image: string;
+}
+
+type CounterItem = {
+    site_counter_number: number;
+    site_counter_simbol: string;
+    site_counter_title: string;
+}
+
+type TeamMember = {
+    team_feature_image_path: string;
+    team_title: string;
+    team_rating: string;
+    team_designation: string;
+    team_description: string;
+    team_feature_image: string;
+}
+
+type Faq = {
+    id?: number;
+    question?: string;
+    answer?: string;
+}
+
+type Technology = {
+    id?: number;
+    name?: string;
+    icon?: string;
+}
+
+type AboutcomponentData = {
     heading: string;
     page_feature_image: string;
     short_description: string;
@@ -35,124 +72,113 @@ interface AboutcomponentData {
     recommend_team: TeamMember[];
     counter_data: string;
 }
-
-interface UspCategory {
-    usp_category_title: string;
-    usp_category_description: string;
-    usps: Usp[];
-}
-
-interface Usp {
-    usp_feature_image_path: string;
-    usp_title: string;
-    usp_short_description: string;
-    usp_description: string;
-    usp_feature_image: string;
-}
-
-interface CounterItem {
-    site_counter_number: string;
-    site_counter_simbol: string;
-    site_counter_title: string;
-}
-
-interface TeamMember {
-    team_feature_image_path: string;
-    team_title: string;
-    team_rating: string;
-    team_designation: string;
-    team_description: string;
-    team_feature_image: string;
-}
-
-interface Faq {
-    id?: number;
-    question?: string;
-    answer?: string;
-}
-
-interface Technology {
-    id?: number;
-    name?: string;
-    icon?: string;
-}
-
-// ================= COMPONENT =================
-
 const Aboutcomponent = () => {
     const [aboutData, setAboutData] = useState<AboutcomponentData | null>(null);
     const [hasLoading, setLoading] = useState(true);
 
+    const fetchData = async () => {
+        setLoading(true);
+        try {
+            const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/page/about-us`);
+            const { response_data } = await response.json();
+
+            setAboutData(response_data);
+        } catch (err: unknown) {
+            console.error("Failed to fetch About Page:", (err as Error).message);
+        } finally {
+            setLoading(false);
+        };
+    }
+
     useEffect(() => {
-        fetch(`${process.env.NEXT_PUBLIC_API_URL}/page/about-us`)
-            .then((res) => res.json())
-            .then((result: ApiResponse<AboutcomponentData>) => {
-                setAboutData(result.response_data);
-            })
-            .catch((err) => {
-                console.error("Failed to fetch About Page:", err);
-            })
-            .finally(() => {
-                setLoading(false);
-            });
+        fetchData();
     }, []);
 
-    if (hasLoading) return <p>Loading...</p>;
-    if (!aboutData) return <p>No data found.</p>;
+    const counters: CounterItem[] = JSON.parse(
+        aboutData?.counter_data ?? "[]"
+    );
 
-    const counters: CounterItem[] = JSON.parse(aboutData.counter_data || "[]");
-    const customData = JSON.parse(aboutData.pages_custom_field || "{}");
+    const customData = JSON.parse(
+        aboutData?.pages_custom_field ?? "{}"
+    );
 
     return (
         <div className="about_page">
-            <Banner data={customData?.group_name} />
-            <section>
-                {/* ================= ABOUT CONTENT ================= */}
-                <div className="about-content">
-                    <h2>{aboutData.heading}</h2>
-                    <p>{aboutData.short_description}</p>
-                    <div dangerouslySetInnerHTML={{ __html: aboutData.description }} />
-                </div>
-
-                <MissionVission data={customData?.group_name} />
-
-                {/* ================= USP LOOP ================= */}
-                <div className="usp-section">
-                    {aboutData.usp_categorys?.map((category, i) => (
-                        <div key={i} className="usp-category">
-                            <h3>{category.usp_category_title}</h3>
-                            <div className="usp-grid">
-                                {category.usps?.map((usp, j) => (
-                                    <div key={j} className="usp-card">
-                                        <Image
-                                            src={`${process.env.NEXT_PUBLIC_MEDIA_URL}/uploads/page_image/${usp.usp_feature_image_path}`}
-                                            alt={usp.usp_title || "Title"}
-                                            width={50} height={50}
-                                            priority
+            <Banner hasLoading={hasLoading} data={customData?.group_name} />
+            <div className={`sectionArea pt-3 ${Styles.about_section ?? ''}`}>
+                <Container>
+                    <Row className="rowGap gx-xl-5 align-items-center">
+                        <Col lg={6}>
+                            <figure className={Styles.aboutPoster}>
+                                {!hasLoading ? (
+                                    <Image
+                                        src={`${process.env.NEXT_PUBLIC_MEDIA_URL}/uploads/page_image/${aboutData?.page_feature_image}`}
+                                        alt={aboutData?.page_title ?? "Card Poster"}
+                                        fill
+                                        priority
+                                        style={{ objectFit: "cover" }}
+                                    />
+                                ) : (
+                                    <div className='skeleton skeletonFill'></div>
+                                )}
+                            </figure>
+                        </Col>
+                        <Col lg={6}>
+                            <div className={`ps-4 ${Styles.about_content}`}>
+                                {!hasLoading ? (
+                                    <>
+                                        <h2 className={`title fw-bold ${Styles.page_title}`}>{aboutData?.page_title}</h2>
+                                        <div
+                                            className="editorText"
+                                            dangerouslySetInnerHTML={{ __html: aboutData?.description || "" }}
                                         />
-                                        <h4>{usp.usp_title}</h4>
-                                        <div dangerouslySetInnerHTML={{ __html: usp.usp_description || "" }} />
-                                    </div>
-                                ))}
+                                        <Review_rating hasLoading={hasLoading} data={customData?.group_name} />
+                                    </>
+                                ) : (
+                                    <>
+                                        <div className={`skeleton mb-2 ${Styles.skeletonTitle}`}></div>
+                                        <div className={`skeleton w-75 ${Styles.skeletonTitle}`}></div>
+                                        <div className="skeleton skeletonText w-100"></div>
+                                        <div className="skeleton skeletonText w-100"></div>
+                                        <div className="skeleton skeletonText w-100"></div>
+                                        <div className="skeleton skeletonText w-100"></div>
+                                        <div className="skeleton skeletonText w-100"></div>
+                                        <div className="skeleton skeletonText w-75"></div>
+                                        <div className="skeleton skeletonText w-50"></div>
+                                    </>
+                                )}
                             </div>
-                        </div>
-                    ))}
-                </div>
-                <CalltoAction spaceClass={Styles.spaceAdd} content={customData} isLoading={hasLoading} />
-                <CoreServices />
-                {/* ================= COUNTER LOOP ================= */}
-                <div className="counter-section">
-                    {counters.map((item, i) => (
-                        <div key={i} className="counter-box">
-                            <h2>
-                                {item.site_counter_number}
-                                {item.site_counter_simbol}
-                            </h2>
-                            <p>{item.site_counter_title}</p>
-                        </div>
-                    ))}
-                </div>
-            </section>
+                        </Col>
+                    </Row>
+                </Container>
+            </div>
+
+            <CalltoAction spaceClass={Styles.spaceAdd} content={customData?.group_name} isLoading={hasLoading} />
+            {aboutData?.usp_categorys?.[1] && (
+                <WhatWeDo
+                    isLoading={hasLoading}
+                    data={aboutData.usp_categorys[1]}
+                    services={
+                        aboutData.usp_categorys[1].usps.map((item: Usp) => ({
+                            wcp_title: item.usp_title,
+                            wcp_short_description: item.usp_description,
+                            wcp_icon_path: item.usp_feature_image_path,
+                            wcp_icon: item.usp_feature_image,
+                            wcp_slug: ''
+                        }))
+                    }
+                />
+            )}
+
+            <MissionVission data={customData?.group_name} hasLoading={hasLoading} />
+            <CoreServices />
+            <Counters data={customData?.group_name} counters={counters} hasLoading={hasLoading} />
+            {aboutData?.usp_categorys?.[0] && (
+                <WhatsKeep
+                    hasLoading={hasLoading}
+                    data={aboutData?.usp_categorys?.[0]}
+                />
+            )}
             <Clients classValue={"fullBox"} />
         </div>
     );

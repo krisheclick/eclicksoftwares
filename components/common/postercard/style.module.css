@@ -1,0 +1,23 @@
+.poster{
+    position: relative;
+    padding-top: 70%;
+    border-radius: 100%;
+    border-radius: 10px;
+    overflow: hidden;
+}
+.poster img{
+    object-fit: cover;
+}
+.card_content{
+    max-width: 620px;
+    padding: 30px 60px;
+}
+.title {
+  font: 700 36px / 1.25 var(--primary-font);
+  color: var(--tertiary-color);
+  margin-bottom: 20px;
+}
+.skeletonTitle{
+    height: 36px;
+    margin-bottom: 20px;
+}

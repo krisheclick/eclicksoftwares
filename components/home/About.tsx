@@ -3,7 +3,7 @@ import Image from "next/image";
 import Styles from "./style.module.css";
 import CalltoAction from "./CalltoAction";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faPlay, faStar } from "@fortawesome/free-solid-svg-icons";
+import { faPlay } from "@fortawesome/free-solid-svg-icons";
 
 type Content = {
     c0be_title?: string;

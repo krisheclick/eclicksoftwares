@@ -1,0 +1,7 @@
+.card figure{
+    position: relative;
+    padding-top: 70%;
+}
+.card figure img{
+    object-fit: cover;
+}

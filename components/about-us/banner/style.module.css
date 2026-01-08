@@ -1,0 +1,44 @@
+.banner{
+    position: relative;
+    z-index: 1;
+}
+.banner figure{
+    position: relative;
+    z-index: 1;
+    padding-top: 32.25%;
+    border-radius: 20px;
+    overflow: hidden;
+}
+.banner figure::before{
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: rgba(31, 88, 203, 0.4);
+    z-index: 1;
+}
+.bannerText{
+    position: absolute;
+    top: 50%;
+    inset-inline: 0;
+    transform: translateY(-50%);
+    z-index: 2;
+    color: var(--white-color);
+    text-align: center;
+}
+.bannerText_in{
+    max-width: 600px;
+    margin: 0 auto;
+}
+.bannerTitle{
+    font-size: 48px;
+    color: inherit;
+}
+.bannerTitle > *{
+    display: block;
+}
+.skeletonTitle{
+    height: 42px;
+}
+.skeletonTitle:last-child{
+    height: 36px;
+}

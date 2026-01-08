@@ -150,9 +150,9 @@ export default function Page({ params }: { params: Promise<{ category: string, s
 
             <div className={`sectionArea ${Styles.aboutArea ?? ''}`}>
                 <Container>
-                    <Row>
+                    <Row className="gx-xl-5 align-items-center">
                         <Col lg={6}>
-                            <div className="stickyContent">
+                            <div className="">
                                 {!isLoading ? (
                                     <figure className={Styles.aboutPoster}>
                                         <Image
@@ -168,7 +168,7 @@ export default function Page({ params }: { params: Promise<{ category: string, s
                             </div>
                         </Col>
                         <Col lg={6}>
-                            <div className="stickyContent">
+                            <div className="ps-xl-4">
                                 <div className={Styles.about_content}>
                                     {!isLoading ? (
                                         <div className={Styles.content}>
@@ -178,7 +178,7 @@ export default function Page({ params }: { params: Promise<{ category: string, s
                                                     .replace(/\s+/g, " ")
                                                     .trim(),
                                             }} />
-                                            <div className={`editorText ${Styles.editorText}`} dangerouslySetInnerHTML={{
+                                            <div className={`editorText ${Styles.editorText ?? ''}`} dangerouslySetInnerHTML={{
                                                 __html: data?.service_description ?? ''
                                                     .replace(/Â+/g, "")
                                                     .replace(/\s+/g, " ")

@@ -6,6 +6,7 @@ import { config } from "@fortawesome/fontawesome-svg-core";
 import "@fortawesome/fontawesome-svg-core/styles.css";
 config.autoAddCss = false;
 import "@/app/globals.css";
+import "@/app/responsive.css";
 import Header from "@/components/common/header/Header";
 import Footer from "@/components/common/footer/Footer";
 import { ThemeProvider } from "@/context/ThemeContext";
