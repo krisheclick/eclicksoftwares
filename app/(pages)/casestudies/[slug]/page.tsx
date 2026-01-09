@@ -24,15 +24,13 @@ const CasestudyDeatils = async ({ params }: { params: { slug: string } }) => {
         <div className={Styles.singlePage}>
             <div className={Styles.singlePageBanner}>
                 {slug == 'perth-blinds' ? (
-                    <>
-                        <Singlebanner data={response_data} />
-                        <span className={Styles.bannerArrow}>
-                            <FontAwesomeIcon icon={faArrowDownLong} />
-                        </span>
-                    </>
+                    <Singlebanner data={response_data} />
                 ) : (
                     <Banner data={data} />
                 )}
+                <span className={Styles.bannerArrow}>
+                    <FontAwesomeIcon icon={faArrowDownLong} />
+                </span>
             </div>
             <Requirements data={response_data} />
             <Technologies

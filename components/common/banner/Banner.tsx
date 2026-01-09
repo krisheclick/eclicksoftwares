@@ -92,48 +92,6 @@ const Banner = ({ isLoading, title, subtitle, image, short_description }: props)
                                     <em>Schedule a Call</em>
                                 </Link>
                             </div>
-                            <div className="d-none">
-                                <div className={Styles.usp}>
-                                    <Row className={Styles.row}>
-                                        <Col lg={4} xxl={4}>
-                                            <div className={Styles.uspBox}>
-                                                <Image
-                                                    className={`auto-img ${Styles.icon}`}
-                                                    src={`${process.env.NEXT_PUBLIC_assetPrefix}/assets/images/cluth.png`}
-                                                    alt="Clutch"
-                                                    width={50} height={50}
-                                                    priority={true}
-                                                />
-                                                <p>Global Leaderss</p>
-                                            </div>
-                                        </Col>
-                                        <Col lg={4} xxl={4}>
-                                            <div className={Styles.uspBox}>
-                                                <Image
-                                                    className={`auto-img ${Styles.icon}`}
-                                                    src={`${process.env.NEXT_PUBLIC_assetPrefix}/assets/images/ui-ux.png`}
-                                                    alt="UI UX"
-                                                    width={50} height={50}
-                                                    priority={true}
-                                                />
-                                                <p>Ux, Ui, Innovation</p>
-                                            </div>
-                                        </Col>
-                                        <Col lg={4} xxl={4}>
-                                            <div className={Styles.uspBox}>
-                                                <Image
-                                                    className={`auto-img ${Styles.icon}`}
-                                                    src={`${process.env.NEXT_PUBLIC_assetPrefix}/assets/images/android-app.png`}
-                                                    alt="Android app development"
-                                                    width={50} height={50}
-                                                    priority={true}
-                                                />
-                                                <p>App Development</p>
-                                            </div>
-                                        </Col>
-                                    </Row>
-                                </div>
-                            </div>
                         </div>
                     </Col>
                     <Col lg={6} xl={7} className={Styles.PosterItem}>

@@ -1,0 +1,65 @@
+.aboutPoster{
+    position: relative;
+    padding-top: 70%;
+    border-radius: 100%;
+    border-radius: 10px;
+    overflow: hidden;
+}
+.skeletonTitle{
+    height: 36px;
+    margin-bottom: 20px;
+}.supportRow{
+    max-width: 600px;
+    display: flex;
+    gap: 8px;
+    margin-top: 48px;
+}
+.supportBox{
+    font-weight: 600;
+    font-size: 1.1em;
+    display: flex;
+}
+.supportBox::after{
+    content: "";
+    background: #d9d9d9;
+    width: 1px;
+    height: 100%;
+    display: block;
+    margin: 0 24px;
+}
+.supportBox:last-child::after{
+    display: none;
+}
+.review{
+    font-size: 40px;
+    color: var(--secondary-title-color);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    text-shadow: 0 0 currentColor;
+    letter-spacing: 1px;
+}
+.skeletonCount{
+    width: 100px;
+    height: 36px;
+}
+.skeletonPrefix{
+    width: 32px;
+    height: 28px;
+}
+.whatwedo{
+    padding-block: 24px;
+}
+.whatwedo .row{
+    position: relative;
+}
+.whatwedo .row::after {
+	content: "";
+	bottom: 0;
+	background: var(--white-color);
+	z-index: 1;
+	height: 1px;
+	position: absolute;
+	left: 0;
+	right: 0;
+}

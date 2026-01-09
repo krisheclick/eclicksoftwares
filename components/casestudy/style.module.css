@@ -27,7 +27,7 @@
     display: grid;
     place-items: center;
     border-radius: 100%;
-    font-size: 17px;
+    font-size: 16px;
     border: 2px solid var(--white-color);
     position: relative;
     z-index: 1;

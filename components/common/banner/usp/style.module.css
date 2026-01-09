@@ -1,0 +1,13 @@
+.uspBox{
+    text-align: center;
+    font-size: 15px;
+}
+.uspBox img{
+    margin-bottom: 8px;
+}
+
+@media only screen and (max-width:1600px){
+    .uspBox{
+        font-size: 13px;
+    }
+}

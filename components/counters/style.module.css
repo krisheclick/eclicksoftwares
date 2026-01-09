@@ -1,0 +1,40 @@
+.counter_section{
+    padding: 80px 0px;
+    background: var(--primary-background);
+}
+.counterBox{
+    display: grid;
+    place-items: center;
+    min-height: 100%;
+    background: var(--white-color);
+    font-size: 1.1em;
+    font-weight: 500;
+    color: rgba(44, 44, 44, 1);
+    padding: 32px 16px;
+    border: 1px solid rgba(217, 217, 217, 1);
+    border-radius: 8px;
+}
+.counterTitle{
+    font-size: 36px;
+    font-weight: 700;
+    color: var(--black-color);
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    margin-bottom: 8px;
+}
+
+.skeletonTitleWrapper{
+    max-width: 480px;
+}
+.skeletonTitle{
+    height: 36px;
+}
+.skeletonCount{
+    width: 150px;
+    height: 36px;
+}
+.skeletonPrefix{
+    width: 32px;
+    height: 28px;
+}

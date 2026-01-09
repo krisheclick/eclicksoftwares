@@ -3,6 +3,7 @@ import { Col, Container, Row } from "react-bootstrap";
 import Styles from "./style.module.css";
 import { useEffect, useState } from "react";
 import Card from "./card/Card";
+import Cardskeleton from "./card/Cardskeleton";
 
 type CasestudyList = {
     proj_feature_image_path?: string;
@@ -112,16 +113,19 @@ const CasestudyList = () => {
                                 return (
                                     <Col lg={6} key={index}>
                                         <Card
+                                            poster={value?.proj_feature_image_path}
+                                            slug={value?.proj_slug}
                                             title={value?.proj_name}
                                             projectName={value?.proj_name}
-                                            slug={value?.proj_slug}
-                                            poster={value?.proj_feature_image_path}
+                                            proj_short_desc={value?.proj_short_desc}
                                         />
                                     </Col>
                                 )
                             })
                         ) : (
-                            <></>
+                            [...Array(8)].map((_, index) => (
+                                <Cardskeleton key={index} />
+                            ))
                         )}
                     </Row>
                 </div>

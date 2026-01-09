@@ -1,155 +1,218 @@
 "use client";
 import Image from "next/image";
 import { useEffect, useState } from "react";
+import Banner from "./banner/Banner";
+import Clients from "@/components/clients/Clients";
+import CalltoAction from "@/components/call-to-action/CalltoAction";
+import CoreServices from "../home/service/Coreservice";
+import MissionVission from "./MissionVission";
+import Counters from "@/components/counters/Counters";
+import WhatWeDo from "./WhatWeDo";
+import { Col, Container, Row } from "react-bootstrap";
+import Styles from "./style.module.css";
+import Review_rating from "./Review_rating";
+import WhatsKeep from "./keep/WhatsKeep";
+import Teams from "../meet-team/Teams";
 
-// ================= TYPES =================
-
-interface ApiResponse<T> {
-  response_code: boolean;
-  response_message: string;
-  response_data: T;
+type UspCategory = {
+    usp_category_title: string;
+    usp_category_description: string;
+    usps: Usp[];
 }
 
-interface AboutcomponentData {
-  id: number;
-  heading: string;
-  page_feature_image: string;
-  short_description: string;
-  page_title: string;
-  description: string;
-  pages_custom_field: string; // JSON string
-  page_repeater_data: string; // JSON string
-  page_technologies_used: string | null;
-  page_top_pick_team: string | null;
-  page_teams_used: string;
-  usp_categorys: UspCategory[];
-  top_pick_team: TeamMember[] | null;
-  faqs: Faq[];
-  technologies: Technology[];
-  recommend_team: TeamMember[];
-  counter_data: string; // JSON string
+type Usp = {
+    usp_feature_image_path: string;
+    usp_title: string;
+    usp_short_description: string;
+    usp_description: string;
+    usp_feature_image: string;
 }
 
-interface UspCategory {
-  usp_category_title: string;
-  usp_category_description: string;
-  usps: Usp[];
+type CounterItem = {
+    site_counter_number: number;
+    site_counter_simbol: string;
+    site_counter_title: string;
 }
 
-interface Usp {
-  usp_feature_image_path: string;
-  usp_title: string;
-  usp_short_description: string;
-  usp_description: string;
-  usp_feature_image: string;
+type TeamMember = {
+    team_feature_image_path: string;
+    team_title: string;
+    team_rating: string;
+    team_designation: string;
+    team_description: string;
+    team_feature_image: string;
 }
 
-interface CounterItem {
-  site_counter_number: string;
-  site_counter_simbol: string;
-  site_counter_title: string;
+type Faq = {
+    id?: number;
+    question?: string;
+    answer?: string;
 }
 
-interface TeamMember {
-  team_feature_image_path: string;
-  team_title: string;
-  team_rating: string;
-  team_designation: string;
-  team_description: string;
-  team_feature_image: string;
+type Technology = {
+    id?: number;
+    name?: string;
+    icon?: string;
 }
 
-interface Faq {
-  id?: number;
-  question?: string;
-  answer?: string;
+type BannerItem  = {
+    h6xu_image?: string;
+    h6xu_title?: string;
+    banner?: BannerItem;
 }
 
-interface Technology {
-  id?: number;
-  name?: string;
-  icon?: string;
+type AboutcomponentData = {
+    heading: string;
+    page_feature_image: string;
+    short_description: string;
+    page_title: string;
+    description: string;
+    pages_custom_field: string;
+    page_repeater_data: string;
+    page_technologies_used: string | null;
+    page_top_pick_team: string | null;
+    page_teams_used: string;
+    usp_categorys: UspCategory[];
+    top_pick_team: TeamMember[] | null;
+    faqs: Faq[];
+    technologies: Technology[];
+    recommend_team: TeamMember[];
+    counter_data: string;
 }
-
-// ================= COMPONENT =================
-
 const Aboutcomponent = () => {
-  const [aboutData, setAboutData] = useState<AboutcomponentData | null>(null);
-  const [loading, setLoading] = useState(true);
+    const [aboutData, setAboutData] = useState<AboutcomponentData | null>(null);
+    const [hasLoading, setLoading] = useState(true);
+    const [bannerData, setBannerData] = useState<BannerItem | null>(null);
+    const [teamData, setTeam] = useState<TeamMember[] | null>(null);
 
-  useEffect(() => {
-    fetch(`${process.env.NEXT_PUBLIC_API_URL}/page/about-us`)
-      .then((res) => res.json())
-      .then((result: ApiResponse<AboutcomponentData>) => {
-        setAboutData(result.response_data);
-      })
-      .catch((err) => {
-        console.error("Failed to fetch About Page:", err);
-      })
-      .finally(() => {
-        setLoading(false);
-      });
-  }, []);
+    const fetchData = async () => {
+        setLoading(true);
+        try {
+            const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/page/about-us`);
+            const { response_data } = await response.json();
 
-  if (loading) return <p>Loading...</p>;
-  if (!aboutData) return <p>No data found.</p>;
+            setAboutData(response_data);
+            setTeam(response_data?.recommend_team);
+        } catch (err: unknown) {
+            console.error("Failed to fetch About Page:", (err as Error).message);
+        } finally {
+            setLoading(false);
+        };
+    }
 
-  // Safely parse counter_data
-  let counters: CounterItem[] = [];
-  try {
-    counters = JSON.parse(aboutData.counter_data || "[]");
-  } catch (e) {
-    console.error("Invalid counter_data JSON", e);
-  }
+    useEffect(() => {
+        fetchData();
+    }, []);
 
-  return (
-    <div className="about_page">
-      <section>
-        {/* ================= ABOUT CONTENT ================= */}
-        <div className="about-content">
-          <h2>{aboutData.heading}</h2>
-          <p>{aboutData.short_description}</p>
-          <div dangerouslySetInnerHTML={{ __html: aboutData.description }} />
-        </div>
+    useEffect(() => {
+        if (aboutData) {
+            if (aboutData?.pages_custom_field) {
+                try {
+                    const customResponse = JSON.parse(aboutData?.pages_custom_field ?? "{}");
+                    const data = customResponse?.group_name;
+                    setBannerData(data?.banner);
 
-        {/* ================= USP LOOP ================= */}
-        <div className="usp-section">
-          {aboutData.usp_categorys?.map((category, i) => (
-            <div key={i} className="usp-category">
-              <h3>{category.usp_category_title}</h3>
-              <div className="usp-grid">
-                {category.usps?.map((usp, j) => (
-                  <div key={j} className="usp-card">
-                    <Image
-                        src={`${process.env.NEXT_PUBLIC_MEDIA_URL}/uploads/page_image/${usp.usp_feature_image_path}`}
-                        alt={usp.usp_title || "Title"}
-                        width={50} height={50}
-                        priority
-                    />
-                    <h4>{usp.usp_title}</h4>
-                    <div dangerouslySetInnerHTML={{ __html: usp.usp_description || "" }} />
-                  </div>
-                ))}
-              </div>
+                } catch (err: unknown) {
+                    console.error("Error parsing custom field data:", (err as Error).message);
+                }
+            }
+        }
+    }, [aboutData]);
+
+    const counters: CounterItem[] = JSON.parse(
+        aboutData?.counter_data ?? "[]"
+    );
+
+    const customData = JSON.parse(
+        aboutData?.pages_custom_field ?? "{}"
+    );
+
+    return (
+        <div className="about_page">
+            {bannerData && (
+                <Banner hasLoading={hasLoading} data={bannerData} />
+            )}
+            <div className={`sectionArea pt-3 ${Styles.about_section ?? ''}`}>
+                <Container>
+                    <Row className="rowGap gx-xl-5 align-items-center">
+                        <Col lg={6}>
+                            <figure className={Styles.aboutPoster}>
+                                {!hasLoading ? (
+                                    <Image
+                                        src={`${process.env.NEXT_PUBLIC_MEDIA_URL}/uploads/page_image/${aboutData?.page_feature_image}`}
+                                        alt={aboutData?.page_title ?? "Card Poster"}
+                                        fill
+                                        priority
+                                        style={{ objectFit: "cover" }}
+                                    />
+                                ) : (
+                                    <div className='skeleton skeletonFill'></div>
+                                )}
+                            </figure>
+                        </Col>
+                        <Col lg={6}>
+                            <div className={`ps-4 ${Styles.about_content}`}>
+                                {!hasLoading ? (
+                                    <>
+                                        <h2 className={`title fw-bold ${Styles.page_title}`}>{aboutData?.page_title}</h2>
+                                        <div
+                                            className="editorText"
+                                            dangerouslySetInnerHTML={{ __html: aboutData?.description || "" }}
+                                        />
+                                        <Review_rating hasLoading={hasLoading} data={customData?.group_name} />
+                                    </>
+                                ) : (
+                                    <>
+                                        <div className={`skeleton mb-2 ${Styles.skeletonTitle}`}></div>
+                                        <div className={`skeleton w-75 ${Styles.skeletonTitle}`}></div>
+                                        <div className="skeleton skeletonText w-100"></div>
+                                        <div className="skeleton skeletonText w-100"></div>
+                                        <div className="skeleton skeletonText w-100"></div>
+                                        <div className="skeleton skeletonText w-100"></div>
+                                        <div className="skeleton skeletonText w-100"></div>
+                                        <div className="skeleton skeletonText w-75"></div>
+                                        <div className="skeleton skeletonText w-50"></div>
+                                    </>
+                                )}
+                            </div>
+                        </Col>
+                    </Row>
+                </Container>
             </div>
-          ))}
-        </div>
 
-        {/* ================= COUNTER LOOP ================= */}
-        <div className="counter-section">
-          {counters.map((item, i) => (
-            <div key={i} className="counter-box">
-              <h2>
-                {item.site_counter_number}
-                {item.site_counter_simbol}
-              </h2>
-              <p>{item.site_counter_title}</p>
-            </div>
-          ))}
+            <CalltoAction spaceClass={Styles.spaceAdd} content={customData?.group_name} isLoading={hasLoading} />
+            {aboutData?.usp_categorys?.[1] && (
+                <WhatWeDo
+                    isLoading={hasLoading}
+                    data={aboutData.usp_categorys[1]}
+                    services={
+                        aboutData.usp_categorys[1].usps.map((item: Usp) => ({
+                            wcp_title: item.usp_title,
+                            wcp_short_description: item.usp_description,
+                            wcp_icon_path: item.usp_feature_image_path,
+                            wcp_icon: item.usp_feature_image,
+                            wcp_slug: ''
+                        }))
+                    }
+                />
+            )}
+
+            <MissionVission hasLoading={hasLoading} data={customData?.group_name} />
+            <CoreServices />
+            <Counters hasLoading={hasLoading} data={customData?.group_name} counters={counters} />
+            {aboutData?.usp_categorys?.[0] && (
+                <WhatsKeep
+                    hasLoading={hasLoading}
+                    data={aboutData?.usp_categorys?.[0]}
+                />
+            )}
+
+            {teamData && (
+                <Teams hasLoading={hasLoading} content={customData?.group_name} data={teamData} />
+            )}
+            <Clients classValue={"fullBox"} />
         </div>
-      </section>
-    </div>
-  );
+    );
 };
 
 export default Aboutcomponent;
