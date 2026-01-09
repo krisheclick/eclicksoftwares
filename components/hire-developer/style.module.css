@@ -1,2 +1,313 @@
-/* =============About Section Start============= */
+/*=============HIRE-DEVELOPER-STARTS=============*/
+.mainboxhiretable{
+    display: flex; 
+}
+.singleboxhiretable{
+    width: 25%;
+    text-align: center;
+}
+.singleboxhiretable:nth-child(2){
+    box-shadow: 0 0 16px 8px #00000012;
+    z-index: 2;
+}
+.mainboxhiretable ul{
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+.mainboxhiretable ul li{
+    list-style: none;
+    font-size: 16px;
+    text-transform: capitalize;
+    font-weight: 400;
+    line-height: 25px;
+    color: #000000;
+    padding: 6px 10px;
+    height: 94px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0;
+}
+.mainboxhiretable ul li:nth-child(odd){ 
+    background: #F3F7FA;
+}
+.tablelist{
+    margin: 0;
+    padding: 0;
+}
+.tablehireheading{
+    text-transform: capitalize;
+    font-weight: 600;
+    font-size: 18px;
+    line-height: 27px;
+    color: #000000;
+    height: 100px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0;
+    padding-top: 28px;
+}
+.singleboxhiretable:nth-child(2) .tablehireheading{
+    background: #1F58CB;
+    color: #ffffff;
+    font-size: 22px;
+    line-height: 30px;
+    padding: 0;
+}
+.hdtilte{
+    text-align: center;
+    font-size: 45px;
+    line-height: 54px;
+    color: #000000;
+    font-weight: 400;
+    text-transform: capitalize;
+    margin-bottom: 50px;
+}
+.hdtilte strong{
+    display: block;
+    font-size: 60px;
+    color: #282828;
+    line-height: 70px;
+    font-weight: 600;
+}
+.hiredevsec{
+    padding: 70px 0;
+}
+
+
+.hwbsec{
+    background: #E5F1FF;
+    padding: 90px 0;
+}
+.hwdtilte{
+    font-size: 45px;
+    line-height: 54px;
+    color: #000000;
+    font-weight: 400;
+    text-transform: capitalize;
+    margin-bottom: 25px;
+}
+.hwdtiltepara{
+    width: 75%;
+    color: #2C2C2C;
+    font-weight: 400;
+    font-size: 17px;
+    line-height: 30px;
+    text-transform: capitalize;
+}
+.hwdsboxh{
+    font-size: 23px;
+    line-height: 30px;
+    font-weight: 500;
+    text-transform: capitalize;
+    color: #000000;
+    margin-bottom: 17px;
+}
+.hwdsboxp{ 
+    font-weight: 400; 
+    font-size: 17px; 
+    line-height: 30px; 
+    text-transform: capitalize; 
+    margin-bottom: 40px;
+}
+.hwdsbox{
+    border-radius: 10px;
+    border: 1px solid #D9D9D9;
+    background: #ffffff;
+    padding: 33px;
+    height: 100%;
+}
+.hwdsboxes .row{
+    row-gap: 25px;
+}
+.hwdfulltextbox{
+    margin-bottom: 50px;
+}
+.hwdtectiltepara{ 
+    margin-bottom: 25px; 
+}
+.hwdtectilte{
+    width: 60%;
+}
+
+.uspSliderSection {
+  padding: 60px 0;
+}
+.techSectionsam{
+    padding: 70px 0;
+}
+.techCardsbx{
+    border: 1px solid #D9D9D9;
+    border-radius: 10px;
+    text-align: center;
+    padding: 25px;
+}
+.techstitle{
+    text-transform: uppercase;
+    font-weight: 600;
+    color: #222222;
+    font-size: 17px;
+    line-height: 25px;
+}
+.techcmb .row{
+    row-gap: 25px;
+}
+.techcardimg{
+    max-width: 100px;
+    margin: 0 auto 15px;
+}
+.techcardimg img{
+    width: 100%;
+}
+.faqhtilte{
+    font-size: 20px;
+    line-height: 30px;
+    font-weight: 600;
+    color: #000000;
+}
+.faqbpara{
+    font-size: 18px;
+    line-height: 30px;
+    color: #000000;
+    font-weight: 400;
+}
+
+/**ACCO-HIRE-DEV-STARTS**/ 
+.customAccordion {
+  border-radius: 6px;
+  overflow: hidden;
+} 
+.accordionItem {
+  border: none;
+  border-bottom: 1px solid #e6e6e6;
+} 
+.accordionItem:last-child {
+  border-bottom: none;
+} 
+.accHeader {
+  padding: 18px 20px;
+  background: #fff;
+  box-shadow: none;
+} 
+.accHeader :global(.accordion-button::after) {
+  display: none;
+} 
+.accHeader :global(.accordion-button) {
+  background: transparent;
+  padding: 0;
+  box-shadow: none;
+  display: flex;
+  align-items: center;
+}  
+.icon {
+  width: 22px;
+  height: 22px;
+  margin-right: 14px;
+  position: relative;
+  flex-shrink: 0;
+} 
+.icon::before,
+.icon::after {
+  content: "";
+  position: absolute;
+  background-color: #1F58CB;
+  transition: all 0.3s ease;
+} 
+.icon::before {
+  width: 14px;
+  height: 3px;
+  top: 50%;
+  left: 4px;
+  transform: translateY(-50%);
+} 
+.icon::after {
+  width: 3px;
+  height: 14px;
+  left: 50%;
+  top: 4px;
+  transform: translateX(-50%);
+} 
+:global(.accordion-button:not(.collapsed)) .icon::after {
+  opacity: 0;
+} 
+:global(.accordion-body) {
+  padding: 0 20px 18px 56px;
+  background: #fff;
+}  
+.faqSectionsam{
+    padding: 70px 0;
+}  
+/**ACCO-HIRE-DEV-ENDS**/ 
+
+.scheduleBtn {
+  display: inline-flex;
+  align-items: center;
+  gap: 14px;
+  padding: 9px 20px 9px 9px;
+  background: #1F58CB;
+  border: none;
+  border-radius: 50px;
+  color: #fff;
+  font-size: 15px;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+} 
+.scheduleBtn:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 8px 20px rgba(31, 91, 214, 0.35);
+} 
+.iconCircle {
+  width: 40px;
+  height: 40px;
+  background: #ffffff;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+} 
+.btnText {
+  white-space: nowrap;
+}
+/*=============HIRE-DEVELOPER-ENDS=============*/
+
+
+.uspCard {
+  background: #fff;
+  padding: 20px;
+  border-radius: 12px;
+  text-align: center;
+  height: 100%;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+}
+
+.uspImage {
+  width: 100%;
+  height: 160px;
+  object-fit: contain;
+  margin-bottom: 15px;
+}
+
+.techCard img {
+  width: 60px;
+  margin-bottom: 10px;
+}
+
+.counterBox {
+  text-align: center;
+  padding: 20px;
+}
+
+.teamCard img {
+  width: 100%;
+  border-radius: 10px;
+}
+
+
+
+
+
 
