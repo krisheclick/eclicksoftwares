@@ -272,6 +272,200 @@
 .btnText {
   white-space: nowrap;
 }
+
+/**HERO_BANNER_STARTS**/ 
+.hero {
+  background: url(../hire-developer/Banner_Hire_DeveloperSection.webp) no-repeat center top;
+  background-size: cover;
+  padding: 0;
+  overflow: hidden;
+} 
+.containerr{  
+  display: grid;
+  grid-template-columns: 1.1fr 0.9fr;
+  align-items: center;
+  gap: 40px;
+} 
+.banner_heading{
+  font-size: 80px;
+  line-height: 60px;
+  font-weight: 700; 
+  color: #2563eb;
+  text-transform: capitalize;
+} 
+.banner_heading span {
+  color: #000000;
+  display: block;
+  font-size: 45px;
+  line-height: 55px;
+  font-weight: 600;
+} 
+.bannersubTitle {
+    color: #000000;
+    font-size: 25px;
+    line-height: 32px;
+    font-weight: 400;
+    text-transform: capitalize;
+    margin-bottom: 23px;
+} 
+.points {
+  list-style: none;
+  padding: 0; 
+  margin-bottom: 45px;
+} 
+.points li {
+  position: relative; 
+  font-size: 20px;
+  line-height: 30px;
+  color: #000000;
+  text-transform: capitalize;
+  margin: 0 0 6px 0;
+  padding: 0 0 0 25px;
+} 
+.points li::before {
+  content: "✔";
+  position: absolute;
+  left: 0;
+  top: 0;
+  color: #22c55e;
+  font-weight: 700;
+} 
+.hireBtn {
+  display: inline-flex;
+  align-items: center;
+  gap: 14px;
+  background: #2563eb;
+  color: #fff;
+  border: none;
+  border-radius: 30px;
+  padding: 14px 26px;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  box-shadow: 0 12px 30px rgba(37, 99, 235, 0.3);
+  transition: all 0.3s ease;
+} 
+.hireBtn:hover {
+  background: #1e4fd6;
+} 
+.arrow {
+  background: #fff;
+  color: #2563eb;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+}  
+.Banner_rech{
+    font-size: 23px;
+    line-height: 30px;
+    font-weight: 600;
+    color: #000000;
+    text-transform: capitalize;
+}
+.recommend {
+  margin-top: 45px;
+} 
+.recommend p {
+  font-size: 15px;
+  font-weight: 600;
+  margin-bottom: 16px;
+} 
+.recommendCards {
+  display: flex;
+  gap: 18px;
+} 
+.card {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: #fff;
+  padding: 14px 18px;
+  border-radius: 12px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+  min-width: 220px;
+} 
+.card img {
+  border-radius: 50%;
+} 
+.card strong {
+  display: block;
+  font-size: 14px;
+  font-weight: 600;
+} 
+.card span {
+  font-size: 13px;
+  color: #666;
+}   
+.right {
+  position: relative;
+  display: flex;
+  justify-content: center;
+} 
+.heroImg {
+  border-radius: 18px;
+  max-width: 100%;
+  height: auto;
+} 
+.floatingCard {
+  position: absolute;
+  right: -20px;
+  bottom: 110px;
+  background: #fff;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 14px 18px;
+  border-radius: 14px;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.15);
+} 
+.floatingCard img {
+  border-radius: 50%;
+} 
+.floatingCard strong {
+  display: block;
+  font-size: 14px;
+} 
+.floatingCard span {
+  font-size: 12px;
+  color: #666;
+} 
+.stars {
+  color: #facc15;
+  font-size: 12px;
+  margin-top: 2px;
+} 
+.banner_heading span{
+    display: block;
+}
+/* RESPONSIVE */
+@media (max-width: 1024px) {
+  .containerr {
+    grid-template-columns: 1fr;
+    text-align: center;
+  } 
+  .recommendCards {
+    justify-content: center;
+    flex-wrap: wrap;
+  } 
+  .right {
+    margin-top: 40px;
+  } 
+  .floatingCard {
+    right: 50%;
+    transform: translateX(50%);
+  }
+}
+
+@media (max-width: 600px) {
+  .left h1 {
+    font-size: 40px;
+  }
+} 
+/**HERO_BANNER_ENDS**/
 /*=============HIRE-DEVELOPER-ENDS=============*/
 
 

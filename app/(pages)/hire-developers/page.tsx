@@ -3,11 +3,12 @@
 import React, { useEffect, useState } from "react";
 import { Container, Row, Col } from "react-bootstrap";
 import Accordion from "react-bootstrap/Accordion";
+import Image from "next/image";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay } from "swiper/modules";
 
 import "swiper/css";
-import Styles from "@/components/hire-developer/style.module.css";
+import Styles from "@/components/hire-developer/style.module.css"; 
 
 /* ---------- helper to safely parse API JSON strings ---------- */
 const parseToArray = (value: any) => {
@@ -58,9 +59,9 @@ const Hirepage = () => {
           <h1>{data.page_title}</h1>
           <p>{data.page_short_description}</p>
         </Container>
-      </section>
+      </section> 
 
-
+      <HeroHireDevelopers />
 
       {/* ================= WHY HIRE DEVELOPERS ================= */}
       {repeaterData.length > 0 && (
@@ -261,5 +262,68 @@ const Hirepage = () => {
 };
 
 export default Hirepage;
+
+export function HeroHireDevelopers() {
+  return (
+    <section className={Styles.hero}>
+      <figure className={Styles.bannermainimg}>
+        <Image src="/hero-person.png" alt="Developer" width={520} height={620} className={Styles.heroImg} priority/>
+      </figure>
+      <Container>
+        <div className={Styles.containerr}>
+
+          {/* LEFT CONTENT */}
+          <div className={Styles.left}>
+            <h1 className={Styles.banner_heading}> Hire <span>Remote Developers</span></h1> 
+            <div className={Styles.bannersubTitle}> For Large Scale Projects 10X Faster</div> 
+            <ul className={Styles.points}>
+              <li>All Full Time Senior Developers</li>
+              <li>99% Customer Satisfaction Rate</li>
+            </ul> 
+            <button className={Styles.hireBtn}> HIRE DEVELOPER <span className={Styles.arrow}>→</span></button>
+
+            {/* Recommended */}
+            <div className={Styles.recommend}>
+              <div className={Styles.Banner_rech}>Recommend</div>
+
+              <div className={Styles.recommendCards}>
+
+                <div className={Styles.card}>
+                  <Image src="/dev1.png" alt="" width={50} height={50} />
+                  <div>
+                    <strong>Sourav Das</strong>
+                    <span>Sr. Node Developer</span>
+                  </div>
+                </div>
+
+                <div className={Styles.card}>
+                  <Image src="/dev2.png" alt="" width={50} height={50} />
+                  <div>
+                    <strong>Soniya Khtoon</strong>
+                    <span>Sr. Python Developer</span>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+          </div>
+
+          {/* RIGHT IMAGE */}
+          <div className={Styles.right}> 
+            {/* Floating Card */}
+            <div className={Styles.floatingCard}>
+              <Image src="/dev3.png" alt="" width={42} height={42} />
+              <div>
+                <strong>Kris Kristopher</strong>
+                <span>Node Developer</span>
+                <div className={Styles.stars}>★★★★★</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </Container>
+    </section>
+  );
+}
 
 
