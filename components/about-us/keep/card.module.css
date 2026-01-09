@@ -1,7 +1,33 @@
+.card{
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    --round: 20px;
+}
 .card figure{
     position: relative;
     padding-top: 70%;
+    border-radius: var(--round) var(--round) 0px 0px;
+    overflow: hidden;
+}
+.cardItem:first-child figure{
+    border-bottom-left-radius: var(--round);
+}
+.cardItem:nth-last-child(-n + 2) figure{
+    order: 1;
+    border-radius: 0px 0px var(--round) var(--round);
 }
 .card figure img{
     object-fit: cover;
+    object-position: center 10%;
+}
+.card_content{
+    padding: 16px 32px;
+    font-size: 14px;
+    color: var(--black-color);
+    align-self: center;
+}
+.card_title{
+    font: 600 22px / 1.25 var(--primary-font);
+    margin-bottom: 12px;
+    color: rgba(2, 78, 114, 1);
 }

@@ -1,4 +1,4 @@
-import { Col, Container, Row } from 'react-bootstrap';
+import { Container, Row } from 'react-bootstrap';
 import Styles from './style.module.css'
 import Card from './Card';
 type UspItem = {
@@ -34,18 +34,18 @@ const WhatsKeep = ({ hasLoading, data }: Props) => {
                             <div className="skeleton skeletonTitle" />
                         </>
                     )}
-                    <div className={Styles.cardList}>
-                        <Row className={`gx-0 ${Styles.cardRow ?? ''}`}>
-                            {data?.usps?.slice(0, 4)?.map((value, index) => (
-                                <Card
-                                    key={index}
-                                    poster={value?.usp_feature_image_path}
-                                    title={value?.usp_title}
-                                    description={value?.usp_description}
-                                />
-                            ))}
-                        </Row>
-                    </div>
+                </div>
+                <div className={Styles.cardList}>
+                    <Row className={`gx-0 ${Styles.cardRow ?? ''}`}>
+                        {data?.usps?.slice(0, 4)?.map((value, index) => (
+                            <Card
+                                key={index}
+                                poster={value?.usp_feature_image_path}
+                                title={value?.usp_title}
+                                description={value?.usp_description}
+                            />
+                        ))}
+                    </Row>
                 </div>
             </Container>
         </div>

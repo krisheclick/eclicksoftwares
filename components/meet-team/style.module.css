@@ -1,0 +1,36 @@
+.sectionArea{
+    position: relative;
+    z-index: 1;
+    padding-block: 80px;
+    background: var(--primary-background);
+    text-align: center;
+}
+.cardList{
+    padding-top: 20px;
+}
+@media only screen and (min-width: 1200px){
+    .cardItem{
+        width: 20%;
+    }
+}
+.card{
+    --size: 120px;
+    font-size: 15px;
+    color: rgba(91, 91, 91, 1);
+    font-weight: 500;
+}
+.card figure{
+    width: var(--size);
+    height: var(--size);
+    border-radius: 100%;
+    border: 4px solid var(--white-color);
+    margin: 0 auto 20px;
+}
+.name{
+    font: 600 18px / 1.25 var(--primary-font);
+    color: var(--black-color);
+    margin-bottom: 4px;
+}
+.name::first-letter{
+    text-transform: capitalize;
+}

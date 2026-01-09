@@ -46,25 +46,25 @@ type BannerData = {
   joza_description: string;
 }
 type Content = {
-    c0be_title?: string;
-    c0be_description?: string;
-    c0be_usp_icon1?: string;
-    c0be_usp_title1?: string;
-    c0be_usp_icon2?: string;
-    c0be_usp_title2?: string;
-    c0be_usp_icon3?: string;
-    c0be_usp_title4?: string;
-    c0be_image?: string;
+  c0be_title?: string;
+  c0be_description?: string;
+  c0be_usp_icon1?: string;
+  c0be_usp_title1?: string;
+  c0be_usp_icon2?: string;
+  c0be_usp_title2?: string;
+  c0be_usp_icon3?: string;
+  c0be_usp_title4?: string;
+  c0be_image?: string;
 };
 
-type CallToAction = {    
-    tpdc_title?: string;
+type CallToAction = {
+  tpdc_title?: string;
 }
 export default function Home() {
   const [pagedata, setPageData] = useState<Page | null>(null);
-  const [bannerContent, setBannerContent] = useState<BannerData>({joza_title: '', title_tag: '', joza_description: ''});
+  const [bannerContent, setBannerContent] = useState<BannerData>({ joza_title: '', title_tag: '', joza_description: '' });
   const [aboutContent, setAboutContent] = useState<Content>({});
-  const [callToActContent, setCallToActContent] = useState<CallToAction>({tpdc_title: ''});
+  const [callToActContent, setCallToActContent] = useState<CallToAction>({ tpdc_title: '' });
   const [isLoading, setLoading] = useState(true);
 
   const fetchData = async () => {
@@ -98,7 +98,7 @@ export default function Home() {
       if (pagedata.pages_custom_field) {
         try {
           const custom_field_data = JSON.parse(pagedata.pages_custom_field).group_name;
- 
+
           setBannerContent(custom_field_data.banner);
           setAboutContent(custom_field_data['about-us']);
           setCallToActContent(custom_field_data['call-to-action']);
@@ -109,12 +109,11 @@ export default function Home() {
     }
   }, [pagedata]);
 
-  console.log('aboutContent', aboutContent)
   return (
     <>
-      {isLoading ?<SliderBannerSkeleton/>:<SliderBanner isLoading={isLoading} banner={pagedata?.banner} bannerdata={bannerContent}/>}
+      {isLoading ? <SliderBannerSkeleton /> : <SliderBanner isLoading={isLoading} banner={pagedata?.banner} bannerdata={bannerContent} />}
       <Clients />
-      <Aboutcomponent isLoading={isLoading} content={aboutContent} calltoaction={callToActContent}/>
+      <Aboutcomponent isLoading={isLoading} content={aboutContent} calltoaction={callToActContent} />
       <Coreservice />
       <HookIndustry />
       <Platformscomponent />

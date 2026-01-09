@@ -105,7 +105,7 @@ span, b, strong {
 }
 p {
 	margin: 0 0 16px;
-	line-height: 1.6;
+	/* line-height: 1.6; */
 	letter-spacing: 0.3px;
 }
 div:has( > .grecaptcha-badge),

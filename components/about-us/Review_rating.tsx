@@ -21,7 +21,6 @@ interface Props {
 const Review_rating = ({ hasLoading, data }: Props) => {
     const mediaUrl = `${process.env.NEXT_PUBLIC_assetPrefix}/assets/images`;
     const rating = data?.ratting;
-    console.log('data', rating)
     return (
         <div className={Styles.supportRow}>
             {!hasLoading ? (

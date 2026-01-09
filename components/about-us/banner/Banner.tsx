@@ -7,24 +7,21 @@ interface BannerItem {
     h6xu_title?: string;
     banner?: BannerItem;
 }
+
 interface BannerProps {
     hasLoading: boolean;
-    data: BannerItem;
+    data: BannerItem | null;
 }
 
 const Banner = ({ hasLoading, data }: BannerProps) => {
-    const banner = data?.banner;
-
-    if (!banner) return null;
-
     return (
         <div className={Styles.banner}>
             <Container className="container-full">
                 <figure>
                     {!hasLoading ? (
                         <Image
-                            src={`${process.env.NEXT_PUBLIC_MEDIA_URL}/uploads/page_image/${banner.h6xu_image}`}
-                            alt={banner.h6xu_title || "Banner Poster"}
+                            src={`${process.env.NEXT_PUBLIC_MEDIA_URL}/uploads/page_image/${data?.h6xu_image}`}
+                            alt={data?.h6xu_title || "Banner Poster"}
                             fill
                             priority
                         />
@@ -36,8 +33,8 @@ const Banner = ({ hasLoading, data }: BannerProps) => {
                     <Container>
                         <div className={Styles.bannerText_in}>
                             {!hasLoading ? (
-                                banner.h6xu_title && (
-                                    <h1 dangerouslySetInnerHTML={{ __html: banner.h6xu_title }} className={`title ${Styles.bannerTitle}`} />
+                                data?.h6xu_title && (
+                                    <h1 dangerouslySetInnerHTML={{ __html: data?.h6xu_title }} className={`title ${Styles.bannerTitle}`} />
                                 )
                             ) : (
                                 <>

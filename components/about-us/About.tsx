@@ -12,6 +12,7 @@ import { Col, Container, Row } from "react-bootstrap";
 import Styles from "./style.module.css";
 import Review_rating from "./Review_rating";
 import WhatsKeep from "./keep/WhatsKeep";
+import Teams from "../meet-team/Teams";
 
 type UspCategory = {
     usp_category_title: string;
@@ -54,6 +55,12 @@ type Technology = {
     icon?: string;
 }
 
+type BannerItem  = {
+    h6xu_image?: string;
+    h6xu_title?: string;
+    banner?: BannerItem;
+}
+
 type AboutcomponentData = {
     heading: string;
     page_feature_image: string;
@@ -75,6 +82,8 @@ type AboutcomponentData = {
 const Aboutcomponent = () => {
     const [aboutData, setAboutData] = useState<AboutcomponentData | null>(null);
     const [hasLoading, setLoading] = useState(true);
+    const [bannerData, setBannerData] = useState<BannerItem | null>(null);
+    const [teamData, setTeam] = useState<TeamMember[] | null>(null);
 
     const fetchData = async () => {
         setLoading(true);
@@ -83,6 +92,7 @@ const Aboutcomponent = () => {
             const { response_data } = await response.json();
 
             setAboutData(response_data);
+            setTeam(response_data?.recommend_team);
         } catch (err: unknown) {
             console.error("Failed to fetch About Page:", (err as Error).message);
         } finally {
@@ -94,6 +104,21 @@ const Aboutcomponent = () => {
         fetchData();
     }, []);
 
+    useEffect(() => {
+        if (aboutData) {
+            if (aboutData?.pages_custom_field) {
+                try {
+                    const customResponse = JSON.parse(aboutData?.pages_custom_field ?? "{}");
+                    const data = customResponse?.group_name;
+                    setBannerData(data?.banner);
+
+                } catch (err: unknown) {
+                    console.error("Error parsing custom field data:", (err as Error).message);
+                }
+            }
+        }
+    }, [aboutData]);
+
     const counters: CounterItem[] = JSON.parse(
         aboutData?.counter_data ?? "[]"
     );
@@ -104,7 +129,9 @@ const Aboutcomponent = () => {
 
     return (
         <div className="about_page">
-            <Banner hasLoading={hasLoading} data={customData?.group_name} />
+            {bannerData && (
+                <Banner hasLoading={hasLoading} data={bannerData} />
+            )}
             <div className={`sectionArea pt-3 ${Styles.about_section ?? ''}`}>
                 <Container>
                     <Row className="rowGap gx-xl-5 align-items-center">
@@ -170,14 +197,18 @@ const Aboutcomponent = () => {
                 />
             )}
 
-            <MissionVission data={customData?.group_name} hasLoading={hasLoading} />
+            <MissionVission hasLoading={hasLoading} data={customData?.group_name} />
             <CoreServices />
-            <Counters data={customData?.group_name} counters={counters} hasLoading={hasLoading} />
+            <Counters hasLoading={hasLoading} data={customData?.group_name} counters={counters} />
             {aboutData?.usp_categorys?.[0] && (
                 <WhatsKeep
                     hasLoading={hasLoading}
                     data={aboutData?.usp_categorys?.[0]}
                 />
+            )}
+
+            {teamData && (
+                <Teams hasLoading={hasLoading} content={customData?.group_name} data={teamData} />
             )}
             <Clients classValue={"fullBox"} />
         </div>

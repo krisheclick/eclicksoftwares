@@ -1,6 +1,6 @@
 import { Col } from 'react-bootstrap';
-import Styles from './card.module.css';
 import Image from 'next/image';
+import Styles from './card.module.css';
 type Props = {
     poster?: string;
     title?: string;
@@ -8,7 +8,7 @@ type Props = {
 }
 const Card = ({ poster, title, description }: Props) => {
     return (
-        <Col lg={3} sm={6}>
+        <Col sm={6} className={Styles.cardItem}>
             <div className={Styles.card}>
                 <figure>
                     <Image
