@@ -29,10 +29,10 @@
     font: 400 38px / 1.25 var(--primary-font);
     color: var(--tertiary-color);
     margin-bottom: 20px;
-    display: -webkit-box;
+    /* display: -webkit-box;
     -webkit-box-orient: vertical;
     -webkit-line-clamp: 2;
-    overflow: hidden;
+    overflow: hidden; */
 }
 .bannerTitle  > *{
     display: block;

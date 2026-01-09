@@ -1,22 +1,28 @@
 import { Col, Container, Row } from 'react-bootstrap';
 import Styles from './style.module.css';
-import Card from './Card';
-import SpecialCard from './SpecialCard';
+import Card from '@/components/whatwedo/Card';
+import SpecialCard from '@/components/whatwedo/SpecialCard';
 
-type services = {
+type ServiceItem = {
     wcp_title: string;
     wcp_slug: string;
     wcp_short_description: string;
     wcp_icon_path: string;
     wcp_icon: string;
-}
-type props = {
-    isLoading: boolean;
-    services: services[];
-}
+};
 
-const WhatWeDo = ({ isLoading, services }: props) => {
-    const serviceCount = services.length;
+type Props = {
+    isLoading: boolean;
+    services: ServiceItem[];
+    data: {
+        usp_category_title?: string;
+        usp_category_description?: string;
+    }
+};
+
+const WhatWeDo = ({ isLoading, data, services }: Props) => {
+    const serviceCount = services?.length ?? 0;
+
     let col = 3;
     if (serviceCount % 4 === 2) {
         col = 6;
@@ -25,28 +31,28 @@ const WhatWeDo = ({ isLoading, services }: props) => {
     }
 
     return (
-        <div className={`sectionArea ${Styles.sectionArea}`}>
+        <div className={`sectionArea ${Styles.whatwedo}`}>
             <Container>
                 <div className={`section-content full ${Styles.section_content ?? ''}`}>
                     {!isLoading ? (
                         <>
-                            <div className={Styles.subtitle}>What we do</div>
-                            <div className={`title ${Styles.title ?? ''}`}>More custom software solutions we provide</div>
+                            {data?.usp_category_title && (<div className="small_title">{data?.usp_category_title}</div>)}
+                            <div className={`title fw-bold ${Styles.title ?? ''}`}
+                                dangerouslySetInnerHTML={{__html: data?.usp_category_description || ''}}
+                             />
                         </>
-
                     ) : (
                         <>
-                            <div className="skeleton mb-3" style={{ width: "150px", height: 30 }}></div>
-                            <div className="skeleton skeletonTitle"></div>
+                            <div className="skeleton mb-3" style={{ width: 150, height: 30 }} />
+                            <div className="skeleton skeletonTitle" />
                         </>
-
                     )}
                 </div>
 
                 <Row className={`gx-0 ${Styles.row}`}>
                     {!isLoading ? (
                         <>
-                            {services && services.length > 0 && services.map((item: services, index: number) => (
+                            {services?.map((item, index) => (
                                 <Card
                                     key={index}
                                     icon={item.wcp_icon_path}
@@ -55,27 +61,26 @@ const WhatWeDo = ({ isLoading, services }: props) => {
                                 />
                             ))}
 
-                            <SpecialCard col={col} />
+                            {serviceCount > 0 && <SpecialCard col={col} />}
                         </>
                     ) : (
                         <>
                             {[...Array(8)].map((_, index) => (
                                 <Col lg={3} className={Styles.item} key={index}>
                                     <div className={Styles.box}>
-                                        <figure className={`skeleton ${Styles.icon}`}></figure>
-                                        <div className="skeleton mb-2" style={{ height: 24 }}></div>
-                                        <div className="skeleton skeletonText mb-1"></div>
-                                        <div className="skeleton skeletonText"></div>
+                                        <figure className={`skeleton ${Styles.icon}`} />
+                                        <div className="skeleton mb-2" style={{ height: 24 }} />
+                                        <div className="skeleton skeletonText mb-1" />
+                                        <div className="skeleton skeletonText" />
                                     </div>
                                 </Col>
                             ))}
                         </>
                     )}
                 </Row>
-                {/* <ModalForm title={title} /> */}
             </Container>
         </div>
-    )
-}
+    );
+};
 
-export default WhatWeDo
+export default WhatWeDo;

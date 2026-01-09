@@ -105,7 +105,7 @@ span, b, strong {
 }
 p {
 	margin: 0 0 16px;
-	line-height: 1.6;
+	/* line-height: 1.6; */
 	letter-spacing: 0.3px;
 }
 div:has( > .grecaptcha-badge),
@@ -239,7 +239,7 @@ em{
 	}
 }
 /* ===========Heading Tag=========== */
-.heading, .title, .titleTag, .subheading, .subtitle{
+.heading, .title, .titleTag, .subheading, .subtitle, .small_title{
 	position: relative;
 	z-index: 1;
 	-moz-transition: all 300ms ease-in-out;
@@ -270,7 +270,14 @@ em{
 	font: 600 24px / 1.25 var(--tertiary-font);
 	margin-bottom: 8px;
 }
-:is(.heading, .title, .titleTag, .subheading, .subtitle):last-child {
+.small_title {
+	display: inline-block;
+	vertical-align: middle;
+	color: rgba(3, 57, 167, 1);
+	font: 700 1.1em / 1.5 var(--tertiary-font);
+	margin-bottom: 10px;
+}
+:is(.heading, .title, .titleTag, .subheading, .subtitle, .small_title):last-child {
   margin-bottom: 0;
 }
 
@@ -608,6 +615,15 @@ input[type=number] {
 	background: rgba(250, 203, 66, 1);
 }
 /* ============== TestimonialSlider Slider Section Ends========= */
+
+/* ============== Row Card Start ==============*/
+.rowCard .row:nth-child(even){
+	flex-direction: row-reverse;
+}
+.rowCard .row:nth-child(even) .card_content{
+	margin-left: auto;
+}
+/* ============== Row Card Ends ==============*/
 .customBackdrop {
   background-color: rgba(0,0,0,0.8);
   backdrop-filter: blur(2px);
@@ -674,6 +690,11 @@ input[type=number] {
 	position: absolute;
 	inset: 0;
 }
+.skeletonSmallTitle{
+	height: 24px;
+	width: clamp(150px, 12vw, 220px);
+	margin-bottom: 16px;
+}
 /* Different shapes/sizes */
 .skeletonImage {
   width: 100%;
@@ -714,83 +735,6 @@ input[type=number] {
 
 	100% {
 		background-position: -200% 0;
-	}
-}
-
-
-@media only screen and (max-width:1600px) {
-	.sectionArea{
-		margin-block: 60px;
-	}
-	.heading{
-		font-size: 42px;
-	}
-	.title{
-		font-size: 32px;
-	}
-	.subheading{
-		font-size: 24px;
-	}
-	.subtitle{
-		font-size: 20px;
-	}
-    .learnMore{
-        font-size: 16px;
-    }
-	.btn_left, .btn_center {
-		margin-top: 40px;
-	}
-	:is(.btn_left, .btn_center).sm {
-		margin-top: 24px;
-	}
-	[class*="eclick-btn-"]{
-		font-size: 14px;
-		--size:40px;
-	}
-	[class*="eclick-btn-"].lg {
-		--size: 48px;
-		font-size: 16px;
-		--padding: 24px;
-	}
-	.swiper-pagination-bullet {
-		--size: 10px;
-	}
-}
-@media only screen and (max-width:1399px) {
-	body{
-		font-size: 15px;
-	}
-	.section-content{
-		margin-bottom: 36px;
-	}
-	.heading{
-		font-size: 36px;
-	}
-	:is(.heading, .titleTag)::after {
-		width: 80px;
-		height: 2px;
-		margin-top: 8px;
-	}
-	.title{
-		font-size: 28px;
-	}
-	.subheading{
-		font-size: 20px;
-	}
-	.subtitle{
-		font-size: 18px;
-	}
-    .learnMore{
-        font-size: 15px;
-    }
-	[class*="eclick-btn-"]{
-		--size:40px;
-	}
-	[class*="eclick-btn-"].lg {
-		font-size: 15px;
-	}
-	.swiper-pagination-bullet {
-		--size: 8px;
 	}
 }
 .iti{

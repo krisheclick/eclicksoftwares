@@ -1,4 +1,3 @@
-import Image from 'next/image';
 import Styles from './style.module.css';
 import Link from 'next/link';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -13,8 +12,7 @@ const Card = ({title, projectName, slug, poster}: Props) => {
     return (
         <div className={Styles.cardBox}>
             <div className={Styles.thumbnail}>
-                <figure style={{backgroundImage: `url(${process.env.NEXT_PUBLIC_MEDIA_URL}${poster})`}}>
-                </figure>
+                <figure style={{backgroundImage: `url(${process.env.NEXT_PUBLIC_MEDIA_URL}${poster})`}}></figure>
             </div>
             <div className={Styles.cardData}>
                 <div className={Styles.subtitle}>{title}</div>

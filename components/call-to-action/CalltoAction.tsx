@@ -3,14 +3,19 @@ import Image from "next/image";
 import Styles from "./style.module.css";
 import Link from "next/link";
 type CallToAction = {
-    tpdc_title?: string;
-}
+    "4e3s_title"?: string;
+    "4e3s_button_name"?: string;
+    "4e3s_button_link"?: string;
+};
 type classType = {
     spaceClass: string;
-    content: CallToAction;
+    content: {
+        "call-to-action"?: CallToAction;
+    };
     isLoading: boolean;
 }
 const CalltoAction = ({ spaceClass, content, isLoading }: classType) => {
+    const data = content?.["call-to-action"];
     return (
         <div className={`${spaceClass ?? ''} ${Styles.calltoAction ?? ''}`}>
             <Container>
@@ -18,14 +23,17 @@ const CalltoAction = ({ spaceClass, content, isLoading }: classType) => {
                     {!isLoading ? (
                         <>
                             <div className={Styles.calltoAction_content}>
-                                <div className={`title ${Styles.title}`} dangerouslySetInnerHTML={{
-                                    __html: content?.tpdc_title ?? ''
-                                        .replace(/Â+/g, "")
-                                        .replace(/\s+/g, " ")
-                                        .trim(),
-                                }} />
+                                <div
+                                    className={`title ${Styles.title}`}
+                                    dangerouslySetInnerHTML={{
+                                        __html: data?.["4e3s_title"] ?? "",
+                                    }}
+                                />
                             </div>
-                            <Link href="#" className={`eclick-btn-schedule ${Styles.scheduleBtn ?? ''}`}>
+                            <Link
+                                href={data?.["4e3s_button_link"] ?? "#"}
+                                className={`eclick-btn-schedule ${Styles.scheduleBtn ?? ''}`}
+                            >
                                 <span>
                                     <Image
                                         className="auto-img"
@@ -35,7 +43,7 @@ const CalltoAction = ({ spaceClass, content, isLoading }: classType) => {
                                         priority={true}
                                     />
                                 </span>
-                                <em>Schedule a Call</em>
+                                <em>{data?.["4e3s_button_name"] ?? "Schedule a Call"}</em>
                             </Link>
                         </>
                     ) : (
