@@ -2,6 +2,15 @@ import { Container, Col, Row } from "react-bootstrap";
 import Styles from "./sliderbanner.module.css";
 import Image from "next/image";
 import Link from "next/link";
+// import Uspcard from "./usp/Uspcard";
+// type UspItem = {
+//     c0be_usp_icon1?: string;
+//     c0be_usp_title1?: string;
+//     c0be_usp_icon2?: string;
+//     c0be_usp_title2?: string;
+//     c0be_usp_icon3?: string;
+//     c0be_usp_title4?: string;
+// }
 type Props = {
     isLoading: boolean;
     banner:  Project | undefined;

@@ -99,7 +99,7 @@
     color: #a49999;
     letter-spacing: 0.3px;
 }
-.testmonial_paragraph {
+/* .testmonial_paragraph {
     height: 6lh;
     overflow: hidden auto;
     line-height: 1.7;
@@ -107,7 +107,7 @@
 }
 .testmonial_paragraph p{
     line-height: inherit;
-}
+} */
 .cardRow{
     display: grid;
     grid-template-columns: repeat(2, 1fr);
@@ -133,10 +133,10 @@
     font-size: 42px;
     font-weight: 700;
 }
-.cardRow .testmonial_paragraph{
+/* .cardRow .testmonial_paragraph{
     height: 6lh;
     line-height: 1.8;
-}
+} */
 .videoContainer iframe {
     width: 100%;
     height: 100%;

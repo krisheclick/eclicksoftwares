@@ -22,13 +22,6 @@
     row-gap: var(--bs-gutter-x);
     margin-top: 32px;
 }
-.uspBox{
-    text-align: center;
-    font-size: 15px;
-}
-.uspBox img{
-    margin-bottom: 8px;
-}
 .imagePart{
     max-width: 630px;
     margin-left: auto;
@@ -131,8 +124,5 @@
     }
     .slogan_list li:nth-child(3) {
         right: -32px;
-    }
-    .uspBox{
-        font-size: 13px;
     }
 }

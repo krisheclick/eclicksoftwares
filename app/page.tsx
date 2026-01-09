@@ -98,7 +98,6 @@ export default function Home() {
       if (pagedata.pages_custom_field) {
         try {
           const custom_field_data = JSON.parse(pagedata.pages_custom_field).group_name;
-
           setBannerContent(custom_field_data.banner);
           setAboutContent(custom_field_data['about-us']);
           setCallToActContent(custom_field_data['call-to-action']);

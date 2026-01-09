@@ -1,7 +1,7 @@
 import Image from 'next/image';
 import Styles from './style.module.css';
 
-interface RatingItem {
+export interface RatingItem {
     jrne_ratting1: string;
     jrne_icon_1: string;
     jrne_title1: string;
