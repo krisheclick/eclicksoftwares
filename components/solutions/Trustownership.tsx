@@ -2,6 +2,7 @@ import { Col, Container, Row } from 'react-bootstrap';
 import Styles from './style.module.css';
 import Link from 'next/link';
 import Image from 'next/image';
+import { useScheduleCall } from '@/utils/useLetsConnect';
 
 type ServiceCta = {
     cta_title: string;
@@ -10,6 +11,7 @@ type ServiceCta = {
     isLoading: boolean;
 }
 const Trustownership = ({ isLoading, cta_title, cta_description, cta_image }: ServiceCta) => {
+    const { openScheduleModal} = useScheduleCall();
     return (
         <div className={Styles.callToAction}>
             <div className={Styles.innerSection}>
@@ -32,7 +34,7 @@ const Trustownership = ({ isLoading, cta_title, cta_description, cta_image }: Se
                                                 .trim(),
                                         }} />
                                         <div className="btn_left">
-                                            <Link href={`${process.env.NEXT_PUBLIC_ENV_URL}`} className={`eclick-btn-connect ${Styles.bannerBtn ?? ''}`}>
+                                            <Link href={`javascript:void(0)`} onClick={() => openScheduleModal('general_schedule_a_call')} className={`eclick-btn-connect ${Styles.bannerBtn ?? ''}`}>
                                                 <span className={Styles.phoneIcon}>
                                                     <Image
                                                         src={`${process.env.NEXT_PUBLIC_assetPrefix}/assets/images/phone.webp`}

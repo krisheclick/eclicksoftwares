@@ -12,6 +12,8 @@ import Styles from "./style.module.css";
 import { Col, Container, Row } from "react-bootstrap";
 import Link from "next/link";
 import Image from "next/image";
+import { useScheduleCall } from "@/utils/useLetsConnect";
+import ScheduleCall from "@/components/schedule-a-call/ScheduleCall";
 
 type PageCustomField = {
     group_name: {
@@ -57,6 +59,8 @@ export default function Page() {
     const [cmsdata, setCmsData] = useState<ResponseData | null>(null);
     const [bannerContent, setBannerContent] = useState<BannerData | null>(null);
     const [error, setError] = useState<string | null>(null);
+
+    const { openScheduleModal} = useScheduleCall();
 
     useEffect(() => {
         const fetchData = async () => {
@@ -134,7 +138,7 @@ export default function Page() {
                                     .trim(),
                             }} />
                             <div className={Styles.btn_wrap}>
-                                <Link href={`${process.env.NEXT_PUBLIC_ENV_URL}`} className={`eclick-btn-connect ${Styles.bannerBtn ?? ''}`}>
+                                <button onClick={() => openScheduleModal('general_schedule_a_call')} className={`eclick-btn-connect ${Styles.bannerBtn ?? ''}`}>
                                     <span className={Styles.phoneIcon}>
                                         <Image
                                             src={`${process.env.NEXT_PUBLIC_assetPrefix}/assets/images/phone.webp`}
@@ -144,7 +148,7 @@ export default function Page() {
                                         />
                                     </span>
                                     <em>Schedule a Call</em>
-                                </Link>
+                                </button>
                             </div>
                         </div>
                     </Col>
@@ -238,6 +242,7 @@ export default function Page() {
                 </div>
             </Container>
         </div>
+        
         </>
     )
 }
