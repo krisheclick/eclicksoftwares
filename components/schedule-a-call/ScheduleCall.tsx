@@ -7,11 +7,12 @@ interface ScheduleCallProps {
     show: boolean;
     onHide: () => void;
     services?: string[];
+    action?: string | null;
 }
-const ScheduleCall = ({ show, onHide, services }: ScheduleCallProps) => {
+const ScheduleCall = ({ show, onHide, services, action }: ScheduleCallProps) => {
     return (
         <ScheduleCallProvider>
-            <SchuduleCallModal show={show} onHide={onHide} services={services} />
+            <SchuduleCallModal show={show} onHide={onHide} services={services} action={action} />
         </ScheduleCallProvider>
     );
 }

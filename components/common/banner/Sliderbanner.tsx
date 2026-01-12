@@ -2,6 +2,7 @@ import { Container, Col, Row } from "react-bootstrap";
 import Styles from "./sliderbanner.module.css";
 import Image from "next/image";
 import Link from "next/link";
+import { useLetsConnect } from "@/utils/useLetsConnect";
 // import Uspcard from "./usp/Uspcard";
 // type UspItem = {
 //     c0be_usp_icon1?: string;
@@ -31,6 +32,8 @@ type BannerData = {
   joza_description: string;
 }
 const SliderBanner = ({ isLoading, banner, bannerdata}: Props) => {
+    const { openLetsConnectModal} = useLetsConnect();
+
     return (
         <div className={Styles.sliderBanner}>
             <Container>
@@ -93,7 +96,7 @@ const SliderBanner = ({ isLoading, banner, bannerdata}: Props) => {
                                 </Row>
                             </div>
                             <div className="mt-5">
-                                <Link href={`${process.env.NEXT_PUBLIC_ENV_URL}`} className={`eclick-btn-connect lg ${Styles.bannerBtn ?? ''}`}>
+                                <Link href={`javascript:void(0)`} onClick={()=>openLetsConnectModal('general_lets_connect')} className={`eclick-btn-connect lg ${Styles.bannerBtn ?? ''}`}>
                                     <span className={Styles.phoneIcon}>
                                         <Image
                                             src={`${process.env.NEXT_PUBLIC_assetPrefix}/assets/images/chat.png`}

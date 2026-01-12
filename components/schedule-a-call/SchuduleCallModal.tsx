@@ -4,6 +4,7 @@ import { Alert, Button, Card, Col, Form, Image, Modal, Row } from "react-bootstr
 import styles from './ScheduleCall.module.css';
 import { useScheduleCallContext } from "@/context/SchuduleACallContext";
 import DateTimePicker from "./DateTimePicker";
+import DetailsForm from "./DetailsForm";
 import { faXmark, faClock, faGlobe, faArrowLeft, faCalendarDays,faCheck, faCalendarAlt, faSpinner} from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useRouter } from "next/navigation";
@@ -15,7 +16,7 @@ interface ScheduleCallProps {
     show: boolean;
     onHide: () => void;
     services?: string[];
-    action?: string;
+    action?: string | null;
 }
 
 interface FormData {
@@ -253,7 +254,7 @@ const SchuduleCallModal = ({ show, onHide, services, action }: ScheduleCallProps
         return `${endHours}:${endMinutes
             .toString()
             .padStart(2, "0")}${endPeriod}`;
-        }
+    }
 
     useEffect(() => {
         if (show) {
@@ -300,157 +301,157 @@ const SchuduleCallModal = ({ show, onHide, services, action }: ScheduleCallProps
             })),
         }));
 
-    const renderDetailsForm = () => (
-        <div className={styles.detailsView}>
-            <div className="text-center mb-4">
-                <h4 className="mb-2">Enter Details</h4>
-                <p className="text-muted">Tell us about your project and contact information</p>
-            </div>
-            <Form className={styles.detailsForm}>
-                <Row>
-                    <Col md={6}>
-                        <Form.Group className="mb-3">
-                            <Form.Label className="fw-bold">Full Name *</Form.Label>
-                            <Form.Control
-                                type="text"
-                                name="fullName"
-                                value={formData.fullName}
-                                onChange={handleInputChange}
-                                isInvalid={!!errors.fullName}
-                                placeholder="Your full name"
-                            />
-                            <Form.Control.Feedback type="invalid">{errors.fullName}</Form.Control.Feedback>
-                        </Form.Group>
-                    </Col>
-                    <Col md={6}>
-                        <Form.Group className="mb-3">
-                            <Form.Label className="fw-bold">Company *</Form.Label>
-                            <Form.Control
-                                type="text"
-                                name="company"
-                                value={formData.company}
-                                onChange={handleInputChange}
-                                isInvalid={!!errors.company}
-                                placeholder="Your company name"
-                            />
-                            <Form.Control.Feedback type="invalid">{errors.company}</Form.Control.Feedback>
-                        </Form.Group>
-                    </Col>
-                </Row>
+    // const renderDetailsForm = () => (
+    //     <div className={styles.detailsView}>
+    //         <div className="text-center mb-4">
+    //             <h4 className="mb-2">Enter Details</h4>
+    //             <p className="text-muted">Tell us about your project and contact information</p>
+    //         </div>
+    //         <Form className={styles.detailsForm}>
+    //             <Row>
+    //                 <Col md={6}>
+    //                     <Form.Group className="mb-3">
+    //                         <Form.Label className="fw-bold">Full Name *</Form.Label>
+    //                         <Form.Control
+    //                             type="text"
+    //                             name="fullName"
+    //                             value={formData.fullName}
+    //                             onChange={handleInputChange}
+    //                             isInvalid={!!errors.fullName}
+    //                             placeholder="Your full name"
+    //                         />
+    //                         <Form.Control.Feedback type="invalid">{errors.fullName}</Form.Control.Feedback>
+    //                     </Form.Group>
+    //                 </Col>
+    //                 <Col md={6}>
+    //                     <Form.Group className="mb-3">
+    //                         <Form.Label className="fw-bold">Company *</Form.Label>
+    //                         <Form.Control
+    //                             type="text"
+    //                             name="company"
+    //                             value={formData.company}
+    //                             onChange={handleInputChange}
+    //                             isInvalid={!!errors.company}
+    //                             placeholder="Your company name"
+    //                         />
+    //                         <Form.Control.Feedback type="invalid">{errors.company}</Form.Control.Feedback>
+    //                     </Form.Group>
+    //                 </Col>
+    //             </Row>
 
-                <Form.Group className="mb-3">
-                    <Form.Label className="fw-bold">Email Address *</Form.Label>
-                    <Form.Control
-                        type="email"
-                        name="email"
-                        value={formData.email}
-                        onChange={handleInputChange}
-                        isInvalid={!!errors.email}
-                        placeholder="your.email@company.com"
-                    />
-                    <Form.Control.Feedback type="invalid">{errors.email}</Form.Control.Feedback>
-                </Form.Group>
+    //             <Form.Group className="mb-3">
+    //                 <Form.Label className="fw-bold">Email Address *</Form.Label>
+    //                 <Form.Control
+    //                     type="email"
+    //                     name="email"
+    //                     value={formData.email}
+    //                     onChange={handleInputChange}
+    //                     isInvalid={!!errors.email}
+    //                     placeholder="your.email@company.com"
+    //                 />
+    //                 <Form.Control.Feedback type="invalid">{errors.email}</Form.Control.Feedback>
+    //             </Form.Group>
 
-                <Form.Group className="mb-3">
-                    <Form.Label className="fw-bold">Phone Number *</Form.Label>
-                    <Form.Control
-                        type="tel"
-                        name="phone"
-                        value={formData.phone}
-                        onChange={handleInputChange}
-                        isInvalid={!!errors.phone}
-                        placeholder="+1 (555) 123-4567"
-                    />
-                    <Form.Control.Feedback type="invalid">{errors.phone}</Form.Control.Feedback>
-                </Form.Group>
+    //             <Form.Group className="mb-3">
+    //                 <Form.Label className="fw-bold">Phone Number *</Form.Label>
+    //                 <Form.Control
+    //                     type="tel"
+    //                     name="phone"
+    //                     value={formData.phone}
+    //                     onChange={handleInputChange}
+    //                     isInvalid={!!errors.phone}
+    //                     placeholder="+1 (555) 123-4567"
+    //                 />
+    //                 <Form.Control.Feedback type="invalid">{errors.phone}</Form.Control.Feedback>
+    //             </Form.Group>
 
-                <Form.Group className="mb-3">
-                    <Form.Label className="fw-bold">What service are you interested in? *</Form.Label>
-                    {/* <Form.Select
-                        name="service"
-                        value={formData.service}
-                        onChange={handleInputChange}
-                        isInvalid={!!errors.service}
-                        >
-                        <option value="">Select a service...</option>
+    //             <Form.Group className="mb-3">
+    //                 <Form.Label className="fw-bold">What service are you interested in? *</Form.Label>
+    //                 {/* <Form.Select
+    //                     name="service"
+    //                     value={formData.service}
+    //                     onChange={handleInputChange}
+    //                     isInvalid={!!errors.service}
+    //                     >
+    //                     <option value="">Select a service...</option>
 
-                        {serviceCategories.length > 0 &&
-                            serviceCategories.map(category => (
-                            <optgroup key={category.service_category_slug} label={category.service_category_title}>
-                                {category.services?.map(service => (
-                                <option key={service.service_slug} value={String(service.service_slug)}>
-                                    {service.service_title}
-                                </option>
-                                ))}
-                            </optgroup>
-                            ))}
-                    </Form.Select> */}
+    //                     {serviceCategories.length > 0 &&
+    //                         serviceCategories.map(category => (
+    //                         <optgroup key={category.service_category_slug} label={category.service_category_title}>
+    //                             {category.services?.map(service => (
+    //                             <option key={service.service_slug} value={String(service.service_slug)}>
+    //                                 {service.service_title}
+    //                             </option>
+    //                             ))}
+    //                         </optgroup>
+    //                         ))}
+    //                 </Form.Select> */}
 
-                    <Select
-                        options={serviceOptions}
-                        placeholder="Select a service..."
-                        isSearchable
-                        onChange={(selected) =>
-                            setFormData(prev => ({
-                                ...prev,
-                                service: selected?.value || "",
-                            }))
-                        }
-                        value={serviceOptions
-                            .flatMap(group => group.options)
-                            .find(opt => opt.value === formData.service)}
-                        classNamePrefix="react-select"
-                        styles={{
-                            menu: base => ({ ...base, zIndex: 9999 }),
-                        }}
-                        />
-                    <Form.Control.Feedback type="invalid">{errors.service}</Form.Control.Feedback>
-                </Form.Group>
+    //                 <Select
+    //                     options={serviceOptions}
+    //                     placeholder="Select a service..."
+    //                     isSearchable
+    //                     onChange={(selected) =>
+    //                         setFormData(prev => ({
+    //                             ...prev,
+    //                             service: selected?.value || "",
+    //                         }))
+    //                     }
+    //                     value={serviceOptions
+    //                         .flatMap(group => group.options)
+    //                         .find(opt => opt.value === formData.service)}
+    //                     classNamePrefix="react-select"
+    //                     styles={{
+    //                         menu: base => ({ ...base, zIndex: 9999 }),
+    //                     }}
+    //                     />
+    //                 <Form.Control.Feedback type="invalid">{errors.service}</Form.Control.Feedback>
+    //             </Form.Group>
 
-                <Form.Group className="mb-3">
-                    <Form.Label className="fw-bold">Project Details *</Form.Label>
-                    <Form.Control
-                        as="textarea"
-                        rows={3}
-                        name="requirement"
-                        placeholder="Tell us briefly about your project, goals, challenges, and timeline..."
-                        value={formData.requirement}
-                        onChange={handleInputChange}
-                        isInvalid={!!errors.requirement}
-                    />
-                    <Form.Control.Feedback type="invalid">{errors.requirement}</Form.Control.Feedback>
-                </Form.Group>
+    //             <Form.Group className="mb-3">
+    //                 <Form.Label className="fw-bold">Project Details *</Form.Label>
+    //                 <Form.Control
+    //                     as="textarea"
+    //                     rows={3}
+    //                     name="requirement"
+    //                     placeholder="Tell us briefly about your project, goals, challenges, and timeline..."
+    //                     value={formData.requirement}
+    //                     onChange={handleInputChange}
+    //                     isInvalid={!!errors.requirement}
+    //                 />
+    //                 <Form.Control.Feedback type="invalid">{errors.requirement}</Form.Control.Feedback>
+    //             </Form.Group>
 
                 
 
-                <Form.Group className="mb-4">
-                    <Form.Check
-                        type="checkbox"
-                        label="I agree to the Privacy Policy and Terms & Conditions *"
-                        name="privacyConsent"
-                        checked={formData.privacyConsent}
-                        onChange={handleInputChange}
-                        isInvalid={!!errors.privacyConsent}
-                    />
-                    <Form.Control.Feedback type="invalid">{errors.privacyConsent}</Form.Control.Feedback>
-                </Form.Group>
-            </Form>
+    //             <Form.Group className="mb-4">
+    //                 <Form.Check
+    //                     type="checkbox"
+    //                     label="I agree to the Privacy Policy and Terms & Conditions *"
+    //                     name="privacyConsent"
+    //                     checked={formData.privacyConsent}
+    //                     onChange={handleInputChange}
+    //                     isInvalid={!!errors.privacyConsent}
+    //                 />
+    //                 <Form.Control.Feedback type="invalid">{errors.privacyConsent}</Form.Control.Feedback>
+    //             </Form.Group>
+    //         </Form>
 
-            <div className="d-flex justify-content-between">
-                <button onClick={handleDetailsSubmit} className={`eclick-btn-connect ${styles.bannerBtn ?? ''}`}>
-                    <span className={styles.phoneIcon}>
-                        <Image
-                            src={`${process.env.NEXT_PUBLIC_assetPrefix}/assets/images/phone.webp`}
-                            alt="Conversation"
-                            width={22} height={21}
-                            loading="lazy"
-                        />
-                    </span>
-                    <em>Schedule a Call</em>
-                </button>
-            </div>
-        </div>
-    );
+    //         <div className="d-flex justify-content-between">
+    //             <button onClick={handleDetailsSubmit} className={`eclick-btn-connect ${styles.bannerBtn ?? ''}`}>
+    //                 <span className={styles.phoneIcon}>
+    //                     <Image
+    //                         src={`${process.env.NEXT_PUBLIC_assetPrefix}/assets/images/phone.webp`}
+    //                         alt="Conversation"
+    //                         width={22} height={21}
+    //                         loading="lazy"
+    //                     />
+    //                 </span>
+    //                 <em>Schedule a Call</em>
+    //             </button>
+    //         </div>
+    //     </div>
+    // );
 
     const renderConfirmation = () => (
         <div className={styles.confirmView}>
@@ -537,7 +538,24 @@ const SchuduleCallModal = ({ show, onHide, services, action }: ScheduleCallProps
             case 1:
                 return <DateTimePicker />;
             case 2:
-                return renderDetailsForm();
+                return (
+                    <DetailsForm
+                        formData={formData}
+                        errors={errors}
+                        handleInputChange={handleInputChange}
+                        handleDetailsSubmit={handleDetailsSubmit}
+                        setFormData={setFormData}
+                        serviceOptions={serviceOptions}
+                        heading={
+                            <div className="text-center mb-4">
+                                <h4 className="mb-2">Enter Details</h4>
+                                <p className="text-muted">Tell us about your project and contact information</p>
+                            </div>
+                        }
+                        buttonText="Schedule a Call"
+                        isSubmitting={isSubmit}
+                    />
+                );
             case 3:
                 return renderConfirmation();
             default:

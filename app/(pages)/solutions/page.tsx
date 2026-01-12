@@ -12,6 +12,7 @@ import Styles from "./style.module.css";
 import { Col, Container, Row } from "react-bootstrap";
 import Link from "next/link";
 import Image from "next/image";
+import { useScheduleCall } from "@/utils/useLetsConnect";
 import ScheduleCall from "@/components/schedule-a-call/ScheduleCall";
 
 type PageCustomField = {
@@ -58,8 +59,8 @@ export default function Page() {
     const [cmsdata, setCmsData] = useState<ResponseData | null>(null);
     const [bannerContent, setBannerContent] = useState<BannerData | null>(null);
     const [error, setError] = useState<string | null>(null);
-    const [showScheduleModal, setShowScheduleModal] = useState(false);
-    const [action, setaction] = useState(null);
+
+    const { openScheduleModal} = useScheduleCall();
 
     useEffect(() => {
         const fetchData = async () => {
@@ -137,7 +138,7 @@ export default function Page() {
                                     .trim(),
                             }} />
                             <div className={Styles.btn_wrap}>
-                                <button onClick={() => {setShowScheduleModal(true); setaction('general_schedule_a_call');}} className={`eclick-btn-connect ${Styles.bannerBtn ?? ''}`}>
+                                <button onClick={() => openScheduleModal('general_schedule_a_call')} className={`eclick-btn-connect ${Styles.bannerBtn ?? ''}`}>
                                     <span className={Styles.phoneIcon}>
                                         <Image
                                             src={`${process.env.NEXT_PUBLIC_assetPrefix}/assets/images/phone.webp`}
@@ -241,7 +242,7 @@ export default function Page() {
                 </div>
             </Container>
         </div>
-        <ScheduleCall show={showScheduleModal} action={action} onHide={() => setShowScheduleModal(false)} services={data?.map(cat => cat.service_category_title)} />
+        
         </>
     )
 }

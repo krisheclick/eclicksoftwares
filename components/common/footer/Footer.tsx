@@ -7,8 +7,13 @@ import { useEffect, useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowUp } from '@fortawesome/free-solid-svg-icons';
 import Area from './Area';
+import { useLetsConnect, useScheduleCall } from '@/utils/useLetsConnect';
+import ScheduleCall from '@/components/schedule-a-call/ScheduleCall';
+import LetsConnectModal from '@/components/schedule-a-call/LetsConnetModal';
 const Footer = () => {
     const [visible, setVisible] = useState(false);
+    const {showScheduleModal, setShowScheduleModal, clickFrom } = useScheduleCall();
+    const {showLetsConnectModal, setShowLetsConnectModal } = useLetsConnect();
 
     useEffect(() => {
         const handleScroll = () => {
@@ -261,6 +266,8 @@ const Footer = () => {
             >
                 <FontAwesomeIcon icon={faArrowUp} />
             </span>
+            <ScheduleCall show={showScheduleModal} action={clickFrom} onHide={() => setShowScheduleModal(false)}/>
+            <LetsConnectModal show={showLetsConnectModal} action={clickFrom} onHide={() => setShowLetsConnectModal(false)}/>
         </>
     )
 }
