@@ -1,13 +1,13 @@
 import { Container } from "react-bootstrap";
 import Styles from "./style.module.css";
 
-interface DataItem {
+interface RepeaterItem {
     title?: string;
     description?: string;
 }
 interface Props {
     hasLoading: boolean;
-    data: DataItem[];
+    data: RepeaterItem[];
 }
 const Content = ({ hasLoading, data }: Props) => {
     return (

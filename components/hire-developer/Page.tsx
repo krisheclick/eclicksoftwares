@@ -61,12 +61,17 @@ interface CounterData {
     "8xix_heading"?: string;
     "8xix_description"?: string;
 }
+type CounterItem = {
+    site_counter_number: number;
+    site_counter_simbol?: string;
+    site_counter_title?: string;
+}
 interface DataItem {
     heading?: string;
     pages_custom_field?: string;
     usp_categorys?: UspItem[];
     page_repeater_data?: unknown;
-    counter_data?: unknown;
+    counter_data?: CounterItem[];
     technologies?: Technology[] | undefined;
     faqs?: FaqItem[];
     recommend_team?: TeamData[];
@@ -112,7 +117,7 @@ const Hiredata = () => {
             try {
                 const customResponse = JSON.parse(data?.pages_custom_field ?? "{}");
                 const response = customResponse.group_name;
-                
+
                 setBanner(response.banner);
                 setTechnologySection(response?.technology);
                 setCounterContent(response?.counter)
@@ -130,17 +135,28 @@ const Hiredata = () => {
 
     if (loading) return <h2 style={{ textAlign: "center" }}>Loading...</h2>;
     if (!data) return null;
-    
-        console.log('response', counterContent)
+
 
     /* ---------- PARSED DATA ---------- */
-    const repeaterData = parseToArray(data.page_repeater_data);
-    const counterData = parseToArray(data.counter_data);
-    const technologies = data.technologies ?? [];
+    const repeaterData: RepeaterItem[] = parseToArray(data.page_repeater_data).map(item => {
+        if (typeof item === "object" && item !== null) {
+            const obj = item as Record<string, unknown>; // safer than any
+            return {
+                title: typeof obj.title === "string" ? obj.title : "",
+                description: typeof obj.description === "string" ? obj.description : ""
+            };
+        }
+        return { title: "", description: "" };
+    });
 
+
+    const counterData: CounterItem[] = Array.isArray(data?.counter_data)
+        ? data.counter_data
+        : parseToArray(data?.counter_data) as CounterItem[];
+
+    const technologies = data.technologies ?? [];
     const faqs = data.faqs ?? [];
 
-    console.log(counterContent);
     return (
         <div className={Styles.papasudipda}>
             <Banner
@@ -210,33 +226,33 @@ const Hiredata = () => {
 
             {
                 counterContent && (
-                <div className={Styles.counter_section}>
-                    <Container>
-                        <div className={`section-content ${Styles.section_content ?? ''}`}>
-                            {!loading ? (
-                                <>
-                                    <div className={`title fw-bold ${Styles.title ?? ''}`}
-                                        dangerouslySetInnerHTML={{ __html: counterContent["8xix_heading"] || '' }}
-                                    />
-                                    <div
-                                        dangerouslySetInnerHTML={{ __html: counterContent["8xix_description"] || '' }}
-                                    />
-                                </>
-                            ) : (
-                                <>
-                                    {counterContent['8xix_heading'] && (
-                                        <div className="skeleton skeletonSmallTitle"></div>
-                                    )}
-                                    <div className={Styles.skeletonTitleWrapper}>
-                                        <div className={`skeleton w-100 mb-2 ${Styles.skeletonTitle}`}></div>
-                                        <div className={`skeleton w-50 ${Styles.skeletonTitle}`}></div>
-                                    </div>
-                                </>
-                            )}
-                        </div>
-                        {/* <Counters hasLoading={loading} counters={counterData} /> */}
-                    </Container>
-                </div>
+                    <div className={Styles.counter_section}>
+                        <Container>
+                            <div className={`section-content w-75 ${Styles.counter_content ?? ''}`}>
+                                {!loading ? (
+                                    <>
+                                        <div className={`title ${Styles.title ?? ''}`}
+                                            dangerouslySetInnerHTML={{ __html: counterContent["8xix_heading"] || '' }}
+                                        />
+                                        <div
+                                            dangerouslySetInnerHTML={{ __html: counterContent["8xix_description"] || '' }}
+                                        />
+                                    </>
+                                ) : (
+                                    <>
+                                        {counterContent['8xix_heading'] && (
+                                            <div className="skeleton skeletonSmallTitle"></div>
+                                        )}
+                                        <div className={Styles.skeletonTitleWrapper}>
+                                            <div className={`skeleton w-100 mb-2 ${Styles.skeletonTitle}`}></div>
+                                            <div className={`skeleton w-50 ${Styles.skeletonTitle}`}></div>
+                                        </div>
+                                    </>
+                                )}
+                            </div>
+                            <Counters hasLoading={loading} counters={counterData} />
+                        </Container>
+                    </div>
 
                 )
             }
