@@ -1,0 +1,32 @@
+.hwdsbox{
+    border-radius: 10px;
+    border: 1px solid #D9D9D9;
+    background: #ffffff;
+    padding: 33px;
+    height: 100%;
+}
+.hwdsbox figure{
+    position: relative;
+    z-index: 1;
+    width: 60px;
+    height: 47px;
+    margin-bottom: 12px;
+}
+.hwdsbox figure img{
+    object-fit: contain;
+}
+.hwdsboxh{
+    font-size: 23px;
+    line-height: 30px;
+    font-weight: 500;
+    text-transform: capitalize;
+    color: #000000;
+    margin-bottom: 17px;
+}
+.hwdsboxp{ 
+    font-weight: 400; 
+    font-size: 17px; 
+    line-height: 30px; 
+    text-transform: capitalize; 
+    margin-bottom: 40px;
+}

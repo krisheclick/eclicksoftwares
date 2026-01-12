@@ -1,0 +1,172 @@
+/**HERO_BANNER_STARTS**/
+.hero {
+    padding: 12px 0px;
+    overflow: hidden;
+}
+.containerr {
+    display: grid;
+    grid-template-columns: 1.1fr 0.9fr;
+    align-items: center;
+    gap: 40px;
+}
+.banner_content{
+    padding-block: 50px 24px
+}
+.banner_heading {
+    display: block;
+    font-size: 80px;
+    line-height: 60px;
+    font-weight: 700;
+    color: #2563eb;
+    text-transform: capitalize;
+}
+.banner_heading span {
+    color: #000000;
+    display: block;
+    font-size: 45px;
+    line-height: 55px;
+    font-weight: 600;
+}
+.bannersubTitle {
+    color: #000000;
+    font-size: 25px;
+    line-height: 32px;
+    font-weight: 400;
+    text-transform: capitalize;
+    margin-bottom: 23px;
+}
+.bannersubTitle ul {
+    list-style: none;
+    padding: 0;
+    margin-bottom: 45px;
+}
+.bannersubTitle li {
+    position: relative;
+    font-size: 20px;
+    line-height: 30px;
+    color: #000000;
+    text-transform: capitalize;
+    margin: 0 0 6px 0;
+    padding: 0 0 0 25px;
+}
+.bannersubTitle li::before {
+    content: "✔";
+    position: absolute;
+    left: 0;
+    top: 0;
+    color: #22c55e;
+    font-weight: 700;
+}
+.banner_rech {
+    font: 600 22px / 1.25 var(--primary-font);
+    color: var(--black-color);
+    text-transform: capitalize;
+    margin-block: 60px 48px;
+}
+.recommend p {
+    font-size: 15px;
+    font-weight: 600;
+    margin-bottom: 16px;
+}
+.recommendCards {
+    display: flex;
+    gap: 18px;
+}
+.card {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    background: #fff;
+    padding: 14px 18px;
+    border-radius: 12px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+    min-width: 220px;
+}
+.card img {
+    border-radius: 50%;
+}
+.card strong {
+    display: block;
+    font-size: 14px;
+    font-weight: 600;
+}
+.card span {
+    font-size: 13px;
+    color: #666;
+}
+.right {
+    position: relative;
+    display: flex;
+    justify-content: center;
+}
+.heroImg {
+    border-radius: 18px;
+    max-width: 100%;
+    height: auto;
+}
+.floatingCard{
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    right: 0;
+    max-width: 170px;
+    border-radius: 10px;
+    background: var(--white-color);
+    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+    padding: 6px 6px 16px;
+    text-align: center;
+    font-size: 14px;
+    color: rgba(86, 86, 86, 1);
+}
+.floatingCard figure{
+    position: relative;
+    padding-top: 60%;
+    margin-bottom: 12px;
+}
+.memberName{
+    font-size: 16px;
+    line-height: 1.1em;
+    color: var(--black-color);
+    margin-bottom: 4px;
+}
+.designation{
+    font-size: 12px;
+    position: relative;
+    display: flex;
+    align-items: start;
+    justify-content: center;
+    gap: 3px;
+    --size: 8px;
+}
+.designation::before{
+    content: '';
+    display: block;    
+    width: var(--size);
+    height: var(--size);
+    background: url(../check-icon.png) no-repeat center;
+    margin-top: 5px;
+}
+.stars {
+    color: #facc15;
+}
+
+/* RESPONSIVE */
+@media (max-width: 1024px) {
+    .containerr {
+        grid-template-columns: 1fr;
+        text-align: center;
+    }
+    .recommendCards {
+        justify-content: center;
+        flex-wrap: wrap;
+    }
+    .right {
+        margin-top: 40px;
+    }
+}
+
+@media (max-width: 600px) {
+    .banner_heading {
+        font-size: 40px;
+    }
+}

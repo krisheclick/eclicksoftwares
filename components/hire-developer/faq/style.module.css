@@ -1,0 +1,74 @@
+/**ACCO-HIRE-DEV-STARTS**/
+.customAccordion {
+  border-radius: 6px;
+  overflow: hidden;
+}
+.accordionItem {
+  border: none;
+  border-bottom: 1px solid #e6e6e6;
+}
+.accordionItem:last-child {
+  border-bottom: none;
+}
+.accHeader {
+  padding: 18px 20px;
+  background: #fff;
+  box-shadow: none;
+}
+.accHeader :global(.accordion-button::after) {
+  display: none;
+}
+.accHeader :global(.accordion-button) {
+  background: transparent;
+  padding: 0;
+  box-shadow: none;
+  display: flex;
+  align-items: center;
+}
+.icon {
+  width: 22px;
+  height: 22px;
+  margin-right: 14px;
+  position: relative;
+  flex-shrink: 0;
+}
+.icon::before,
+.icon::after {
+  content: "";
+  position: absolute;
+  background-color: #1F58CB;
+  transition: all 0.3s ease;
+}
+.icon::before {
+  width: 14px;
+  height: 3px;
+  top: 50%;
+  left: 4px;
+  transform: translateY(-50%);
+}
+.icon::after {
+  width: 3px;
+  height: 14px;
+  left: 50%;
+  top: 4px;
+  transform: translateX(-50%);
+}
+:global(.accordion-button:not(.collapsed)) .icon::after {
+  opacity: 0;
+}
+:global(.accordion-body) {
+  padding: 0 20px 18px 56px;
+  background: #fff;
+}
+.faqhtilte {
+  font-size: 20px;
+  line-height: 30px;
+  font-weight: 600;
+  color: #000000;
+}
+.faqbpara {
+  font-size: 18px;
+  line-height: 30px;
+  color: #000000;
+  font-weight: 400;
+}

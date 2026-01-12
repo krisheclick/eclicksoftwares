@@ -70,6 +70,9 @@
     border-radius: 16px;
     overflow: hidden;
 }
+.poster img{
+    object-position: top;
+}
 .icon{
     position: relative;
     --size: 84px;

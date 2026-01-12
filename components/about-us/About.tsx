@@ -9,10 +9,10 @@ import MissionVission from "./MissionVission";
 import Counters from "@/components/counters/Counters";
 import WhatWeDo from "./WhatWeDo";
 import { Col, Container, Row } from "react-bootstrap";
-import Styles from "./style.module.css";
 import Review_rating from "./Review_rating";
 import WhatsKeep from "./keep/WhatsKeep";
 import Teams from "../meet-team/Teams";
+import Styles from "./style.module.css";
 
 type UspCategory = {
     usp_category_title: string;
@@ -55,12 +55,17 @@ type Technology = {
     icon?: string;
 }
 
-type BannerItem  = {
+type BannerItem = {
     h6xu_image?: string;
     h6xu_title?: string;
     banner?: BannerItem;
 }
 
+type CounterData = {
+    dz44_title?: string;
+    dz44_heading?: string;
+    counter?: CounterData;
+};
 type AboutcomponentData = {
     heading: string;
     page_feature_image: string;
@@ -84,6 +89,7 @@ const Aboutcomponent = () => {
     const [hasLoading, setLoading] = useState(true);
     const [bannerData, setBannerData] = useState<BannerItem | null>(null);
     const [teamData, setTeam] = useState<TeamMember[] | null>(null);
+    const [counterData, setCounterData] = useState<CounterData | null>(null);
 
     const fetchData = async () => {
         setLoading(true);
@@ -111,6 +117,7 @@ const Aboutcomponent = () => {
                     const customResponse = JSON.parse(aboutData?.pages_custom_field ?? "{}");
                     const data = customResponse?.group_name;
                     setBannerData(data?.banner);
+                    setCounterData(data?.counter);
 
                 } catch (err: unknown) {
                     console.error("Error parsing custom field data:", (err as Error).message);
@@ -199,7 +206,34 @@ const Aboutcomponent = () => {
 
             <MissionVission hasLoading={hasLoading} data={customData?.group_name} />
             <CoreServices />
-            <Counters hasLoading={hasLoading} data={customData?.group_name} counters={counters} />
+            <div className={Styles.counter_section}>
+                <Container>
+                    <div className={`section-content ${Styles.section_content ?? ''}`}>
+                        {!hasLoading ? (
+                            <>
+                                {counterData?.dz44_title && (
+                                    <div className="small_title">{counterData.dz44_title}</div>
+                                )}
+
+                                <div className={`title fw-bold ${Styles.title ?? ''}`}
+                                    dangerouslySetInnerHTML={{ __html: counterData?.dz44_heading || '' }}
+                                />
+                            </>
+                        ) : (
+                            <>
+                                {counterData?.dz44_title && (
+                                    <div className="skeleton skeletonSmallTitle"></div>
+                                )}
+                                <div className={Styles.skeletonTitleWrapper}>
+                                    <div className={`skeleton w-100 mb-2 ${Styles.skeletonTitle}`}></div>
+                                    <div className={`skeleton w-50 ${Styles.skeletonTitle}`}></div>
+                                </div>
+                            </>
+                        )}
+                    </div>
+                    <Counters hasLoading={hasLoading} counters={counters} />
+                </Container>
+            </div>
             {aboutData?.usp_categorys?.[0] && (
                 <WhatsKeep
                     hasLoading={hasLoading}

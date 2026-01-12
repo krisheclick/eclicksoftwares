@@ -355,6 +355,9 @@ em{
 	overflow: hidden;
 	box-shadow: 0px 0px 0px 1px var(--primary-color);
 }
+[class*="eclick-btn-"]:has(span:last-child){
+	padding-inline: var(--padding) 0px;
+}
 [class*="eclick-btn-"].radius-btn:has(img, svg) {
 	padding-inline-start: 6px;
 	box-shadow: none;
