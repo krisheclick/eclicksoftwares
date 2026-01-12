@@ -1,23 +1,25 @@
 import { Container } from 'react-bootstrap';
 import Styles from './Styles.module.css'
-type dataType = {
-    pageTitle: string;
-    content: string;
+type DataType = {
+    page_title: string;
+    heading: string;
+    description: string;
 }
 
 type Props = {
-    data?: dataType;
-}
+    data: DataType | null;
+};
+
 const Content = ({ data }: Props) => {
     return (
         <div className={Styles.sectionArea}>
             <Container>
                 <div className={Styles.content}>
-                    {data?.pageTitle && (
-                        <h2 className={`title fw-semibold ${Styles.pageTitle}`}>{data?.pageTitle}</h2>
+                    {data?.heading && (
+                        <h2 className={`title fw-semibold ${Styles.pageTitle}`}>{data?.heading}</h2>
                     )}
                     <div className={`editorText ${Styles.editorText}`}>
-                        <div dangerouslySetInnerHTML={{__html: data?.content ?? ''}} />
+                        <div dangerouslySetInnerHTML={{__html: data?.description ?? ''}} />
                     </div>
                 </div>
             </Container>
