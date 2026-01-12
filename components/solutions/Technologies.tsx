@@ -2,6 +2,7 @@ import Image from 'next/image';
 import { Container } from 'react-bootstrap'
 import Link from 'next/link';
 import Styles from './style.module.css';
+import { useLetsConnect } from '@/utils/useLetsConnect';
 
 
 type Technology = {
@@ -17,6 +18,7 @@ type props = {
 }
 
 const Technologies = ({ isLoading, title, technologies }: props) => {
+  const { openLetsConnectModal} = useLetsConnect();
   return (
     <div className={Styles.sectionArea}>
       <Container>
@@ -57,7 +59,7 @@ const Technologies = ({ isLoading, title, technologies }: props) => {
         </div>
         <div className="btn_center">
           {!isLoading ? (
-            <Link href={`${process.env.NEXT_PUBLIC_ENV_URL}`} className={`eclick-btn-connect lg ${Styles.bannerBtn ?? ''}`}>
+            <Link href={`javascript:void(0);`}  onClick={()=>openLetsConnectModal('general_lets_connect')} className={`eclick-btn-connect lg ${Styles.bannerBtn ?? ''}`}>
               <span className={Styles.phoneIcon}>
                 <Image
                   src={`${process.env.NEXT_PUBLIC_assetPrefix}/assets/images/chat.png`}

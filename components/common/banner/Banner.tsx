@@ -2,6 +2,7 @@ import { Container, Col, Row } from "react-bootstrap";
 import Styles from "./style.module.css";
 import Image from "next/image";
 import Link from "next/link";
+import { useScheduleCall } from "@/utils/useLetsConnect";
 
 type props = {
     isLoading: boolean;
@@ -11,7 +12,7 @@ type props = {
     short_description?: string | null;
 }
 const Banner = ({ isLoading, title, subtitle, image, short_description }: props) => {
-
+    const { openScheduleModal} = useScheduleCall();
     if (isLoading) {
         return (
             <div className={`${Styles.sliderBanner} ${Styles.skeletonBanner}`}>
@@ -80,7 +81,7 @@ const Banner = ({ isLoading, title, subtitle, image, short_description }: props)
                                 }} />
                             </div>
                             <div className={Styles.btn_wrap}>
-                                <Link href={`${process.env.NEXT_PUBLIC_ENV_URL}`} className={`eclick-btn-connect ${Styles.bannerBtn ?? ''}`}>
+                                <Link href={`javascript:void(0);`} onClick={() => openScheduleModal('general_schedule_a_call')} className={`eclick-btn-connect ${Styles.bannerBtn ?? ''}`}>
                                     <span className={Styles.phoneIcon}>
                                         <Image
                                             src={`${process.env.NEXT_PUBLIC_assetPrefix}/assets/images/phone.webp`}

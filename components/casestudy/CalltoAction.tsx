@@ -1,8 +1,12 @@
+"use client"
 import { Container } from "react-bootstrap";
 import Image from "next/image";
 import Styles from "./style.module.css";
 import Link from "next/link";
+import { useScheduleCall } from "@/utils/useLetsConnect";
+
 const CalltoAction = () => {
+    const { openScheduleModal} = useScheduleCall();
     return (
         <div className={Styles.calltoAction}>
             <Container>
@@ -13,7 +17,7 @@ const CalltoAction = () => {
                             <b>Development Assistance!</b>
                         </div>
                     </div>
-                    <Link href="#" className={`eclick-btn-schedule ${Styles.scheduleBtn ?? ''}`}>
+                    <Link href={`javascript:void(0)`} onClick={() => openScheduleModal('general_schedule_a_call')} className={`eclick-btn-schedule ${Styles.scheduleBtn ?? ''}`}>
                         <span>
                             <Image
                                 className="auto-img"
