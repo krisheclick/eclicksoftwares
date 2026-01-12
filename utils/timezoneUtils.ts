@@ -41,3 +41,23 @@ export function getCurrentTime(
 export function formatTimezoneLabel(timeZone: string) {
     return `${timeZone} (${getGMTOffset(timeZone)})`;
 }
+
+export function formatDate(date: Date | string) {
+    const d = new Date(date);
+    return d.toISOString().split("T")[0];
+}
+
+export function formatTime24(time: string) {
+    const match = time.match(/(\d+):(\d+)(am|pm)/i);
+    if (!match) return "";
+
+    const [, h, m, period] = match;
+
+    let hours = parseInt(h, 10);
+    const minutes = m;
+
+    if (period.toLowerCase() === "pm" && hours !== 12) hours += 12;
+    if (period.toLowerCase() === "am" && hours === 12) hours = 0;
+
+    return `${hours.toString().padStart(2, "0")}:${minutes}`;
+}

@@ -8,6 +8,8 @@ import "react-day-picker/dist/style.css";
 import styles from "./DateTimePicker.module.css";
 import { useScheduleCallContext } from "@/context/SchuduleACallContext";
 import TimezoneDropdown from "./TimezoneDropdown";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faArrowRight} from "@fortawesome/free-solid-svg-icons";
 
 const detectedTZ =
     Intl.DateTimeFormat().resolvedOptions().timeZone;
@@ -43,6 +45,7 @@ function generateTimeSlots(
 const availability = generateTimeSlots();
 
 export default function DateTimePicker() {
+    console.log("Render timezone", detectedTZ);
     const router = useRouter();
     const searchParams = useSearchParams();
 
@@ -166,12 +169,11 @@ export default function DateTimePicker() {
                                     >
                                         {slot}
                                     </button>
-
-                                    <button
-                                        className="btn btn-primary w-50"
-                                        onClick={() => setStep(step + 1)}
-                                    >
-                                        Next
+                                    <button className={`eclick-btn-connect ${styles.bannerBtn ?? ''}`} onClick={() => setStep(step + 1)}>
+                                        <span className={styles.phoneIcon}>
+                                            <FontAwesomeIcon icon={faArrowRight }/>
+                                        </span>
+                                        <em>Next</em>
                                     </button>
                                 </div>
                             ) : (

@@ -1,17 +1,21 @@
 "use client";
 import { useEffect, useState } from "react";
-import { Button, Card, Col, Form, Modal, Row } from "react-bootstrap";
+import { Alert, Button, Card, Col, Form, Image, Modal, Row } from "react-bootstrap";
 import styles from './ScheduleCall.module.css';
 import { useScheduleCallContext } from "@/context/SchuduleACallContext";
 import DateTimePicker from "./DateTimePicker";
-import { faXmark, faClock, faArrowRight, faArrowLeft, faCalendarAlt, faCheck } from "@fortawesome/free-solid-svg-icons";
+import { faXmark, faClock, faGlobe, faArrowLeft, faCalendarDays,faCheck, faCalendarAlt, faSpinner} from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { set } from "nprogress";
+import { useRouter } from "next/navigation";
+import Select from "react-select";
+import { formatDate, formatTime24 } from "@/utils/timezoneUtils";
+
 
 interface ScheduleCallProps {
     show: boolean;
     onHide: () => void;
     services?: string[];
+    action?: string;
 }
 
 interface FormData {
@@ -26,8 +30,18 @@ interface FormData {
     privacyConsent: boolean;
 }
 
+interface ServiceCategory {
+    service_category_slug: string;
+    service_category_title: string;
+    services: {
+        service_slug: string;
+        service_title: string;
+    }[];
+}
 
-const SchuduleCallModal = ({ show, onHide, services }: ScheduleCallProps) => {
+
+const SchuduleCallModal = ({ show, onHide, services, action }: ScheduleCallProps) => {
+    const router = useRouter();
     const [currentView, setCurrentView] = useState<'calendar' | 'time' | 'details' | 'confirm'>('calendar');
 
     const {
@@ -60,17 +74,9 @@ const SchuduleCallModal = ({ show, onHide, services }: ScheduleCallProps) => {
     const [errors, setErrors] = useState<{[key: string]: string}>({});
     const [statusMessage, setStatusMessage] = useState('');
     const [isSubmit, setIsSubmit] = useState(false);
+    const [serviceCategories, setServiceCategories] = useState<ServiceCategory[]>([]);
 
-    const defaultServices = [
-        'Web Development',
-        'Mobile App Development',
-        'UI/UX Design',
-        'Digital Marketing',
-        'Consulting'
-    ];
-    const serviceOptions = services || defaultServices;
 
-    
     const resetAllFormData = () => {
         setFormData({
             fullName: '',
@@ -123,7 +129,8 @@ const SchuduleCallModal = ({ show, onHide, services }: ScheduleCallProps) => {
 
     const handleDetailsSubmit = () => {
         if (validateDetails()) {
-            setCurrentView('confirm');
+            // setCurrentView('confirm');
+            setStep(3);
         }
     };
 
@@ -134,45 +141,88 @@ const SchuduleCallModal = ({ show, onHide, services }: ScheduleCallProps) => {
 
         setIsSubmit(true);
         setStatusMessage('');
+        const payload = {
+            service: formData.service, // OR map service → ID
+            sc_date: formatDate(selectedDate || new Date()),
+            sc_time: formatTime24(selectedSlot || ''),
+            sc_full_name: formData.fullName,
+            sc_business_email: formData.email,
+            sc_phone_number: formData.phone,
+            sc_message: formData.requirement,
+            sc_flag: action,
+            sc_time_zone: timezone,
+        };
+
+        console.log("payload", payload)
 
         try {
-            // Combine date and time
-            if (selectedDate && selectedSlot) {
-                const [hours, minutes] = selectedSlot.split(':');
-                const dateTime = new Date(selectedDate);
-                dateTime.setHours(parseInt(hours), parseInt(minutes));
-                formData.preferredDateTime = dateTime.toISOString();
-            }
-
-            // Simulate API call
-            await new Promise(resolve => setTimeout(resolve, 1000));
-            setStatusMessage('Thank you! We will get back to you soon.');
-            // Reset form
-            setFormData({
-                fullName: '',
-                email: '',
-                phone: '',
-                company: '',
-                service: '',
-                requirement: '',
-                preferredDateTime: '',
-                skipDateTime: false,
-                privacyConsent: false
+            const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}schedule-a-call`, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify(payload),
             });
-            setErrors({});
-            setCurrentView('calendar');
-            setSelectedDate(undefined);
-            // setSelectedTime(null);
-            // Close modal after success
-            setTimeout(() => {
+
+            const data = await res.json();
+
+            if (!res.ok) {
+                throw new Error(data.message || "Submission failed");
+            }
+            if(data.status !== 'success'){
+                throw new Error(data.msg || "Submission failed");
+            }else{
+                sessionStorage.setItem("schedule_call_success", "true");
+                // Navigate to success page
+                router.push('/schedule-a-call/success');
                 onHide();
-                setStatusMessage('');
-            }, 2000);
-        } catch {
-            setStatusMessage('An error occurred. Please try again.');
+            }
+        } catch (err: any) {
+            setStatusMessage(err.message || "Something went wrong");
         } finally {
             setIsSubmit(false);
         }
+
+        // try {
+        //     // // Combine date and time
+        //     // if (selectedDate && selectedSlot) {
+        //     //     const [hours, minutes] = selectedSlot.split(':');
+        //     //     const dateTime = new Date(selectedDate);
+        //     //     dateTime.setHours(parseInt(hours), parseInt(minutes));
+        //     //     formData.preferredDateTime = dateTime.toISOString();
+        //     // }
+
+
+
+        //     // Simulate API call
+        //     await new Promise(resolve => setTimeout(resolve, 1000));
+        //     setStatusMessage('Thank you! We will get back to you soon.');
+        //     // Reset form
+        //     setFormData({
+        //         fullName: '',
+        //         email: '',
+        //         phone: '',
+        //         company: '',
+        //         service: '',
+        //         requirement: '',
+        //         preferredDateTime: '',
+        //         skipDateTime: false,
+        //         privacyConsent: false
+        //     });
+        //     setErrors({});
+        //     setCurrentView('calendar');
+        //     setSelectedDate(undefined);
+        //     // setSelectedTime(null);
+        //     // Close modal after success
+        //     setTimeout(() => {
+        //         onHide();
+        //         setStatusMessage('');
+        //     }, 2000);
+        // } catch {
+        //     setStatusMessage('An error occurred. Please try again.');
+        // } finally {
+        //     setIsSubmit(false);
+        // }
     };
 
     function addMinutesToTime(
@@ -216,6 +266,39 @@ const SchuduleCallModal = ({ show, onHide, services }: ScheduleCallProps) => {
             document.documentElement.style.overflow = "auto"; // cleanup
         };
     }, [show]);
+
+    useEffect(() => {
+        const fetchServiceCategories = async () => {
+            try {
+                const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}category/with-service`);
+                if (response.ok) {
+                    const data = await response.json();
+                    setServiceCategories(data.response_data);
+                }
+            } catch (error) {
+                console.error('Failed to fetch service categories:', error);
+            }
+        };
+        fetchServiceCategories();
+        
+    },[]);
+
+    const getServiceName = (serviceId: string) => {
+        for (const category of serviceCategories) {
+            const service = category.services.find(s => s.service_slug.toString() === serviceId);
+            if (service) return service.service_title;
+        }
+        return serviceId; // fallback to ID if not found
+    };
+    const serviceOptions = serviceCategories.map(category => ({
+        label: category.service_category_title,
+        options: category.services
+            .filter(service => service?.service_slug)
+            .map(service => ({
+                value: service.service_slug,
+                label: service.service_title,
+            })),
+        }));
 
     const renderDetailsForm = () => (
         <div className={styles.detailsView}>
@@ -283,17 +366,44 @@ const SchuduleCallModal = ({ show, onHide, services }: ScheduleCallProps) => {
 
                 <Form.Group className="mb-3">
                     <Form.Label className="fw-bold">What service are you interested in? *</Form.Label>
-                    <Form.Select
+                    {/* <Form.Select
                         name="service"
                         value={formData.service}
                         onChange={handleInputChange}
                         isInvalid={!!errors.service}
-                    >
+                        >
                         <option value="">Select a service...</option>
-                        {serviceOptions.map(service => (
-                            <option key={service} value={service}>{service}</option>
-                        ))}
-                    </Form.Select>
+
+                        {serviceCategories.length > 0 &&
+                            serviceCategories.map(category => (
+                            <optgroup key={category.service_category_slug} label={category.service_category_title}>
+                                {category.services?.map(service => (
+                                <option key={service.service_slug} value={String(service.service_slug)}>
+                                    {service.service_title}
+                                </option>
+                                ))}
+                            </optgroup>
+                            ))}
+                    </Form.Select> */}
+
+                    <Select
+                        options={serviceOptions}
+                        placeholder="Select a service..."
+                        isSearchable
+                        onChange={(selected) =>
+                            setFormData(prev => ({
+                                ...prev,
+                                service: selected?.value || "",
+                            }))
+                        }
+                        value={serviceOptions
+                            .flatMap(group => group.options)
+                            .find(opt => opt.value === formData.service)}
+                        classNamePrefix="react-select"
+                        styles={{
+                            menu: base => ({ ...base, zIndex: 9999 }),
+                        }}
+                        />
                     <Form.Control.Feedback type="invalid">{errors.service}</Form.Control.Feedback>
                 </Form.Group>
 
@@ -327,11 +437,98 @@ const SchuduleCallModal = ({ show, onHide, services }: ScheduleCallProps) => {
             </Form>
 
             <div className="d-flex justify-content-between">
-                <Button onClick={handleDetailsSubmit}>
-                    Continue
-                    <FontAwesomeIcon icon={faArrowRight} className="ms-2" />
-                </Button>
+                <button onClick={handleDetailsSubmit} className={`eclick-btn-connect ${styles.bannerBtn ?? ''}`}>
+                    <span className={styles.phoneIcon}>
+                        <Image
+                            src={`${process.env.NEXT_PUBLIC_assetPrefix}/assets/images/phone.webp`}
+                            alt="Conversation"
+                            width={22} height={21}
+                            loading="lazy"
+                        />
+                    </span>
+                    <em>Schedule a Call</em>
+                </button>
             </div>
+        </div>
+    );
+
+    const renderConfirmation = () => (
+        <div className={styles.confirmView}>
+            <div className="text-center mb-4">
+                <h4 className="mb-2">Confirm Your Appointment</h4>
+                <p className="text-muted">Please review your booking details</p>
+            </div>
+
+            <Card className="mb-4 border-0 shadow-sm">
+                <Card.Body>
+                    <Row>
+                        <Col md={6}>
+                            <h6 className="text-primary mb-3">
+                                <FontAwesomeIcon icon={faCalendarAlt} className="me-2" />
+                                Appointment Details
+                            </h6>
+                            <p className="mb-1"><strong>Date:</strong> {
+                                selectedDate?.toLocaleDateString('en-US', {
+                                    weekday: 'long',
+                                    year: 'numeric',
+                                    month: 'long',
+                                    day: 'numeric'
+                                })
+                            }</p>
+                            <p className="mb-1"><strong>Time:</strong> {selectedSlot}</p>
+                            <p className="mb-1"><strong>Duration:</strong> 30 minutes</p>
+                            <p className="mb-0"><strong>Service:</strong> {getServiceName(formData.service)}</p>
+                        </Col>
+                        <Col md={6}>
+                            <h6 className="text-primary mb-3">
+                                <FontAwesomeIcon icon={faCheck} className="me-2" />
+                                Contact Information
+                            </h6>
+                            <p className="mb-1"><strong>Name:</strong> {formData.fullName}</p>
+                            <p className="mb-1"><strong>Email:</strong> {formData.email}</p>
+                            <p className="mb-1"><strong>Phone:</strong> {formData.phone}</p>
+                            <p className="mb-0"><strong>Company:</strong> {formData.company}</p>
+                        </Col>
+                    </Row>
+                    <hr />
+                    <div>
+                        <h6 className="text-primary mb-2">Project Details</h6>
+                        <p className="mb-0">{formData.requirement}</p>
+                    </div>
+                </Card.Body>
+            </Card>
+
+            <Form onSubmit={handleSubmit}>
+                {statusMessage && (
+                    <Alert variant={statusMessage.includes('error') ? 'danger' : 'success'} className="text-center mb-4">
+                        {statusMessage}
+                    </Alert>
+                )}
+
+                <div className="d-flex justify-content-between">
+                    <Button type="submit" className={`eclick-btn-connect ${styles.bannerBtn ?? ''}`} disabled={isSubmit}>
+                        {
+                            !isSubmit ?
+                            <>
+                                <span className={styles.phoneIcon}>
+                                    <FontAwesomeIcon icon={faCheck} className="ms-2" />
+                                </span>
+                                <em>Confirm & Schedule</em>
+                            </>:<>
+                                <span className={styles.phoneIcon}>
+                                    <FontAwesomeIcon icon={faSpinner} className="ms-2" />
+                                </span>
+                                <em>Scheduling...</em>
+                            </>
+                        }
+                        
+                    </Button>
+                    {/* <Button type="submit" disabled={isSubmit} className="btn-primary">
+                        {isSubmit ? 'Scheduling...' : 'Confirm & Schedule'}
+                        {!isSubmit ?<FontAwesomeIcon icon={faCheck} className="ms-2" />:null}
+                    </Button> */}
+                </div>
+            </Form>
         </div>
     );
 
@@ -341,8 +538,8 @@ const SchuduleCallModal = ({ show, onHide, services }: ScheduleCallProps) => {
                 return <DateTimePicker />;
             case 2:
                 return renderDetailsForm();
-            // case 3:
-            //     return renderConfirmation();
+            case 3:
+                return renderConfirmation();
             default:
                 return <DateTimePicker />;
         }
@@ -357,23 +554,24 @@ const SchuduleCallModal = ({ show, onHide, services }: ScheduleCallProps) => {
                     <Col className={(!visibleTimeField ? "col-6" : "col-4")} style={{ borderRight: '1px solid #eee' }}>
                         {step !=1 && (<Button
                             variant="outline-secondary"
+                            className={styles.backButton}
                             onClick={() => setStep(step - 1)}
                         >
                             <FontAwesomeIcon icon={faArrowLeft} className="me-2" />
-                            Back
                         </Button>)}
-                        <h3 className="mb-1">Schedule a Call With Eclick Softwares Solutions</h3>
+                        <h4 className="mb-1">Schedule a call with Eclick Softwares Solutions</h4>
                         {/* <p className="text-muted mb-0">Getting Started - Eclick Softwares Solutions</p> */}
-                        {
-                            step !== 1 && (
-                                <>
-                                    <p className="text-muted mb-0 pt-2"><FontAwesomeIcon icon={faClock} /> 30 Min</p>
-                                    <p className="text-muted mb-0 pt-2"><FontAwesomeIcon icon={faClock} /> {selectedSlot} - {addMinutesToTime(selectedSlot??'', 30)} {" at "} {selectedDate ? new Date(selectedDate).toDateString() : ""}</p>
-                                    <p className="text-muted mb-0 pt-2"><FontAwesomeIcon icon={faClock} /> {timezone}</p>
-                                </>
-                            )
-                        }
-                        
+                        <div className={styles.scheduleDetails}>
+                            <p className="text-muted mb-0 pt-2"><FontAwesomeIcon icon={faClock} /> 30 Min</p>
+                            {
+                                step !== 1 && (
+                                    <>
+                                        <p className="text-muted mb-0 pt-2"><FontAwesomeIcon icon={faCalendarDays} /> {selectedSlot} - {addMinutesToTime(selectedSlot??'', 30)} {" at "} {selectedDate ? new Date(selectedDate).toDateString() : ""}</p>
+                                        <p className="text-muted mb-0 pt-2"><FontAwesomeIcon icon={faGlobe} /> {timezone}</p>
+                                    </>
+                                )
+                            }
+                        </div>
 
                     </Col>
                     <Col className={(!visibleTimeField ? "col-6" : "col-8")}>
