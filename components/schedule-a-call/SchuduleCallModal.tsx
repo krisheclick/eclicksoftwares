@@ -173,6 +173,7 @@ const SchuduleCallModal = ({ show, onHide, services, action }: ScheduleCallProps
             if(data.status !== 'success'){
                 throw new Error(data.msg || "Submission failed");
             }else{
+                resetAllFormData();
                 sessionStorage.setItem("schedule_call_success", "true");
                 // Navigate to success page
                 router.push('/schedule-a-call/success');
