@@ -130,7 +130,6 @@ export default function DateTimePicker() {
                         onSelect={onDateSelect}
                         captionLayout="label"
                         navLayout="around"
-                        month={month}
                         onMonthChange={setMonth}
                         disabled={disabledDays}
                         showOutsideDays

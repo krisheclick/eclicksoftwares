@@ -161,8 +161,8 @@ const SchuduleCallModal = ({ show, onHide, services }: ScheduleCallProps) => {
             });
             setErrors({});
             setCurrentView('calendar');
-            setSelectedDate(null);
-            setSelectedTime(null);
+            setSelectedDate(undefined);
+            // setSelectedTime(null);
             // Close modal after success
             setTimeout(() => {
                 onHide();
@@ -341,8 +341,8 @@ const SchuduleCallModal = ({ show, onHide, services }: ScheduleCallProps) => {
                 return <DateTimePicker />;
             case 2:
                 return renderDetailsForm();
-            case 3:
-                return renderConfirmation();
+            // case 3:
+            //     return renderConfirmation();
             default:
                 return <DateTimePicker />;
         }
@@ -368,7 +368,7 @@ const SchuduleCallModal = ({ show, onHide, services }: ScheduleCallProps) => {
                             step !== 1 && (
                                 <>
                                     <p className="text-muted mb-0 pt-2"><FontAwesomeIcon icon={faClock} /> 30 Min</p>
-                                    <p className="text-muted mb-0 pt-2"><FontAwesomeIcon icon={faClock} /> {selectedSlot} - {addMinutesToTime(selectedSlot, 30)} {" at "} {selectedDate ? new Date(selectedDate).toDateString() : ""}</p>
+                                    <p className="text-muted mb-0 pt-2"><FontAwesomeIcon icon={faClock} /> {selectedSlot} - {addMinutesToTime(selectedSlot??'', 30)} {" at "} {selectedDate ? new Date(selectedDate).toDateString() : ""}</p>
                                     <p className="text-muted mb-0 pt-2"><FontAwesomeIcon icon={faClock} /> {timezone}</p>
                                 </>
                             )

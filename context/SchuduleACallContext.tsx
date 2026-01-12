@@ -6,7 +6,7 @@ type contextData = {
     setVisibleTimeField:(visibleTimeField: boolean) => void;
     fromLoading: boolean | null;
     setFromLoading: (hasLoading: boolean) => void;
-    step: number | null;
+    step: number | 1;
     setStep: (step: number) => void;
     selectedDate :Date |undefined;
     setSelectedDate: (selectedDate: Date | undefined) => void;
@@ -22,7 +22,7 @@ const detectedTZ =
 export const ScheduleCallProvider = ({children}: {children: ReactNode}) => {
     const [visibleTimeField, setVisibleTimeField] = useState<boolean | null>(false);
     const [fromLoading, setFromLoading] = useState<boolean | null>(null);
-    const [step, setStep] = useState<number | null>(1);
+    const [step, setStep] = useState<number | 1>(1);
     const [selectedDate, setSelectedDate] = useState<Date | undefined>();
     const [selectedSlot, setSelectedSlot] = useState<string | null>(null);
     const [timezone, setTimezone] = useState(detectedTZ);
