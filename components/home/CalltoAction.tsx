@@ -1,7 +1,6 @@
 import { Container } from "react-bootstrap";
 import Image from "next/image";
 import Styles from "./style.module.css";
-import Link from "next/link";
 import { useScheduleCall } from "@/utils/useLetsConnect";
 type CallToAction = {
     tpdc_title?: string;
@@ -27,7 +26,7 @@ const CalltoAction = ({ spaceClass, content, isLoading }: classType) => {
                                         .trim(),
                                 }} />
                             </div>
-                            <Link href={`javascript:void(0)`} onClick={() => openScheduleModal('general_schedule_a_call')} className={`eclick-btn-schedule ${Styles.scheduleBtn ?? ''}`}>
+                            <button type="button" onClick={() => openScheduleModal('general_schedule_a_call')} className={`eclick-btn-schedule ${Styles.scheduleBtn ?? ''}`}>
                                 <span>
                                     <Image
                                         className="auto-img"
@@ -38,7 +37,7 @@ const CalltoAction = ({ spaceClass, content, isLoading }: classType) => {
                                     />
                                 </span>
                                 <em>Schedule a Call</em>
-                            </Link>
+                            </button>
                         </>
                     ) : (
                         <>

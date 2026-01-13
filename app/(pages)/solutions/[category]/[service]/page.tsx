@@ -98,10 +98,47 @@ type Service = {
     projects: Project[];
     usp: Usp[] | undefined;
 }
+interface WhoWeAreData {
+    name?: string;
+    q2jf_title?: string;
+    q2jf_short_description?: string;
+}
+
+interface WhatWeDoData {
+    name?: string;
+    oitk_title?: string;
+    oitk_heading?: string;
+}
+
+interface CounterItem {
+    site_counter_number: number;
+    site_counter_simbol?: string;
+    site_counter_title?: string;
+    site_counter_icon?: string;
+}
+interface DataItem {
+    "who-we-are"?: WhoWeAreData;
+    "what-we-do"?: WhatWeDoData;
+    counter_data?: CounterItem[];
+    pages_custom_field?: DataItem;
+}
+
+const parseToArray = (value: unknown): unknown[] => {
+    try {
+        if (value == null) return [];
+
+        const parsed = typeof value === "string" ? JSON.parse(value) : value;
+        return Array.isArray(parsed) ? parsed : [parsed];
+
+    } catch {
+        return [];
+    }
+};
 export default function Page({ params }: { params: Promise<{ category: string, service: string }> }) {
     const [isLoading, setLoading] = useState(true);
     const [data, setData] = useState<Service | null>(null);
     const [error, setError] = useState<string | null>(null);
+    const [commonData, setCommonData] = useState<DataItem | null | undefined>(null);
     const { setHeaderExtraClass } = useThemeContext();
     useEffect(() => {
         // Apply the header class ONLY for this page
@@ -137,13 +174,36 @@ export default function Page({ params }: { params: Promise<{ category: string, s
             }
         };
 
+        const fetchDetails = async () => {
+            try {
+                const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/page/service-details`);
+                const { response_data } = await response.json();
+                setCommonData(response_data);
+            } catch (err: unknown) {
+                console.log('Common Data is something wrong: ', (err as Error).message)
+            }
+        }
+
         fetchData();
+        fetchDetails();
     }, [params]);
 
     if (error) {
         return <div>{error}</div>;
     }
 
+    const pageCustomField = commonData?.pages_custom_field
+        ? JSON.parse(commonData.pages_custom_field as string)
+        : null;
+
+    const groupName = pageCustomField?.group_name;
+
+
+    const counterData: CounterItem[] = Array.isArray(commonData?.counter_data)
+        ? commonData.counter_data
+        : parseToArray(commonData?.counter_data) as CounterItem[];
+
+    console.log('data', data)
     return (
         <div>
             <Banner isLoading={isLoading} title={data?.service_title} subtitle={data?.service_sub_title} image={data?.service_banner_image_path} short_description={data?.service_short_description} />
@@ -239,14 +299,16 @@ export default function Page({ params }: { params: Promise<{ category: string, s
             {/* <Portfolio isLoading={isLoading} title={data?.heading_portfolio ?? ''} projects={data?.projects} /> */}
             <Technologies isLoading={isLoading} title={data?.heading_technology ?? ''} technologies={data?.technologies ?? []} />
             <Trustownership isLoading={isLoading} {...(data?.service_cta ?? { cta_title: '', cta_description: '', cta_image: '' })} />
-            {data?.wcp && data.wcp.length > 0 && <WhatWeDo isLoading={isLoading} services={data.wcp} />}
+            {data?.wcp && data.wcp.length > 0 && <WhatWeDo isLoading={isLoading} data={groupName["what-we-do"]} services={data.wcp} />}
             <CalltoAction spaceClass='callToAction' content={{ 'tpdc_title': data?.service_tagline }} isLoading={isLoading} />
             <Process
                 isLoading={isLoading}
                 process_title={data?.heading_process_step ?? ''}
                 process_steps={data?.process_steps ?? []}
             />
-            <WhoWeAre />
+            {groupName && (
+                <WhoWeAre data={groupName["who-we-are"]} counterData={counterData} />
+            )}
             <Clients classValue="fullBox" />
         </div>
     );

@@ -1,6 +1,5 @@
 import { Col, Container, Row } from 'react-bootstrap';
 import Styles from './style.module.css';
-import Link from 'next/link';
 import Image from 'next/image';
 import { useScheduleCall } from '@/utils/useLetsConnect';
 
@@ -34,7 +33,7 @@ const Trustownership = ({ isLoading, cta_title, cta_description, cta_image }: Se
                                                 .trim(),
                                         }} />
                                         <div className="btn_left">
-                                            <Link href={`javascript:void(0)`} onClick={() => openScheduleModal('general_schedule_a_call')} className={`eclick-btn-connect ${Styles.bannerBtn ?? ''}`}>
+                                            <button type="button" onClick={() => openScheduleModal('general_schedule_a_call')} className={`eclick-btn-connect ${Styles.bannerBtn ?? ''}`}>
                                                 <span className={Styles.phoneIcon}>
                                                     <Image
                                                         src={`${process.env.NEXT_PUBLIC_assetPrefix}/assets/images/phone.webp`}
@@ -44,7 +43,7 @@ const Trustownership = ({ isLoading, cta_title, cta_description, cta_image }: Se
                                                     />
                                                 </span>
                                                 <em>Schedule a Call</em>
-                                            </Link>
+                                            </button>
                                         </div>
                                     </>
                                 ) : (

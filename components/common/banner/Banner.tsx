@@ -1,7 +1,6 @@
 import { Container, Col, Row } from "react-bootstrap";
 import Styles from "./style.module.css";
 import Image from "next/image";
-import Link from "next/link";
 import { useScheduleCall } from "@/utils/useLetsConnect";
 
 type props = {
@@ -81,7 +80,7 @@ const Banner = ({ isLoading, title, subtitle, image, short_description }: props)
                                 }} />
                             </div>
                             <div className={Styles.btn_wrap}>
-                                <Link href={`javascript:void(0);`} onClick={() => openScheduleModal('general_schedule_a_call')} className={`eclick-btn-connect ${Styles.bannerBtn ?? ''}`}>
+                                <button type="button" onClick={() => openScheduleModal('general_schedule_a_call')} className={`eclick-btn-connect ${Styles.bannerBtn ?? ''}`}>
                                     <span className={Styles.phoneIcon}>
                                         <Image
                                             src={`${process.env.NEXT_PUBLIC_assetPrefix}/assets/images/phone.webp`}
@@ -91,7 +90,7 @@ const Banner = ({ isLoading, title, subtitle, image, short_description }: props)
                                         />
                                     </span>
                                     <em>Schedule a Call</em>
-                                </Link>
+                                </button>
                             </div>
                         </div>
                     </Col>

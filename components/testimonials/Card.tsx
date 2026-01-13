@@ -10,6 +10,9 @@ import Styles from './style.module.css';
 type Client = {
     client_logo?: string;
     client_name?: string;
+    industry?: {
+        industry_title?: string;
+    }
 }
 type TestimonialData = {
     testimonial_title?: string;
@@ -67,9 +70,10 @@ const Card = ({ cardData }: CardProps) => {
     return (
         <>
             {cardData?.map((userValue, useIndex) => {
-                const { testimonial_title, testimonial_designation, testimonial_author_name, testimonial_description, testimonial_feature_image, testimonial_type, testimonial_video_poster_image, testimonial_video, client, testimonial_industry } = userValue;
+                const { testimonial_title, testimonial_designation, testimonial_author_name, testimonial_description, testimonial_feature_image, testimonial_type, testimonial_video_poster_image, testimonial_video, client } = userValue;
 
                 const videoFunction = testimonial_type === 'video';
+                const testimonial_industry = client?.industry?.industry_title;
                 return (
                     <Col lg={4} key={useIndex}>
                         <div className={Styles.card}>
