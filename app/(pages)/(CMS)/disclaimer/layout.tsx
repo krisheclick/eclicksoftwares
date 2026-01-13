@@ -1,21 +1,9 @@
-import { BlogProvider } from "@/context/Blogcontext";
 import seoData from "@/data/seo.json";
 import { Metadata } from "next";
+export const dynamic = 'force-dynamic';
 
-type Props = {
-  params: {
-    slug: [] | string;
-  };
-};
-
-export async function generateMetadata({ params }: Props): Promise<Metadata> {
-    const {slug} = await params;
-    let api = `${process.env.NEXT_PUBLIC_API_URL}page/blog/seo`;
-    if(slug && slug.length > 0){
-        const lastSlug = slug.at(-1) ?? null;
-        api = `${process.env.NEXT_PUBLIC_API_URL}blog/${lastSlug}/seo`;
-    }
-    const res = await fetch(api, {
+export async function generateMetadata(): Promise<Metadata> {
+    const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/page/privacy-policy/seo`, {
         cache: "no-store", // or 'force-cache' for static
     });
     if (!res.ok) {
@@ -23,7 +11,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     }
 
     const {response_data:seo} = await res.json();
-    console.log('seo', seo)
+
     const description = seo.meta_descriptions
     ?.replace(/<[^>]*>?/gm, "")
     .trim();
@@ -74,11 +62,14 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     };
 }
 
-
-export default function BlogLayout({ children }: { children: React.ReactNode }) {
+export default async function HomeLayout({
+  children,
+}: Readonly<{
+  children: React.ReactNode;
+}>) {
     return (
-        <BlogProvider>
+        <>
             {children}
-        </BlogProvider>
+        </>
     )
 }
