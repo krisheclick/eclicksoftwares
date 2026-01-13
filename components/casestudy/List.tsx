@@ -1,129 +1,114 @@
 "use client";
+
 import { Col, Container, Row } from "react-bootstrap";
 import Styles from "./style.module.css";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import Card from "./card/Card";
 import Cardskeleton from "./card/Cardskeleton";
 
-type CasestudyList = {
+type GroupItem = {
+    project_group_title: string;
+    project_group_slug: string;
+    project_group_layout: number;
+};
+
+type CaseStudyItem = {
     proj_feature_image_path?: string;
-    proj_responsive_image_1_path?: string;
-    proj_responsive_image_2_path?: string;
     proj_name?: string;
     proj_slug?: string;
     proj_short_desc?: string;
-    proj_tools_used?: string;
 };
+
+interface CaseStudyData {
+    projectGroup?: {
+        Projects?: CaseStudyItem[];
+    }
+}
+
 const CasestudyList = () => {
     const [hasLoading, setLoading] = useState(true);
-    const [data, setData] = useState<CasestudyList[]>([]);
-    const [tabActive, setActiveTab] = useState<'videos' | 'written'>('videos');
+    const [groups, setGroups] = useState<GroupItem[]>([]);
+    const [activeGroup, setActiveGroup] = useState<string>("");
+    const [data, setData] = useState<CaseStudyData | null>(null);
 
-    // const [page, setPage] = useState(1);
-    // const [hasMore, setHasMore] = useState(true);
-    // const [hasNext, setHasNext] = useState(false);
-    // const loaderRef = useRef<HTMLDivElement | null>(null);
+    const apiResponse = `${process.env.NEXT_PUBLIC_API_URL}projects/group`;
 
-    const fetchAPI = async (pageNumber: number) => {
-        const postPerpage = 10;
+    const fetchGroups = useCallback( async () => {
         try {
-            const response = await fetch(
-                `${process.env.NEXT_PUBLIC_API_URL}project?limit=${postPerpage}&page=${pageNumber}`
-            );
+            const response = await fetch(apiResponse);
             const { response_data } = await response.json();
+            const groupList = response_data?.AllGroupByCaseStudy || [];
+            setGroups(groupList);
 
-            if (pageNumber === 1) {
-                setData(response_data?.data || []);
-            } else {
-                setData((prev) => [...prev, ...(response_data?.data || [])]);
+            // set first group as default
+            if (groupList.length > 0) {
+                setActiveGroup(groupList[0].project_group_slug);
             }
-
-            // setHasNext(response_data?.pagination?.has_next);
         } catch (err: unknown) {
-            console.log("Case Study API error:", (err as Error).message);
+            console.error("Group list API error:", (err as Error).message);
+        }
+    }, [apiResponse]);
+
+    const fetchGroupProjects = useCallback(async (groupSlug: string) => {
+        if (!groupSlug) return;
+
+        setLoading(true);
+        try {
+            const response = await fetch(`${apiResponse}/${groupSlug}`);
+            const { response_data } = await response.json();
+            setData(response_data || []);
+        } catch (err: unknown) {
+            console.error("Group project API error:", (err as Error).message);
         } finally {
             setLoading(false);
         }
-    };
+    }, [apiResponse]);
 
     useEffect(() => {
-        fetchAPI(1);
-    }, []);
+        fetchGroups();
+    }, [fetchGroups]);
 
-    // useEffect(() => {
-    //     if (!loaderRef.current) return;
+    useEffect(() => {
+        fetchGroupProjects(activeGroup);
+    }, [activeGroup, fetchGroupProjects]);
 
-    //     const observer = new IntersectionObserver(
-    //         (entries) => {
-    //             const target = entries[0];
-    //             if (target.isIntersecting && hasNext && !hasLoading) {
-    //                 const nextPage = page + 1;
-    //                 setPage(nextPage);
-    //                 setLoading(true);
-
-    //                 setTimeout(() => {
-    //                     fetchAPI(nextPage);
-    //                 }, 2000);
-    //             }
-    //         },
-    //         { root: null, rootMargin: "0px", threshold: 1.0 }
-    //     );
-
-    //     observer.observe(loaderRef.current);
-
-    //     return () => {
-    //         if (loaderRef.current) observer.unobserve(loaderRef.current);
-    //     };
-    // }, [hasNext, hasLoading, page]);
-
-
-
-    // const filteredData = data.filter(item => {
-    //     if (tabActive === 'videos') {
-    //         return item.testimonial_type === 'video';
-    //     }
-    //     return item.testimonial_type !== 'video';
-    // });
+    const projects = data?.projectGroup?.Projects;
 
     return (
-        <div className={`sectionArea ${Styles.casestudies_section ?? ''}`}>
+        <div className={`sectionArea ${Styles.casestudies_section}`}>
             <Container>
                 <div className={Styles.tabList}>
-                    {!hasLoading ? (
-                        <ul className="noList">
+                    <ul className="noList">
+                        {groups.map((value) => (
                             <li
-                                className={`${Styles.tabItem} ${data ? Styles.active : ''}`}
+                                key={value.project_group_slug}
+                                className={`${Styles.tabItem} ${activeGroup === value.project_group_slug ? Styles.active : ""
+                                    }`}
+                                onClick={() => setActiveGroup(value.project_group_slug)}
                             >
-                                Website Design
+                                {value.project_group_title}
                             </li>
-                            <li
-                                className={`${Styles.tabItem}`}
-                            >
-                                Digital Marketing
-                            </li>
-                        </ul>
-                    ) : (
-                        <p></p>
-                    )}
+                        ))}
+                    </ul>
                 </div>
+
+                {/* Cards */}
                 <div className={Styles.caseList}>
                     <Row className="rowGap">
                         {!hasLoading ? (
-                            data?.map((value, index) => {
-                                return (
-                                    <Col lg={6} key={index}>
-                                        <Card
-                                            poster={value?.proj_feature_image_path}
-                                            slug={value?.proj_slug}
-                                            title={value?.proj_name}
-                                            projectName={value?.proj_name}
-                                            proj_short_desc={value?.proj_short_desc}
-                                        />
-                                    </Col>
-                                )
-                            })
+                            projects?.map((item, index) => (
+                                <Col lg={6} key={index}>
+                                    <Card
+                                        poster={item.proj_feature_image_path}
+                                        slug={item.proj_slug}
+                                        title={item.proj_name}
+                                        projectName={item.proj_name}
+                                        proj_short_desc={item.proj_short_desc}
+                                    />
+                                </Col>
+                            ))
                         ) : (
-                            [...Array(8)].map((_, index) => (
+                            [...Array(6)].map((_, index) => (
                                 <Cardskeleton key={index} />
                             ))
                         )}
@@ -131,7 +116,7 @@ const CasestudyList = () => {
                 </div>
             </Container>
         </div>
-    )
-}
+    );
+};
 
 export default CasestudyList;

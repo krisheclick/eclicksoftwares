@@ -294,8 +294,8 @@ const Form = () => {
                     <button type="submit" className={`eclick-btn-submit ${Styles.submitBtn}`} disabled={isSubmit}>
                         <span>
                             <FontAwesomeIcon icon={faArrowRight} />
-                        </span>{" "}
-                        Send Message
+                        </span>
+                        <em>Send Message</em>
                     </button>
                 </div>
             </form>

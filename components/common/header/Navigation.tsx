@@ -33,13 +33,14 @@ const menuMaps = {
       },
       {
          title: "Solutions",
-         slug: "/solutions",
+         slug: "#",
          megaMenu: {
             tabs: [
                {
                   title: "AI Automations",
                   icon: "/assets/images/navigation/ms.png",
-                  slug: "ai-automations",
+                  slug: "#",
+                  // slug: "ai-automations",
                   submenu: [
                      { title: "Gen AI & Agentic AI", slug: "/solutions/ai-automations/gen-ai-agentic-ai" },
                      { title: "AI Chatbots", slug: "/solutions/ai-automations/ai-chatbots" },
@@ -51,7 +52,8 @@ const menuMaps = {
                {
                   title: "Web Design & Development",
                   icon: "/assets/images/navigation/wdd.png",
-                  slug: "web-design-development",
+                  slug: "#",
+                  // slug: "web-design-development",
                   submenu: [
                      { title: "Custom Web Design", slug: "/solutions/web-design-development/custom-web-design" },
                      { title: "UI/UX & Prototyping", slug: "/solutions/web-design-development/ui-ux-prototyping" },
@@ -69,7 +71,8 @@ const menuMaps = {
                {
                   title: "Mobile App Solutions",
                   icon: "/assets/images/navigation/mad.png",
-                  slug: "mobile-app-solutions",
+                  slug: "#",
+                  // slug: "mobile-app-solutions",
                   submenu: [
                      { title: "Android App Development", slug: "/solutions/mobile-app-solutions/android-app-development" },
                      { title: "iOS App Development", slug: "/solutions/mobile-app-solutions/ios-app-development" },
@@ -81,7 +84,8 @@ const menuMaps = {
                {
                   title: "Creative & Graphic Design",
                   icon: "/assets/images/navigation/gd.png",
-                  slug: "graphics-design",
+                  slug: "#",
+                  // slug: "graphics-design",
                   submenu: [
                      { title: "Branding & Visual Identity", slug: "/solutions/graphics-design/branding-visual-identity" },
                      { title: "Marketing Creatives", slug: "/solutions/graphics-design/marketing-creatives" },
@@ -96,7 +100,8 @@ const menuMaps = {
                {
                   title: "Digital Marketing & Growth",
                   icon: "/assets/images/navigation/dm.png",
-                  slug: "digital-marketing-growth",
+                  slug: "#",
+                  // slug: "digital-marketing-growth",
                   submenu: [
                      { title: "Search Engine Optimization", slug: "/solutions/digital-marketing-growth/search-engine-optimization" },
                      { title: "Paid Marketing", slug: "/solutions/digital-marketing-growth/paid-marketing" },
@@ -114,7 +119,8 @@ const menuMaps = {
                {
                   title: "Managed Services & Support",
                   icon: "/assets/images/navigation/ms.png",
-                  slug: "managed-services-support",
+                  slug: "#",
+                  // slug: "managed-services-support",
                   submenu: [
                      { title: "Application Support & Maintenance", slug: "/solutions/managed-services-support/application-support-maintenance" },
                      { title: "Domain & Hosting Management", slug: "/solutions/managed-services-support/domain-hosting-management" },
@@ -332,7 +338,7 @@ function MegaMenuComponent({ megaMenu, activeTab, setActiveTab, megaMenuActive}:
                   <ul className={Styles.tabSubmenu}>
                      {tabs.map((tab, index) => (
                         <li
-                           key={tab.slug}
+                           key={index}
                            onMouseEnter={() => setActiveTab(index)}
                            className={`${Styles.navItem} ${index === activeTab ? Styles.activeMenu : ""}`}
                         >
@@ -351,8 +357,8 @@ function MegaMenuComponent({ megaMenu, activeTab, setActiveTab, megaMenuActive}:
                <Col lg={8} xl={9}>
                   <div className={Styles.submenuLayout}>
                      <ul className={Styles.submenu}>
-                        {current.submenu.map((sub) => (
-                           <li key={sub.slug} className={Styles.navItem}>
+                        {current.submenu.map((sub, index) => (
+                           <li key={index} className={Styles.navItem}>
                               <Link href={`${process.env.NEXT_PUBLIC_ENV_URL || ""}${sub.slug}`} className={Styles.navLink}>
                                  <FontAwesomeIcon icon={faAngleRight} />
                                  <span>{sub.title}</span>
