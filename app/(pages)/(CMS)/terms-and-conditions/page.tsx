@@ -20,7 +20,7 @@ const Page = () => {
 
     const fetchData = async () => {
         try {
-            const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/page/terms-and-condition`);
+            const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/page/terms-and-conditions`);
             const { response_data } = await response.json();
             setData(response_data);
         } catch (err: unknown) {
