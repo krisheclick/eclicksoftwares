@@ -24,6 +24,11 @@ interface PaymentFormData {
     newsletterCheck: boolean;
 }
 
+interface ServiceCategory {
+    service_category_slug: string;
+    service_category_title: string;
+}
+
 const PaymentForm = () => {
     const [formData, setFormData] = useState<PaymentFormData>({
         name: '',
@@ -39,7 +44,7 @@ const PaymentForm = () => {
         newsletterCheck: false
     });
     const [showPaymentModal, setShowPaymentModal] = useState(false);
-
+    const [serviceCategories, setServiceCategories] = useState<ServiceCategory[]>([]);
     const [errors, setErrors] = useState<{[key: string]: string}>({});
     const [statusMessage, setStatusMessage] = useState('');
     const [isSubmit, setIsSubmit] = useState(false);
@@ -160,6 +165,22 @@ const PaymentForm = () => {
         }
     }, [formData.phone_number, phoneInput]);
 
+    useEffect(() => {
+        const fetchServiceCategories = async () => {
+            try {
+                const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}category/with-service`);
+                if (response.ok) {
+                    const data = await response.json();
+                    setServiceCategories(data.response_data);
+                }
+            } catch (error) {
+                console.error('Failed to fetch service categories:', error);
+            }
+        };
+        fetchServiceCategories();
+        
+    },[]);
+
     const validateForm = () => {
         const newErrors: {[key: string]: string} = {};
 
@@ -270,22 +291,17 @@ const PaymentForm = () => {
                     <div className={`d-none d-xl-block ${Styles.formItem}`}>
                         <label htmlFor="paymentFor">Payment For</label>
                         <div className={`${Styles.inquiryOption} ${errors.paymentFor ? "is-invalid" : ""}`}>
-                            {[
-                                "Web",
-                                "Digital Marketing",
-                                "Maintenance",
-                                "Mobile App",
-                            ].map((label) => (
-                                <label key={label} htmlFor={label.toLowerCase().replace(/[^a-z]/g, "_")}>
+                            {serviceCategories.map((category) => (
+                                <label key={category.service_category_slug} htmlFor={category.service_category_slug}>
                                     <input
                                         type="radio"
                                         name="paymentFor"
-                                        id={label.toLowerCase().replace(/[^a-z]/g, "_")}
-                                        value={label}
-                                        checked={formData.paymentFor === label}
+                                        id={category.service_category_slug}
+                                        value={category.service_category_slug}
+                                        checked={formData.paymentFor === category.service_category_slug}
                                         onChange={(e) => setFormData({...formData, paymentFor: e.target.value})}
                                     />
-                                    <em>{label}</em>
+                                    <em>{category.service_category_title}</em>
                                 </label>
                             ))}
                             {errors.paymentFor && <div className="invalid-feedback d-block">{errors.paymentFor}</div>}

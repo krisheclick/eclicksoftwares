@@ -1,5 +1,5 @@
 "use client";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowRight } from "@fortawesome/free-solid-svg-icons";
@@ -8,6 +8,7 @@ import { Alert } from "react-bootstrap";
 
 interface FormData {
     name: string;
+    service: string;
     email: string;
     phone_number: string;
     budget: string;
@@ -15,18 +16,22 @@ interface FormData {
     policyCheck: boolean;
     newsletterCheck: boolean;
 }
-
+interface ServiceCategory {
+    service_category_slug: string;
+    service_category_title: string;
+}
 const Form = () => {
     const [formData, setFormData] = useState<FormData>({
         name: '',
+        service: '',
         email: '',
         phone_number: '',
         budget: '',
         message: '',
         policyCheck: false,
         newsletterCheck: false
-    });
-
+    });    
+    const [serviceCategories, setServiceCategories] = useState<ServiceCategory[]>([]);
     const [errors, setErrors] = useState<{[key: string] : string}>({});
     const [statusMessage, setStatusMessage] = useState('');
     const [isSubmit, setIsSubmit] = useState(false);
@@ -72,7 +77,7 @@ const Form = () => {
     }
 
     const handleChange = (
-        e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+        e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>
     ) => {
         const target = e.target;
         const { id, value } = target;
@@ -128,48 +133,50 @@ const Form = () => {
             setIsSubmit(false);
         }
     };
+    
+    useEffect(() => {
+        const fetchServiceCategories = async () => {
+            try {
+                const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}category/with-service`);
+                if (response.ok) {
+                    const data = await response.json();
+                    setServiceCategories(data.response_data);
+                }
+            } catch (error) {
+                console.error('Failed to fetch service categories:', error);
+            }
+        };
+        fetchServiceCategories();
+        
+    },[]);
 
     return (
         <div className={Styles.contactForm}>
             <form method="post" onSubmit={handleSubmit}>
                 <div className={`d-none d-xl-block ${Styles.formItem}`}>
                     <div className={Styles.inquiryOption}>
-                        {[
-                            "Talent Hiring",
-                            "Enterprise Solutions",
-                            "Creative Design",
-                            "Careers",
-                            "Partners & Investors",
-                            "Design & Development",
-                            "App Development",
-                            "Digital Marketing",
-                            "Branding",
-                            "Others",
-                        ].map((label) => (
-                            <label key={label} htmlFor={label.toLowerCase().replace(/[^a-z]/g, "_")}>
+                        {serviceCategories.map((category) => (
+                            <label key={category.service_category_slug} htmlFor={category.service_category_slug}>
                                 <input
                                     type="radio"
                                     name="inquiryOption"
-                                    id={label.toLowerCase().replace(/[^a-z]/g, "_")}
+                                    id={category.service_category_slug}
+                                    checked={formData.service === category.service_category_slug}
+                                    onChange={(e) => setFormData({...formData, service: e.target.value})}
+                                    value={category.service_category_slug}
                                 />
-                                <em>{label}</em>
+                                <em>{category.service_category_title}</em>
                             </label>
                         ))}
                     </div>
                 </div>
 
                 <div className={`d-xl-none ${Styles.service}`}>
-                    <select name="service" id="service3" className="form-control">
+                    <select name="service" id="service3" className="form-control" onChange={(e) => setFormData({...formData, service: e.target.value})}>
                         <option value="">Select Service</option>
-                        <option value="Design & Development">Design & Development</option>
-                        <option value="App Development">App Development</option>
-                        <option value="Digital Marketing">Digital Marketing</option>
-                        <option value="Talent Hiring">Talent Hiring</option>
-                        <option value="Enterprise Solutions">Enterprise Solutions</option>
-                        <option value="Creative Design">Creative Design</option>
-                        <option value="Careers">Careers</option>
-                        <option value="Partners & Investors">Partners & Investors</option>
-                        <option value="Others">Others</option>
+                        {serviceCategories.map((category) => (
+                            <option key={category.service_category_slug} value={category.service_category_slug} selected={formData.service === category.service_category_slug}>{category.service_category_title}</option>
+                        ))}
                     </select>
                 </div>
 
