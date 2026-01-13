@@ -1,5 +1,67 @@
 import Banner from "@/components/cms/Banner"
 import Content from "@/components/cms/Content"
+import seoData from "@/data/seo.json";
+import { Metadata } from "next";
+
+export async function generateMetadata(): Promise<Metadata> {
+    const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/page/cookie-policy/seo`, {
+        cache: "no-store", // or 'force-cache' for static
+    });
+    if (!res.ok) {
+        return seoData;
+    }
+
+    const {response_data:seo} = await res.json();
+
+    const description = seo.meta_descriptions
+    ?.replace(/<[^>]*>?/gm, "")
+    .trim();
+
+    const ogImageUrl = `${process.env.NEXT_PUBLIC_MEDIA_URL}${seo.og_image_path}`;
+    const robots = (seo.meta_robots || "").toLowerCase();
+
+    return {
+        title: seo.meta_title || seoData.title,
+        description: description || seoData.description,
+        keywords: seo.meta_keywords.split(',') || [],
+        robots: {
+            index: !robots.includes("noindex"),
+            follow: !robots.includes("nofollow"),
+        },
+        openGraph: {
+            type: "website",
+            locale: seoData.openGraph.locale,
+            siteName: seoData.openGraph.siteName,
+            url: seoData.openGraph.url,
+            title: seo.meta_title,
+            description: description,
+            images: [
+                {
+                    url: ogImageUrl,
+                    width: seo.og_image_width || 1200,
+                    height: seo.og_image_height || 630,
+                    alt: seoData.openGraph.siteName
+                }
+            ]
+        },
+        twitter: {
+            card: "summary_large_image",
+            title: seo.meta_title,
+            description: description,
+            images: [
+                {
+                    url: ogImageUrl,
+                    width: seo.og_image_width || 1200,
+                    height: seo.og_image_height || 630,
+                    alt: seoData.openGraph.siteName
+                }
+            ]
+        },
+        alternates: {
+            canonical: seoData.openGraph.url,
+        },
+    };
+}
 
 const content = {
     bannerTitle: 'Cookie Policy Technology Partner',
@@ -8,6 +70,7 @@ const content = {
     heading: 'Cookie Policy',
     description: `<p><strong>Cookie Policy</strong></p> <p>In all possibilities, your website will be configured towards accepting cookies, and so we might collect the non-personally identifiable information by using “cookies” or the “tags”.</p> <h3>About the Cookie Policy</h3> <p>This very Cookie Policy will be explaining what are the cookies and how are they used here, the cookies types we are using, that is the information we are collecting by using the cookies, and how is that information used, and how the cookie preferences can be controlled.</p> <p>In our Privacy Policy, we have clearly mentioned how we are using, storing and keeping personal information secure.</p> <p>At any time, you might change or withdraw your consent from the Cookie Declaration.</p> <h3>What Are Cookies?</h3> <p>Cookies are the small text files used for storing every bit of information. Cookies are stored on the device when the website is browsed on your browser. These cookies help in proper website functioning, better securing it, providing better user experience and understanding how is the website performing. Cookies are even used for analyzing what works and the areas in need of improvement.</p> <h3>What is A Tag?</h3> <p>"Tags" are the page tags, gif tags, web beacons – helping the website to track website or email activities, such as for how many times has a specific email or a page been interacted with. Ads and emails sent by our website will contain these tag types.</p> <h4>Should You Accept These Cookies Being Talked Of?</h4> <p>You need not have to accept the cookies for using the Eclick Software and Solutions Pvt Ltd website. Rejecting the cookies will indicate certain features and resources might not be working properly, and in return, you will encounter an unpleasant experience.</p> <p>Initially, most browsers are set to accept cookies, but you will be able to change your browser settings for accepting or rejecting the cookies.</p> <p>All the cookies on our website as well as on the web will belong to one of the four categories -</p> <ul> <li>Strictly Necessary</p></li> <li>Performance</li> <li>Functionality</li> <li>Advertising/Targeting</li> </ul> <p><strong>What Are the Types of Cookies We Are Using?</strong></p> <p><strong>Essential –</strong>To experience the website's full functionality, some cookies are indeed essential. The essential cookies allow in maintaining the user sessions while preventing security threats. Neither do they collect nor do they store personal information. For instance, these essential cookies allow logging in to an account and adding products to the basket, while securely checking out.</p> <p><strong>Statistics – </strong>The Statistics cookies store information which includes the number of visitors visiting the website, the count of unique visitors, the website's pages that have already been visited, the source directing to the visit and more. Through these data, we can understand and analyze how well is the website performing and which areas should be improved.</p> <p><strong>Marketing – </strong>The advertisements as displayed are the cookies used for personalizing the advertisements being shown so they appear meaningful. These cookies are even helpful to us to keep a track of these ad campaigns' efficiency. The third-party ad providers might also use the cookies for showing ads on other websites on the browser.</p> <p><strong>Functional – </strong>The Functional cookies help in certain non-essential functionalities on the website. These functionalities comprise embedding the contents like the videos, sharing the website content on social media platforms.</p> <p><strong>Preferences –</strong> The Preference cookies are useful in storing your settings and browsing the preferences like language preferences for you to enjoy an efficient and improvised experience on visiting the website in the future.</p>`
 }
+
 const page = () => {
   return (
     <>

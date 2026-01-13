@@ -1,9 +1,9 @@
-import { BlogProvider } from "@/context/Blogcontext";
 import seoData from "@/data/seo.json";
 import { Metadata } from "next";
+export const dynamic = 'force-dynamic';
 
 export async function generateMetadata(): Promise<Metadata> {
-    const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/page/blog/seo`, {
+    const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/page/refund-policy/seo`, {
         cache: "no-store", // or 'force-cache' for static
     });
     if (!res.ok) {
@@ -62,11 +62,14 @@ export async function generateMetadata(): Promise<Metadata> {
     };
 }
 
-
-export default function BlogLayout({ children }: { children: React.ReactNode }) {
+export default async function HomeLayout({
+  children,
+}: Readonly<{
+  children: React.ReactNode;
+}>) {
     return (
-        <BlogProvider>
+        <>
             {children}
-        </BlogProvider>
+        </>
     )
 }
