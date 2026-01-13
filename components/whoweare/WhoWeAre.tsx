@@ -5,20 +5,28 @@ import Image from 'next/image';
 import CountUp from 'react-countup';
 import { useInView } from 'react-intersection-observer';
 
-const WhoWeAre = () => {
+interface CounterItem {
+    site_counter_number: number;
+    site_counter_simbol?: string;
+    site_counter_title?: string;
+    site_counter_icon?: string;
+}
+interface WhoWeAreData {
+    name?: string;
+    q2jf_title?: string;
+    q2jf_short_description?: string;
+}
+interface Props {
+    counterData?: CounterItem[];
+    data?: WhoWeAreData;
+}
+const WhoWeAre = ({data, counterData}: Props) => {
     const { ref, inView } = useInView({
         triggerOnce: true, // run only once
         threshold: 0.3,
     });
 
-    const duration = 3; // total duration (seconds)
-
-    const counters = [
-        { id: 1, value: 2285, label: 'Web Development', img: 'web-development.png' },
-        { id: 2, value: 480, label: 'Digital Marketing', img: 'digital-marketing.png' },
-        { id: 3, value: 37, label: 'Apps Development', img: 'apps-development.png' },
-        { id: 4, value: 2483, label: 'Our Clients', img: 'clients.png' },
-    ];
+    const duration = 3;
 
     return (
         <div className={Styles.sectionArea} ref={ref}>
@@ -26,25 +34,25 @@ const WhoWeAre = () => {
                 <Row>
                     <Col lg={7}>
                         <div className={`section-content ${Styles.section_content ?? ''}`}>
-                            <div className={Styles.subtitle}>WHO WE ARE</div>
+                            <div className={Styles.subtitle}>{data?.name ?? 'WHO WE ARE'}</div>
                             <h2 className={`title ${Styles.title ?? ''}`}>
-                                Excellence and innovation are at the heart of everything we do at Eclick Softwares.
+                                {data?.q2jf_title ?? 'Eclick Softwares.'}
                             </h2>
-                            <p>
-                                Combining all the essential elements, which include eye-catching website designs, clear website layouts, and optimising
-                            </p>
+                            <p
+                                dangerouslySetInnerHTML={{__html: data?.q2jf_short_description || 'Please Change Content'}}
+                            />
                         </div>
                     </Col>
 
                     <Col lg={5}>
                         <div className={Styles.counterWrapper}>
-                            {counters.map(({ id, value, label, img }) => (
-                                <div key={id} className={Styles.countBox}>
+                            {counterData?.map((value, index) => (
+                                <div key={index} className={Styles.countBox}>
                                     <figure className={Styles.icon}>
                                         <Image
                                             className='auto-img'
-                                            src={`${process.env.NEXT_PUBLIC_assetPrefix}/assets/images/${img}`}
-                                            alt={label}
+                                            src={`${process.env.NEXT_PUBLIC_MEDIA_URL}${value?.site_counter_icon}`}
+                                            alt={value?.site_counter_title || "Counter Title"}
                                             width={50}
                                             height={50}
                                             priority={true}
@@ -55,7 +63,7 @@ const WhoWeAre = () => {
                                             {inView ? (
                                                 <CountUp
                                                     start={0}
-                                                    end={value}
+                                                    end={value?.site_counter_number}
                                                     duration={duration}
                                                     useEasing={false} // linear speed
                                                 />
@@ -63,9 +71,11 @@ const WhoWeAre = () => {
                                                 0
                                             )}
                                         </span>
-                                        <em>+</em>
+                                        {value?.site_counter_simbol && (
+                                            <em>{value.site_counter_simbol}</em>
+                                        )}
                                     </div>
-                                    <p>{label}</p>
+                                    <p>{value?.site_counter_title}</p>
                                 </div>
                             ))}
                         </div>

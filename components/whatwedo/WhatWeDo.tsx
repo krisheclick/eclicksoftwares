@@ -10,12 +10,17 @@ type services = {
     wcp_icon_path: string;
     wcp_icon: string;
 }
+type WWDData = {
+    oitk_title?: string;
+    oitk_heading?: string;
+}
 type props = {
     isLoading: boolean;
     services: services[];
+    data: WWDData;
 }
 
-const WhatWeDo = ({ isLoading, services }: props) => {
+const WhatWeDo = ({ isLoading, data, services }: props) => {
     const serviceCount = services.length;
     let col = 3;
     if (serviceCount % 4 === 2) {
@@ -25,13 +30,15 @@ const WhatWeDo = ({ isLoading, services }: props) => {
     }
 
     return (
-        <div className={`sectionArea ${Styles.sectionArea}`}>
+        <div className={`sectionArea ${Styles.sectionArea ?? ''}`}>
             <Container>
                 <div className={`section-content full ${Styles.section_content ?? ''}`}>
                     {!isLoading ? (
                         <>
-                            <div className={Styles.subtitle}>What we do</div>
-                            <div className={`title ${Styles.title ?? ''}`}>More custom software solutions we provide</div>
+                            <div className={Styles.subtitle}>{data?.oitk_title ?? 'What we do test'}</div>
+                            <div className={`title ${Styles.title ?? ''}`}>
+                                {data?.oitk_heading ?? 'More custom software solutions we provide test'}
+                            </div>
                         </>
 
                     ) : (

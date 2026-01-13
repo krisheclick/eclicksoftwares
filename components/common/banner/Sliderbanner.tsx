@@ -1,7 +1,6 @@
 import { Container, Col, Row } from "react-bootstrap";
 import Styles from "./sliderbanner.module.css";
 import Image from "next/image";
-import Link from "next/link";
 import { useLetsConnect } from "@/utils/useLetsConnect";
 // import Uspcard from "./usp/Uspcard";
 // type UspItem = {
@@ -13,8 +12,7 @@ import { useLetsConnect } from "@/utils/useLetsConnect";
 //     c0be_usp_title4?: string;
 // }
 type Props = {
-    isLoading: boolean;
-    banner:  Project | undefined;
+    banner: Project | undefined;
     bannerdata: BannerData;
 }
 type Project = {
@@ -27,12 +25,12 @@ type Project = {
     proj_tools_used: string;
 }
 type BannerData = {
-  joza_title: string;
-  title_tag: string;
-  joza_description: string;
+    joza_title: string;
+    title_tag: string;
+    joza_description: string;
 }
-const SliderBanner = ({ isLoading, banner, bannerdata}: Props) => {
-    const { openLetsConnectModal} = useLetsConnect();
+const SliderBanner = ({ banner, bannerdata }: Props) => {
+    const { openLetsConnectModal } = useLetsConnect();
 
     return (
         <div className={Styles.sliderBanner}>
@@ -44,15 +42,15 @@ const SliderBanner = ({ isLoading, banner, bannerdata}: Props) => {
                                 <div className={`titleTag ${Styles.titleTag}`}>{bannerdata?.title_tag}</div>
                                 <div className={`title`} dangerouslySetInnerHTML={{
                                     __html: bannerdata?.joza_title
-                                    .replace(/Â+/g, "")
-                                    .replace(/\s+/g, " ")
-                                    .trim(),
+                                        .replace(/Â+/g, "")
+                                        .replace(/\s+/g, " ")
+                                        .trim(),
                                 }} />
                                 <div className={Styles.bannerContent} dangerouslySetInnerHTML={{
                                     __html: bannerdata?.joza_description
-                                    .replace(/Â+/g, "")
-                                    .replace(/\s+/g, " ")
-                                    .trim(),
+                                        .replace(/Â+/g, "")
+                                        .replace(/\s+/g, " ")
+                                        .trim(),
                                 }} />
                             </div>
                             <div className={Styles.usp}>
@@ -96,17 +94,22 @@ const SliderBanner = ({ isLoading, banner, bannerdata}: Props) => {
                                 </Row>
                             </div>
                             <div className="mt-5">
-                                <Link href={`javascript:void(0)`} onClick={()=>openLetsConnectModal('general_lets_connect')} className={`eclick-btn-connect lg ${Styles.bannerBtn ?? ''}`}>
+                                <button
+                                    type="button"
+                                    onClick={() => openLetsConnectModal('general_lets_connect')}
+                                    className={`eclick-btn-connect lg ${Styles.bannerBtn ?? ''}`}
+                                >
                                     <span className={Styles.phoneIcon}>
                                         <Image
                                             src={`${process.env.NEXT_PUBLIC_assetPrefix}/assets/images/chat.png`}
                                             alt="Conversation"
-                                            width={23} height={22}
+                                            width={23}
+                                            height={22}
                                             loading="lazy"
                                         />
                                     </span>
                                     <em>Let’s Connect</em>
-                                </Link>
+                                </button>
                             </div>
                         </div>
                     </Col>

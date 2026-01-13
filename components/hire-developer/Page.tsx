@@ -7,7 +7,7 @@ import Banner from "@/components/hire-developer/banner/Banner";
 import Content from "./why-hire/Content";
 import Developer from "./Developer";
 import Image from "next/image";
-import Link from "next/link";
+import { useLetsConnect } from "@/utils/useLetsConnect";
 import Faq from "./faq/Faq";
 import Styles from "./style.module.css";
 
@@ -93,6 +93,8 @@ const parseToArray = (value: unknown): unknown[] => {
 
 
 const Hiredata = () => {
+    const { openLetsConnectModal } = useLetsConnect();
+    
     const [data, setData] = useState<DataItem | null>(null);
     const [loading, setLoading] = useState(true);
     const [banner, setBanner] = useState<BannerData>();
@@ -268,7 +270,11 @@ const Hiredata = () => {
                                     <div className={`${Styles.hwdtiltepara} ${Styles.hwdtectiltepara}`}
                                         dangerouslySetInnerHTML={{ __html: faqContent?.yt43_description || '' }}
                                     />
-                                    <Link href="#" className={`eclick-btn-schedule ${Styles.scheduleBtn ?? ''}`}>
+                                    <button
+                                        type="button"
+                                        onClick={() => openLetsConnectModal('general_lets_connect')}
+                                        className={`eclick-btn-schedule ${Styles.scheduleBtn ?? ''}`}
+                                    >
                                         <span>
                                             <Image
                                                 className="auto-img"
@@ -279,7 +285,7 @@ const Hiredata = () => {
                                             />
                                         </span>
                                         <em>Schedule a Call</em>
-                                    </Link>
+                                    </button>
                                 </div>
                             </Col>
 
