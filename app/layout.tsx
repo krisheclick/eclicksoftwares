@@ -1,4 +1,3 @@
-import type { Metadata } from "next";
 import { Instrument_Sans, DM_Sans, Inter } from "next/font/google";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "react-bootstrap";
@@ -11,6 +10,7 @@ import Header from "@/components/common/header/Header";
 import Footer from "@/components/common/footer/Footer";
 import { ThemeProvider } from "@/context/ThemeContext";
 import RouteLoader from "@/components/RouteLoader";
+import seoData from "@/data/seo.json";
 export const dynamic = 'force-dynamic';
 
 const primaryFont = Instrument_Sans({
@@ -28,10 +28,15 @@ const tertiaryFont = Inter({
   subsets: ["latin"],
 });
 
-export const metadata: Metadata = {
-  title: "Eclick Softwares: Innovation-Driven Web Development & Digital Agency",
-  description: "Eclick Softwares is a top web design & development company offering innovative digital solutions to grow your business online. Book a Free Quote Today.",
-};
+// export const metadata: Metadata = {
+//   title: "Eclick Softwares: Innovation-Driven Web Development & Digital Agency",
+//   description: "Eclick Softwares is a top web design & development company offering innovative digital solutions to grow your business online. Book a Free Quote Today.",
+// };
+
+export async function generateMetadata() {
+  return seoData;
+}
+
 
 export default async function RootLayout({
   children,
@@ -40,14 +45,14 @@ export default async function RootLayout({
 }>) {
   let response = null;
 
-try {
-  // const res = await fetch(API_URL, { cache: 'no-store' });
-  const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}menu/07e44c0de79cdf07b8b1`, { cache: 'no-store' });
-  if (!res.ok) throw new Error('API failed');
-  response = await res.json();
-} catch (err) {
-  console.error('API fetch failed:', err);
-}
+  try {
+    // const res = await fetch(API_URL, { cache: 'no-store' });
+    const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}menu/07e44c0de79cdf07b8b1`, { cache: 'no-store' });
+    if (!res.ok) throw new Error('API failed');
+    response = await res.json();
+  } catch (err) {
+    console.error('API fetch failed:', err);
+  }
   // const menuBar = await fetch(`${process.env.NEXT_PUBLIC_API_URL}menu/07e44c0de79cdf07b8b1`);
   // const response = await menuBar.json();
   return (
