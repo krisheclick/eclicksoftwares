@@ -41,14 +41,12 @@ interface ServiceCategory {
 }
 
 
-const SchuduleCallModal = ({ show, onHide, services, action }: ScheduleCallProps) => {
+const SchuduleCallModal = ({ show, onHide, action }: ScheduleCallProps) => {
     const router = useRouter();
-    const [currentView, setCurrentView] = useState<'calendar' | 'time' | 'details' | 'confirm'>('calendar');
 
     const {
         visibleTimeField,
         setVisibleTimeField,
-        fromLoading,
         setFromLoading,
         step,
         setStep,

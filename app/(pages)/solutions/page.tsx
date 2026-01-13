@@ -233,7 +233,7 @@ export default function Page() {
                                         .replace(/\s+/g, " ")
                                         .trim(),
                                     }}/>
-                                    <Link href={category.service_category_slug} className={`eclick-btn-view ${Styles.viewBtn}`}>Learn More</Link>
+                                    <Link href={'solutions/'+category.service_category_slug} className={`eclick-btn-view ${Styles.viewBtn}`}>Learn More</Link>
                                 </div>
                             </div>
                         </Col>                        
