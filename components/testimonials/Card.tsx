@@ -1,12 +1,12 @@
 "use client";
 import { Col, Modal } from 'react-bootstrap';
-import Styles from './style.module.css';
 import Image from 'next/image';
 import { useState } from 'react';
 import { normalizeYouTubeUrl } from '@/utils/videoUrl';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faPlay } from '@fortawesome/free-solid-svg-icons';
+import { faEye, faPlay } from '@fortawesome/free-solid-svg-icons';
 import { limitHtmlWords } from '@/utils/limitcontent';
+import Styles from './style.module.css';
 type Client = {
     client_logo?: string;
     client_name?: string;
@@ -18,6 +18,7 @@ type TestimonialData = {
     testimonial_rating?: string;
     testimonial_description?: string;
     testimonial_feature_image?: string;
+    testimonial_industry?: string;
     testimonial_type?: string;
     testimonial_video?: string;
     testimonial_video_poster_image?: string;
@@ -66,30 +67,41 @@ const Card = ({ cardData }: CardProps) => {
     return (
         <>
             {cardData?.map((userValue, useIndex) => {
-                const { testimonial_title, testimonial_designation, testimonial_author_name, testimonial_description, testimonial_feature_image, testimonial_type, testimonial_video_poster_image, testimonial_video, client } = userValue;
+                const { testimonial_title, testimonial_designation, testimonial_author_name, testimonial_description, testimonial_feature_image, testimonial_type, testimonial_video_poster_image, testimonial_video, client, testimonial_industry } = userValue;
 
                 const videoFunction = testimonial_type === 'video';
                 return (
                     <Col lg={4} key={useIndex}>
-                        <div
-                            className={Styles.card}
-                        >
-                            <figure
-                                className={Styles.cardPoster}
-                                onClick={() =>
-                                    videoFunction
-                                        ? handleOpenVideo(testimonial_video ?? "", client?.client_name ?? "")
-                                        : handleOpenContent(testimonial_author_name, testimonial_description)
-                                }
-                            >
-                                <Image
-                                    src={`${process.env.NEXT_PUBLIC_MEDIA_URL}${videoFunction ? testimonial_video_poster_image : testimonial_feature_image}`}
-                                    alt={testimonial_title ?? "testimonial image"}
-                                    fill
-                                    priority={true}
-                                />
-                                {videoFunction ? <span className={Styles.videoIcon}><FontAwesomeIcon icon={faPlay} /></span> : ''}
-                            </figure>
+                        <div className={Styles.card}>
+                            <figcaption className={videoFunction ? Styles.cardPosterDesign : Styles.cardPosterDesignText}>
+                                <span
+                                    className={Styles.icon}
+                                    onClick={() =>
+                                        videoFunction
+                                            ? handleOpenVideo(testimonial_video ?? "", client?.client_name ?? "")
+                                            : handleOpenContent(testimonial_author_name, testimonial_description)
+                                    }
+                                >
+                                    <FontAwesomeIcon icon={videoFunction ? faPlay : faEye} />
+                                </span>
+
+                                {!videoFunction && (
+                                    <div className={Styles.posterData}>
+                                        <div className={Styles.industry_type}>{testimonial_industry ? testimonial_industry : 'Other'}</div>
+                                        <em className={Styles.ownerName}>{client?.client_name}</em>
+                                        <div className={Styles.projectName}>{testimonial_author_name}</div>
+                                    </div>
+                                )}
+                                <figure className={Styles.cardPoster}>
+                                    <Image
+                                        className={!videoFunction && Styles.logo || '' }
+                                        src={`${process.env.NEXT_PUBLIC_MEDIA_URL}${videoFunction ? testimonial_video_poster_image : testimonial_feature_image}`}
+                                        alt={testimonial_title ?? "testimonial image"}
+                                        fill
+                                        priority={true}
+                                    />
+                                </figure>
+                            </figcaption>
 
                             <div className={Styles.cardText}>
                                 <div className={Styles.cardTitle}>{testimonial_author_name}</div>
