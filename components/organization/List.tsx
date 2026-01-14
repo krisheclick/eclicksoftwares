@@ -1,7 +1,8 @@
 "use client";
 import { useEffect } from 'react';
 import Image from 'next/image'
-import Styles from './style.module.css'
+import Styles from './style.module.css';
+import "swiper/swiper-bundle.css";
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Autoplay, FreeMode } from 'swiper/modules';
 type ProcessStep = {
