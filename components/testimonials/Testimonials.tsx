@@ -51,36 +51,38 @@ const Testimonials = () => {
     return (
         <div className={`sectionArea ${Styles.sectionArea}`}>
             <Container>
-                {!hasLoading ? (
-                    <>
-                        <div className={Styles.tabList}>
-                            <ul className='noList'>
-                                <li
-                                    className={`${Styles.tabItem} ${tabActive === 'videos' ? Styles.active : ''}`}
-                                    onClick={() => setActiveTab('videos')}
-                                >
-                                    Videos
-                                </li>
+                <div className={Styles.containerWrapper}>
+                    {!hasLoading ? (
+                        <>
+                            <div className={Styles.tabList}>
+                                <ul className='noList'>
+                                    <li
+                                        className={`${Styles.tabItem} ${tabActive === 'videos' ? Styles.active : ''}`}
+                                        onClick={() => setActiveTab('videos')}
+                                    >
+                                        Videos
+                                    </li>
 
-                                <li
-                                    className={`${Styles.tabItem} ${tabActive === 'written' ? Styles.active : ''}`}
-                                    onClick={() => setActiveTab('written')}
-                                >
-                                    Written
-                                </li>
-                            </ul>
-                        </div>
+                                    <li
+                                        className={`${Styles.tabItem} ${tabActive === 'written' ? Styles.active : ''}`}
+                                        onClick={() => setActiveTab('written')}
+                                    >
+                                        Written
+                                    </li>
+                                </ul>
+                            </div>
 
-                        <div className={Styles.cardList}>
-                            <Row className='rowGap'>
-                                <Card cardData={filteredData} />
-                            </Row>
-                        </div>
+                            <div className={Styles.cardList}>
+                                <Row className='rowGap'>
+                                    <Card cardData={filteredData} />
+                                </Row>
+                            </div>
 
-                    </>
-                ) : (
-                    <p></p>
-                )}
+                        </>
+                    ) : (
+                        <>Loading</>
+                    )}
+                </div>
             </Container>
         </div>
     )

@@ -12,7 +12,7 @@ type Career = {
     career_name: string;
     career_slug: string;
     career_location: string;
-    career_short_description: string;
+    career_description: string;
     career_feature_image: string;
     // Add more fields if available, like full description
 };
@@ -47,8 +47,9 @@ const ApplyJob = () => {
                 isLoading={isLoading}
                 title={`Apply for ${job?.career_name || 'Job Position'}`}
                 subtitle="Join our team and be part of something great"
-                image="/upload/banner_images/career.jpg"
+                image={job?.career_feature_image_path || ''}
                 short_description=""
+                showButton={false}
             />
 
             <div className={`sectionArea ${Styles.sectionArea}`}>
@@ -63,14 +64,17 @@ const ApplyJob = () => {
                                     Location: {job?.career_location}
                                 </p>
                                 <div className={Styles.jobDescription}>
-                                    <p>{job?.career_short_description}</p>
-                                    {/* Add more details if available */}
+                                    <div dangerouslySetInnerHTML={{ __html: job?.career_description || "" }} />
                                 </div>
                             </div>
                         </Col>
                         <Col lg={6}>
                             <div className={Styles.applyContent}>
-                                <JobApplyForm jobTitle={job?.career_name || ''} jobId={job?.career_id?.toString() || ''} />
+                                <JobApplyForm 
+                                    jobTitle={job?.career_name || ''} 
+                                    jobId={job?.career_id?.toString() || ''} 
+                                    jobLocation={job?.career_location || ''}
+                                />
                             </div>
                         </Col>
                     </Row>

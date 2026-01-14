@@ -9,8 +9,9 @@ type props = {
     subtitle?: string | null;
     image?: string | null;
     short_description?: string | null;
+    showButton?: boolean;
 }
-const Banner = ({ isLoading, title, subtitle, image, short_description }: props) => {
+const Banner = ({ isLoading, title, subtitle, image, short_description, showButton = true }: props) => {
     const { openScheduleModal} = useScheduleCall();
     if (isLoading) {
         return (
@@ -79,6 +80,7 @@ const Banner = ({ isLoading, title, subtitle, image, short_description }: props)
                                         .trim(),
                                 }} />
                             </div>
+                            {showButton && (
                             <div className={Styles.btn_wrap}>
                                 <button type="button" onClick={() => openScheduleModal('general_schedule_a_call')} className={`eclick-btn-connect ${Styles.bannerBtn ?? ''}`}>
                                     <span className={Styles.phoneIcon}>
@@ -91,7 +93,7 @@ const Banner = ({ isLoading, title, subtitle, image, short_description }: props)
                                     </span>
                                     <em>Schedule a Call</em>
                                 </button>
-                            </div>
+                            </div>)}
                         </div>
                     </Col>
                     <Col lg={6} xl={7} className={Styles.PosterItem}>

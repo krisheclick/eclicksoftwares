@@ -75,7 +75,7 @@ const Card = ({ cardData }: CardProps) => {
                 const videoFunction = testimonial_type === 'video';
                 const testimonial_industry = client?.industry?.industry_title;
                 return (
-                    <Col lg={4} key={useIndex}>
+                    <Col lg={videoFunction ? 4 : 6} key={useIndex} className={Styles.cardItem}>
                         <div className={Styles.card}>
                             <figcaption className={videoFunction ? Styles.cardPosterDesign : Styles.cardPosterDesignText}>
                                 <span
@@ -94,15 +94,22 @@ const Card = ({ cardData }: CardProps) => {
                                         <div className={Styles.industry_type}>{testimonial_industry ? testimonial_industry : 'Other'}</div>
                                         <em className={Styles.ownerName}>{client?.client_name}</em>
                                         <div className={Styles.projectName}>{testimonial_author_name}</div>
+                                        <Image
+                                            className={Styles.brandLogo}
+                                            src={`${process.env.NEXT_PUBLIC_assetPrefix}/assets/images/logo.png`}
+                                            alt={"Eclick Softwares & Solutions"}
+                                            width={90} height={36}
+                                            priority
+                                        />
                                     </div>
                                 )}
                                 <figure className={Styles.cardPoster}>
                                     <Image
-                                        className={!videoFunction && Styles.logo || '' }
+                                        className={!videoFunction && Styles.logo || ''}
                                         src={`${process.env.NEXT_PUBLIC_MEDIA_URL}${videoFunction ? testimonial_video_poster_image : testimonial_feature_image}`}
                                         alt={testimonial_title ?? "testimonial image"}
                                         fill
-                                        priority={true}
+                                        priority
                                     />
                                 </figure>
                             </figcaption>

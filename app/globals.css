@@ -536,7 +536,10 @@ input[type=number] {
 	display: inline-block;
 	vertical-align: middle;
 	flex-shrink: 0;
-	margin: 3px 8px 0px 0px;
+	margin: 3px 6px 0px 0px;
+}
+.editorText.blue ul li::before{
+	background-image: url(../public/assets/images/check-blue.svg)
 }
 .editorText p {
 	line-height: inherit;
@@ -558,8 +561,12 @@ input[type=number] {
 	cursor: pointer;
 }
 /* ============== slider section ========= */
-.sliderSection {
-  	padding: 0 0 80px 0 !important;
+.sliderdiv .swiper-wrapper {
+	padding-block: 48px;
+}
+.sliderdiv .swiper-slide.swiper-slide-active {
+	transform: scale(1.2);
+	z-index: 2;
 }
 /* Increase bullet size */
 .swiper-pagination-bullet {
@@ -755,4 +762,10 @@ input[type=number] {
 .iti__search-input:focus-visible {
   outline: none;
   box-shadow: 0 0 0 3px rgba(59,130,246,.4);
+}
+label.is-invalid {
+	border-color: var(--bs-form-invalid-border-color);
+}
+.react-select__control{
+	height: 48px;
 }

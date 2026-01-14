@@ -100,14 +100,6 @@
     border-radius: 10px;
     padding: 40px;
 }
-.lablheading{
-    color: #0339A7;
-    font-size: 16px;
-    line-height: 25px;
-    text-transform: uppercase;
-    font-weight: 700;
-    margin-bottom: 0px;
-}
 .maleb_mheading{
     font-size: 35px;
     line-height: 45px;
@@ -134,7 +126,7 @@
     font-size: 17px;
     line-height: 27px;
     padding: 8px 20px;
-    color: #000000;
+    color: var(--black-color);
     font-weight: 400;
     margin: 0;
 }
@@ -154,25 +146,9 @@
     padding: 90px 0;
 }
 .editorTextpartner{
-    color: #000000;
-    font-weight: 400;
-    font-size: 16px;
-    text-transform: capitalize;
-    line-height: 28px;
+    color: var(--black-color);
+    font-family: var(--tertiary-font);
+    line-height: 1.7;
 }
-.editorTextpartner p{
-    color: #000000;
-    font-weight: 400;
-    font-size: 16px;
-    text-transform: capitalize;
-    line-height: 28px;
-}
-.partab_mheading{
-    font-size: 40px;
-    line-height: 50px;
-    font-weight: 700;
-    color: #282828;
-    text-transform: capitalize;
-} 
 /**OUR-PARTNER-ENDS**/
 

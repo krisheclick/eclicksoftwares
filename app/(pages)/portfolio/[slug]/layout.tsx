@@ -1,10 +1,16 @@
-import Banner from "@/components/casestudy/Banner";
-import CasestudyList from "@/components/casestudy/List";
-import { Metadata } from "next";
 import seoData from "@/data/seo.json";
+import { Metadata } from 'next';
 
-export async function generateMetadata(): Promise<Metadata> {
-    const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/page/casestudies/seo`, {
+
+type Props = {
+    params: {
+        slug: string;
+    };
+};
+
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+    const { slug } = await params;
+    const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}group/${slug}/seo`, {
         cache: "no-store", // or 'force-cache' for static
     });
     if (!res.ok) {
@@ -12,7 +18,6 @@ export async function generateMetadata(): Promise<Metadata> {
     }
 
     const { response_data: seo } = await res.json();
-
     const description = seo.meta_descriptions
         ?.replace(/<[^>]*>?/gm, "")
         .trim();
@@ -63,29 +68,18 @@ export async function generateMetadata(): Promise<Metadata> {
     };
 }
 
-const CasestudyPage = async () => {
-    const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/page/case-studies`);
-    const { response_data } = await response.json();
 
-    const pagesCustomField = typeof response_data.pages_custom_field === 'string' 
-        ? JSON.parse(response_data.pages_custom_field)
-        : response_data.pages_custom_field;
-
-    const bannerData = pagesCustomField?.group_name?.banner;
-    const bannerProps = {
-        proj_name: bannerData?.name,
-        proj_main_banner_title: bannerData?.ypwm_title,
-        proj_main_banner_description: bannerData?.ypwm_description,
-        proj_main_banne_image_path: '/uploads/page_image/' + bannerData?.ypwm_image,
-    };
-
+export default async function SolutionsLayout({
+    children,
+    className = "",  // Default to an empty string if no className is provided
+}: Readonly<{
+    children: React.ReactNode;
+    className?: string;  // Optional className prop
+}>) {
     return (
-        <div className="case-study-page">
-            <Banner data={bannerProps} />
-            <CasestudyList />
+        <div className={`${className}`}>
+            {children}
         </div>
     );
-};
+}
 
-
-export default CasestudyPage;

@@ -3,11 +3,14 @@
 	line-height: 1.9;
 } */
 .aboutPoster{
-    position: relative;
-    z-index: 1;
-    padding-top: 82%;
+    height: 100%;
     overflow: hidden;
     margin-left: calc(100% - 50vw);
+}
+.aboutPoster img{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
 }
 .usp{
     display: grid;

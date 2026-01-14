@@ -1,5 +1,5 @@
 "use client";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Col, Container, Row } from "react-bootstrap";
 import Link from "next/link";
 import Image from "next/image";
@@ -65,6 +65,10 @@ const Careers = () => {
     const [pageCustomField, setPageCustomField] = useState<PagesCustomField | null>(null);
     const [vacancies, setVacancies] = useState<Career[]>([]);
     const [pagination, setPagination] = useState<Pagination | null>(null);
+    const [page, setPage] = useState(1);
+    const [hasMore, setHasMore] = useState(true);
+    const observerRef = useRef<HTMLDivElement | null>(null);
+    const [isFetchingVacancies, setIsFetchingVacancies] = useState(false);
 
     const fetchData = async () => {
         setIsLoading(true);
@@ -81,27 +85,64 @@ const Careers = () => {
         };
     }
 
-    const fetchVacancyData = async () => {
-        setIsLoading(true);
+    const fetchVacancyData = async (pageNumber = 1) => {
+        if (!hasMore || isFetchingVacancies) return;
+
+        setIsFetchingVacancies(true);
+
         try {
-            const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/careers`);
+            const response = await fetch(
+                `${process.env.NEXT_PUBLIC_API_URL}/careers?page=${pageNumber}&limit=20`
+            );
+
             const { response_data } = await response.json();
 
-            setVacancies(response_data.careers);
+            setVacancies(prev =>
+                pageNumber === 1
+                    ? response_data.careers
+                    : [...prev, ...response_data.careers]
+            );
+
+            setHasMore(response_data.pagination.has_next);
             setPagination(response_data.pagination);
-        } catch (err: unknown) {
-            console.error("Failed to fetch About Page:", (err as Error).message);
+        } catch (err) {
+            console.error("Failed to fetch vacancies", err);
         } finally {
-            setIsLoading(false);
-        
-        };
-    }
+            setIsFetchingVacancies(false);
+        }
+    };
+
 
     useEffect(() => {
         fetchData();
-        fetchVacancyData();
-        setIsLoading(false);
+        fetchVacancyData(1);
     }, []);
+
+    useEffect(() => {
+        if (!observerRef.current || !hasMore) return;
+
+        const observer = new IntersectionObserver(
+            ([entry]) => {
+                if (entry.isIntersecting && !isFetchingVacancies) {
+                    setPage(prev => {
+                        const nextPage = prev + 1;
+                        fetchVacancyData(nextPage);
+                        return nextPage;
+                    });
+                }
+            },
+            {
+                root: null,
+                rootMargin: "100px",
+                threshold: 0, // 🔥 IMPORTANT
+            }
+        );
+
+        observer.observe(observerRef.current);
+
+        return () => observer.disconnect();
+    }, [hasMore, isFetchingVacancies]);
+
 
     useEffect(() => {
         if (pageData) {
@@ -295,6 +336,11 @@ const Careers = () => {
                                         </div>
                                     </Col>
                                 ))}
+                                <div ref={observerRef} style={{ height: "1px" }} />
+
+                                {isLoading && (
+                                    <p className="text-center mt-3">Loading more jobs...</p>
+                                )}
                             </Row>
                         ) : (
                             <div className={Styles.noJobs}>
