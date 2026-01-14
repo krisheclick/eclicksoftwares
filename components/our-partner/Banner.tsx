@@ -43,7 +43,7 @@ const Banner = ({ hasLoading, data }: BannerProps) => {
                                 )
                             }
                             {data?.z6hd_short_description && (
-                                <div dangerouslySetInnerHTML={{ __html: data.z6hd_short_description }}/>
+                                <div className={Styles.banerparaul}><div dangerouslySetInnerHTML={{ __html: data.z6hd_short_description }}/></div>
                             )}
                             </>
                         ) : (
