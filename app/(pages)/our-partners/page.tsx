@@ -18,14 +18,8 @@ type PageData = {
     description: string;
     pages_custom_field: string; // JSON string
     page_repeater_data: string;
-    page_technologies_used: any | null;
-    page_top_pick_team: any | null;
-    page_teams_used: any | null;
     usp_categorys: UspCategory[];
-    top_pick_team: any | null;
     faqs: Faq[];
-    technologies: any[];
-    recommend_team: any[];
     counter_data: string; // JSON string
 };
 
@@ -164,8 +158,8 @@ const Partnerships = () => {
                             <div className={`${Styles.about_content}`}>
                                 {!hasLoading ? (
                                     <>
-                                        <div className={Styles.lablheading}>{pageData?.short_description}</div>
-                                        <h2 className={`title fw-bold ${Styles.partab_mheading}`}>{pageData?.page_title}</h2>
+                                        <div className={`small_title ${Styles.lablheading ?? ''}`}>{pageData?.short_description}</div>
+                                        <h2 className={`title fw-bold ${Styles.partab_mheading ?? ''}`}>{pageData?.page_title}</h2>
                                         <div className={Styles.editorTextpartner}>
                                             <div className="editorText" dangerouslySetInnerHTML={{ __html: pageData?.description || "" }}/>
                                         </div>
@@ -207,9 +201,7 @@ const Partnerships = () => {
                         name: item.usp_title ?? '',
                         title: item.usp_title ?? '',
                         description: item.usp_description ?? '',
-                        filename: item.usp_feature_image_path
-                            ? `${process.env.NEXT_PUBLIC_MEDIA_URL}${item.usp_feature_image_path}`
-                            : '',
+                        filename: item.usp_feature_image_path ?? ''
                     })) ?? []
                     } />
                 </Container>

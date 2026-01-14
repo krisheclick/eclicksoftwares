@@ -11,6 +11,7 @@
 .card_content{
     max-width: 620px;
     padding: 30px 60px;
+    font-family: var(--tertiary-font);
 }
 .title {
   font: 700 36px / 1.25 var(--primary-font);
