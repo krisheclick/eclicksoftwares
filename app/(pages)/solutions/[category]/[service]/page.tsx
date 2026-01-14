@@ -13,6 +13,7 @@ import Image from "next/image";
 import { useThemeContext } from "@/context/ThemeContext";
 import Process from "@/components/organization/Process";
 import Styles from "./style.module.css";
+import NotFound from "@/app/not-found";
 
 type ServiceCta = {
     cta_title: string;
@@ -97,6 +98,8 @@ type Service = {
     heading_portfolio: string;
     projects: Project[];
     usp: Usp[] | undefined;
+    related_solutions_title?: string;
+    related_solutions_heading?: string;
 }
 interface WhoWeAreData {
     name?: string;
@@ -136,8 +139,8 @@ const parseToArray = (value: unknown): unknown[] => {
 };
 export default function Page({ params }: { params: Promise<{ category: string, service: string }> }) {
     const [isLoading, setLoading] = useState(true);
+    const [pageFound, setPageFound] = useState(false);
     const [data, setData] = useState<Service | null>(null);
-    const [error, setError] = useState<string | null>(null);
     const [commonData, setCommonData] = useState<DataItem | null | undefined>(null);
     const { setHeaderExtraClass } = useThemeContext();
     useEffect(() => {
@@ -155,20 +158,15 @@ export default function Page({ params }: { params: Promise<{ category: string, s
                 const { service } = await params;
                 const API = `${process.env.NEXT_PUBLIC_API_URL}services/${service}`;
                 const response = await fetch(API);
-                if (!response.ok) {
-                    throw new Error("API data is not ok. Please check & fixed...");
-                }
-                const data = await response.json();
+                const {response_code, response_data} = await response.json();
 
-                if (data.response_code === false) {
-                    console.error("API response_code is false");
-                    setError("Failed to fetch valid data");
-                    return;
+                if (response_code === false) {
+                    setPageFound(true)
+                    console.log("API response_code is false");
                 }
-                setData(data.response_data);
-            } catch (err) {
-                console.error("API error:", (err as Error).message);
-                setError("An error occurred while fetching the data.");
+                setData(response_data);
+            } catch (err: unknown) {
+                console.log("API error:", (err as Error).message);
             } finally {
                 setLoading(false);
             }
@@ -188,10 +186,6 @@ export default function Page({ params }: { params: Promise<{ category: string, s
         fetchDetails();
     }, [params]);
 
-    if (error) {
-        return <div>{error}</div>;
-    }
-
     const pageCustomField = commonData?.pages_custom_field
         ? JSON.parse(commonData.pages_custom_field as string)
         : null;
@@ -203,113 +197,114 @@ export default function Page({ params }: { params: Promise<{ category: string, s
         ? commonData.counter_data
         : parseToArray(commonData?.counter_data) as CounterItem[];
 
-    console.log('data', data)
     return (
-        <div>
-            <Banner isLoading={isLoading} title={data?.service_title} subtitle={data?.service_sub_title} image={data?.service_banner_image_path} short_description={data?.service_short_description} />
+        pageFound ? (
+            <NotFound />
+        ) : (
+            <div>
+                <Banner isLoading={isLoading} title={data?.service_title} subtitle={data?.service_sub_title} image={data?.service_banner_image_path} short_description={data?.service_short_description} />
 
-            <div className={`sectionArea ${Styles.aboutArea ?? ''}`}>
-                <Container>
-                    <Row className="gx-xl-5 align-items-center">
-                        <Col lg={6}>
-                            <div className="">
+                <div className={`sectionArea ${Styles.aboutArea ?? ''}`}>
+                    <Container>
+                        <Row className="gx-xl-5">
+                            <Col lg={6}>
                                 {!isLoading ? (
                                     <figure className={Styles.aboutPoster}>
                                         <Image
                                             src={`${process.env.NEXT_PUBLIC_MEDIA_URL}${data?.service_details_image_path ?? ''}`}
                                             alt="About Poster"
-                                            fill
+                                            width={915} height={684}
                                             priority={true}
                                         />
                                     </figure>
                                 ) : (
                                     <div className={`skeleton ${Styles.aboutPoster}`}></div>
                                 )}
-                            </div>
-                        </Col>
-                        <Col lg={6}>
-                            <div className="ps-xl-4">
-                                <div className={Styles.about_content}>
-                                    {!isLoading ? (
-                                        <div className={Styles.content}>
-                                            <h1 className={`title ${Styles.title ?? ''}`} dangerouslySetInnerHTML={{
-                                                __html: data?.service_details_title ?? ''
-                                                    .replace(/Â+/g, "")
-                                                    .replace(/\s+/g, " ")
-                                                    .trim(),
-                                            }} />
-                                            <div className={`editorText ${Styles.editorText ?? ''}`} dangerouslySetInnerHTML={{
-                                                __html: data?.service_description ?? ''
-                                                    .replace(/Â+/g, "")
-                                                    .replace(/\s+/g, " ")
-                                                    .trim(),
-                                            }} />
+                            </Col>
+                            <Col lg={6} className="align-self-center">
+                                <div className="ps-xl-4">
+                                    <div className={Styles.about_content}>
+                                        {!isLoading ? (
+                                            <div className={Styles.content}>
+                                                <h1 className={`title ${Styles.title ?? ''}`} dangerouslySetInnerHTML={{
+                                                    __html: data?.service_details_title ?? ''
+                                                        .replace(/Â+/g, "")
+                                                        .replace(/\s+/g, " ")
+                                                        .trim(),
+                                                }} />
+                                                <div className={`editorText ${Styles.editorText ?? ''}`} dangerouslySetInnerHTML={{
+                                                    __html: data?.service_description ?? ''
+                                                        .replace(/Â+/g, "")
+                                                        .replace(/\s+/g, " ")
+                                                        .trim(),
+                                                }} />
 
-                                            {data?.usp && data.usp.length > 0 && (
-                                                <div className={Styles.usp}>
-                                                    {data.usp.map((item, index) => (
-                                                        <div key={index} className={Styles.uspItem}>
-                                                            <figure className={Styles.uspIcon}>
-                                                                <Image
-                                                                    src={`${process.env.NEXT_PUBLIC_MEDIA_URL}${item.service_usp_feature_image_path}`}
-                                                                    alt={item.service_usp_title ?? "USP image"}
-                                                                    fill
-                                                                    priority
-                                                                />
-                                                            </figure>
-                                                            <div className={Styles.uspTitle}>{item.service_usp_title}</div>
-                                                        </div>
-                                                    ))}
-                                                </div>
-                                            )}
+                                                {data?.usp && data.usp.length > 0 && (
+                                                    <div className={Styles.usp}>
+                                                        {data.usp.map((item, index) => (
+                                                            <div key={index} className={Styles.uspItem}>
+                                                                <figure className={Styles.uspIcon}>
+                                                                    <Image
+                                                                        src={`${process.env.NEXT_PUBLIC_MEDIA_URL}${item.service_usp_feature_image_path}`}
+                                                                        alt={item.service_usp_title ?? "USP image"}
+                                                                        fill
+                                                                        priority
+                                                                    />
+                                                                </figure>
+                                                                <div className={Styles.uspTitle}>{item.service_usp_title}</div>
+                                                            </div>
+                                                        ))}
+                                                    </div>
+                                                )}
 
-                                        </div>
-                                    ) : (
-                                        <>
-                                            <div className="skeleton w-100 mb-2" style={{ height: 32 }}></div>
-                                            <div className="skeleton w-75 mb-2" style={{ height: 32 }}></div>
-                                            <div className="skeleton w-50 mb-4" style={{ height: 32 }}></div>
-                                            <div className="skeleton skeletonText w-100"></div>
-                                            <div className="skeleton skeletonText w-100"></div>
-                                            <div className="skeleton skeletonText w-100"></div>
-                                            <div className="skeleton skeletonText w-100"></div>
-                                            <div className="skeleton skeletonText w-100"></div>
-                                            <div className="skeleton skeletonText w-100"></div>
-                                            <div className="skeleton skeletonText w-100"></div>
-                                            <div className="skeleton skeletonText w-100"></div>
-                                            <div className="skeleton skeletonText w-50 mb-3"></div>
-                                            <div className="skeleton skeletonText w-100"></div>
-                                            <div className="skeleton skeletonText w-100"></div>
-                                            <div className="skeleton skeletonText w-100"></div>
-                                            <div className="skeleton skeletonText w-100"></div>
-                                            <div className="skeleton skeletonText w-25 mb-3"></div>
-                                        </>
-                                    )}
+                                            </div>
+                                        ) : (
+                                            <>
+                                                <div className="skeleton w-100 mb-2" style={{ height: 32 }}></div>
+                                                <div className="skeleton w-75 mb-2" style={{ height: 32 }}></div>
+                                                <div className="skeleton w-50 mb-4" style={{ height: 32 }}></div>
+                                                <div className="skeleton skeletonText w-100"></div>
+                                                <div className="skeleton skeletonText w-100"></div>
+                                                <div className="skeleton skeletonText w-100"></div>
+                                                <div className="skeleton skeletonText w-100"></div>
+                                                <div className="skeleton skeletonText w-100"></div>
+                                                <div className="skeleton skeletonText w-100"></div>
+                                                <div className="skeleton skeletonText w-100"></div>
+                                                <div className="skeleton skeletonText w-100"></div>
+                                                <div className="skeleton skeletonText w-50 mb-3"></div>
+                                                <div className="skeleton skeletonText w-100"></div>
+                                                <div className="skeleton skeletonText w-100"></div>
+                                                <div className="skeleton skeletonText w-100"></div>
+                                                <div className="skeleton skeletonText w-100"></div>
+                                                <div className="skeleton skeletonText w-25 mb-3"></div>
+                                            </>
+                                        )}
+                                    </div>
                                 </div>
-                            </div>
-                        </Col>
-                    </Row>
-                </Container>
+                            </Col>
+                        </Row>
+                    </Container>
+                </div>
+                <Organization
+                    isLoading={isLoading}
+                    values_title={data?.heading_proposition ?? ''}
+                    value_points={data?.value_points ?? []}
+                />
+                {/* <Portfolio isLoading={isLoading} title={data?.heading_portfolio ?? ''} projects={data?.projects} /> */}
+                <Technologies isLoading={isLoading} title={data?.heading_technology ?? ''} technologies={data?.technologies ?? []} />
+                <Trustownership isLoading={isLoading} {...(data?.service_cta ?? { cta_title: '', cta_description: '', cta_image: '' })} />
+                {data?.wcp && data.wcp.length > 0 && <WhatWeDo isLoading={isLoading} data={data} services={data.wcp} />}
+                <CalltoAction spaceClass='callToAction' content={{ 'tpdc_title': data?.service_tagline }} isLoading={isLoading} />
+                <Process
+                    isLoading={isLoading}
+                    process_title={data?.heading_process_step ?? ''}
+                    process_steps={data?.process_steps ?? []}
+                />
+                {groupName && (
+                    <WhoWeAre data={groupName["who-we-are"]} counterData={counterData} />
+                )}
+                <Clients classValue="fullBox" />
             </div>
-            <Organization
-                isLoading={isLoading}
-                values_title={data?.heading_proposition ?? ''}
-                value_points={data?.value_points ?? []}
-            />
-            {/* <Portfolio isLoading={isLoading} title={data?.heading_portfolio ?? ''} projects={data?.projects} /> */}
-            <Technologies isLoading={isLoading} title={data?.heading_technology ?? ''} technologies={data?.technologies ?? []} />
-            <Trustownership isLoading={isLoading} {...(data?.service_cta ?? { cta_title: '', cta_description: '', cta_image: '' })} />
-            {data?.wcp && data.wcp.length > 0 && <WhatWeDo isLoading={isLoading} data={groupName["what-we-do"]} services={data.wcp} />}
-            <CalltoAction spaceClass='callToAction' content={{ 'tpdc_title': data?.service_tagline }} isLoading={isLoading} />
-            <Process
-                isLoading={isLoading}
-                process_title={data?.heading_process_step ?? ''}
-                process_steps={data?.process_steps ?? []}
-            />
-            {groupName && (
-                <WhoWeAre data={groupName["who-we-are"]} counterData={counterData} />
-            )}
-            <Clients classValue="fullBox" />
-        </div>
+        )
     );
 }

@@ -434,7 +434,7 @@ grid-template-columns: inherit;
 }
 .leftContent h1 span{
     display: inline-block;
-    font: 500 20px / 1 var(--primary-font);
+    font: 500 18px / 1 var(--primary-font);
     color: var(--black-color);
     background-color: var(--white-color);
     padding: 16px 30px;
@@ -464,7 +464,7 @@ grid-template-columns: inherit;
     margin: 0;
 } */
 .projectName{
-    font: 400 21px / 1.25em var(--primary-font);
+    font: 400 20px / 1.25em var(--primary-font);
     /* color:var(--black-color); */
     padding: 0 0 0px 0;
     margin: 0 0 28px 0;
@@ -473,6 +473,7 @@ grid-template-columns: inherit;
     font-size: .85em;
     display: block;
     letter-spacing: 0.5px;
+    margin-bottom: 4px;
 }
 .ListSection{
     padding: 90px 0;
@@ -498,6 +499,9 @@ grid-template-columns: inherit;
     /* color: var(--black-color); */
     font-weight: 500;
     font-size: 1.1em;
+}
+.campaignList span:not(:last-child)::after {
+	content: ', ';
 }
 .technologies ul{
     grid-template-columns: repeat(3, 1fr);
@@ -544,6 +548,9 @@ grid-template-columns: inherit;
     margin: 10px 0 25px 0;
     list-style-type: none;
 }
+.reqLeft ul:last-child{
+    margin-bottom: 0;
+}
 .reqLeft ul li{
     font: 400 17px var(--primary-font);
     line-height: 42px;
@@ -581,8 +588,6 @@ grid-template-columns: inherit;
     background-color: #F6F6F6;
 }
 .galleryPoster{
-    /* background-color: var(--white-color);
-    padding: 20px; */
     overflow: hidden;
     border-radius: 20px;
 }
@@ -590,19 +595,55 @@ grid-template-columns: inherit;
     border-radius: 20px;
     width: 100%;
 }
-.requirementsList{
-    padding: 50px 0;
-}
 .requirSec{
     align-items: center;
 }
-.faCaretLeft{
-    color: var(--white-color);
-    font-size: 120px;
-    position: absolute;
-    top: 31px;
-    left: -46px;
-    z-index: 2;
+.requirSec :is(ol, ul) {
+	--margin: 12px;
+}
+.achivement_content{
+    margin-top: 36px;
+}
+.achivement_title{
+    font: 600 22px / 1.25 var(--primary-font);
+    color: var(--black-color);
+    margin-bottom: 20px;
+}
+.achivement_data table{
+    border: 1px solid rgba(205, 205, 205, 1);
+    border-collapse: collapse;
+    background: rgba(238, 238, 238, 1);
+    color: var(--black-color);
+    text-align: center;
+    font-size: .92em;
+    line-height: 1.25;
+}
+.achivement_data table :is(td, th){
+    padding: 16px 8px;
+    border: 1px solid rgba(205, 205, 205, 1);
+    width: 20%;
+}
+.achivement_data table th{
+    font-weight: 600;
+    text-wrap: balance;
+    background: var(--white-color);
+    padding-block: 12px;
+}
+.readmore{
+    font-size: 18px;
+    font-weight: 600;
+    color: var(--black-color);
+    cursor: pointer;
+    margin-top: 20px;
+    -moz-transition: all 300ms ease-in-out;
+    -webkit-transition: all 300ms ease-in-out;
+    transition: all 300ms ease-in-out;
+}
+.readmore svg {
+    margin-left: 3px;
+}
+.readmore:hover{
+    color: var(--primary-color);
 }
 .challengesSection{
     padding: 0 0 100px 0;

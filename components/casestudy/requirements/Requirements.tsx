@@ -5,9 +5,7 @@ import { Autoplay, FreeMode, Pagination } from 'swiper/modules';
 import Image from 'next/image';
 import 'swiper/css';
 import 'swiper/css/pagination';
-import Styles from "../casestudy.module.css";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faArrowUpRightFromSquare } from "@fortawesome/free-solid-svg-icons";
+import Styles from "./style.module.css";
 type Data = {
     proj_scope?: string;
     proj_cover_image_path?: string;
@@ -25,10 +23,10 @@ const Requirements = ({ projectType, data }: Props) => {
         <div className={`sectionArea ${projectType ? 'pt-3': ''} ${Styles.requirementsList ?? ''}`}>
             <Container>
                 <Row className={Styles.requirSec}>
-                    <Col lg={6}>
+                    <Col lg={6} className="align-self-center">
                         <div className={Styles.reqLeft}>
                             <h2>{projectType ? 'Our Solution' : 'Requirements'}</h2>
-                            <div className={Styles.content}
+                            <div className={`editorText blue ${Styles.content ?? ''}`}
                                 dangerouslySetInnerHTML={{ __html: data?.proj_scope || '' }}
                             />
                             {data?.proj_our_achievements && (
@@ -40,7 +38,6 @@ const Requirements = ({ projectType, data }: Props) => {
                                     />
                                 </div>
                             )}
-                            <span className={Styles.readmore}>Read More <FontAwesomeIcon icon={faArrowUpRightFromSquare} /></span>
                         </div>
                     </Col>
                     <Col lg={6}>

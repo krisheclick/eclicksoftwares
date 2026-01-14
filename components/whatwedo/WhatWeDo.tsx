@@ -11,8 +11,8 @@ type services = {
     wcp_icon: string;
 }
 type WWDData = {
-    oitk_title?: string;
-    oitk_heading?: string;
+    related_solutions_title?: string;
+    related_solutions_heading?: string;
 }
 type props = {
     isLoading: boolean;
@@ -35,9 +35,9 @@ const WhatWeDo = ({ isLoading, data, services }: props) => {
                 <div className={`section-content full ${Styles.section_content ?? ''}`}>
                     {!isLoading ? (
                         <>
-                            <div className={Styles.subtitle}>{data?.oitk_title ?? 'What we do test'}</div>
+                            <div className={Styles.subtitle}>{data?.related_solutions_title ?? 'What we do test'}</div>
                             <div className={`title ${Styles.title ?? ''}`}>
-                                {data?.oitk_heading ?? 'More custom software solutions we provide test'}
+                                {data?.related_solutions_heading ?? 'More custom software solutions we provide test'}
                             </div>
                         </>
 

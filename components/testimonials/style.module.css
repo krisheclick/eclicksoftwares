@@ -23,6 +23,9 @@
 .bannerTitle{
     font-size: 48px;
 }
+.containerWrapper{
+    max-width: 1200px;
+}
 .tabList ul{
     --round: 50px;
     display: flex;
@@ -63,14 +66,30 @@
     overflow: hidden;
 }
 .posterData{
+    --leave: 36px;
     background: linear-gradient(180deg, #1E58CA 0%, #0F2C64 100%);
     color: var(--white-color);
-    padding: 12px 36px 12px 8px;
+    padding: 12px var(--leave) 12px 8px;
     font-size: 15px;
     line-height: normal;
     text-align: right;
     display: grid;
     align-content: center;
+    position: relative;
+}
+.cardItem:nth-child(even) .posterData{
+    order: 1;
+    padding-inline: var(--leave) 12px;
+    text-align: start;
+}
+.brandLogo{
+    object-fit: contain;
+    position: absolute;
+    bottom: 12px;
+    right: var(--leave);
+}
+.cardItem:nth-child(even) .brandLogo{
+    left: var(--leave);
 }
 .ownerName{
     display: block;

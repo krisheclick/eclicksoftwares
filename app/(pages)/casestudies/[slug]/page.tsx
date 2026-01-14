@@ -1,7 +1,7 @@
 import Banner from '@/components/casestudy/Banner';
 import Challenges from '@/components/casestudy/banner/Challenges';
-import Requirements from '@/components/casestudy/banner/Requirements';
 import Styles from '@/components/casestudy/style.module.css';
+import Requirements from '@/components/casestudy/requirements/Requirements';
 import Testimonial from "@/components/casestudy/banner/Testimonial";
 import MySlider from '@/components/casestudy/banner/Casestudyslider';
 import Technologies from '@/components/casestudy/Technologies';
@@ -9,38 +9,43 @@ import CalltoAction from '@/components/casestudy/CalltoAction';
 import Singlebanner from '@/components/casestudy/banner/Singlebanner';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowDownLong } from '@fortawesome/free-solid-svg-icons/faArrowDownLong';
-const data = {
-    title: "Luxury Watch Ecommerce Platform",
-    content: "Our team designed a user-friendly, mobile-first website with a clean UI and optimized UX. We focused on speed optimization, SEO-friendly structure, and clear call-to-action placement.",
-    poster: "details-poster.png"
-}
-
+import ProjectInfo from '@/components/casestudy/seo-info/ProjectInfo';
 const APIURL = process.env.NEXT_PUBLIC_API_URL;
 const CasestudyDeatils = async ({ params }: { params: { slug: string } }) => {
     const { slug } = await params;
     const response = await fetch(`${APIURL}project/${slug}`);
     const { response_data } = await response.json();
+    const dataType = response_data?.Group?.project_group_layout == 2;
     return (
         <div className={Styles.singlePage}>
             <div className={Styles.singlePageBanner}>
-                {slug == 'perth-blinds' ? (
+                {dataType ? (
                     <Singlebanner data={response_data} />
                 ) : (
-                    <Banner data={data} />
+                    <Banner data={response_data} />
                 )}
                 <span className={Styles.bannerArrow}>
                     <FontAwesomeIcon icon={faArrowDownLong} />
                 </span>
             </div>
-            <Requirements data={response_data} />
-            <Technologies
-                title={slug == 'perth-blinds' ? 'Marketing Automation' : 'Use Technologies'}
-                technologies={response_data?.technologies}
+            <ProjectInfo
+                business_data={response_data?.proj_business_objectives}
+                initial_challenges={response_data?.proj_initial_challenges}
             />
+            <Requirements 
+                data={response_data}
+                projectType={dataType}
+            />
+            {!dataType && (
+                <Technologies
+                    title={dataType ? 'Marketing Automation' : 'Use Technologies'}
+                    technologies={response_data?.technologies}
+                />
+            )}
             <Challenges data={response_data} />
-            <MySlider />
+            <MySlider data={response_data?.projects} />
             <Testimonial />
-            <CalltoAction />
+            <CalltoAction data={response_data?.proj_call_to_action} />
         </div>
     )
 }

@@ -106,7 +106,7 @@ const menuMaps = {
                      { title: "Search Engine Optimization", slug: "/solutions/digital-marketing-growth/search-engine-optimization" },
                      { title: "Paid Marketing", slug: "/solutions/digital-marketing-growth/paid-marketing" },
                      { title: "Social Media Marketing", slug: "/solutions/digital-marketing-growth/social-media-marketing" },
-                     { title: "Content Marketing", slug: "/solutions/digital-marketing-growth/content-marketing" },
+                     { title: "Content Writing", slug: "/solutions/digital-marketing-growth/content-writing" },
                      { title: "Email & Automation", slug: "/solutions/digital-marketing-growth/email-automation" },
                      { title: "Local SEO", slug: "/solutions/digital-marketing-growth/local-seo" },
                      { title: "Influencer Marketing", slug: "/solutions/digital-marketing-growth/influencer-marketing" },

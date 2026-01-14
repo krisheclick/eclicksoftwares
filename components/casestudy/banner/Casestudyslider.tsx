@@ -6,68 +6,45 @@ import 'swiper/css/navigation';
 import 'swiper/css/pagination';
 import { Pagination, Autoplay, FreeMode } from 'swiper/modules';
 import { Container, Image } from "react-bootstrap";
-const MySlider = () => {
+
+interface Projects {
+    proj_feature_image_path?: string;
+}
+const MySlider = ({ data }: { data?: Projects[] }) => {
+    if (!data) return null;
+    console.log('data', data)
     return (
-        <section className={Styles.MySliderSection}>
+        <div className={Styles.MySliderSection}>
             <Container>
                 <h2 className={Styles.title}>Other Case Studies</h2>
-                <section className={Styles.sliderContainer}>
+                <div className={Styles.sliderContainer}>
                     <Swiper
                         modules={[Autoplay, Pagination, FreeMode]}
-                        spaceBetween={20}
                         slidesPerView={3}
                         navigation
                         pagination={{ clickable: true }}
-                        autoplay={{ delay: 3000, disableOnInteraction: true }}
+                        autoplay={{ delay: 5000, disableOnInteraction: true }}
                         loop={true}
-                        className="sliderSection"
+                        centeredSlides={true}
+                        className="sliderdiv"
                     >
-                        <SwiperSlide>
-                            <figure>
-                                <Image
-                                    src={`${process.env.NEXT_PUBLIC_assetPrefix}/assets/images/sliderimg01.jpg`}
-                                    width={401}
-                                    height={440}
-                                    alt=""
-                                />
-                            </figure>
-                        </SwiperSlide>
-                        <SwiperSlide>
-                            <figure>
-                                <Image
-                                    src={`${process.env.NEXT_PUBLIC_assetPrefix}/assets/images/sliderimg02.jpg`}
-                                    width={401}
-                                    height={440}
-                                    alt=""
-
-                                />
-                            </figure>
-                        </SwiperSlide>
-                        <SwiperSlide>
-                            <figure>
-                                <Image
-                                    src={`${process.env.NEXT_PUBLIC_assetPrefix}/assets/images/detailsimg.jpg`}
-                                    width={401}
-                                    height={440}
-                                    alt=""
-
-                                />
-                            </figure>
-                        </SwiperSlide>
-                        <SwiperSlide>
-                            <figure>
-                                <Image
-                                    src={`${process.env.NEXT_PUBLIC_assetPrefix}/assets/images/sliderimg02.jpg`}
-                                    width={401}
-                                    height={440}
-                                    alt=""
-                                />
-                            </figure>
-                        </SwiperSlide>
+                        {data?.map((value, index) => (
+                            <SwiperSlide key={index}>
+                                <figure>
+                                    <Image
+                                        src={`${process.env.NEXT_PUBLIC_MEDIA_URL}${value?.proj_feature_image_path}`}
+                                        width={401}
+                                        height={440}
+                                        alt=""
+                                        style={{objectFit: "cover", objectPosition: "top"}}
+                                    />
+                                </figure>
+                            </SwiperSlide>
+                        ))}
                     </Swiper>
-                </section>
+                </div>
             </Container>
-        </section>
+        </div>
     );
 }
 export default MySlider

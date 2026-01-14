@@ -2,22 +2,20 @@
 import { Container } from "react-bootstrap";
 import Image from "next/image";
 import Styles from "./style.module.css";
-import Link from "next/link";
 import { useScheduleCall } from "@/utils/useLetsConnect";
 
-const CalltoAction = () => {
+const CalltoAction = ({data}: {data?: string}) => {
     const { openScheduleModal} = useScheduleCall();
     return (
         <div className={Styles.calltoAction}>
             <Container>
                 <div className={`${Styles.calltoAction_wrapper}`}>
                     <div className={Styles.calltoAction_content}>
-                        <div className={`title ${Styles.calltoActionTitle}`}>
-                            Start Your Project Today <br />
-                            <b>Development Assistance!</b>
-                        </div>
+                        <div className={`title ${Styles.calltoActionTitle}`}
+                            dangerouslySetInnerHTML={{__html: data ?? 'Start Your Project Today'}}
+                        />
                     </div>
-                    <Link href={`javascript:void(0)`} onClick={() => openScheduleModal('general_schedule_a_call')} className={`eclick-btn-schedule ${Styles.scheduleBtn ?? ''}`}>
+                    <button onClick={() => openScheduleModal('general_schedule_a_call')} className={`eclick-btn-schedule ${Styles.scheduleBtn ?? ''}`}>
                         <span>
                             <Image
                                 className="auto-img"
@@ -28,7 +26,7 @@ const CalltoAction = () => {
                             />
                         </span>
                         <em>Schedule a Call</em>
-                    </Link>
+                    </button>
                 </div>
             </Container>
         </div>

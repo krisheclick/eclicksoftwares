@@ -1,15 +1,13 @@
 "use client";
 import Banner from "@/components/our-partner/Banner";
-import Comeingsoon from '@/components/common/Comeingsoon'
 import { useEffect, useState } from 'react';
 import { Col, Container, Row } from "react-bootstrap";
 import Image from "next/image";
 import Styles from "./style.module.css";
-import Process from "@/components/organization/Process";
 import List from "@/components/organization/List";
 import Developer from "@/components/hire-developer/Developer";
 import Faq from "@/components/hire-developer/faq/Faq";
-import { useLetsConnect, useScheduleCall } from "@/utils/useLetsConnect";
+import { useScheduleCall } from "@/utils/useLetsConnect";
 
 type PageData = {
     id: number;
