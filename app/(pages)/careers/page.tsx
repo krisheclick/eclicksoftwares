@@ -3,18 +3,18 @@ import { Metadata } from "next";
 import seoData from "@/data/seo.json";
 
 export async function generateMetadata(): Promise<Metadata> {
-    const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/page/careers/seo`, {
+    const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/page/career/seo`, {
         cache: "no-store", // or 'force-cache' for static
     });
     if (!res.ok) {
         return seoData;
     }
 
-    const {response_data:seo} = await res.json();
+    const { response_data: seo } = await res.json();
 
     const description = seo.meta_descriptions
-    ?.replace(/<>]*>?/gm, "")
-    .trim();
+        ?.replace(/<>]*>?/gm, "")
+        .trim();
 
     const ogImageUrl = `${process.env.NEXT_PUBLIC_MEDIA_URL}${seo.og_image_path}`;
     const robots = (seo.meta_robots || "").toLowerCase();
@@ -62,7 +62,7 @@ export async function generateMetadata(): Promise<Metadata> {
     };
 }
 const CareersPage = () => {
-  return <Careers />
+    return <Careers />
 }
 
 export default CareersPage

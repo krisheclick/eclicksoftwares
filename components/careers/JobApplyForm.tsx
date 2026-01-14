@@ -184,7 +184,7 @@ const JobApplyForm = ({ jobTitle, jobId }: JobApplyFormProps) => {
                 <div className={Styles.formActions}>
                     <Button
                         type="submit"
-                        className={`eclick-btn-primary ${Styles.submitBtn}`}
+                        className="eclick-btn-primary"
                         disabled={isSubmitting}
                     >
                         {isSubmitting ? (
