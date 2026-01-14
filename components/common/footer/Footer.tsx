@@ -10,15 +10,48 @@ import Area from './Area';
 import { useLetsConnect, useScheduleCall } from '@/utils/useLetsConnect';
 import ScheduleCall from '@/components/schedule-a-call/ScheduleCall';
 import LetsConnectModal from '@/components/schedule-a-call/LetsConnetModal';
+
+type RecursiveMenuItem = {
+    url: string;
+    label: string;
+    type: string;
+    id: number;
+    children?: RecursiveMenuItem[];
+};
 const Footer = () => {
     const [visible, setVisible] = useState(false);
-    const {showScheduleModal, setShowScheduleModal, clickFrom } = useScheduleCall();
-    const {showLetsConnectModal, setShowLetsConnectModal } = useLetsConnect();
+    const { showScheduleModal, setShowScheduleModal, clickFrom } = useScheduleCall();
+    const { showLetsConnectModal, setShowLetsConnectModal } = useLetsConnect();
+    const [mainFooterMenu, setmainFooterMenu] = useState<RecursiveMenuItem[]>([]);
+    const [subFooterMenu, setSubFooterMenu] = useState<RecursiveMenuItem[]>([]);
+    const FOOTER_MAIN_MENU = "menu/12f0866d204598df0599";
+    const FOOTER_SUB_MENU = "menu/e034c71afbcec6900d7c";
+
+    const fetchFooterMenus = async () => {
+        try {
+            const [mainRes, subRes] = await Promise.all([
+                fetch(`${process.env.NEXT_PUBLIC_API_URL}/${FOOTER_MAIN_MENU}`),
+                fetch(`${process.env.NEXT_PUBLIC_API_URL}/${FOOTER_SUB_MENU}`)
+            ]);
+
+            const mainJson = await mainRes.json();
+            const subJson = await subRes.json();
+
+            // API returns object → convert to array
+            setmainFooterMenu(Object.values(mainJson.response_data || {}));
+            setSubFooterMenu(Object.values(subJson.response_data || {}));
+
+        } catch (error) {
+            console.error("Footer menu fetch failed:", error);
+        }
+    };
 
     useEffect(() => {
         const handleScroll = () => {
             setVisible(window.scrollY > 200);
         };
+
+        fetchFooterMenus();
 
         window.addEventListener("scroll", handleScroll);
 
@@ -30,6 +63,27 @@ const Footer = () => {
     const scrollToTop = () => {
         window.scrollTo({ top: 0, behavior: "smooth" });
     };
+    const renderMenuColumn = (menu: RecursiveMenuItem) => (
+        <div className={Styles.columnBox} key={menu.id}>
+            <div className={Styles.navLinkWrapper}>
+                <div className={Styles.title}>{menu.label}</div>
+                <div className={Styles.navList}>
+                    <ul className={Styles.navMenu}>
+                        {menu.children?.map(child => (
+                            <li className={Styles.navItem} key={child.id}>
+                                <Link
+                                    href={`${process.env.NEXT_PUBLIC_ENV_URL}/${child.url}`}
+                                    className={Styles.navLink}
+                                >
+                                    {child.label}
+                                </Link>
+                            </li>
+                        ))}
+                    </ul>
+                </div>
+            </div>
+        </div>
+    );
     return (
         <>
             <Area />
@@ -75,7 +129,8 @@ const Footer = () => {
                                     </div>
                                 </div>
                             </div>
-                            <div className={Styles.columnBox}>
+                            {mainFooterMenu.map(renderMenuColumn)}
+                            {/* <div className={Styles.columnBox}>
                                 <div className={Styles.navLinkWrapper}>
                                     <div className={Styles.title}>Global</div>
                                     <div className={Styles.navList}>
@@ -182,7 +237,7 @@ const Footer = () => {
                                         </ul>
                                     </div>
                                 </div>
-                            </div>
+                            </div> */}
                             {/* <div className={Styles.columnBox}>
                                 <div className={Styles.addressBox}>
                                     <div className={Styles.title}>Find Us</div>
@@ -252,8 +307,15 @@ const Footer = () => {
                         <div className="d-flex align-items-center justify-content-between gap-2">
                             <p className='mb-0'>Copyright © 2025 <Link href={'https://www.eclicksoftwares.com/'} target='_blank'>Eclick Softwares & Solutions Pvt Ltd.</Link></p>
                             <ul className={`${Styles.inlineLink} d-flex flex-wrap`}>
-                                <li><Link href={`${process.env.NEXT_PUBLIC_ENV_URL}/privacy-policy`}>Privacy Policy</Link></li>
-                                <li><Link href={`${process.env.NEXT_PUBLIC_ENV_URL}/refund-policy`}>Refund Policy</Link></li>
+                                {subFooterMenu?.map(child => (
+                                    <li key={child.id}>
+                                    <Link href={`${process.env.NEXT_PUBLIC_ENV_URL}/${child.url}`}>
+                                        {child.label}
+                                    </Link>
+                                    </li>
+                                ))}
+                                {/* <li><Link href={`${process.env.NEXT_PUBLIC_ENV_URL}/privacy-policy`}>Privacy Policy</Link></li>
+                                <li><Link href={`${process.env.NEXT_PUBLIC_ENV_URL}/refund-policy`}>Refund Policy</Link></li> */}
                             </ul>
                         </div>
                     </div>
@@ -266,8 +328,8 @@ const Footer = () => {
             >
                 <FontAwesomeIcon icon={faArrowUp} />
             </span>
-            <ScheduleCall show={showScheduleModal} action={clickFrom} onHide={() => setShowScheduleModal(false)}/>
-            <LetsConnectModal show={showLetsConnectModal} action={clickFrom} onHide={() => setShowLetsConnectModal(false)}/>
+            <ScheduleCall show={showScheduleModal} action={clickFrom} onHide={() => setShowScheduleModal(false)} />
+            <LetsConnectModal show={showLetsConnectModal} action={clickFrom} onHide={() => setShowLetsConnectModal(false)} />
         </>
     )
 }
