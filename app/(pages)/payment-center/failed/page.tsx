@@ -1,15 +1,15 @@
-// app/payment-center/success/page.tsx
+// app/payment-center/failed/page.tsx
 "use client";
 
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { Container, Row, Col } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCheckCircle } from "@fortawesome/free-solid-svg-icons";
+import { faXmark } from "@fortawesome/free-solid-svg-icons";
 import Styles from "./style.module.css";
 import Link from "next/link";
 
-const PaymentSuccess = () => {
+const PaymentFailed = () => {
     const router = useRouter();
     const [counter, setCounter] = useState(30); // countdown in seconds
 
@@ -17,7 +17,7 @@ const PaymentSuccess = () => {
         // if (hasRun.current) return;
         // hasRun.current = true;
 
-        const allowed = sessionStorage.getItem("paymentSuccess");
+        const allowed = sessionStorage.getItem("paymentFailed");
 
         if (!allowed) {
             router.replace("/");
@@ -31,7 +31,7 @@ const PaymentSuccess = () => {
 
         // redirect after 30 seconds
         const redirectTimer = setTimeout(() => {
-            sessionStorage.removeItem("paymentSuccess"); // remove only when redirecting
+            sessionStorage.removeItem("paymentFailed"); // remove only when redirecting
             router.replace("/");
         }, 30000);
 
@@ -42,19 +42,19 @@ const PaymentSuccess = () => {
     }, [router]);
 
     return (
-        <div className={Styles.successPage}>
+        <div className={Styles.failedPage}>
             <Container>
                 <Row className="justify-content-center">
                     <Col lg={6} className="text-center">
-                        <div className={Styles.successContent}>
-                            <div className={Styles.successIcon}>
-                                <FontAwesomeIcon icon={faCheckCircle} />
+                        <div className={Styles.failedContent}>
+                            <div className={Styles.failedIcon}>
+                                <FontAwesomeIcon icon={faXmark} />
                             </div>
-                            <h1 className={Styles.successTitle}>
-                                Payment Successful!
+                            <h1 className={Styles.failedTitle}>
+                                Payment Failed!
                             </h1>
-                            <p className={Styles.successMessage}>
-                                Thank you for your payment. Your transaction has been processed successfully.
+                            <p className={Styles.failedMessage}>
+                                Unfortunately, your payment could not be processed. Please try again or contact support.
                                 <br />
                                 You will be redirected to the homepage in{" "}
                                 <strong>{counter} second{counter !== 1 ? "s" : ""}</strong>.
@@ -62,10 +62,16 @@ const PaymentSuccess = () => {
 
                             <div className={Styles.actionButtons}>
                                 <Link
-                                    href="/"
-                                    className={`eclick-btn-primary ${Styles.homeBtn}`}
+                                    href="/payment-center"
+                                    className={`eclick-btn-primary ${Styles.retryBtn}`}
                                 >
-                                    <em>Go to Home Now</em>
+                                    <em>Try Again</em>
+                                </Link>
+                                <Link
+                                    href="/"
+                                    className={`eclick-btn-secondary ${Styles.homeBtn}`}
+                                >
+                                    <em>Go to Home</em>
                                 </Link>
                             </div>
                         </div>
@@ -76,4 +82,4 @@ const PaymentSuccess = () => {
     );
 };
 
-export default PaymentSuccess;
+export default PaymentFailed;

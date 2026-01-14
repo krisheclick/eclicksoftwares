@@ -1,4 +1,4 @@
-import Careers from '@/components/careers/Careers';
+import Comeingsoon from '@/components/common/Comeingsoon'
 import { Metadata } from "next";
 import seoData from "@/data/seo.json";
 
@@ -13,7 +13,7 @@ export async function generateMetadata(): Promise<Metadata> {
     const {response_data:seo} = await res.json();
 
     const description = seo.meta_descriptions
-    ?.replace(/<>]*>?/gm, "")
+    ?.replace(/<[^>]*>?/gm, "")
     .trim();
 
     const ogImageUrl = `${process.env.NEXT_PUBLIC_MEDIA_URL}${seo.og_image_path}`;
@@ -61,8 +61,8 @@ export async function generateMetadata(): Promise<Metadata> {
         },
     };
 }
-const CareersPage = () => {
-  return <Careers />
+const Careers = () => {
+  return <Comeingsoon />
 }
 
-export default CareersPage
+export default Careers

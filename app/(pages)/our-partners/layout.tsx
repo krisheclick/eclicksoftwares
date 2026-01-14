@@ -1,9 +1,9 @@
-import Careers from '@/components/careers/Careers';
-import { Metadata } from "next";
+import { BlogProvider } from "@/context/Blogcontext";
 import seoData from "@/data/seo.json";
+import { Metadata } from "next";
 
 export async function generateMetadata(): Promise<Metadata> {
-    const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/page/careers/seo`, {
+    const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/page/our-partners/seo`, {
         cache: "no-store", // or 'force-cache' for static
     });
     if (!res.ok) {
@@ -13,7 +13,7 @@ export async function generateMetadata(): Promise<Metadata> {
     const {response_data:seo} = await res.json();
 
     const description = seo.meta_descriptions
-    ?.replace(/<>]*>?/gm, "")
+    ?.replace(/<[^>]*>?/gm, "")
     .trim();
 
     const ogImageUrl = `${process.env.NEXT_PUBLIC_MEDIA_URL}${seo.og_image_path}`;
@@ -61,8 +61,12 @@ export async function generateMetadata(): Promise<Metadata> {
         },
     };
 }
-const CareersPage = () => {
-  return <Careers />
-}
 
-export default CareersPage
+
+export default function PartnerLayout({ children }: { children: React.ReactNode }) {
+    return (
+        <BlogProvider>
+            {children}
+        </BlogProvider>
+    )
+}

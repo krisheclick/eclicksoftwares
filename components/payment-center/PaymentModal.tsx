@@ -138,6 +138,7 @@ const PaymentCenterModal = ({ show, onClose, formData }: Props) => {
                                     sessionStorage.setItem("paymentSuccess", "true");
                                     router.push("/payment-center/success");
                                 }else{
+                                    sessionStorage.setItem("paymentFailed", "true");
                                     router.push("/payment-center/failed");
                                 }
                             } catch (captureError) {
@@ -153,6 +154,7 @@ const PaymentCenterModal = ({ show, onClose, formData }: Props) => {
                                 console.error("Payment capture error", captureError);
                                 onClose();
                                 alert("Payment succeeded but confirmation failed. Contact support.");
+                                sessionStorage.setItem("paymentFailed", "true");
                                 router.push("/payment-center/failed");
                             }
                         }}
@@ -183,7 +185,8 @@ const PaymentCenterModal = ({ show, onClose, formData }: Props) => {
                             }
 
                             onClose();
-                            router.push("/payment-center/cancel");
+                            sessionStorage.setItem("paymentFailed", "true");
+                            router.push("/payment-center/failed");
                         }}
                         onError={async (err) => {
                             console.error(err);
@@ -201,6 +204,7 @@ const PaymentCenterModal = ({ show, onClose, formData }: Props) => {
                                 console.error(err);
                             }
                             onClose();
+                            sessionStorage.setItem("paymentFailed", "true");
                             router.push("/payment-center/failed");
                         }}
                     />
