@@ -19,46 +19,42 @@ interface BannerProps {
 
 const Banner = ({ hasLoading, data }: BannerProps) => {
     return (
-        <div className={Styles.banner}>
-            <Container className="container-full">
-                <figure>
-                    {!hasLoading ? (
-                        <Image
-                            src={`${process.env.NEXT_PUBLIC_MEDIA_URL}/uploads/page_image/${data?.z6hd_image}`}
-                            alt={data?.z6hd_title || "Banner Poster"}
-                            fill
-                            priority
-                        />
-                    ) : (
-                        <div className="skeleton skeletonFill"></div>
-                    )}
-                </figure>
-                <div className={Styles.bannerText}>
-                    <Container>
-                        <div className={Styles.bannerText_in}>
-                            {!hasLoading ? (
-                                <>
-                                {
-                                    data?.z6hd_title && (
-                                        <h1 dangerouslySetInnerHTML={{ __html: data?.z6hd_title }} className={`title ${Styles.bannerTitle}`} />
-                                    )
-                                }
-                                {data?.z6hd_short_description && (
-                                    <div
-                                    dangerouslySetInnerHTML={{ __html: data.z6hd_short_description }}
-                                    />
-                                )}
-                                </>
-                            ) : (
-                                <>
-                                    <div className={`skeleton w-50 mx-auto mb-2 ${Styles.skeletonTitle}`}></div>
-                                    <div className={`skeleton w-75 mx-auto ${Styles.skeletonTitle}`}></div>
-                                </>
+        <div className={Styles.banner}> 
+            <figure className={Styles.partnerabnrmain}>
+                {!hasLoading ? (
+                    <Image
+                        src={`${process.env.NEXT_PUBLIC_MEDIA_URL}/uploads/page_image/${data?.z6hd_image}`}
+                        alt={data?.z6hd_title || "Banner Poster"}
+                        fill
+                        priority
+                    />
+                ) : (
+                    <div className="skeleton skeletonFill"></div>
+                )}
+            </figure>
+            <div className={Styles.bannerTextPartner}>
+                <Container>
+                    <div className={Styles.bannerTextpartner}>
+                        {!hasLoading ? (
+                            <>
+                            {
+                                data?.z6hd_title && (
+                                    <h1 dangerouslySetInnerHTML={{ __html: data?.z6hd_title }} className={`title ${Styles.bannerTitle}`} />
+                                )
+                            }
+                            {data?.z6hd_short_description && (
+                                <div className={Styles.banerparaul}><div dangerouslySetInnerHTML={{ __html: data.z6hd_short_description }}/></div>
                             )}
-                        </div>
-                    </Container>
-                </div>
-            </Container>
+                            </>
+                        ) : (
+                            <>
+                                <div className={`skeleton w-50 mx-auto mb-2 ${Styles.skeletonTitle}`}></div>
+                                <div className={`skeleton w-75 mx-auto ${Styles.skeletonTitle}`}></div>
+                            </>
+                        )}
+                    </div>
+                </Container>
+            </div> 
         </div>
     );
 };

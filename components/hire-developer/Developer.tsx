@@ -21,7 +21,7 @@ interface Props {
 }
 const Developer = ({hasLoading, whiteClass, separateText, data}: Props) => {
     return (
-        <div className={`${Styles.hwbsec}${whiteClass ? ' bg-white' : ''}`}>
+        <div className={`${Styles.hwbsec}${whiteClass ? 'bg-white' : ''}`}>
             <Container>
                 <div className={`${Styles.hwdfulltextbox}${separateText ? ` ${Styles.separateText}` : ''}`}>
                     <h2 className={Styles.hwdtilte}>{data?.usp_category_title}</h2>

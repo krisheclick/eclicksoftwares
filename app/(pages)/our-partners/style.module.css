@@ -1,29 +1,26 @@
+/**OUR-PARTNER-STARTS**/
 .aboutPoster {
     position: relative;
     padding-top: 70%;
     border-radius: 100%;
     border-radius: 10px;
     overflow: hidden;
-}
-
+} 
 .skeletonTitle {
     height: 36px;
     margin-bottom: 20px;
-}
-
+}  
 .supportRow {
     max-width: 600px;
     display: flex;
     gap: 8px;
     margin-top: 48px;
-}
-
+} 
 .supportBox {
     font-weight: 600;
     font-size: 1.1em;
     display: flex;
-}
-
+} 
 .supportBox::after {
     content: "";
     background: #d9d9d9;
@@ -31,12 +28,10 @@
     height: 100%;
     display: block;
     margin: 0 24px;
-}
-
+} 
 .supportBox:last-child::after {
     display: none;
-}
-
+} 
 .review {
     font-size: 40px;
     color: var(--secondary-title-color);
@@ -45,26 +40,21 @@
     gap: 8px;
     text-shadow: 0 0 currentColor;
     letter-spacing: 1px;
-}
-
+} 
 .skeletonCount {
     width: 100px;
     height: 36px;
-}
-
+} 
 .skeletonPrefix {
     width: 32px;
     height: 28px;
-}
-
+} 
 .whatwedo {
     padding-block: 24px;
-}
-
+} 
 .whatwedo .row {
     position: relative;
-}
-
+} 
 .whatwedo .row::after {
     content: "";
     bottom: 0;
@@ -74,9 +64,115 @@
     position: absolute;
     left: 0;
     right: 0;
-}
-
+} 
 .counter_section {
     padding: 80px 0px;
     background: var(--primary-background);
 }
+
+.hwdtilte{
+    font: 400 45px / 1.2 var(--primary-font);
+    color: var(--black-color);
+    text-transform: capitalize;
+    margin-bottom: 24px;
+}
+.hwdtiltepara{
+    color: #000000;
+    text-transform: capitalize;
+    font-size: 18px;
+    line-height: 30px;
+    font-weight: 400;
+}
+.faqSectionsam .hwdtiltepara{ 
+    margin-bottom: 33px;
+} 
+.valuesbus_partner{
+    padding: 80px 0 85px;
+    background-color: #E5F1FF;
+}
+.valuesbus_partner .hwbsec.bg-white{
+    --bs-bg-opacity: 0 !important;
+    background-color: transparent !important;
+}
+
+.reslsbbg{
+    background: #F4F4F4;
+    border-radius: 10px;
+    padding: 40px;
+}
+.lablheading{
+    color: #0339A7;
+    font-size: 16px;
+    line-height: 25px;
+    text-transform: uppercase;
+    font-weight: 700;
+    margin-bottom: 0px;
+}
+.maleb_mheading{
+    font-size: 35px;
+    line-height: 45px;
+    font-weight: 700;
+    color: #282828;
+    text-transform: capitalize;
+}
+.resamr_paraul p{
+    font-size: 16px;
+    line-height: 28px;
+    color: #000000;
+    text-transform: capitalize;
+    font-weight: 400;
+}
+.resamr_paraul ul{
+    margin: 0;
+    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+}
+.resamr_paraul ul li{
+    list-style: none;
+    position: relative;
+    font-size: 17px;
+    line-height: 27px;
+    padding: 8px 20px;
+    color: #000000;
+    font-weight: 400;
+    margin: 0;
+}
+.resamr_paraul ul li::before{
+    position: absolute;
+    top: 13px;
+    left: 0;
+    background: url(../our-partners/tick.png);
+    width: 16px;
+    height: 16px;
+    content: "";
+}
+.marksbbg{
+    padding: 20px;
+} 
+.reselmarketsec{
+    padding: 90px 0;
+}
+.editorTextpartner{
+    color: #000000;
+    font-weight: 400;
+    font-size: 16px;
+    text-transform: capitalize;
+    line-height: 28px;
+}
+.editorTextpartner p{
+    color: #000000;
+    font-weight: 400;
+    font-size: 16px;
+    text-transform: capitalize;
+    line-height: 28px;
+}
+.partab_mheading{
+    font-size: 40px;
+    line-height: 50px;
+    font-weight: 700;
+    color: #282828;
+    text-transform: capitalize;
+} 
+/**OUR-PARTNER-ENDS**/
+

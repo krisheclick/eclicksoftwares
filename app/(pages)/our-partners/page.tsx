@@ -132,11 +132,18 @@ const Partnerships = () => {
     }, [pageData]);
 
     return (
+
+
         <div className="about_page">
+
+            {/* ================= PARTNER-BANNER-STARTS ================= */} 
             {bannerData && (
                 <Banner hasLoading={hasLoading} data={bannerData} />
             )}
+            {/* ================= PARTNER-BANNER-ENDS ================= */}
 
+
+            {/* ================= PARTNER-ABOUT-STARTS ================= */}
             <div className={`sectionArea pt-3 ${Styles.about_section ?? ''}`}>
                 <Container>
                     <Row className="rowGap gx-xl-5 align-items-center">
@@ -156,15 +163,14 @@ const Partnerships = () => {
                             </figure>
                         </Col>
                         <Col lg={6}>
-                            <div className={`ps-4 ${Styles.about_content}`}>
+                            <div className={`${Styles.about_content}`}>
                                 {!hasLoading ? (
                                     <>
-                                        <p >{pageData?.short_description}</p>
-                                        <h2 className={`title fw-bold ${Styles.page_title}`}>{pageData?.page_title}</h2>
-                                        <div
-                                            className="editorText"
-                                            dangerouslySetInnerHTML={{ __html: pageData?.description || "" }}
-                                        />
+                                        <div className={Styles.lablheading}>{pageData?.short_description}</div>
+                                        <h2 className={`title fw-bold ${Styles.partab_mheading}`}>{pageData?.page_title}</h2>
+                                        <div className={Styles.editorTextpartner}>
+                                            <div className="editorText" dangerouslySetInnerHTML={{ __html: pageData?.description || "" }}/>
+                                        </div>
                                     </>
                                 ) : (
                                     <>
@@ -184,6 +190,10 @@ const Partnerships = () => {
                     </Row>
                 </Container>
             </div>
+            {/* ================= PARTNER-ABOUT-ENDS ================= */}                        
+
+
+            {/* ================= PARTNERSHIP-PROGRAMS-RJ-STARTS ================= */}              
             <div className={`sectionArea ${Styles.processSection ?? ''}`}>
                 <Container>
                     <div className={`section-content full text-center ${Styles.section_content ?? ''}`}>
@@ -206,35 +216,50 @@ const Partnerships = () => {
                     } />
                 </Container>
             </div>
+            {/* ================= PARTNERSHIP-PROGRAMS-RJ-ENDS ================= */}
 
-            <div className={`sectionArea ${Styles.processSection ?? ''}`}>
-                <Container>
+
+            {/* ================= RESELLER-MARKETING-STARTS ================= */}              
+            <div className={`sectionAreaa ${Styles.processSection ?? ''}`}>
+                <Container className={Styles.reselmarketsec}>
                     {pageCustomField?.program && (
                         <Row>
                             <Col lg={6}>
-                                <p>{pageCustomField?.program.nplh_title_1}</p>
-                                <h3>{pageCustomField?.program.nplh_heading_1}</h3>
-                                <div dangerouslySetInnerHTML={{__html:pageCustomField?.program.nplh_description_1}}/>
+                                <div className={Styles.reslsbbg}>
+                                    <div className={Styles.lablheading}>{pageCustomField?.program.nplh_title_1}</div>
+                                    <h3 className={Styles.maleb_mheading}>{pageCustomField?.program.nplh_heading_1}</h3>
+                                    <div className={Styles.resamr_paraul}>
+                                        <div dangerouslySetInnerHTML={{__html:pageCustomField?.program.nplh_description_1}}/>
+                                    </div>
+                                </div>
                             </Col>
-                            <Col lg={6}>                            
-                                <p>{pageCustomField?.program.nplh_title_2}</p>
-                                <h3>{pageCustomField?.program.nplh_heading_2}</h3>
-                                <div dangerouslySetInnerHTML={{__html:pageCustomField?.program.nplh_description_2}}/>
+                            <Col lg={6}>    
+                                <div className={Styles.marksbbg}>                     
+                                    <div className={Styles.lablheading}>{pageCustomField?.program.nplh_title_2}</div>
+                                    <h3 className={Styles.maleb_mheading}>{pageCustomField?.program.nplh_heading_2}</h3>
+                                    <div className={Styles.resamr_paraul}>
+                                        <div dangerouslySetInnerHTML={{__html:pageCustomField?.program.nplh_description_2}}/>
+                                    </div>
+                                </div>   
                             </Col>
                         </Row>   
                     )}
                     
                 </Container>
             </div>
+            {/* ================= RESELLER-MARKETING-ENDS ================= */}
 
-            {pageData && (
-                <Developer
-                    hasLoading={hasLoading} data={pageData?.usp_categorys[1]}
-                    whiteClass={true} separateText={true}
-                />
-            )}
 
-            {/* ================= FAQ ================= */}
+            {/* ================= VALUES-BUSINESS-STARTS ================= */}      
+            <div className={Styles.valuesbus_partner}>     
+                {pageData && (
+                    <Developer hasLoading={hasLoading} data={pageData?.usp_categorys[1]} whiteClass={true} separateText={true}/>
+                )}
+            </div>
+            {/* ================= VALUES-BUSINESS-ENDS ================= */}
+
+
+            {/* ================= FAQ-STARTS ================= */}
             {pageData && pageData?.faqs?.length > 0 && (
                 <div className={`sectionArea ${Styles.faqSectionsam ?? ''}`}>
                     <Container>
@@ -271,6 +296,8 @@ const Partnerships = () => {
                     </Container>
                 </div>
             )}
+            {/* ================= FAQ-ENDS ================= */}
+
         </div>
     )
 }
