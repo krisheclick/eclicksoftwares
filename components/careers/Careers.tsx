@@ -191,10 +191,10 @@ const Careers = () => {
                                             <div className={Styles.banerparaul}><div dangerouslySetInnerHTML={{ __html: bannerData.t8vk_description }}/></div>
                                         )}
                                         <div className={Styles.btnbanner}>
-                                            <Link href="#" className={Styles.btncare}>
+                                            <Link href="#" className={Styles.btnbnrs}>
                                                 Let’s start your journey
                                             </Link>
-                                            <Link href="#" className={Styles.btncare}>
+                                            <Link href="#" className={Styles.btnbnrs}>
                                                 refer a friend
                                             </Link>
                                         </div>

@@ -205,7 +205,7 @@ body{
     text-align: center;
 } 
 .banerparaul ul{
-    margin: 23px 0 0 0;
+    margin: 15px 0 28px;
     padding: 0;
 }
 .banerparaul ul li{
@@ -295,6 +295,9 @@ body{
 .btnbanner{
     position: relative;
     z-index: 1;
+    display: flex;
+    align-items: center;
+    gap: 10px;
 }
 .referralContentr .btncare{
     color: #ffffff;
@@ -306,6 +309,19 @@ body{
 }
 .referralContentr .btncare:hover{
     background: #111111;
+    color: #ffffff;
+}
+.btnbnrs{
+    display: inline-block;
+    padding: 10px 22px;
+    border-radius: 7px;
+    background: #1f58cb;
+    text-transform: capitalize;
+    font-size: 16px;
+    line-height: 25px;
+}
+.btnbnrs:hover{
+    background: #000000;
     color: #ffffff;
 }
 
