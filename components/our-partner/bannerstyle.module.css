@@ -42,3 +42,35 @@
 .skeletonTitle:last-child{
     height: 36px;
 }
+
+
+
+figure.partnerabnrmain{
+    position: relative;
+    border-radius: 0;
+}
+figure.partnerabnrmain::before{
+    display: none;
+}
+.bannerTextPartner{
+    top: 50%;
+    text-align: left;
+    z-index: 2;
+    position: absolute;
+    transform: translateY(-50%);
+    inset-inline: 0px;
+    color: var(--white-color);
+}
+.bannerTitle{
+    font-size: 45px;
+    line-height: 60px;
+    font-weight: 600;
+    color: #000000;
+    text-transform: capitalize;
+}
+.bannerTitle span{
+    font-weight: 700;
+    font-size: 80px;
+    line-height: 80px;
+    color: #000000;
+}
