@@ -39,9 +39,17 @@ const JobApplyForm = ({ jobTitle, jobId, jobLocation }: JobApplyFormProps) => {
                 const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/careers`);
                 const { response_data } = await response.json();
                 
-                // Extract unique locations from careers
-                const uniqueLocations = [...new Set(response_data.careers.map((career: any) => career.career_location))];
-                setLocations(uniqueLocations.filter(location => location)); // Filter out empty locations
+                const uniqueLocations: string[] = Array.from(
+                    new Set(
+                        response_data.careers
+                            .map((career: { career_location?: string }) =>
+                                career.career_location?.trim()
+                            )
+                            .filter((location: string | undefined): location is string => Boolean(location))
+                    )
+                );
+
+                setLocations(uniqueLocations);
             } catch (err: unknown) {
                 console.error("Failed to fetch locations:", (err as Error).message);
             }
