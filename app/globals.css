@@ -756,3 +756,9 @@ input[type=number] {
   outline: none;
   box-shadow: 0 0 0 3px rgba(59,130,246,.4);
 }
+label.is-invalid {
+	border-color: var(--bs-form-invalid-border-color);
+}
+.react-select__control{
+	height: 48px;
+}
