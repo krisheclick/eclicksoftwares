@@ -102,32 +102,7 @@
 
 .formActions {
     text-align: center;
-    margin-top: 40px;
-    padding-top: 30px;
     border-top: 1px solid #e9ecef;
-}
-
-.submitBtn {
-    padding: 15px 40px;
-    border-radius: 25px;
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-    transition: all 0.3s ease;
-    font-size: 1rem;
-    min-width: 200px;
-}
-
-.submitBtn:hover:not(:disabled) {
-    background: var(--hover-color);
-    border-color: var(--hover-color);
-    transform: translateY(-2px);
-    box-shadow: 0 5px 15px rgba(31, 88, 203, 0.3);
-}
-
-.submitBtn:disabled {
-    opacity: 0.7;
-    cursor: not-allowed;
 }
 
 /* Responsive Design */
@@ -161,10 +136,5 @@
 
     .sectionTitle {
         font-size: 1.2rem;
-    }
-
-    .submitBtn {
-        width: 100%;
-        min-width: unset;
     }
 }

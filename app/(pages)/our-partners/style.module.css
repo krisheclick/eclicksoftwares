@@ -77,10 +77,11 @@
     margin-bottom: 24px;
 }
 .hwdtiltepara{
-    color: #2c2c2c;
+    color: #000000;
     text-transform: capitalize;
-    font-size: 17px;
-    line-height: 1.8;
+    font-size: 18px;
+    line-height: 30px;
+    font-weight: 400;
 }
 .faqSectionsam .hwdtiltepara{ 
     margin-bottom: 33px;
