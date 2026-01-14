@@ -143,14 +143,20 @@ const Careers = () => {
                                     <>
                                         {
                                             bannerData?.t8vk_title && (
-                                                <h1 dangerouslySetInnerHTML={{ __html: bannerData?.t8vk_title }} className={`title ${Styles.bannerTitle}`} />
+                                                <h1 dangerouslySetInnerHTML={{ __html: bannerData?.t8vk_title }} className={`${Styles.bannerTitle}`} />
                                             )
                                         }
                                         {bannerData?.t8vk_description && (
-                                            <div
-                                                dangerouslySetInnerHTML={{ __html: bannerData.t8vk_description }}
-                                            />
+                                            <div className={Styles.banerparaul}><div dangerouslySetInnerHTML={{ __html: bannerData.t8vk_description }}/></div>
                                         )}
+                                        <div className={Styles.btnbanner}>
+                                            <Link href="#" className={Styles.btncare}>
+                                                Let’s start your journey
+                                            </Link>
+                                            <Link href="#" className={Styles.btncare}>
+                                                refer a friend
+                                            </Link>
+                                        </div>
                                     </>
                                 ) : (
                                     <>
@@ -158,6 +164,7 @@ const Careers = () => {
                                         <div className={`skeleton w-75 mx-auto ${Styles.skeletonTitle}`}></div>
                                     </>
                                 )}
+                                
                             </div>
                         </Container>
                     </div>
@@ -165,7 +172,7 @@ const Careers = () => {
             </div>
 
             {/* Why Eclick Section */}
-            <div className={`sectionArea ${Styles.sectionArea}`}>
+            <div className={`${Styles.sectionArea}`}>
                 <Container>
                     <Row className="justify-content-center">
                         <Col lg={6}>
@@ -216,38 +223,39 @@ const Careers = () => {
             </div>
 
             {/* Referral Section */}
-            {/* <div className={`sectionArea ${Styles.referralSection}`}>
+             <div className={`${Styles.referralSectionsam}`}>
                 <Container>
                     <Row className="justify-content-center align-items-center">
                         <Col lg={6}>
-                            <div className={Styles.referralContent}>
-                                <h2 className={Styles.sectionTitle}>REFER A FRIEND</h2>
+                            <div className={Styles.referralContentl}>
+                                <div className={Styles.lablheading}>for freshers</div>
+                                <h2 className={Styles.sectionTitle}>First Flush - Start Your Journey Here</h2>
                                 <p className={Styles.referralText}>
-                                    Join our "Refer a Friend and Get Rewarded" program! Invite a friend to our community and enjoy great rewards together. For each successful referral, you'll get exclusive discounts, and your friend will receive a welcome bonus.
+                                    If you are fresh out of college and want to jumpstart your IT career, our First Flush program can help you explore your flair for innovation in the industry. Come and join the INT. family, and help us inspire possibilities throughout the world. 
                                 </p>
-                                <Link href="/contact-us" className="eclick-btn-primary">
-                                    Refer a Friend
+                                <Link href="/contact-us" className={Styles.btncare}>
+                                    Let’s start your journey
                                 </Link>
                             </div>
                         </Col>
                         <Col lg={6}>
-                            <div className={Styles.referralImage}>
-                                <Image
-                                    src="/images/referral-program.png"
-                                    alt="Referral Program"
-                                    width={400}
-                                    height={300}
-                                    className="img-fluid"
-                                    style={{ borderRadius: '10px', boxShadow: '0 5px 20px rgba(0, 0, 0, 0.1)' }}
-                                />
+                            <div className={Styles.referralContentr}>
+                                <div className={Styles.lablheading}>refer</div>
+                                <h2 className={Styles.sectionTitle}>Refer a Friend & get Rewarded!</h2>
+                                <p className={Styles.referralText}>
+                                    Join our “Refer a Friend and Get Rewarded” program! Invite a friend to our community and enjoy great rewards together. For each successful referral, you’ll get exclusive discounts, and your friend will receive a welcome bonus. 
+                                </p>
+                                <Link href="/contact-us" className={Styles.btncare}>
+                                    Refer a Friend
+                                </Link>
                             </div>
                         </Col>
                     </Row>
                 </Container>
-            </div> */}
+            </div> 
 
             {/* Current Openings */}
-            <div className={`sectionArea ${Styles.openingsSection}`}>
+            <div className={`${Styles.openingsSection}`}>
                 <Container>                    
                     <div className={Styles.openingsContent}>
                         <h2 className={Styles.sectionTitle}>Job Vacancies</h2>

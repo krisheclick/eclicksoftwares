@@ -34,6 +34,7 @@
     color: var(--text-color);
 }
 
+
 /* Responsive Design */
 @media (max-width: 768px) {
     .sectionArea {
