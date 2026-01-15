@@ -1,7 +1,7 @@
 .item {
   border: 0 solid #d3d3d3;
   border-width: 0 0 1px 1px;
-  padding: 24px;
+  padding: 35px;
 }
 .item:nth-child(4n+1) {
   border-left-width: 0;
@@ -20,11 +20,11 @@
     position: relative;
     width: var(--size);
     height: var(--size);
-    margin-bottom: 8px;
+    margin-bottom: 30px;
 }
 .boxtitle{
 	font: 400 22px / 1.35 var(--primary-font);
-	margin-bottom: 8px;
+	margin-bottom: 15px;
     color: rgba(49, 49, 49, 1);
 }
 .learnMore{

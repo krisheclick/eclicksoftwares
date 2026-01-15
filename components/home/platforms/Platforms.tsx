@@ -5,20 +5,22 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowRight } from "@fortawesome/free-solid-svg-icons";
 import Image from "next/image";
 import Skeleton from "@/components/common/Skeleton";
-import Styles from "./style.module.css";
 import { Swiper, SwiperSlide } from "swiper/react";
-import { Navigation, Pagination } from "swiper/modules";
+import { Autoplay, Mousewheel, Pagination } from "swiper/modules";
 import "swiper/css";
-import "swiper/css/navigation";
+import "swiper/css/autoplay";
 import "swiper/css/pagination";
+import Styles from "./style.module.css";
+
 type Project = {
     proj_name: string;
     proj_slug: string;
     proj_type: string;
-    proj_short_desc: string;
+    proj_home_short_desc: string;
     proj_feature_image: string;
     proj_feature_image_path: string;
     proj_tools_used: string;
+    proj_industry_bg_image_path: string;
     proj_gallery?: string | string[];
 }
 
@@ -63,7 +65,6 @@ const Platformscomponent = () => {
         setActiveIndex(prev => (prev === index ? null : index));
     };
 
-
     return (
         <div className={Styles.sectionArea}>
             <Container className='container-full'>
@@ -94,7 +95,7 @@ const Platformscomponent = () => {
 
                                             {activeIndex === index && (
                                                 <div className={`editorText ${Styles.accordionContent}`}
-                                                    dangerouslySetInnerHTML={{ __html: faq.proj_short_desc ?? '' }}
+                                                    dangerouslySetInnerHTML={{ __html: faq.proj_home_short_desc ?? '' }}
                                                 />
                                             )}
                                         </div>
@@ -127,36 +128,51 @@ const Platformscomponent = () => {
                         </Col>
 
                         <Col lg={6}>
-                            {(
-                                !hasLoading &&
-                                activeIndex !== null &&
-                                projects[activeIndex] &&
-                                parseGallery(projects[activeIndex].proj_gallery).length > 0
-                            ) ? (
-                                <Swiper
-                                    key={activeIndex}
-                                    modules={[Navigation, Pagination]}
-                                    navigation
-                                    pagination={{ clickable: true }}
-                                    spaceBetween={20}
-                                    slidesPerView={1}
-                                    className={Styles.gallerySwiper}
-                                >
-                                    {parseGallery(projects[activeIndex].proj_gallery).map((img, i) => (
-                                        <SwiperSlide key={i}>
-                                            <div className={Styles.imageWrapper}>
-                                                <Image
-                                                    src={`${process.env.NEXT_PUBLIC_MEDIA_URL}/uploads/project/${img}`}
-                                                    alt={`${projects[activeIndex].proj_name} image ${i + 1}`}
-                                                    fill
-                                                />
-                                            </div>
-                                        </SwiperSlide>
-                                    ))}
-                                </Swiper>
-                            ) : (
-                                <div className={`skeleton rounded shadow-sm ${Styles.imageWrapper}`}></div>
-                            )}
+                            <div className={Styles.galleryBackground}>
+                                {activeIndex !== null && projects[activeIndex] && projects[activeIndex].proj_industry_bg_image_path && (
+                                    <Image
+                                        className={Styles.grayscale}
+                                        src={`${process.env.NEXT_PUBLIC_MEDIA_URL}${projects[activeIndex].proj_industry_bg_image_path}`}
+                                        alt={projects[activeIndex].proj_name || 'Project image'}
+                                        fill
+                                    />
+                                )}
+                                {(
+                                    !hasLoading &&
+                                    activeIndex !== null &&
+                                    projects[activeIndex] &&
+                                    parseGallery(projects[activeIndex].proj_gallery).length > 0
+                                ) ? (
+                                    <Swiper
+                                        key={activeIndex}
+                                        modules={[Autoplay, Pagination, Mousewheel]}
+                                        direction="vertical"
+                                        spaceBetween={20}
+                                        slidesPerView={1}
+                                        autoplay={{ delay: 3000 }}
+                                        // pagination={{ clickable: true, dynamicBullets: true }}
+                                        pagination={{ clickable: true}}
+                                        navigation
+                                        mousewheel
+                                        autoHeight={false}
+                                        className={`gallerySwiper ${Styles.gallerySwiper ?? ''}`}
+                                    >
+                                        {parseGallery(projects[activeIndex].proj_gallery).map((img, i) => (
+                                            <SwiperSlide key={i}>
+                                                <div className={Styles.imageWrapper}>
+                                                    <Image
+                                                        src={`${process.env.NEXT_PUBLIC_MEDIA_URL}/uploads/project/${img}`}
+                                                        alt={`${projects[activeIndex].proj_name} image ${i + 1}`}
+                                                        fill
+                                                    />
+                                                </div>
+                                            </SwiperSlide>
+                                        ))}
+                                    </Swiper>
+                                ) : (
+                                    <div className={`skeleton shadow-sm ${Styles.imageWrapper}`}></div>
+                                )}
+                            </div>
                         </Col>
                     </Row>
                 </div>

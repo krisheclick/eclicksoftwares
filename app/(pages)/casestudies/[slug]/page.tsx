@@ -7,8 +7,6 @@ import MySlider from '@/components/casestudy/banner/Casestudyslider';
 import Technologies from '@/components/casestudy/Technologies';
 import CalltoAction from '@/components/casestudy/CalltoAction';
 import Singlebanner from '@/components/casestudy/banner/Singlebanner';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faArrowDownLong } from '@fortawesome/free-solid-svg-icons/faArrowDownLong';
 import ProjectInfo from '@/components/casestudy/seo-info/ProjectInfo';
 
 import { Metadata } from "next";
@@ -19,7 +17,7 @@ const APIURL = process.env.NEXT_PUBLIC_API_URL;
 
 export async function generateMetadata({params}: {params: {slug: string}}): Promise<Metadata> {
     const {slug} = await params;
-    const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/page/casestudies/${slug}/seo`, {
+    const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}project/${slug}/seo`, {
         cache: "no-store", // or 'force-cache' for static
     });
     if (!res.ok) {
@@ -91,9 +89,9 @@ const CasestudyDeatils = async ({ params }: { params: { slug: string } }) => {
                 ) : (
                     <Banner data={response_data} />
                 )}
-                <span className={Styles.bannerArrow}>
+                {/* <span className={Styles.bannerArrow}>
                     <FontAwesomeIcon icon={faArrowDownLong} />
-                </span>
+                </span> */}
             </div>
             <ProjectInfo
                 business_data={response_data?.proj_business_objectives}

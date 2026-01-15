@@ -309,9 +309,9 @@ const Footer = () => {
                             <ul className={`${Styles.inlineLink} d-flex flex-wrap`}>
                                 {subFooterMenu?.map(child => (
                                     <li key={child.id}>
-                                    <Link href={`${process.env.NEXT_PUBLIC_ENV_URL}/${child.url}`}>
-                                        {child.label}
-                                    </Link>
+                                        <Link href={`${process.env.NEXT_PUBLIC_ENV_URL}/${child.url}`}>
+                                            {child.label}
+                                        </Link>
                                     </li>
                                 ))}
                                 {/* <li><Link href={`${process.env.NEXT_PUBLIC_ENV_URL}/privacy-policy`}>Privacy Policy</Link></li>
