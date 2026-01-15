@@ -1,4 +1,5 @@
 import Image from 'next/image';
+import Link from "next/link";
 import Styles from './style.module.css';
 interface Props {
     icon?: string;
@@ -23,11 +24,13 @@ const HireCard = ({icon, title, description}: Props) => {
             </figure>
             <div className={Styles.hwdsboxh}>{title}</div>
             <div className={Styles.hwdsboxp}>
-                <div
-                    dangerouslySetInnerHTML={{ __html: description || "" }}
-                />
+                <div dangerouslySetInnerHTML={{ __html: description || "" }}/>
             </div>
-
+            <div className={Styles.btnhwdsbx}>
+                <Link href="/read-more" className={Styles.btnhwdsbx_btn}>
+                    read more
+                </Link>
+            </div>      
         </div>
     )
 }
