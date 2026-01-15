@@ -44,20 +44,15 @@
   }
 }
 
-.overlayGradient {
+/* .overlayGradient {
   position: absolute;
   top: 0;
   left: 0;
   right: 0;
   bottom: 0;
-  background: linear-gradient(
-    135deg,
-    rgba(15, 20, 25, 0.7) 0%,
-    rgba(15, 20, 25, 0.5) 50%,
-    rgba(15, 20, 25, 0.8) 100%
-  );
+  background: linear-gradient( 135deg, rgba(15, 20, 25, 0.7) 0%, rgba(15, 20, 25, 0.5) 50%, rgba(15, 20, 25, 0.8) 100%);
   z-index: 2;
-}
+} */
 
 .bannerContent {
   position: relative;
