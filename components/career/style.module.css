@@ -220,7 +220,7 @@ body{
 }
 .banerparaul ul li::before{
     content: "";
-    background: url(../careers/bannertick.png) no-repeat;
+    background: url(../career/bannertick.png) no-repeat;
     width: 16px;
     height: 16px;
     position: absolute;

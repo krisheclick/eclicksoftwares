@@ -36,7 +36,7 @@ const JobApplyForm = ({ jobTitle, jobId, jobLocation }: JobApplyFormProps) => {
     useEffect(() => {
         const fetchLocations = async () => {
             try {
-                const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/careers`);
+                const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/career`);
                 const { response_data } = await response.json();
                 
                 const uniqueLocations: string[] = Array.from(
@@ -160,7 +160,7 @@ const JobApplyForm = ({ jobTitle, jobId, jobLocation }: JobApplyFormProps) => {
             }
 
             // Send to API
-            const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/careers/apply`, {
+            const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/career/apply`, {
                 method: 'POST',
                 body: submitData
             });
@@ -178,7 +178,7 @@ const JobApplyForm = ({ jobTitle, jobId, jobLocation }: JobApplyFormProps) => {
             setStatusType("success");
             // Set session flag and redirect to thank you page
             sessionStorage.setItem("job_apply_success", "true");
-            router.push("/careers/thank-you");
+            router.push("/career/thank-you");
 
         } catch (error) {
             setStatusMessage(error instanceof Error ? error.message : "An error occurred while submitting your application.");

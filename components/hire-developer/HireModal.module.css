@@ -26,8 +26,8 @@
 }
 
 .hireModalBody {
-    padding: 2.5rem;
-    max-height: calc(100vh - 200px);
+    padding: 1.5rem;
+    /* max-height: calc(100vh - 200px); */
     overflow-y: auto;
 }
 
@@ -163,7 +163,7 @@
 }
 
 .cancelBtn {
-    padding: 0.875rem 2.5rem;
+    /* padding: 0.875rem 2.5rem; */
     background-color: #e8ebed;
     color: #2d3436;
     border: 1px solid #dfe6e9;
@@ -174,7 +174,7 @@
     transition: all 0.3s ease;
     text-transform: capitalize;
     letter-spacing: 0.5px;
-    min-width: 150px;
+    /* min-width: 150px; */
 }
 
 .cancelBtn:hover:not(:disabled) {

@@ -10,7 +10,7 @@ interface Props {
     description?: string;
 }
 const HireCard = ({icon, title, description}: Props) => {
-    const { openHireModal } = useHireModal();
+    const { openHireModal, setSelectedUsp } = useHireModal();
 
     return (
         <div className={Styles.hwdsbox}>
@@ -32,13 +32,12 @@ const HireCard = ({icon, title, description}: Props) => {
                 <div dangerouslySetInnerHTML={{ __html: description || "" }}/>
             </div>
             <div className={Styles.btnhwdsbx}>
-                <button 
-                    onClick={openHireModal}
+                <a 
+                    onClick={()=>{openHireModal(); setSelectedUsp(title??'')}}
                     className={Styles.btnhwdsbx_btn}
-                    style={{ border: 'none', backgroundColor: 'transparent', cursor: 'pointer' }}
                 >
                     Hire Now
-                </button>
+                </a>
             </div>      
         </div>
     )

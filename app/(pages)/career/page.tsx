@@ -1,4 +1,4 @@
-import Careers from '@/components/careers/Careers';
+import Careers from '@/components/career/Careers';
 import { Metadata } from "next";
 import seoData from "@/data/seo.json";
 

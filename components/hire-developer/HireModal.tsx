@@ -5,6 +5,8 @@ import { Modal, Row, Col, Form, Button, Alert } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faXmark, faSpinner } from "@fortawesome/free-solid-svg-icons";
 import Styles from "./HireModal.module.css";
+import Image from "next/image";
+import { useHireModal } from "@/utils/useLetsConnect";
 
 interface USPOption {
     label: string;
@@ -25,13 +27,14 @@ interface HireModalProps {
     onHide: () => void;
     title?: string;
     uspOptions?: USPOption[];
+    selectedUsp?: number;
 }
 
 const HireModal: React.FC<HireModalProps> = ({
     show,
     onHide,
     title = "Hire Developers",
-    uspOptions = []
+    uspOptions = [],
 }) => {
     const [formData, setFormData] = useState<HireModalFormData>({
         name: '',
@@ -41,7 +44,7 @@ const HireModal: React.FC<HireModalProps> = ({
         usp: '',
         project_description: ''
     });
-
+    const {selectedUsp} = useHireModal();
     const [errors, setErrors] = useState<{ [key: string]: string }>({});
     const [statusMessage, setStatusMessage] = useState('');
     const [statusType, setStatusType] = useState<'success' | 'error' | ''>('');
@@ -87,7 +90,7 @@ const HireModal: React.FC<HireModalProps> = ({
 
         // USP Validation
         if (!formData.usp.trim()) {
-            newErrors.usp = "Please select a service option.";
+            newErrors.usp = "Please select a Hire For.";
         }
 
         // Project Description Validation
@@ -135,6 +138,58 @@ const HireModal: React.FC<HireModalProps> = ({
         }
     };
 
+    // const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    //     e.preventDefault();
+
+    //     if (!validateForm()) return;
+
+    //     setIsSubmitting(true);
+    //     setStatusMessage("");
+    //     setStatusType("");
+
+    //     try {
+    //         const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}hire-developer`, {
+    //             method: "POST",
+    //             headers: {
+    //                 "Content-Type": "application/json",
+    //                 "Accept": "application/json"
+    //             },
+    //             body: JSON.stringify(formData)
+    //         });
+
+    //         const data = await response.json();
+
+    //         if (response.ok) {
+    //             setStatusType("success");
+    //             setStatusMessage(data?.response_message?.msg || "Your hire request has been submitted successfully!");
+                
+    //             // Reset form
+    //             setFormData({
+    //                 name: '',
+    //                 email: '',
+    //                 phone_no: '',
+    //                 company: '',
+    //                 usp: '',
+    //                 project_description: ''
+    //             });
+
+    //             // Close modal after 2 seconds
+    //             setTimeout(() => {
+    //                 onHide();
+    //             }, 2000);
+    //         } else {
+    //             setStatusType("error");
+    //             setStatusMessage(data?.response_message?.msg || "Failed to submit your request. Please try again.");
+    //         }
+    //     } catch (error) {
+    //         setStatusType("error");
+    //         setStatusMessage("An error occurred. Please try again later.");
+    //         console.error("Form submission error:", error);
+    //     } finally {
+    //         setIsSubmitting(false);
+    //     }
+    // };
+
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
 
@@ -144,23 +199,37 @@ const HireModal: React.FC<HireModalProps> = ({
         setStatusMessage("");
         setStatusType("");
 
+        const payload = {
+            full_name: formData.name,
+            phone_number: formData.phone_no,
+            email: formData.email,
+            hire_for: formData.usp,
+            company_name: formData.company,
+            project_description: formData.project_description
+        };
+
         try {
-            const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}hire-developer`, {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                    "Accept": "application/json"
-                },
-                body: JSON.stringify(formData)
-            });
+            const response = await fetch(
+                `${process.env.NEXT_PUBLIC_API_URL}hire-a-developer`,
+                {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                        "Accept": "application/json"
+                    },
+                    body: JSON.stringify(payload)
+                }
+            );
 
             const data = await response.json();
 
             if (response.ok) {
                 setStatusType("success");
-                setStatusMessage(data?.response_message?.msg || "Your hire request has been submitted successfully!");
-                
-                // Reset form
+                setStatusMessage(
+                    data?.response_message?.msg ||
+                    "Your request has been submitted successfully!"
+                );
+
                 setFormData({
                     name: '',
                     email: '',
@@ -170,18 +239,20 @@ const HireModal: React.FC<HireModalProps> = ({
                     project_description: ''
                 });
 
-                // Close modal after 2 seconds
                 setTimeout(() => {
                     onHide();
                 }, 2000);
             } else {
                 setStatusType("error");
-                setStatusMessage(data?.response_message?.msg || "Failed to submit your request. Please try again.");
+                setStatusMessage(
+                    data?.response_message?.msg ||
+                    "Failed to submit your request. Please try again."
+                );
             }
         } catch (error) {
             setStatusType("error");
             setStatusMessage("An error occurred. Please try again later.");
-            console.error("Form submission error:", error);
+            console.error("Hire form error:", error);
         } finally {
             setIsSubmitting(false);
         }
@@ -193,7 +264,7 @@ const HireModal: React.FC<HireModalProps> = ({
             email: '',
             phone_no: '',
             company: '',
-            usp: '',
+            usp: selectedUsp??'',
             project_description: ''
         });
         setErrors({});
@@ -207,6 +278,13 @@ const HireModal: React.FC<HireModalProps> = ({
             document.documentElement.style.overflow = "hidden"; // or document.body
         } else {
             document.documentElement.style.overflow = "auto"; // reset
+        }
+
+        if (show && selectedUsp) {
+            setFormData(prev => ({
+                ...prev,
+                usp: selectedUsp
+            }));
         }
 
         return () => {
@@ -367,7 +445,7 @@ const HireModal: React.FC<HireModalProps> = ({
                             disabled={isSubmitting}
                             isInvalid={!!errors.usp}
                         >
-                            <option value="">Select a service type...</option>
+                            <option value="">Select a Hire For...</option>
                             {uspOptions.map((option) => (
                                 <option key={option.value} value={option.value}>
                                     {option.label}
@@ -406,9 +484,19 @@ const HireModal: React.FC<HireModalProps> = ({
 
                     {/* Submit Button */}
                     <div className="d-flex justify-content-center gap-3 mt-5">
+                        {!isSubmitting &&
+                            <Button
+                                variant="secondary"
+                                onClick={handleClose}
+                                disabled={isSubmitting}
+                                className={`eclick-btn-connect ${Styles.cancelBtn ?? ''}`}
+                            >
+                                <em>Cancel</em>
+                            </Button>
+                        }
                         <Button
                             type="submit"
-                            className={Styles.submitBtn}
+                            className={`eclick-btn-connect ${Styles.bannerBtn ?? ''}`}
                             disabled={isSubmitting}
                         >
                             {isSubmitting ? (
@@ -417,16 +505,18 @@ const HireModal: React.FC<HireModalProps> = ({
                                     Submitting...
                                 </>
                             ) : (
-                                "Send Inquiry"
+                                <>
+                                <span className={Styles.phoneIcon}>
+                                    <Image
+                                        src={`${process.env.NEXT_PUBLIC_assetPrefix}/assets/images/chat.png`}
+                                        alt="Conversation"
+                                        width={22} height={21}
+                                        loading="lazy"
+                                    />
+                                </span>
+                                <em>Submit</em>
+                                </>
                             )}
-                        </Button>
-                        <Button
-                            variant="secondary"
-                            onClick={handleClose}
-                            disabled={isSubmitting}
-                            className={Styles.cancelBtn}
-                        >
-                            Cancel
                         </Button>
                     </div>
                 </form>

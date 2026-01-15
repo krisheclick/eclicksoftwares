@@ -28,7 +28,7 @@ export const useLetsConnect = () => {
 };
 
 export const useHireModal = () => {
-    const { showHireModal, setShowHireModal } = useThemeContext();
+    const { showHireModal, setShowHireModal, selectedUsp,setSelectedUsp } = useThemeContext();
 
     const openHireModal = () => {
         setShowHireModal(true);
@@ -38,5 +38,18 @@ export const useHireModal = () => {
         setShowHireModal(false);
     };
 
-    return { openHireModal, closeHireModal, showHireModal, setShowHireModal };
+    return { openHireModal, closeHireModal, showHireModal, setShowHireModal, selectedUsp, setSelectedUsp };
+};
+export const useReferModal = () => {
+    const { showReferModal, setShowReferModal } = useThemeContext();
+
+    const openReferModal = () => {
+        setShowReferModal(true);
+    };
+
+    const closeReferModal = () => {
+        setShowReferModal(false);
+    };
+
+    return { openReferModal, closeReferModal, showReferModal, setShowReferModal };
 };

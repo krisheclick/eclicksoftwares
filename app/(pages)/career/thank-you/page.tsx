@@ -20,7 +20,7 @@ const JobApplyThankYou = () => {
         const allowed = sessionStorage.getItem("job_apply_success");
 
         if (!allowed) {
-            router.replace("/careers");
+            router.replace("/career");
             return;
         }
 
@@ -32,7 +32,7 @@ const JobApplyThankYou = () => {
         // redirect after 30 seconds
         const redirectTimer = setTimeout(() => {
             sessionStorage.removeItem("job_apply_success"); // remove only when redirecting
-            router.replace("/careers");
+            router.replace("/career");
         }, 30000);
 
         return () => {
@@ -62,7 +62,7 @@ const JobApplyThankYou = () => {
 
                             <div className={Styles.actionButtons}>
                                 <Link
-                                    href="/careers"
+                                    href="/career"
                                     className={`eclick-btn-primary ${Styles.homeBtn}`}
                                 >
                                     <em>Back to Careers</em>

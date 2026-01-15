@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import { useParams } from "next/navigation";
 import { Col, Container, Row } from "react-bootstrap";
 import Banner from "@/components/common/banner/Banner";
-import JobApplyForm from "@/components/careers/JobApplyForm";
+import JobApplyForm from "@/components/career/JobApplyForm";
 import Styles from "./style.module.css";
 
 type Career = {
@@ -28,7 +28,7 @@ const ApplyJob = () => {
             if (!slug) return;
             setIsLoading(true);
             try {
-                const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/careers/${slug}`);
+                const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/career/${slug}`);
                 const { response_data } = await response.json();
                 setJob(response_data);
             } catch (err: unknown) {

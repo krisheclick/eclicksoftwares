@@ -4,6 +4,8 @@ import { Col, Container, Row } from "react-bootstrap";
 import Link from "next/link";
 import Image from "next/image";
 import Styles from "./style.module.css";
+import ReferAFriendModal from "../careers/ReferAFriendModal";
+import { useReferModal } from "@/utils/useLetsConnect";
 
 type PageData = {
     id: number;
@@ -59,6 +61,8 @@ type Pagination = {
 };
 
 const Careers = () => {
+    const { showReferModal, setShowReferModal, openReferModal } = useReferModal();
+    
     const [isLoading, setIsLoading] = useState(true);
     const [pageData, setPageData] = useState<PageData | null>(null);
     const [bannerData, setBannerData] = useState<Banner | null>(null);
@@ -286,7 +290,7 @@ const Careers = () => {
                                 <p className={Styles.referralText}>
                                     Join our “Refer a Friend and Get Rewarded” program! Invite a friend to our community and enjoy great rewards together. For each successful referral, you’ll get exclusive discounts, and your friend will receive a welcome bonus. 
                                 </p>
-                                <Link href="/contact-us" className={Styles.btncare}>
+                                <Link href="#" onClick={openReferModal} className={Styles.btncare}>
                                     Refer a Friend
                                 </Link>
                             </div>
@@ -299,10 +303,9 @@ const Careers = () => {
             <div className={`${Styles.openingsSection}`}>
                 <Container>                    
                     <div id="job_openings" className={Styles.openingsContent}>
-                        <h2 className={Styles.sectionTitle}>Job Vacancies</h2>
-                        <p className={Styles.openingsIntro}>
-                            Navigate through our current opportunities for a clear understanding of Eclick&apos;s commitment to excellence and innovation.
-                        </p>
+                        <div className="d-flex justify-content-between align-items-center mb-4">
+                            <h2 className={Styles.sectionTitle}>Job Vacancies</h2>
+                        </div>
 
                         {isLoading ? (
                             <div className={Styles.loading}>
@@ -330,7 +333,7 @@ const Careers = () => {
                                         </div>
                                         <div className={Styles.jobFooter}>
                                             <Link
-                                                href={`/careers/apply-job/${job.career_slug}`}
+                                                href={`/career/apply-job/${job.career_slug}`}
                                                 className="eclick-btn-primary"
                                             >Apply Now</Link>
                                         </div>
@@ -351,6 +354,12 @@ const Careers = () => {
                 </Container>
             </div>
 
+            {/* Refer a Friend Modal */}
+            <ReferAFriendModal
+                show={showReferModal}
+                onHide={() => setShowReferModal(false)}
+                title="Refer a Friend"
+            />
         </>
     );
 };

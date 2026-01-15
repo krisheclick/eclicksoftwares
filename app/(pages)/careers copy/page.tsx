@@ -3,7 +3,7 @@ import { Metadata } from "next";
 import seoData from "@/data/seo.json";
 
 export async function generateMetadata(): Promise<Metadata> {
-    const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/page/careers/seo`, {
+    const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/page/career/seo`, {
         cache: "no-store", // or 'force-cache' for static
     });
     if (!res.ok) {
