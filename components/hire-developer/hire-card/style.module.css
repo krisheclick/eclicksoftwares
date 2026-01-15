@@ -4,6 +4,8 @@
     background: #ffffff;
     padding: 33px;
     height: 100%;
+    display: flex;
+    flex-direction: column;
 }
 .hwdsbox figure{
     position: relative;
@@ -28,5 +30,18 @@
     font-size: 17px; 
     line-height: 30px; 
     text-transform: capitalize; 
-    margin-bottom: 40px;
+    margin-bottom: 25px;
+    flex-grow: 1;
+}
+.btnhwdsbx_btn{
+  background: #1f58cb;
+  display: inline-block;
+  color: #ffffff;
+  text-transform: capitalize;
+  padding: 6px 16px;
+  border-radius: 5px;
+} 
+.btnhwdsbx_btn:hover{
+    background: #111111;
+    color: #ffffff;
 }
