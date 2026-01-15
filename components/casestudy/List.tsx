@@ -14,6 +14,7 @@ type GroupItem = {
 
 type CaseStudyItem = {
     proj_feature_image_path?: string;
+    proj_title?: string;
     proj_name?: string;
     proj_slug?: string;
     proj_short_desc?: string;
@@ -101,8 +102,8 @@ const CasestudyList = () => {
                                     <Card
                                         poster={item.proj_feature_image_path}
                                         slug={item.proj_slug}
-                                        title={item.proj_name}
-                                        projectName={item.proj_name}
+                                        title={item.proj_title}
+                                        projectName={item.proj_title}
                                         proj_short_desc={item.proj_short_desc}
                                     />
                                 </Col>

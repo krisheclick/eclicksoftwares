@@ -6,6 +6,7 @@ import Image from "next/image";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay, Navigation } from "swiper/modules";
 import Styles from "./style.module.css";
+import type { Swiper as SwiperType } from "swiper";
 
 type classProps = {
     classValue?: string;
@@ -18,6 +19,7 @@ type ClientData = {
 const Clients = ({ classValue }: classProps) => {
     const [hasLoading, setLoading] = useState(true);
     const [data, setdata] = useState<ClientData[]>([]);
+    const [swiperInstance, setSwiperInstance] = useState<SwiperType | null>(null);
 
     const fetchAPI = async () => {
         try {
@@ -34,11 +36,20 @@ const Clients = ({ classValue }: classProps) => {
         fetchAPI();
     }, []);
 
+    useEffect(() => {
+        if (swiperInstance && data.length) {
+            setTimeout(() => {
+                swiperInstance.update();
+            }, 0);
+        }
+    }, [swiperInstance, data]);
+
     return (
         <div className={Styles.clients}>
             <Container>
                 <div className={`${Styles.boxwrapper} ${classValue ? Styles[classValue] : ""}`}>
                     <Swiper
+                        onSwiper={setSwiperInstance}
                         loop={data.length > 6}
                         slidesPerGroup={1}
                         slidesPerView={'auto'}
@@ -60,7 +71,7 @@ const Clients = ({ classValue }: classProps) => {
                                                 }
                                                 alt={client_name || "Eclick Client"}
                                                 fill
-                                                priority={true}
+                                                priority
                                             />
                                         </div>
                                     </SwiperSlide>

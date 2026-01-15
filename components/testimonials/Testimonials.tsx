@@ -1,8 +1,8 @@
 "use client";
 import { Container, Row } from 'react-bootstrap'
-import Styles from './style.module.css'
-import Card from './Card'
+import Styles from './style.module.css';
 import { useEffect, useState } from 'react';
+import Card from './card/Card';
 
 type Client = {
     client_logo?: string;
@@ -73,7 +73,7 @@ const Testimonials = () => {
                             </div>
 
                             <div className={Styles.cardList}>
-                                <Row className='rowGap'>
+                                <Row className='rowGap gx-5'>
                                     <Card cardData={filteredData} />
                                 </Row>
                             </div>

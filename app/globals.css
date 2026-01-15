@@ -603,9 +603,12 @@ input[type=number] {
 	position: static !important;
 	transform: none !important;
 	margin: 50px auto 0;
+	padding-bottom: 4px;
 }
 .swiper-pagination-bullet {
 	cursor: pointer;
+	flex-shrink: 0;
+	transform: scale(.85) !important;
 }
 .swiper-pagination-bullet {
   background: var(--primary-color);
@@ -613,7 +616,46 @@ input[type=number] {
 }
 .swiper-pagination-bullet-active {
     opacity: 1;
+	transform: scale(1) !important;
 }
+/* ====== Platform Gallery====== */
+.gallerySwiper .swiper-pagination {
+	background: var(--white-color);
+	border-radius: 40px;
+	position: absolute !important;
+	top: 50% !important;
+	right: 20px !important;
+	transform: translate(0%, -50%) !important;
+	height: 88px !important;
+	margin: 0 !important;
+	width: 32px !important;
+	padding: 8px 10px !important;
+	overflow: hidden;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	gap: 0;
+}
+.gallerySwiper .swiper-pagination .swiper-pagination-bullet
+.swiper-pagination-vertical .swiper-pagination-bullet{
+	margin-inline: auto;
+}
+/* .gallerySwiper .swiper-pagination {
+	align-items: center;
+	background: var(--white-color);
+	border-radius: 40px;
+	inset-inline: auto -10px !important;
+	height: 40px !important;
+	position: absolute !important;
+	top: 50% !important;
+	transform: translate(0%, -50%)rotate(90deg) !important;
+	padding: 14px 0px !important;
+}
+.gallerySwiper :is(
+	.swiper-pagination .swiper-pagination-bullet.swiper-pagination-bullet-active-next-next
+){
+	display: none;
+} */
 /* ============== Swiper Pagination Section Ends========= */
 
 /* ============== TestimonialSlider Slider Section Start========= */
