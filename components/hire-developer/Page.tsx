@@ -178,15 +178,15 @@ const Hiredata = () => {
                 />
             )}
 
-            {designerData && (
+            {/* {designerData && (
                 <Developer
                     hasLoading={loading} data={designerData}
                     whiteClass={true} separateText={true}
                 />
-            )}
+            )} */}
 
             {technologies.length > 0 && (
-                <div className={Styles.techSectionsam}>
+                <div className={`${Styles.techSectionsam}`}>
                     <Container>
                         <div className={Styles.hwdfulltextbox}>
                             <div className={Styles.hwdfulltextbox}>

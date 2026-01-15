@@ -10,7 +10,7 @@ const SpecialCard = ({col}: SpecialCardProps) => {
         <Col lg={col} className={`${Styles.item} ${Styles.specialBox}`}>
             <div className={Styles.box}>
                 <div className={Styles.smallTitle}>Special Offers</div>
-                <div className={Styles.boldTitle}>Let’s connect!</div>
+                <div className={Styles.specialBoldTitle}>Be the First to Know</div>
                 {/* <p>Development & Digital marketing company committed to assisting brands</p> */}
                 <span
                     role='button' onClick={()=>openLetsConnectModal('general_lets_connect')} 

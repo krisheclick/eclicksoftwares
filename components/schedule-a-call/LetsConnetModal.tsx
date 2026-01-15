@@ -147,7 +147,7 @@ const LetsConnectModal = ({ show, onHide, services, action }: ScheduleCallProps)
                 resetAllFormData();
                 sessionStorage.setItem("lets_connect_success", "true");
                 // Navigate to success page
-                router.push('/lets-connect/success');
+                router.push('/lets-connect/thank-you');
                 onHide();
             }
         } catch (err: any) {

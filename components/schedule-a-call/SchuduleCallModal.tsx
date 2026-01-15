@@ -174,7 +174,7 @@ const SchuduleCallModal = ({ show, onHide, action }: ScheduleCallProps) => {
                 resetAllFormData();
                 sessionStorage.setItem("schedule_call_success", "true");
                 // Navigate to success page
-                router.push('/schedule-a-call/success');
+                router.push('/schedule-a-call/thank-you');
                 onHide();
             }
         } catch (err: any) {

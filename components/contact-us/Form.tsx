@@ -5,6 +5,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowRight } from "@fortawesome/free-solid-svg-icons";
 import Styles from "./form.module.css";
 import { Alert } from "react-bootstrap";
+import { useRouter } from "next/navigation";
 
 interface FormData {
     name: string;
@@ -21,6 +22,7 @@ interface ServiceCategory {
     service_category_title: string;
 }
 const Form = () => {
+    const router = useRouter();
     const [formData, setFormData] = useState<FormData>({
         name: '',
         service: '',
@@ -127,6 +129,9 @@ const Form = () => {
 
             const data = await res.json();
             setStatusMessage(data?.response_message?.msg || "Message sent successfully.");
+            sessionStorage.setItem("contact-us-success", "true");
+            // Navigate to success page
+            router.push('/contact-us/thank-you');
         } catch (err) {
             setStatusMessage("Something went wrong. Please try again later.");
         } finally {
