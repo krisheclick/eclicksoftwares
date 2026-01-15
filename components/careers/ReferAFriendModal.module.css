@@ -26,7 +26,7 @@
 }
 
 .referModalBody {
-    padding: 1.5rem;
+    /* padding: 1.5rem; */
     overflow-y: auto;
 }
 
@@ -142,11 +142,11 @@
     background-color: #e8ebed;
     color: #2d3436;
     border: 1px solid #dfe6e9;
-    padding: 0.875rem 2rem;
+    /* padding: 0.875rem 2rem; */
     font-size: 0.95rem;
     font-weight: 600;
     border-radius: 0.5rem;
-    min-width: 150px;
+    /* min-width: 150px; */
     text-transform: capitalize;
     transition: all 0.3s ease;
 }
@@ -209,4 +209,65 @@
 .referForm :global(.form-control[type="file"]::file-selector-button:hover) {
     background-color: #e8ebed;
     border-color: #667eea;
+}
+
+
+.fileUpload {
+    position: relative;
+}
+
+.fileInput {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    cursor: pointer;
+}
+
+.fileUploadArea {
+    border: 2px dashed #dee2e6;
+    border-radius: 8px;
+    padding: 40px 20px;
+    text-align: center;
+    background: #f8f9fa;
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+
+.fileUploadArea:hover {
+    border-color: var(--primary-color);
+    background: rgba(31, 88, 203, 0.05);
+}
+
+.uploadIcon {
+    font-size: 2rem;
+    color: var(--primary-color);
+    margin-bottom: 15px;
+}
+
+.uploadText strong {
+    display: block;
+    font-size: 1.1rem;
+    color: var(--primary-title-color);
+    margin-bottom: 5px;
+}
+
+.uploadHint {
+    font-size: 0.9rem;
+    color: #6c757d;
+}
+
+.selectedFile {
+    margin-top: 15px;
+    padding: 10px;
+    background: var(--primary-color);
+    color: var(--white-color);
+    border-radius: 5px;
+    font-size: 0.9rem;
+    font-weight: 500;
+}
+
+.formActions {
+    text-align: center;
+    border-top: 1px solid #e9ecef;
 }

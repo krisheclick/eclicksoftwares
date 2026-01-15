@@ -198,7 +198,7 @@ const Careers = () => {
                                             <Link href="#job_openings" className={Styles.btnbnrs}>
                                                 Let’s start your journey
                                             </Link>
-                                            <Link href="#job_openings" className={Styles.btnbnrs}>
+                                            <Link href="#" onClick={openReferModal} className={Styles.btnbnrs}>
                                                 refer a friend
                                             </Link>
                                         </div>

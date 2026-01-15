@@ -31,12 +31,13 @@ const JobApplyForm = ({ jobTitle, jobId, jobLocation }: JobApplyFormProps) => {
     const [statusType, setStatusType] = useState<"success" | "error" | "">("");
     const [errors, setErrors] = useState<{[key: string]: string}>({});
     const [locations, setLocations] = useState<string[]>([]);
+    const [fileName, setFileName] = useState('');
 
     // Fetch available job locations
     useEffect(() => {
         const fetchLocations = async () => {
             try {
-                const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/career`);
+                const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/careers`);
                 const { response_data } = await response.json();
                 
                 const uniqueLocations: string[] = Array.from(
@@ -76,10 +77,24 @@ const JobApplyForm = ({ jobTitle, jobId, jobLocation }: JobApplyFormProps) => {
 
     const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const file = e.target.files?.[0] || null;
-        setFormData(prev => ({
-            ...prev,
-            cv: file
-        }));
+        if (file) {
+            // Validate file size (5MB)
+            if (file.size > 5242880) {
+                setErrors(prev => ({ ...prev, cv: 'File size must be less than 5MB.' }));
+                setFormData(prev => ({ ...prev, cv: null }));
+                setFileName('');
+                return;
+            }
+
+            setFormData(prev => ({ ...prev, cv: file }));
+            setFileName(file.name);
+            if (errors.cv) {
+                setErrors(prev => ({ ...prev, cv: '' }));
+            }
+        } else {
+            setFormData(prev => ({ ...prev, cv: null }));
+            setFileName('');
+        }
     };
 
     const validateForm = () => {
@@ -126,6 +141,8 @@ const JobApplyForm = ({ jobTitle, jobId, jobLocation }: JobApplyFormProps) => {
         // CV validation
         if (!formData.cv) {
             newErrors.cv = "Please upload your CV/Resume.";
+        } else if (formData.cv && formData.cv.size > 5242880) {
+            newErrors.cv = "File size must be less than 5MB.";
         }
 
         setErrors(newErrors);
@@ -352,10 +369,10 @@ const JobApplyForm = ({ jobTitle, jobId, jobLocation }: JobApplyFormProps) => {
                                 <div className={Styles.uploadHint}>
                                     PDF, DOC, DOCX files only (Max 5MB)
                                 </div>
-                                {formData.cv && (
-                                    <div className={Styles.selectedFile}>
-                                        Selected: {formData.cv.name}
-                                    </div>
+                                {fileName && (
+                                    <small className="text-success d-block mt-2">
+                                        ✓ File selected: {fileName}
+                                    </small>
                                 )}
                             </label>
                         </div>

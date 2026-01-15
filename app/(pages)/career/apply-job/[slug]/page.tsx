@@ -28,7 +28,7 @@ const ApplyJob = () => {
             if (!slug) return;
             setIsLoading(true);
             try {
-                const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/career/${slug}`);
+                const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/careers/${slug}`);
                 const { response_data } = await response.json();
                 setJob(response_data);
             } catch (err: unknown) {

@@ -1,10 +1,11 @@
 "use client";
 
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import { Modal, Row, Col, Form, Button, Alert } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faXmark, faSpinner } from "@fortawesome/free-solid-svg-icons";
+import { faXmark, faSpinner, faUpload } from "@fortawesome/free-solid-svg-icons";
 import Styles from "./ReferAFriendModal.module.css";
+import { useRouter } from "next/navigation";
 
 interface ReferFormData {
     candidate_name: string;
@@ -25,7 +26,8 @@ const ReferAFriendModal: React.FC<ReferAFriendModalProps> = ({
     show,
     onHide,
     title = "Refer a Friend"
-}) => {
+}) => {    
+    const router = useRouter();
     const [formData, setFormData] = useState<ReferFormData>({
         candidate_name: '',
         candidate_email: '',
@@ -142,7 +144,7 @@ const ReferAFriendModal: React.FC<ReferAFriendModalProps> = ({
         }
     };
 
-    const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
 
         if (!validateForm()) return;
@@ -183,7 +185,8 @@ const ReferAFriendModal: React.FC<ReferAFriendModalProps> = ({
                     refer_resume_path: null
                 });
                 setFileName('');
-
+                sessionStorage.setItem("refer_friend_success", "true");
+                router.push("/career/refer/thank-you");
                 // Close modal after 2 seconds
                 setTimeout(() => {
                     onHide();
@@ -217,6 +220,18 @@ const ReferAFriendModal: React.FC<ReferAFriendModalProps> = ({
         onHide();
     };
 
+    useEffect(() => {
+        if (show) {
+            document.documentElement.style.overflow = "hidden"; // or document.body
+        } else {
+            document.documentElement.style.overflow = "auto"; // reset
+        }
+
+        return () => {
+            document.documentElement.style.overflow = "auto"; // cleanup
+        };
+    }, [show]);
+
     return (
         <Modal
             show={show}
@@ -238,220 +253,211 @@ const ReferAFriendModal: React.FC<ReferAFriendModalProps> = ({
                     <FontAwesomeIcon icon={faXmark} />
                 </a>
 
-                <div style={{ minHeight: "auto", paddingTop: "2rem" }}>
-                    {/* Header */}
-                    <div className="text-center mb-4">
-                        <h4 className="mb-2 fw-bold" style={{ fontSize: '1.75rem', color: '#2d3436' }}>
-                            {title}
-                        </h4>
-                        <p className="text-muted" style={{ fontSize: '0.95rem' }}>
-                            Know someone great? Help us find our next team member
-                        </p>
-                    </div>
+                {/* Header */}
+                <div className="text-center mb-4">
+                    <h4 className="mb-2 fw-bold" style={{ fontSize: '1.75rem', color: '#2d3436' }}>
+                        {title}
+                    </h4>
+                    <p className="text-muted" style={{ fontSize: '0.95rem' }}>
+                        Know someone great? Help us find our next team member
+                    </p>
+                </div>
 
-                    {statusMessage && (
-                        <Alert
-                            variant={statusType === "success" ? "success" : "danger"}
-                            dismissible
-                            onClose={() => setStatusMessage("")}
-                            className={Styles.statusAlert}
-                        >
-                            {statusMessage}
-                        </Alert>
-                    )}
+                {statusMessage && (
+                    <Alert
+                        variant={statusType === "success" ? "success" : "danger"}
+                        dismissible
+                        onClose={() => setStatusMessage("")}
+                        className={Styles.statusAlert}
+                    >
+                        {statusMessage}
+                    </Alert>
+                )}
 
-                    <form onSubmit={handleSubmit} className={Styles.referForm}>
-                        {/* Candidate Section */}
-                        <div style={{ marginBottom: '2rem' }}>
-                            <h6 className="mb-3 fw-bold" style={{ color: '#2d3436', fontSize: '1rem' }}>
-                                Candidate Information
-                            </h6>
-                            <Row>
-                                {/* Candidate Name Field */}
-                                <Col md={6}>
-                                    <Form.Group className="mb-3">
-                                        <Form.Label className="fw-bold">
-                                            Candidate Name <span style={{ color: '#e74c3c' }}>*</span>
-                                        </Form.Label>
-                                        <Form.Control
-                                            ref={candidateNameRef}
-                                            type="text"
-                                            id="candidate_name"
-                                            placeholder="Enter candidate's full name"
-                                            value={formData.candidate_name}
-                                            onChange={handleChange}
-                                            disabled={isSubmitting}
-                                            isInvalid={!!errors.candidate_name}
-                                        />
-                                        {errors.candidate_name && (
-                                            <Form.Control.Feedback type="invalid">
-                                                {errors.candidate_name}
-                                            </Form.Control.Feedback>
-                                        )}
-                                    </Form.Group>
-                                </Col>
-
-                                {/* Candidate Email Field */}
-                                <Col md={6}>
-                                    <Form.Group className="mb-3">
-                                        <Form.Label className="fw-bold">
-                                            Candidate Email <span style={{ color: '#e74c3c' }}>*</span>
-                                        </Form.Label>
-                                        <Form.Control
-                                            ref={candidateEmailRef}
-                                            type="email"
-                                            id="candidate_email"
-                                            placeholder="candidate@email.com"
-                                            value={formData.candidate_email}
-                                            onChange={handleChange}
-                                            disabled={isSubmitting}
-                                            isInvalid={!!errors.candidate_email}
-                                        />
-                                        {errors.candidate_email && (
-                                            <Form.Control.Feedback type="invalid">
-                                                {errors.candidate_email}
-                                            </Form.Control.Feedback>
-                                        )}
-                                    </Form.Group>
-                                </Col>
-                            </Row>
-
-                            {/* About Candidate Field */}
-                            <Form.Group className="mb-3">
+                <form className={Styles.referForm}>
+                    {/* Candidate Section */}
+                    <Row className="mb-1">
+                        {/* Candidate Name Field */}
+                        <Col md={6}>
+                            <Form.Group>
                                 <Form.Label className="fw-bold">
-                                    About the Candidate <span style={{ color: '#e74c3c' }}>*</span>
+                                    Candidate Name <span style={{ color: '#e74c3c' }}>*</span>
                                 </Form.Label>
                                 <Form.Control
-                                    ref={aboutCandidateRef}
-                                    as="textarea"
-                                    id="about_the_candidate"
-                                    placeholder="Tell us about this candidate - their skills, experience, and why they'd be a great fit"
-                                    value={formData.about_the_candidate}
+                                    ref={candidateNameRef}
+                                    type="text"
+                                    id="candidate_name"
+                                    placeholder="Enter candidate's full name"
+                                    value={formData.candidate_name}
                                     onChange={handleChange}
-                                    rows={3}
                                     disabled={isSubmitting}
-                                    isInvalid={!!errors.about_the_candidate}
+                                    isInvalid={!!errors.candidate_name}
                                 />
-                                {errors.about_the_candidate && (
+                                {errors.candidate_name && (
                                     <Form.Control.Feedback type="invalid">
-                                        {errors.about_the_candidate}
+                                        {errors.candidate_name}
                                     </Form.Control.Feedback>
                                 )}
                             </Form.Group>
-                        </div>
+                        </Col>
 
-                        {/* Referrer Section */}
-                        <div style={{ marginBottom: '2rem' }}>
-                            <h6 className="mb-3 fw-bold" style={{ color: '#2d3436', fontSize: '1rem' }}>
-                                Your Information
-                            </h6>
-                            <Row>
-                                {/* Referrer Name Field */}
-                                <Col md={6}>
-                                    <Form.Group className="mb-3">
-                                        <Form.Label className="fw-bold">
-                                            Your Name <span style={{ color: '#e74c3c' }}>*</span>
-                                        </Form.Label>
-                                        <Form.Control
-                                            ref={referrerNameRef}
-                                            type="text"
-                                            id="referrer_name"
-                                            placeholder="Enter your full name"
-                                            value={formData.referrer_name}
-                                            onChange={handleChange}
-                                            disabled={isSubmitting}
-                                            isInvalid={!!errors.referrer_name}
-                                        />
-                                        {errors.referrer_name && (
-                                            <Form.Control.Feedback type="invalid">
-                                                {errors.referrer_name}
-                                            </Form.Control.Feedback>
-                                        )}
-                                    </Form.Group>
-                                </Col>
+                        {/* Candidate Email Field */}
+                        <Col md={6}>
+                            <Form.Group className="mb-3">
+                                <Form.Label className="fw-bold">
+                                    Candidate Email <span style={{ color: '#e74c3c' }}>*</span>
+                                </Form.Label>
+                                <Form.Control
+                                    ref={candidateEmailRef}
+                                    type="email"
+                                    id="candidate_email"
+                                    placeholder="candidate@email.com"
+                                    value={formData.candidate_email}
+                                    onChange={handleChange}
+                                    disabled={isSubmitting}
+                                    isInvalid={!!errors.candidate_email}
+                                />
+                                {errors.candidate_email && (
+                                    <Form.Control.Feedback type="invalid">
+                                        {errors.candidate_email}
+                                    </Form.Control.Feedback>
+                                )}
+                            </Form.Group>
+                        </Col>
+                    </Row>
 
-                                {/* Referrer Email Field */}
-                                <Col md={6}>
-                                    <Form.Group className="mb-3">
-                                        <Form.Label className="fw-bold">
-                                            Your Email <span style={{ color: '#e74c3c' }}>*</span>
-                                        </Form.Label>
-                                        <Form.Control
-                                            ref={referrerEmailRef}
-                                            type="email"
-                                            id="referrer_email"
-                                            placeholder="your@email.com"
-                                            value={formData.referrer_email}
-                                            onChange={handleChange}
-                                            disabled={isSubmitting}
-                                            isInvalid={!!errors.referrer_email}
-                                        />
-                                        {errors.referrer_email && (
-                                            <Form.Control.Feedback type="invalid">
-                                                {errors.referrer_email}
-                                            </Form.Control.Feedback>
-                                        )}
-                                    </Form.Group>
-                                </Col>
-                            </Row>
-                        </div>
+                    {/* About Candidate Field */}
+                    <Form.Group className="mb-1">
+                        <Form.Label className="fw-bold">
+                            About the Candidate <span style={{ color: '#e74c3c' }}>*</span>
+                        </Form.Label>
+                        <Form.Control
+                            ref={aboutCandidateRef}
+                            as="textarea"
+                            id="about_the_candidate"
+                            placeholder="Tell us about this candidate - their skills, experience, and why they'd be a great fit"
+                            value={formData.about_the_candidate}
+                            onChange={handleChange}
+                            rows={3}
+                            disabled={isSubmitting}
+                            isInvalid={!!errors.about_the_candidate}
+                        />
+                        {errors.about_the_candidate && (
+                            <Form.Control.Feedback type="invalid">
+                                {errors.about_the_candidate}
+                            </Form.Control.Feedback>
+                        )}
+                    </Form.Group>
 
-                        {/* Resume Upload Field */}
-                        <Form.Group className="mb-4">
-                            <Form.Label className="fw-bold">
-                                Resume/CV <span style={{ color: '#e74c3c' }}>*</span>
-                            </Form.Label>
+                    <Form.Group className="mb-1">
+                        <Form.Label className="fw-bold">Your CV/Resume *</Form.Label>
+                        <div className={Styles.fileUpload}>
                             <Form.Control
-                                ref={resumeRef}
                                 type="file"
                                 id="refer_resume_path"
-                                accept=".pdf,.doc,.docx"
+                                name="refer_resume_path"
                                 onChange={handleFileChange}
-                                disabled={isSubmitting}
+                                accept=".pdf,.doc,.docx"
+                                className={Styles.fileInput}
                                 isInvalid={!!errors.refer_resume_path}
+                                required
                             />
-                            {fileName && (
-                                <small className="text-success d-block mt-2">
-                                    ✓ File selected: {fileName}
-                                </small>
-                            )}
-                            {errors.refer_resume_path && (
-                                <Form.Control.Feedback type="invalid" style={{ display: 'block' }}>
-                                    {errors.refer_resume_path}
-                                </Form.Control.Feedback>
-                            )}
-                            <small className="text-muted d-block mt-2">
-                                Accepted formats: PDF, DOC, DOCX (Max 5MB)
-                            </small>
-                        </Form.Group>
-
-                        {/* Submit Button */}
-                        <div className="d-flex justify-content-center gap-3 mt-5">
-                            <Button
-                                type="submit"
-                                className={Styles.submitBtn}
-                                disabled={isSubmitting}
-                            >
-                                {isSubmitting ? (
-                                    <>
-                                        <FontAwesomeIcon icon={faSpinner} spin className="me-2" />
-                                        Submitting...
-                                    </>
-                                ) : (
-                                    "Submit Referral"
+                            <label className={`w-100 ${Styles.fileUploadArea} ${!!errors.refer_resume_path?'is-invalid':''}`} htmlFor="refer_resume_path">
+                                <FontAwesomeIcon icon={faUpload} className={Styles.uploadIcon} />
+                                <div className={Styles.uploadText}>
+                                    <strong>Choose a file</strong> or drag it here
+                                </div>
+                                <div className={Styles.uploadHint}>
+                                    PDF, DOC, DOCX files only (Max 5MB)
+                                </div>
+                                {fileName && (
+                                    <small className="text-success d-block mt-2">
+                                        ✓ File selected: {fileName}
+                                    </small>
                                 )}
-                            </Button>
-                            <Button
-                                variant="secondary"
-                                onClick={handleClose}
-                                disabled={isSubmitting}
-                                className={Styles.cancelBtn}
-                            >
-                                Cancel
-                            </Button>
+                            </label>
                         </div>
-                    </form>
-                </div>
+                        {errors.refer_resume_path && <div className="text-danger mt-2">{errors.refer_resume_path}</div>}
+                    </Form.Group>
+                    <Row>
+                        {/* Referrer Name Field */}
+                        <Col md={6}>
+                            <Form.Group className="mb-3">
+                                <Form.Label className="fw-bold">
+                                    Referer Name <span style={{ color: '#e74c3c' }}>*</span>
+                                </Form.Label>
+                                <Form.Control
+                                    ref={referrerNameRef}
+                                    type="text"
+                                    id="referrer_name"
+                                    placeholder="Enter your full name"
+                                    value={formData.referrer_name}
+                                    onChange={handleChange}
+                                    disabled={isSubmitting}
+                                    isInvalid={!!errors.referrer_name}
+                                />
+                                {errors.referrer_name && (
+                                    <Form.Control.Feedback type="invalid">
+                                        {errors.referrer_name}
+                                    </Form.Control.Feedback>
+                                )}
+                            </Form.Group>
+                        </Col>
+
+                        {/* Referrer Email Field */}
+                        <Col md={6}>
+                            <Form.Group className="mb-3">
+                                <Form.Label className="fw-bold">
+                                    Referer Email <span style={{ color: '#e74c3c' }}>*</span>
+                                </Form.Label>
+                                <Form.Control
+                                    ref={referrerEmailRef}
+                                    type="email"
+                                    id="referrer_email"
+                                    placeholder="your@email.com"
+                                    value={formData.referrer_email}
+                                    onChange={handleChange}
+                                    disabled={isSubmitting}
+                                    isInvalid={!!errors.referrer_email}
+                                />
+                                {errors.referrer_email && (
+                                    <Form.Control.Feedback type="invalid">
+                                        {errors.referrer_email}
+                                    </Form.Control.Feedback>
+                                )}
+                            </Form.Group>
+                        </Col>
+                    </Row>
+
+                    {/* Submit Button */}
+                    <div className="d-flex justify-content-center gap-3">                        
+                        <Button
+                            variant="secondary"
+                            onClick={handleClose}
+                            disabled={isSubmitting}
+                            className={`${Styles.cancelBtn} eclick-btn-primary`}
+                        >
+                            Cancel
+                        </Button>
+                        <Button
+                            onClick={handleSubmit}
+                            className="eclick-btn-primary"
+                            disabled={isSubmitting}
+                        >
+                            {isSubmitting ? (
+                                <>
+                                    <span><FontAwesomeIcon icon={faSpinner} spin className="me-2" /></span>
+                                    <em>Submitting...</em>
+                                </>
+                            ) : (
+                                <>
+                                    <span><FontAwesomeIcon icon={faUpload} className="me-2" /></span>
+                                    <em>Submit Application</em>
+                                </>
+                            )}
+                        </Button>
+                    </div>
+                </form>
             </Modal.Body>
         </Modal>
     );

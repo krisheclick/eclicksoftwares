@@ -7,6 +7,7 @@ import { faXmark, faSpinner } from "@fortawesome/free-solid-svg-icons";
 import Styles from "./HireModal.module.css";
 import Image from "next/image";
 import { useHireModal } from "@/utils/useLetsConnect";
+import { useRouter } from "next/navigation";
 
 interface USPOption {
     label: string;
@@ -44,6 +45,7 @@ const HireModal: React.FC<HireModalProps> = ({
         usp: '',
         project_description: ''
     });
+    const router = useRouter();
     const {selectedUsp} = useHireModal();
     const [errors, setErrors] = useState<{ [key: string]: string }>({});
     const [statusMessage, setStatusMessage] = useState('');
@@ -238,7 +240,8 @@ const HireModal: React.FC<HireModalProps> = ({
                     usp: '',
                     project_description: ''
                 });
-
+                sessionStorage.setItem("hire_developer_success", "true");
+                router.push("/hire-developers/thank-you");
                 setTimeout(() => {
                     onHide();
                 }, 2000);
