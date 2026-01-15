@@ -104,14 +104,20 @@
   }
 }
 
-.bannerTitle {
-  font-size: 56px;
-  font-weight: 700;
-  line-height: 1.3;
-  margin-bottom: 24px;
-  color: #fff;
-  letter-spacing: -0.5px;
-  word-break: break-word;
+.bannerTitle{
+    color: #000;
+    font-size: 80px;
+    font-weight: 700;
+    line-height: 69px;
+}
+
+.bannerTitle b{
+  color: #000;
+  text-transform: capitalize;
+  margin-bottom: 3px;
+  font-size: 45px;
+  font-weight: 600;
+  line-height: 60px;
 
   @media (max-width: 1024px) {
     font-size: 48px;
@@ -245,4 +251,13 @@
   max-width: 200px;
   margin-left: auto;
   margin-right: auto;
+}
+
+
+.bannerDescriptioen{
+  color: #111;
+  text-transform: capitalize;
+  font-size: 25px;
+  font-weight: 400;
+  line-height: 34px;
 }
