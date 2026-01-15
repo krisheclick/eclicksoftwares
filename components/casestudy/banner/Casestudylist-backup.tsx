@@ -69,7 +69,6 @@ const Casestudymain = () => {
                 <section className={Styles.CasestudyList}>
                     {!hasLoading ? (
                         data?.map((value, index) => {
-                            console.log('value', value)
                             const { proj_feature_image_path, proj_responsive_image_1_path, proj_responsive_image_2_path, proj_name, proj_slug, proj_short_desc, proj_tools_used } = value;
 
                             let tools: { name?: string; value?: string }[] = [];

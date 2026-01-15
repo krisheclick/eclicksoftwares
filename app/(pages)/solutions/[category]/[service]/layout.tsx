@@ -17,9 +17,9 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     if (!res.ok) {
         return seoData;
     }
-    console.log('fetching', `${process.env.NEXT_PUBLIC_API_URL}services/${service}/seo`, res.status)
+    // console.log('fetching', `${process.env.NEXT_PUBLIC_API_URL}services/${service}/seo`, res.status)
     const {response_data:seo} = await res.json();
-    console.log('seoData', seo)
+    // console.log('seoData', seo)
     const description = seo.meta_descriptions
     ?.replace(/<[^>]*>?/gm, "")
     .trim();

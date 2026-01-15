@@ -123,7 +123,7 @@ const HookIndustry = () => {
                                             }}
                                         />
                                         <div className="btn_left">
-                                            <Link href={`${activeItem?.project?.proj_slug}`} className={`eclick-btn-audit white-btn lg ${Styles.auditBtn}`}>Get a Free Website Audit</Link>
+                                            <Link href={`${process.env.NEXT_PUBLIC_ENV_URL}/casestudies/${activeItem?.project?.proj_slug}`} className={`eclick-btn-audit white-btn lg ${Styles.auditBtn}`}>Get a Free Website Audit</Link>
                                         </div>
                                     </div>
                                 ) : (

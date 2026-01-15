@@ -25,7 +25,7 @@ const menuMaps = {
                   { title: "Client Testimonials", slug: "/our-testimonials" },
                   { title: "Our Partners", slug: "/our-partners" },
                   { title: "About the Company", slug: "/about-us" },
-                  { title: "Our Journey & Milestones", slug: "/our-journey" },
+                  { title: "Our Journey & Milestones", slug: "#2" },
                ],
                poster: "/assets/images/navigation/about-poster.jpg",
             },
@@ -114,7 +114,7 @@ const menuMaps = {
                      { title: "Online Reputation Management", slug: "/solutions/digital-marketing-growth/online-reputation-management" },
                      { title: "App Store Optimization", slug: "/solutions/digital-marketing-growth/app-store-optimization" },
                   ],
-                  poster: "/assets/images/navigation/digital.jpg",
+                  poster: "/assets/images/navigation/digital-marketing.webp",
                },
                {
                   title: "Managed Services & Support",

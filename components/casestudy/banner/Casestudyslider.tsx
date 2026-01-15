@@ -12,7 +12,6 @@ interface Projects {
 }
 const MySlider = ({ data }: { data?: Projects[] }) => {
     if (!data) return null;
-    console.log('data', data)
     return (
         <div className={Styles.MySliderSection}>
             <Container>

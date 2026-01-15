@@ -23,7 +23,6 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     }
 
     const {response_data:seo} = await res.json();
-    console.log('seo', seo)
     const description = seo.meta_descriptions
     ?.replace(/<[^>]*>?/gm, "")
     .trim();

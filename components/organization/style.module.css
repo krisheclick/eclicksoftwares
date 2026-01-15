@@ -39,6 +39,7 @@
     border-radius: 100%;
     position: relative;
     margin: calc(-.5 * var(--size)) auto 24px;
+    overflow: hidden;
     -moz-transition: all 300ms ease-in-out;
     -webkit-transition: all 300ms ease-in-out;
     transition: all 300ms ease-in-out;

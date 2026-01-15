@@ -25,6 +25,7 @@
 }
 .containerWrapper{
     max-width: 1200px;
+    margin: 0 auto;
 }
 .tabList ul{
     --round: 50px;

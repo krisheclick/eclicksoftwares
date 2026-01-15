@@ -6,6 +6,11 @@ import { faArrowRight } from "@fortawesome/free-solid-svg-icons";
 import Image from "next/image";
 import Skeleton from "@/components/common/Skeleton";
 import Styles from "./style.module.css";
+import { Swiper, SwiperSlide } from "swiper/react";
+import { Navigation, Pagination } from "swiper/modules";
+import "swiper/css";
+import "swiper/css/navigation";
+import "swiper/css/pagination";
 type Project = {
     proj_name: string;
     proj_slug: string;
@@ -14,13 +19,19 @@ type Project = {
     proj_feature_image: string;
     proj_feature_image_path: string;
     proj_tools_used: string;
+    proj_gallery?: string | string[];
 }
 
 const Platformscomponent = () => {
-    const defaultImage = `${process.env.NEXT_PUBLIC_assetPrefix}/assets/images/image 23.png`;
-    const [faqs, setProduct] = useState<Project[]>([]);
+    const [projects, setProjects] = useState<Project[]>([]);
     const [hasLoading, setLoading] = useState(true);
     const [activeIndex, setActiveIndex] = useState<number | null>(0);
+
+    const parseGallery = (gallery?: string | string[]) => {
+        if (!gallery) return [];
+        if (Array.isArray(gallery)) return gallery;
+        return gallery.split(",").map(img => img.trim());
+    };
     const fetchData = async () => {
         setLoading(true);
         try {
@@ -37,7 +48,7 @@ const Platformscomponent = () => {
             }
             const responseData = data.response_data;
 
-            setProduct(responseData.data);
+            setProjects(responseData.data);
         } catch (err) {
             console.error('API error:', (err as Error).message);
         } finally {
@@ -47,12 +58,12 @@ const Platformscomponent = () => {
     useEffect(() => {
         fetchData();
     }, []);
+
     const toggleFAQ = (index: number) => {
-        setActiveIndex(index === activeIndex ? null : index);
+        setActiveIndex(prev => (prev === index ? null : index));
     };
 
-    const currentImage =
-        activeIndex !== null ? faqs[activeIndex]?.proj_feature_image_path : defaultImage;
+
     return (
         <div className={Styles.sectionArea}>
             <Container className='container-full'>
@@ -65,7 +76,7 @@ const Platformscomponent = () => {
                         <Col lg={6} className="align-self-start">
                             <div className={Styles.cardBox}>
                                 {!hasLoading ? (
-                                    faqs.map((faq, index) => (
+                                    projects.map((faq, index) => (
                                         <div
                                             key={index}
                                             className={`${Styles.card} ${activeIndex === index ? Styles.activeCard : ""
@@ -75,16 +86,16 @@ const Platformscomponent = () => {
                                                 onClick={() => toggleFAQ(index)}
                                                 aria-expanded={activeIndex === index}
                                             >
-                                                {faq.proj_name}
+                                                <span dangerouslySetInnerHTML={{ __html: faq.proj_name ?? '' }} />
                                                 <em className={`${Styles.icon} ${activeIndex === index ? Styles.iconRotated : ""}`}>
                                                     <FontAwesomeIcon icon={faArrowRight} />
                                                 </em>
                                             </button>
 
                                             {activeIndex === index && (
-                                                <div className={Styles.accordionContent}>
-                                                    <p>{faq.proj_short_desc}</p>
-                                                </div>
+                                                <div className={`editorText ${Styles.accordionContent}`}
+                                                    dangerouslySetInnerHTML={{ __html: faq.proj_short_desc ?? '' }}
+                                                />
                                             )}
                                         </div>
                                     ))
@@ -116,17 +127,33 @@ const Platformscomponent = () => {
                         </Col>
 
                         <Col lg={6}>
-                            {!hasLoading ? (
-                                <div className={Styles.imageWrapper}>
-                                    <Image
-                                        key={currentImage}
-                                        src={`${process.env.NEXT_PUBLIC_MEDIA_URL}${currentImage}`}
-                                        alt="FAQ illustration"
-                                        fill
-                                        sizes="(max-width: 768px) 100vw, 500px"
-                                        className={`${Styles.image} rounded shadow-sm`}
-                                    />
-                                </div>
+                            {(
+                                !hasLoading &&
+                                activeIndex !== null &&
+                                projects[activeIndex] &&
+                                parseGallery(projects[activeIndex].proj_gallery).length > 0
+                            ) ? (
+                                <Swiper
+                                    key={activeIndex}
+                                    modules={[Navigation, Pagination]}
+                                    navigation
+                                    pagination={{ clickable: true }}
+                                    spaceBetween={20}
+                                    slidesPerView={1}
+                                    className={Styles.gallerySwiper}
+                                >
+                                    {parseGallery(projects[activeIndex].proj_gallery).map((img, i) => (
+                                        <SwiperSlide key={i}>
+                                            <div className={Styles.imageWrapper}>
+                                                <Image
+                                                    src={`${process.env.NEXT_PUBLIC_MEDIA_URL}/uploads/project/${img}`}
+                                                    alt={`${projects[activeIndex].proj_name} image ${i + 1}`}
+                                                    fill
+                                                />
+                                            </div>
+                                        </SwiperSlide>
+                                    ))}
+                                </Swiper>
                             ) : (
                                 <div className={`skeleton rounded shadow-sm ${Styles.imageWrapper}`}></div>
                             )}

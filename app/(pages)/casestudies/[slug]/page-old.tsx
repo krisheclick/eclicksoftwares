@@ -22,7 +22,6 @@ const Page = async ({ params }: { params: { slug: string } }) => {
   // const caseStudy = allCaseStudies.find((c) => c === slug);
 
   // if (!caseStudy) return <NotFound />;
-  console.log('response_data', response_data)
 
   return (
     <div className={Styles.singleSection}>

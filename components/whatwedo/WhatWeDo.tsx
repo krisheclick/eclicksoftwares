@@ -18,9 +18,10 @@ type props = {
     isLoading: boolean;
     services: services[];
     data: WWDData;
+    title?: string;
 }
 
-const WhatWeDo = ({ isLoading, data, services }: props) => {
+const WhatWeDo = ({ isLoading, data, title, services }: props) => {
     const serviceCount = services.length;
     let col = 3;
     if (serviceCount % 4 === 2) {
@@ -35,9 +36,9 @@ const WhatWeDo = ({ isLoading, data, services }: props) => {
                 <div className={`section-content full ${Styles.section_content ?? ''}`}>
                     {!isLoading ? (
                         <>
-                            <div className={Styles.subtitle}>{data?.related_solutions_title ?? 'What we do test'}</div>
+                            <div className={Styles.subtitle}>{data?.related_solutions_title || 'Subtitle'}</div>
                             <div className={`title ${Styles.title ?? ''}`}>
-                                {data?.related_solutions_heading ?? 'More custom software solutions we provide test'}
+                                {data?.related_solutions_heading || title}
                             </div>
                         </>
 

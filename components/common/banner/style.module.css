@@ -7,6 +7,7 @@
     /* margin-top: -116px; */
     /* padding-block: 50px; */
     background: #f2f4f5;
+    overflow: hidden;
 }
 .content {
     max-width: 580px;
@@ -69,6 +70,17 @@
 }
 /* .posterBanner img{
     object-fit: scale-down;
+} */
+/* @media (min-width: 992px) {
+  .posterBanner {
+    width: 50vw;
+  }
+}
+
+@media (min-width: 1200px) {
+  .posterBanner {
+    width: 58.33vw;
+  }
 } */
 
 /* Skeleton loader animation */
