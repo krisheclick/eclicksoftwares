@@ -41,18 +41,15 @@ const Banner = ({ hasLoading, data }: BannerProps) => {
             </figure>
             <div className={Styles.bannerContent}>
                 <Container>
-                    <div className={Styles.contentInner}>
+                    <div className={Styles.contentInnerr}>
                         {!hasLoading ? (
                             <>
-                                <div className={Styles.contentWrapper}>
+                                <div className={Styles.contentWrappere}>
                                     {data?.d05d_title && (
-                                        <h1 
-                                            dangerouslySetInnerHTML={{ __html: data?.d05d_title }} 
-                                            className={`title ${Styles.bannerTitle}`}
-                                        />
+                                        <h1 dangerouslySetInnerHTML={{ __html: data?.d05d_title }} className={`title ${Styles.bannerTitle}`}/>
                                     )}
                                     {data?.d05d_description && (
-                                        <div className={Styles.bannerDescription}>
+                                        <div className={Styles.bannerDescriptioen}>
                                             <div dangerouslySetInnerHTML={{ __html: data.d05d_description }}/>
                                         </div>
                                     )}
