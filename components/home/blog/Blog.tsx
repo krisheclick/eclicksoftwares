@@ -18,6 +18,9 @@ type BlogItem = {
     blog_slug: string;
     blog_short_description: string;
     publish_date: string;
+    Category:{
+        blog_category_slug:string;
+    }
 };
 
 const Blog = () => {
@@ -109,7 +112,7 @@ const Blog = () => {
                                         <p className={Styles.cardText}>{item.blog_short_description}</p>
 
                                         <Link
-                                            href={`/blog/${item.blog_slug}`}
+                                            href={`/blog/${item.Category.blog_category_slug}/${item.blog_slug}`}
                                             className={`learnMore ${Styles.readMore ?? ''}`}
                                         >
                                             Read More

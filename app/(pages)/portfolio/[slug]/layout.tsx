@@ -1,33 +1,26 @@
-import { BlogProvider } from "@/context/Blogcontext";
 import seoData from "@/data/seo.json";
-import { Metadata } from "next";
+import { Metadata } from 'next';
+
 
 type Props = {
-  params: {
-    slug: [] | string;
-  };
+    params: {
+        slug: string;
+    };
 };
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
-    const {slug} = await params;
-    let api = `${process.env.NEXT_PUBLIC_API_URL}page/blog/seo`;
-    if(slug && slug.length > 0){
-        const lastSlug = slug.at(-1) ?? null;
-        api = `${process.env.NEXT_PUBLIC_API_URL}blog/${lastSlug}/seo`;
-    }
-    const res = await fetch(api, {
+    const { slug } = await params;
+    const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}group/${slug}/seo`, {
         cache: "no-store", // or 'force-cache' for static
     });
     if (!res.ok) {
         return seoData;
     }
-    
-    const {response_data:seo} = await res.json();
-    console.log('api :>> ', api,seo);
-    console.log('seo', seo)
+
+    const { response_data: seo } = await res.json();
     const description = seo.meta_descriptions
-    ?.replace(/<[^>]*>?/gm, "")
-    .trim();
+        ?.replace(/<[^>]*>?/gm, "")
+        .trim();
 
     const ogImageUrl = `${process.env.NEXT_PUBLIC_MEDIA_URL}${seo.og_image_path}`;
     const robots = (seo.meta_robots || "").toLowerCase();
@@ -76,10 +69,17 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 }
 
 
-export default function BlogLayout({ children }: { children: React.ReactNode }) {
+export default async function SolutionsLayout({
+    children,
+    className = "",  // Default to an empty string if no className is provided
+}: Readonly<{
+    children: React.ReactNode;
+    className?: string;  // Optional className prop
+}>) {
     return (
-        <BlogProvider>
+        <div className={`${className}`}>
             {children}
-        </BlogProvider>
-    )
+        </div>
+    );
 }
+
