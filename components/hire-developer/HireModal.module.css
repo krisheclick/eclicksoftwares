@@ -1,0 +1,249 @@
+.hireModal {
+    --bs-modal-width: 650px;
+}
+
+.hireModalTitle {
+    color: #fff;
+    font-size: 1.75rem;
+    font-weight: 700;
+    margin: 0;
+    letter-spacing: -0.5px;
+}
+
+.closeBtn {
+    color: #fff;
+    opacity: 0.8;
+    transition: opacity 0.3s ease;
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    cursor: pointer;
+    padding: 0;
+}
+
+.closeBtn:hover {
+    opacity: 1;
+}
+
+.hireModalBody {
+    padding: 2.5rem;
+    max-height: calc(100vh - 200px);
+    overflow-y: auto;
+}
+
+.hireForm {
+    width: 100%;
+}
+
+.formGroup {
+    margin-bottom: 1.5rem;
+    display: flex;
+    flex-direction: column;
+}
+
+.formLabel {
+    font-weight: 600;
+    color: #2d3436;
+    margin-bottom: 0.75rem;
+    font-size: 0.95rem;
+    display: flex;
+    align-items: center;
+    gap: 0.3rem;
+}
+
+.required {
+    color: #e74c3c;
+    font-weight: bold;
+}
+
+.formControl {
+    padding: 0.875rem 1rem;
+    border: 1px solid #dfe6e9;
+    border-radius: 0.5rem;
+    font-size: 0.95rem;
+    font-family: inherit;
+    transition: all 0.3s ease;
+    background-color: #fff;
+    color: #2d3436;
+}
+
+.formControl:focus {
+    outline: none;
+    border-color: #667eea;
+    background-color: #fff;
+    box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.15);
+}
+
+.formControl:disabled {
+    background-color: #ecf0f1;
+    color: #95a5a6;
+    cursor: not-allowed;
+}
+
+.formControl.isInvalid {
+    border-color: #e74c3c;
+    background-color: #fff;
+}
+
+.formControl.isInvalid:focus {
+    border-color: #e74c3c;
+    box-shadow: 0 0 0 3px rgba(231, 76, 60, 0.15);
+}
+
+.selectField {
+    appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%23667eea' d='M6 9L1 4h10z'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 1rem center;
+    padding-right: 2.5rem;
+    cursor: pointer;
+}
+
+.textarea {
+    resize: vertical;
+    min-height: 100px;
+}
+
+.textarea.isInvalid {
+    border-color: #e74c3c;
+}
+
+.errorMessage {
+    color: #e74c3c;
+    font-size: 0.8rem;
+    margin-top: 0.5rem;
+    font-weight: 500;
+}
+
+.statusAlert {
+    margin-bottom: 1.5rem;
+    border-radius: 0.5rem;
+    border: none;
+    padding: 1rem;
+    font-weight: 500;
+    background: #e8f5e9;
+    color: #2e7d32;
+}
+
+.formActions {
+    display: flex;
+    gap: 1rem;
+    margin-top: 2.5rem;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.submitBtn {
+    padding: 0.875rem 2.5rem;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: #fff;
+    border: none;
+    border-radius: 0.5rem;
+    font-weight: 600;
+    font-size: 0.95rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-transform: capitalize;
+    letter-spacing: 0.5px;
+    min-width: 150px;
+}
+
+.submitBtn:hover:not(:disabled) {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(102, 126, 234, 0.4);
+}
+
+.submitBtn:active:not(:disabled) {
+    transform: translateY(0);
+}
+
+.submitBtn:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+.cancelBtn {
+    padding: 0.875rem 2.5rem;
+    background-color: #e8ebed;
+    color: #2d3436;
+    border: 1px solid #dfe6e9;
+    border-radius: 0.5rem;
+    font-weight: 600;
+    font-size: 0.95rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-transform: capitalize;
+    letter-spacing: 0.5px;
+    min-width: 150px;
+}
+
+.cancelBtn:hover:not(:disabled) {
+    background-color: #d9dfe6;
+    border-color: #bcc3ca;
+}
+
+.cancelBtn:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+/* Responsive Styles */
+@media (max-width: 768px) {
+    .hireModal {
+        --bs-modal-width: 100%;
+        --bs-modal-margin: 0.5rem;
+    }
+
+    .hireModalHeader {
+        padding: 1.5rem;
+    }
+
+    .hireModalBody {
+        padding: 2rem;
+        max-height: calc(100vh - 150px);
+    }
+
+    .hireModalTitle {
+        font-size: 1.5rem;
+    }
+
+    .formActions {
+        flex-direction: column;
+        gap: 0.75rem;
+    }
+
+    .submitBtn,
+    .cancelBtn {
+        width: 100%;
+    }
+}
+
+/* Mobile styles for very small screens */
+@media (max-width: 480px) {
+    .hireModalHeader {
+        padding: 1.25rem;
+    }
+
+    .hireModalBody {
+        padding: 1.5rem;
+    }
+
+    .hireModalTitle {
+        font-size: 1.25rem;
+    }
+
+    .formLabel {
+        font-size: 0.9rem;
+    }
+
+    .formControl {
+        font-size: 0.9rem;
+        padding: 0.75rem 0.875rem;
+    }
+
+    .submitBtn,
+    .cancelBtn {
+        padding: 0.65rem 1rem;
+        font-size: 0.85rem;
+    }
+}

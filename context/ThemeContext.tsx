@@ -12,6 +12,9 @@ type ThemeData = {
     showLetsConnectModal: boolean;
     setShowLetsConnectModal: (show: boolean) => void;
 
+    showHireModal: boolean;
+    setShowHireModal: (show: boolean) => void;
+
     clickFrom: string | null;
     setClickFrom: (clickFrom: string | null) => void;
 }
@@ -25,6 +28,7 @@ export const ThemeProvider = ({children} : {children: ReactNode}) => {
     const [showScheduleModal, setShowScheduleModal] = useState(false);
     const [clickFrom, setClickFrom] = useState<string | null>(null);
     const [showLetsConnectModal, setShowLetsConnectModal] = useState(false);
+    const [showHireModal, setShowHireModal] = useState(false);
 
     return(
         <ThemeContext.Provider value={{
@@ -35,7 +39,9 @@ export const ThemeProvider = ({children} : {children: ReactNode}) => {
             clickFrom, 
             setClickFrom,
             showLetsConnectModal,
-            setShowLetsConnectModal
+            setShowLetsConnectModal,
+            showHireModal,
+            setShowHireModal
         }}>
             {children}
         </ThemeContext.Provider>

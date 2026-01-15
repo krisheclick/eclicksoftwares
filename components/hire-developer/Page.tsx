@@ -7,8 +7,9 @@ import Banner from "@/components/hire-developer/banner/Banner";
 import Content from "./why-hire/Content";
 import Developer from "./Developer";
 import Image from "next/image";
-import { useLetsConnect } from "@/utils/useLetsConnect";
+import { useLetsConnect, useHireModal } from "@/utils/useLetsConnect";
 import Faq from "./faq/Faq";
+import HireModal from "./HireModal";
 import Styles from "./style.module.css";
 
 
@@ -94,6 +95,7 @@ const parseToArray = (value: unknown): unknown[] => {
 
 const Hiredata = () => {
     const { openLetsConnectModal } = useLetsConnect();
+    const { showHireModal, setShowHireModal, openHireModal } = useHireModal();
     
     const [data, setData] = useState<DataItem | null>(null);
     const [loading, setLoading] = useState(true);
@@ -156,6 +158,12 @@ const Hiredata = () => {
         ? data.counter_data
         : parseToArray(data?.counter_data) as CounterItem[];
 
+    // Generate USP options from developer data
+    const uspOptions = developerData?.usps?.map((usp) => ({
+        label: usp.usp_title || "",
+        value: usp.usp_title || ""
+    })) || [];
+
     const technologies = data.technologies ?? [];
     const faqs = data.faqs ?? [];
 
@@ -166,6 +174,7 @@ const Hiredata = () => {
                 data={banner}
                 recommend_team={data?.recommend_team}
                 top_pick_team={data?.top_pick_team}
+                onHireClick={() => openHireModal()}
             />
 
             {repeaterData.length > 0 && (
@@ -296,6 +305,14 @@ const Hiredata = () => {
                     </Container>
                 </div>
             )}
+
+            {/* Hire Modal */}
+            <HireModal 
+                show={showHireModal} 
+                onHide={() => setShowHireModal(false)}
+                title="Hire Developers - Get Started"
+                uspOptions={uspOptions}
+            />
         </div>
     );
 };

@@ -26,3 +26,17 @@ export const useLetsConnect = () => {
 
     return { openLetsConnectModal, showLetsConnectModal, setShowLetsConnectModal, clickFrom };
 };
+
+export const useHireModal = () => {
+    const { showHireModal, setShowHireModal } = useThemeContext();
+
+    const openHireModal = () => {
+        setShowHireModal(true);
+    };
+
+    const closeHireModal = () => {
+        setShowHireModal(false);
+    };
+
+    return { openHireModal, closeHireModal, showHireModal, setShowHireModal };
+};

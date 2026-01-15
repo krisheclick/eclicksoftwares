@@ -1,7 +1,6 @@
 import Image from 'next/image';
 import { Container } from 'react-bootstrap';
 import Styles from "./style.module.css";
-import Link from 'next/link';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowRight } from '@fortawesome/free-solid-svg-icons';
 
@@ -24,9 +23,10 @@ interface Props {
     data?: BannerData;
     recommend_team?: RecommendTeam[];
     top_pick_team?: RecommendTeam;
+    onHireClick?: () => void;
 }
 
-const Banner = ({ hasLoading, data, recommend_team, top_pick_team}: Props) => {
+const Banner = ({ hasLoading, data, recommend_team, top_pick_team, onHireClick }: Props) => {
     const mediaUrl = `${process.env.NEXT_PUBLIC_assetPrefix}/assets/images`;
     return (
         <div className={Styles.hero} style={{ background: `url(${mediaUrl + '/banner/hire-banner.webp'}) no-repeat center` }}>
@@ -39,15 +39,16 @@ const Banner = ({ hasLoading, data, recommend_team, top_pick_team}: Props) => {
                             dangerouslySetInnerHTML={{ __html: data?.wkx5_description ?? '' }}
                         />
                         {data?.wkx5_button_name && (
-                            <Link
+                            <button
+                                onClick={() => onHireClick?.()}
                                 className={`eclick-btn-hireBtn lg ${Styles.hireBtn ?? ''}`}
-                                href={data?.wkx5_button_link ?? ''}
+                                type="button"
                             >
                                 <em>{data.wkx5_button_name}</em>
                                 <span className={Styles.icon}>
                                     <FontAwesomeIcon icon={faArrowRight} />
                                 </span>
-                            </Link>
+                            </button>
                         )}
 
                         {recommend_team && (

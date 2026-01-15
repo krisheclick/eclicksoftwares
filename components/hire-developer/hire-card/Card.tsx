@@ -1,12 +1,17 @@
+"use client";
+
 import Image from 'next/image';
-import Link from "next/link";
 import Styles from './style.module.css';
+import { useHireModal } from '@/utils/useLetsConnect';
+
 interface Props {
     icon?: string;
     title?: string;
     description?: string;
 }
 const HireCard = ({icon, title, description}: Props) => {
+    const { openHireModal } = useHireModal();
+
     return (
         <div className={Styles.hwdsbox}>
             <figure>
@@ -27,9 +32,13 @@ const HireCard = ({icon, title, description}: Props) => {
                 <div dangerouslySetInnerHTML={{ __html: description || "" }}/>
             </div>
             <div className={Styles.btnhwdsbx}>
-                <Link href="/read-more" className={Styles.btnhwdsbx_btn}>
-                    read more
-                </Link>
+                <button 
+                    onClick={openHireModal}
+                    className={Styles.btnhwdsbx_btn}
+                    style={{ border: 'none', backgroundColor: 'transparent', cursor: 'pointer' }}
+                >
+                    Hire Now
+                </button>
             </div>      
         </div>
     )
