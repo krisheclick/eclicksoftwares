@@ -97,7 +97,6 @@ const Blog = () => {
                                         src={`${process.env.NEXT_PUBLIC_MEDIA_URL}${item.blog_feature_image_path}`}
                                         alt={item.blog_title}
                                         className={Styles.imageWrapper}
-                                        fallBack='/assets/images/blog-1.png'
                                     />
                                     <div className={Styles.cardBody}>
                                         <div className={Styles.cardTitle}>{item.blog_title}</div>

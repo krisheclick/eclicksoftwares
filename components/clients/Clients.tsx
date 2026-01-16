@@ -1,12 +1,13 @@
 "use client";
 import { useEffect, useState } from "react";
 import { Container } from "react-bootstrap";
-import 'swiper/css';
-import Image from "next/image";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay, Navigation } from "swiper/modules";
+import 'swiper/css';
+import "swiper/css/autoplay";
 import Styles from "./style.module.css";
 import type { Swiper as SwiperType } from "swiper";
+import CustomImage from "@/utils/CustomImage";
 
 type classProps = {
     classValue?: string;
@@ -63,17 +64,11 @@ const Clients = ({ classValue }: classProps) => {
                                 const image = client_logo;
                                 return (
                                     <SwiperSlide className={Styles.sliderItem} key={index}>
-                                        <div className={Styles.box}>
-                                            <Image
-                                                src={image
-                                                    ? `${process.env.NEXT_PUBLIC_MEDIA_URL}${image}`
-                                                    : "/cashpoint.png"
-                                                }
-                                                alt={client_name || "Eclick Client"}
-                                                fill
-                                                priority
-                                            />
-                                        </div>
+                                        <CustomImage
+                                            src={`${process.env.NEXT_PUBLIC_MEDIA_URL}${image}`}
+                                            alt={client_name}
+                                            className={Styles.box}
+                                        />
                                     </SwiperSlide>
                                 )
                             })

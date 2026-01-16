@@ -2,6 +2,7 @@ import { Container, Col, Row } from "react-bootstrap";
 import Styles from "./sliderbanner.module.css";
 import Image from "next/image";
 import { useLetsConnect } from "@/utils/useLetsConnect";
+import CustomImage from "@/utils/CustomImage";
 // import Uspcard from "./usp/Uspcard";
 // type UspItem = {
 //     c0be_usp_icon1?: string;
@@ -57,36 +58,33 @@ const SliderBanner = ({ banner, bannerdata }: Props) => {
                                 <Row className={Styles.row}>
                                     <Col lg={4} xxl={4}>
                                         <div className={Styles.uspBox}>
-                                            <Image
-                                                className="auto-img"
+                                            <CustomImage
                                                 src={`${process.env.NEXT_PUBLIC_assetPrefix}/assets/images/cluth.png`}
                                                 alt="Clutch"
                                                 width={50} height={50}
-                                                fetchPriority="high"
+                                                className="auto-img"
                                             />
                                             <p>global leaders, top b2b companies, top developers</p>
                                         </div>
                                     </Col>
                                     <Col lg={4} xxl={4}>
                                         <div className={Styles.uspBox}>
-                                            <Image
-                                                className="auto-img"
+                                            <CustomImage
                                                 src={`${process.env.NEXT_PUBLIC_assetPrefix}/assets/images/ui-ux.png`}
-                                                alt="UI UX"
+                                                alt="Clutch"
                                                 width={50} height={50}
-                                                priority={true}
+                                                className="auto-img"
                                             />
                                             <p>ux, ui, innovation, special kudos css design awards</p>
                                         </div>
                                     </Col>
                                     <Col lg={4} xxl={4}>
                                         <div className={Styles.uspBox}>
-                                            <Image
-                                                className="auto-img"
+                                            <CustomImage
                                                 src={`${process.env.NEXT_PUBLIC_assetPrefix}/assets/images/android-app.png`}
-                                                alt="Android app development"
+                                                alt="Clutch"
                                                 width={50} height={50}
-                                                priority={true}
+                                                className="auto-img"
                                             />
                                             <p>top android app development company</p>
                                         </div>
@@ -116,14 +114,12 @@ const SliderBanner = ({ banner, bannerdata }: Props) => {
                     <Col lg={6} xxl={7}>
                         <div className={Styles.mixinDassboard}>
                             <div className={Styles.imagePart}>
-                                <figure className={Styles.big_img}>
-                                    <Image
-                                        src={`${process.env.NEXT_PUBLIC_MEDIA_URL}${banner?.proj_banne_image_path}`}
-                                        alt="Dashboard"
-                                        width={584} height={556}
-                                        priority={true}
-                                    />
-                                </figure>
+                                <CustomImage
+                                    src={`${process.env.NEXT_PUBLIC_MEDIA_URL}${banner?.proj_banne_image_path}`}
+                                    alt="Dashboard"
+                                    width={584} height={556}
+                                    className={Styles.big_img}
+                                />
                                 <figure className={Styles.small_img}>
                                     <Image
                                         className="auto-img"

@@ -35,7 +35,7 @@ const CustomImage = ({
     const isFixedSize = typeof width === "number" && typeof height === "number";
 
     return (
-        <figure className={`custom_image ${isFixedSize ? "fixedImage" : ""} ${className || ""}`}>
+        <figure className={`custom_image ${!isFixedSize ? "fixedImage" : ""} ${className || ""}`}>
             <Image
                 loader={imageLoader}
                 src={imageSrc}

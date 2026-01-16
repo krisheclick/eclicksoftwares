@@ -74,10 +74,11 @@
     object-position: top;
 }
 .icon{
-    position: relative;
     --size: 84px;
     width: var(--size);
     height: var(--size);
+    padding: 0;
+    background: transparent;
     margin-bottom: 30px;
 }
 .tabContent .heading{

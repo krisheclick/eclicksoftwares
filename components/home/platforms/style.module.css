@@ -97,6 +97,7 @@
 .imageWrapper {
     width: calc(100% - var(--rightArea));
     height: 100%;
+    padding: 0;
     border-radius: var(--round);
     overflow: hidden;
     position: relative;
