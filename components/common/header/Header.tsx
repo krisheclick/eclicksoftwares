@@ -55,7 +55,7 @@ const Header = ({menuData}: MenuProps) => {
     return (
         <header role="banner" className={`header_main ${Styles.mainHeader ?? ''} ${headerExtraClass ?? ''}`}>
             <div className="container">
-                <div className={`d-flex align-items-center justify-content-between gap-3`}>
+                <div className="header_wrap d-flex align-items-center justify-content-between gap-3">
                     <Link href={`${process.env.NEXT_PUBLIC_ENV_URL}/`} className={Styles.logo}>
                         <Image
                             src={`${process.env.NEXT_PUBLIC_assetPrefix}/assets/images/eclick-logo.webp`}

@@ -62,7 +62,7 @@ const SliderBanner = ({ banner, bannerdata }: Props) => {
                                                 src={`${process.env.NEXT_PUBLIC_assetPrefix}/assets/images/cluth.png`}
                                                 alt="Clutch"
                                                 width={50} height={50}
-                                                priority={true}
+                                                fetchPriority="high"
                                             />
                                             <p>global leaders, top b2b companies, top developers</p>
                                         </div>

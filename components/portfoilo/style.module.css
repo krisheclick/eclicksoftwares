@@ -135,7 +135,17 @@
 .listTarget a svg{
     margin-top: 5px;
 }
-
+.btn_center{
+    margin-top: 60px;
+}
+.btn_center .viewBtn{
+    --size: 72px;
+    --padding: 60px;
+    font-size: calc(var(--size) / 3.5);
+}
+.viewBtn em{
+    margin-left: 8px;
+}
 @media only screen and (max-width: 1600px) {
     .card{
         font-size: 13px;

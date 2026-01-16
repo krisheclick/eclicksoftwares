@@ -9,9 +9,8 @@ const Card = ({ poster, name, designation }: Props) => {
     return (
         <div className={Styles.card}>
             <CustomImage
-                src={poster}
+                src={`${process.env.NEXT_PUBLIC_MEDIA_URL}${poster}`}
                 alt={name || "Member Name"}
-                priority
             />
             <div className={Styles.name}>{name}</div>
             <em className={Styles.designation}>{designation}</em>

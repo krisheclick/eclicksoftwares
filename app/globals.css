@@ -238,6 +238,9 @@ em{
 		transform: none;
 	}
 }
+.header_wrap {
+	min-height: 96px;
+}
 /* ===========Heading Tag=========== */
 .heading, .title, .titleTag, .subheading, .subtitle, .small_title{
 	position: relative;
@@ -712,6 +715,11 @@ input[type=number] {
 .text-center .skeleton {
 	margin-inline: auto;
 }
+.skeletonPoster{
+	position: relative;
+	z-index: 1;
+	overflow: hidden;
+}
 .skeletonTitle {
 	max-width: clamp(36%, 50vw, 720px);
 	margin-bottom: 8px;
@@ -810,4 +818,43 @@ label.is-invalid {
 }
 .react-select__control{
 	height: 48px;
+}
+
+
+/* Wrapper */
+.custom_image {
+    background-color: var(--primary-background);
+	position: relative;
+	z-index: 1;
+	overflow: hidden;
+	--loader: 24px;
+}
+.custom_image:has(.loading)::after{
+	content: '';
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%) rotate(0deg);
+	z-index: 1;
+	width: var(--loader);
+	height: var(--loader);
+	border: 2px solid var(--primary-color);
+	border-right-color: transparent;
+	border-radius: 100%;
+	animation: imageLoader 1s ease-in-out 0s infinite forwards;
+}
+@keyframes imageLoader {
+	to{transform: translate(-50%, -50%) rotate(360deg);}
+}
+/* Base image */
+.fixedImage{
+	padding-top: 56.25%;
+}
+.custom-image {
+    opacity: 0;
+    transform: scale(1.02);
+}
+.custom-image.loaded {
+    opacity: 1;
+    transform: scale(1);
 }

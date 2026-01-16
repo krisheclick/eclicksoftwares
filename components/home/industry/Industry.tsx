@@ -116,7 +116,7 @@ const HookIndustry = () => {
                                                 priority={true}
                                             />
                                         </figure>
-                                        <div className={`heading text-white ${Styles.heading}`}>{activeItem?.project?.proj_name ?? ''}</div>
+                                        <div className={`heading text-white ${Styles.heading}`}>{activeItem?.industry_title ?? activeItem?.project?.proj_name}</div>
                                         <div
                                             dangerouslySetInnerHTML={{
                                                 __html: activeItem?.project?.proj_short_desc ?? '',

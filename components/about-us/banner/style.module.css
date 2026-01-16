@@ -2,14 +2,11 @@
     position: relative;
     z-index: 1;
 }
-.banner figure{
-    position: relative;
-    z-index: 1;
+.bannerPoster{
     padding-top: 32.25%;
     border-radius: 20px;
-    overflow: hidden;
 }
-.banner figure::before{
+.bannerPoster:not(.bannerSkeleton)::before{
     content: '';
     position: absolute;
     inset: 0;
@@ -41,4 +38,7 @@
 }
 .skeletonTitle:last-child{
     height: 36px;
+}
+.lullu{
+    background-color: red;
 }
