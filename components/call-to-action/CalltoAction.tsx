@@ -49,8 +49,8 @@ const CalltoAction = ({ spaceClass, content, isLoading }: classType) => {
                     ) : (
                         <>
                             <div className={Styles.skeltonTitle} style={{ width: "50%", margin: 0 }}>
-                                <div className="skeleton"></div>
-                                <div className="skeleton"></div>
+                                <div className={`skeleton mb-2 ${Styles.skeletonTitle}`}></div>
+                                <div className={`skeleton w-75 ${Styles.skeletonTitle}`}></div>
                             </div>
                             <div className="skeleton p-1" style={{ width: 220 }}>
                                 <span className="skeleton" style={{ width: 40, height: 40 }}></span>

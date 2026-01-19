@@ -49,6 +49,7 @@
     align-items: center;
     gap: 6px;
     position: absolute;
+    z-index: 2;
     bottom: 18%;
     left: calc(-.4 * var(--size));
     animation: leftright 3s ease-in-out infinite;

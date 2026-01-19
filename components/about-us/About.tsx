@@ -13,6 +13,8 @@ import Review_rating from "./Review_rating";
 import WhatsKeep from "./keep/WhatsKeep";
 import Teams from "../meet-team/Teams";
 import Styles from "./style.module.css";
+import BannerSkeleton from "./banner/BannerSkeleton";
+import CustomImage from "@/utils/CustomImage";
 
 type UspCategory = {
     usp_category_title: string;
@@ -86,10 +88,10 @@ type AboutcomponentData = {
 }
 const Aboutcomponent = () => {
     const [aboutData, setAboutData] = useState<AboutcomponentData | null>(null);
-    const [hasLoading, setLoading] = useState(true);
     const [bannerData, setBannerData] = useState<BannerItem | null>(null);
     const [teamData, setTeam] = useState<TeamMember[] | null>(null);
     const [counterData, setCounterData] = useState<CounterData | null>(null);
+    const [hasLoading, setLoading] = useState(true);
 
     const fetchData = async () => {
         setLoading(true);
@@ -136,26 +138,27 @@ const Aboutcomponent = () => {
 
     return (
         <div className="about_page">
-            {bannerData && (
-                <Banner hasLoading={hasLoading} data={bannerData} />
+            {!hasLoading && bannerData ? (
+                <Banner data={bannerData} />
+            ) : (
+                <BannerSkeleton />
             )}
             <div className={`sectionArea pt-3 ${Styles.about_section ?? ''}`}>
                 <Container>
                     <Row className="rowGap gx-xl-5 align-items-center">
                         <Col lg={6}>
-                            <figure className={Styles.aboutPoster}>
-                                {!hasLoading ? (
-                                    <Image
-                                        src={`${process.env.NEXT_PUBLIC_MEDIA_URL}/uploads/page_image/${aboutData?.page_feature_image}`}
-                                        alt={aboutData?.page_title ?? "Card Poster"}
-                                        fill
-                                        priority
-                                        style={{ objectFit: "cover" }}
-                                    />
-                                ) : (
-                                    <div className='skeleton skeletonFill'></div>
-                                )}
-                            </figure>
+                            {!hasLoading ? (
+                                <CustomImage
+                                    src={`${process.env.NEXT_PUBLIC_MEDIA_URL}/uploads/page_image/${aboutData?.page_feature_image}`}
+                                    alt={aboutData?.page_title}
+                                    className={Styles.aboutPoster}
+                                    style={{ objectFit: "cover" }}
+                                />
+                            ) : (
+                                <figure className={`skeletonPoster ${Styles.aboutPoster}`}>
+                                    <div className="skeleton skeletonFill"></div>
+                                </figure>
+                            )}
                         </Col>
                         <Col lg={6}>
                             <div className={`ps-4 ${Styles.about_content}`}>

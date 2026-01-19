@@ -9,18 +9,15 @@
   transition: all 0.3s ease-in-out;
 }
 .imageWrapper {
-  position: relative;
-  width: 100%;
   padding-top: 56.25%;
-  overflow: hidden;
   border-radius: 8px;
   border: 1px solid #ccc;
 }
-.cardImage {
+.imageWrapper img {
   transition: transform 0.3s ease;
   border-radius: 10px;
 }
-.card:hover .cardImage {
+.card:hover .img {
   transform: scale(1.05);
   border-radius: 0px;
 }

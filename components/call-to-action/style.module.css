@@ -10,11 +10,16 @@
     border-radius: 20px;
     box-shadow: 0px 4px 4px #2c2c2c40;
     padding: 40px 48px;
+    min-height: 180px;
 }
 .calltoAction_content .title{
     color: #313131;
 }
-.calltoAction_content .title span{
+.calltoAction_content .title *{
     display: block;
     color: var(--black-color);
+    font-weight: 600;
+}
+.skeletonTitle{
+    height: 46px;
 }

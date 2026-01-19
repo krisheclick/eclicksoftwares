@@ -2,9 +2,9 @@
 import { Col, Row } from "react-bootstrap";
 import Styles from "./style.module.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faLink } from "@fortawesome/free-solid-svg-icons";
+import { faEye } from "@fortawesome/free-solid-svg-icons";
 import Link from "next/link";
-import Image from "next/image";
+import { useLetsConnect } from "@/utils/useLetsConnect";
 import { useEffect, useState } from "react";
 import Card from "../casestudy/card/Card";
 import Cardskeleton from "../casestudy/card/Cardskeleton";
@@ -22,6 +22,8 @@ type CasestudyList = {
 const PortfolioList = () => {
     const [hasLoading, setLoading] = useState(true);
     const [data, setData] = useState<CasestudyList[]>([]);
+
+    const { openLetsConnectModal } = useLetsConnect();
 
     const fetchAPI = async (pageNumber: number) => {
         const postPerpage = 6;
@@ -44,7 +46,7 @@ const PortfolioList = () => {
 
 
     if (data.length === 0) {
-        return <p className="notFound text-center">Website Design Portfolio items found.</p>;
+        return <p className="notFound text-center">Website Design Portfolio items not found.</p>;
     }
 
     return (
@@ -70,9 +72,16 @@ const PortfolioList = () => {
                     )}
                 </Row>
             </div>
-            <div className={`btn_center ${Styles.btn_center ?? ''}`}>
-                <Link href={`${process.env.NEXT_PUBLIC_ENV_URL}/casestudies`} className="eclick-btn-portfolio lg">View More Portfolio</Link>
-            </div>
+            {!hasLoading && data.length > 0 && (
+                <div className={`btn_center ${Styles.btn_center ?? ''}`}>
+                    <button type="button" className={`eclick-btn-view lg ${Styles.viewBtn ?? ''}`} onClick={() => openLetsConnectModal("general_lets_connect")}>
+                        <span>
+                            <FontAwesomeIcon icon={faEye} />
+                        </span>
+                        <em>View More Portfolio</em>
+                    </button>
+                </div>
+            )}
         </>
     );
 };

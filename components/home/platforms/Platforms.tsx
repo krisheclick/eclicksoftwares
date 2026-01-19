@@ -11,6 +11,7 @@ import "swiper/css";
 import "swiper/css/autoplay";
 import "swiper/css/pagination";
 import Styles from "./style.module.css";
+import CustomImage from "@/utils/CustomImage";
 
 type Project = {
     proj_name: string;
@@ -151,7 +152,7 @@ const Platformscomponent = () => {
                                         slidesPerView={1}
                                         autoplay={{ delay: 3000 }}
                                         // pagination={{ clickable: true, dynamicBullets: true }}
-                                        pagination={{ clickable: true}}
+                                        pagination={{ clickable: true }}
                                         navigation
                                         mousewheel
                                         autoHeight={false}
@@ -159,13 +160,12 @@ const Platformscomponent = () => {
                                     >
                                         {parseGallery(projects[activeIndex].proj_gallery).map((img, i) => (
                                             <SwiperSlide key={i}>
-                                                <div className={Styles.imageWrapper}>
-                                                    <Image
-                                                        src={`${process.env.NEXT_PUBLIC_MEDIA_URL}/uploads/project/${img}`}
-                                                        alt={`${projects[activeIndex].proj_name} image ${i + 1}`}
-                                                        fill
-                                                    />
-                                                </div>
+                                                <CustomImage
+                                                    src={`${process.env.NEXT_PUBLIC_MEDIA_URL}/uploads/project/${img}`}
+                                                    alt={`${projects[activeIndex].proj_name} image ${i + 1}`}
+                                                    className={Styles.imageWrapper}
+                                                />
+                                                <div className={Styles.imageWrapper}></div>
                                             </SwiperSlide>
                                         ))}
                                     </Swiper>

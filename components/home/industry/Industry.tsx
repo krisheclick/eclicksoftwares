@@ -6,6 +6,7 @@ import Link from "next/link";
 import { Col, Container, Row } from "react-bootstrap";
 import Styles from "./style.module.css";
 import Skeleton from "@/components/common/Skeleton";
+import CustomImage from "@/utils/CustomImage";
 type IndustryItem = {
     industry_feature_image_path?: string;
     industry_title?: string;
@@ -91,15 +92,12 @@ const HookIndustry = () => {
                         <Row className="align-items-center justify-content-center gx-xl-5">
                             <Col md={6} xl={7}>
                                 {!hasLoading ? (
-                                    <figure className={Styles.poster}>
-                                        <Image
-                                            src={`${process.env.NEXT_PUBLIC_MEDIA_URL}${activeItem?.project?.proj_cover_image_path ?? ''}`}
-                                            alt={activeItem?.industry_title || "Industry Title"}
-                                            fill
-                                            priority
-                                            style={{ objectFit: "cover" }}
-                                        />
-                                    </figure>
+                                    <CustomImage
+                                        src={`${process.env.NEXT_PUBLIC_MEDIA_URL}${activeItem?.project?.proj_cover_image_path}`}
+                                        alt={activeItem?.industry_title}
+                                        className={Styles.poster}
+                                        style={{ objectFit: 'cover' }}
+                                    />
                                 ) : (
                                     <div className={`skeleton ${Styles.poster}`}></div>
                                 )}
@@ -107,16 +105,12 @@ const HookIndustry = () => {
                             <Col md={6} xl={5}>
                                 {!hasLoading ? (
                                     <div className="section-content text-white">
-                                        <figure className={Styles.icon}>
-                                            <Image
-                                                className="auto-img"
-                                                src={`${process.env.NEXT_PUBLIC_MEDIA_URL}${activeItem?.industry_feature_image_path}`}
-                                                alt={activeItem?.industry_title || "Industry Title"}
-                                                fill
-                                                priority={true}
-                                            />
-                                        </figure>
-                                        <div className={`heading text-white ${Styles.heading}`}>{activeItem?.project?.proj_name ?? ''}</div>
+                                        <CustomImage
+                                            src={`${process.env.NEXT_PUBLIC_MEDIA_URL}${activeItem?.industry_feature_image_path}`}
+                                            alt={activeItem?.industry_title}
+                                            className={Styles.icon}
+                                        />
+                                        <div className={`heading text-white ${Styles.heading}`}>{activeItem?.industry_title ?? activeItem?.project?.proj_name}</div>
                                         <div
                                             dangerouslySetInnerHTML={{
                                                 __html: activeItem?.project?.proj_short_desc ?? '',

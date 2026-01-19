@@ -1,7 +1,6 @@
 'use client';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Autoplay, Pagination } from 'swiper/modules';
-import Image from 'next/image';
 import 'swiper/css';
 import 'swiper/css/pagination';
 import { Container } from 'react-bootstrap';
@@ -11,6 +10,7 @@ import { useEffect, useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowRight } from '@fortawesome/free-solid-svg-icons';
 import Skeleton from '@/components/common/Skeleton';
+import CustomImage from '@/utils/CustomImage';
 
 type BlogItem = {
     blog_feature_image_path: string;
@@ -93,20 +93,11 @@ const Blog = () => {
                         blogs?.map((item, index) => (
                             <SwiperSlide key={index} className={Styles.slideCard}>
                                 <div className={Styles.card}>
-                                    <div className={Styles.imageWrapper}>
-                                        <Image
-                                            src={`${process.env.NEXT_PUBLIC_MEDIA_URL}${item.blog_feature_image_path}`}
-                                            alt={item.blog_title}
-                                            fill
-                                            priority
-                                            onError={(e) => {
-                                                (e.target as HTMLImageElement).src =
-                                                    `${process.env.NEXT_PUBLIC_assetPrefix}/assets/images/noimage.jpg`;
-                                            }}
-                                            className={Styles.cardImage}
-                                        />
-                                    </div>
-
+                                    <CustomImage
+                                        src={`${process.env.NEXT_PUBLIC_MEDIA_URL}${item.blog_feature_image_path}`}
+                                        alt={item.blog_title}
+                                        className={Styles.imageWrapper}
+                                    />
                                     <div className={Styles.cardBody}>
                                         <div className={Styles.cardTitle}>{item.blog_title}</div>
                                         <p className={Styles.cardText}>{item.blog_short_description}</p>
