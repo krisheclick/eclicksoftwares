@@ -1,8 +1,17 @@
 .bannerSection {
-    background: url(../casestudy/images/case-study.jpg) center top no-repeat;
-    padding: 70px 0px;
-    text-align: center;
-    background-size: cover;
+    position: relative;
+    z-index: 1;
+}
+.bannerPoster{
+    padding-top: 0;
+    height: 480px;
+}
+.bannerText{
+    position: absolute;
+    inset: 0;
+    display: grid;
+    align-content: center;
+    z-index: 1;
 }
 .pageTitle {
     font: 600 42px / 1.1 var(--primary-font);

@@ -1,5 +1,4 @@
 "use client";
-import Image from "next/image";
 import { useEffect, useState } from "react";
 import Banner from "./banner/Banner";
 import Clients from "@/components/clients/Clients";
@@ -15,6 +14,11 @@ import Teams from "../meet-team/Teams";
 import Styles from "./style.module.css";
 import BannerSkeleton from "./banner/BannerSkeleton";
 import CustomImage from "@/utils/CustomImage";
+import WhatWeDoSkeleton from "./WhatWeDoSkeleton";
+import MissionVissionSkeleton from "./MissionVissionSkeleton";
+import SkeletonCounter from "../counters/SkeletonCounter";
+import WhatsKeepSkeleton from "./keep/WhatsKeepSkeleton";
+import TeamSkeleton from "../meet-team/TeamSkeleton";
 
 type UspCategory = {
     usp_category_title: string;
@@ -191,9 +195,8 @@ const Aboutcomponent = () => {
             </div>
 
             <CalltoAction spaceClass={Styles.spaceAdd} content={customData?.group_name} isLoading={hasLoading} />
-            {aboutData?.usp_categorys?.[1] && (
+            {!hasLoading && aboutData?.usp_categorys?.[1] ? (
                 <WhatWeDo
-                    isLoading={hasLoading}
                     data={aboutData.usp_categorys[1]}
                     services={
                         aboutData.usp_categorys[1].usps.map((item: Usp) => ({
@@ -205,9 +208,15 @@ const Aboutcomponent = () => {
                         }))
                     }
                 />
+            ) : (
+                <WhatWeDoSkeleton />
             )}
 
-            <MissionVission hasLoading={hasLoading} data={customData?.group_name} />
+            {!hasLoading && customData?.group_name ? (
+                <MissionVission data={customData?.group_name} />
+            ) : (
+                <MissionVissionSkeleton />
+            )}
             <CoreServices />
             <div className={Styles.counter_section}>
                 <Container>
@@ -224,9 +233,7 @@ const Aboutcomponent = () => {
                             </>
                         ) : (
                             <>
-                                {counterData?.dz44_title && (
-                                    <div className="skeleton skeletonSmallTitle"></div>
-                                )}
+                                <div className="skeleton skeletonSmallTitle"></div>
                                 <div className={Styles.skeletonTitleWrapper}>
                                     <div className={`skeleton w-100 mb-2 ${Styles.skeletonTitle}`}></div>
                                     <div className={`skeleton w-50 ${Styles.skeletonTitle}`}></div>
@@ -234,18 +241,25 @@ const Aboutcomponent = () => {
                             </>
                         )}
                     </div>
-                    <Counters hasLoading={hasLoading} counters={counters} />
+                    {!hasLoading ? (
+                        <Counters hasLoading={hasLoading} counters={counters} />
+                    ) : (
+                        <SkeletonCounter />
+                    )}
                 </Container>
             </div>
-            {aboutData?.usp_categorys?.[0] && (
+            {!hasLoading && aboutData?.usp_categorys?.[0] ? (
                 <WhatsKeep
-                    hasLoading={hasLoading}
                     data={aboutData?.usp_categorys?.[0]}
                 />
+            ) : (
+                <WhatsKeepSkeleton />
             )}
 
-            {teamData && (
-                <Teams hasLoading={hasLoading} content={customData?.group_name} data={teamData} />
+            {!hasLoading && teamData ? (
+                <Teams content={customData?.group_name} data={teamData} />
+            ) : (
+                <TeamSkeleton />
             )}
             <Clients classValue={"fullBox"} />
         </div>

@@ -3,7 +3,7 @@
     padding: 12px 0px;
     overflow: hidden;
 }
-.containerr {
+.heroWrapper {
     display: grid;
     grid-template-columns: 1.1fr 0.9fr;
     align-items: center;
@@ -152,7 +152,7 @@
 
 /* RESPONSIVE */
 @media (max-width: 1024px) {
-    .containerr {
+    .heroWrapper {
         grid-template-columns: 1fr;
         text-align: center;
     }

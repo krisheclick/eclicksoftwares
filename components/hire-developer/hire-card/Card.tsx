@@ -1,8 +1,7 @@
 "use client";
-
-import Image from 'next/image';
 import Styles from './style.module.css';
 import { useHireModal } from '@/utils/useLetsConnect';
+import CustomImage from '@/utils/CustomImage';
 
 interface Props {
     icon?: string;
@@ -14,19 +13,12 @@ const HireCard = ({icon, title, description}: Props) => {
 
     return (
         <div className={Styles.hwdsbox}>
-            <figure>
-                <Image
-                    src={icon || ''}
-                    alt={title || "Card Icon"}
-                    fill
-                    priority
-
-                    onError={(e) => {
-                        (e.target as HTMLImageElement).src =
-                            `${process.env.NEXT_PUBLIC_assetPrefix}/assets/images/php.png`;
-                    }}
-                />
-            </figure>
+            <CustomImage
+                src={icon}
+                alt={title}
+                className={Styles.technologyIcon}
+                fallBack="/assets/images/technology-icon.png"
+            />
             <div className={Styles.hwdsboxh}>{title}</div>
             <div className={Styles.hwdsboxp}>
                 <div dangerouslySetInnerHTML={{ __html: description || "" }}/>

@@ -1,4 +1,4 @@
-import { Col, Container, Row } from 'react-bootstrap';
+import { Container, Row } from 'react-bootstrap';
 import Styles from './style.module.css';
 import Card from '@/components/whatwedo/Card';
 import SpecialCard from '@/components/whatwedo/SpecialCard';
@@ -12,7 +12,6 @@ type ServiceItem = {
 };
 
 type Props = {
-    isLoading: boolean;
     services: ServiceItem[];
     data: {
         usp_category_title?: string;
@@ -20,7 +19,7 @@ type Props = {
     }
 };
 
-const WhatWeDo = ({ isLoading, data, services }: Props) => {
+const WhatWeDo = ({ data, services }: Props) => {
     const serviceCount = services?.length ?? 0;
 
     let col = 3;
@@ -34,49 +33,23 @@ const WhatWeDo = ({ isLoading, data, services }: Props) => {
         <div className={`sectionArea ${Styles.whatwedo}`}>
             <Container>
                 <div className={`section-content full ${Styles.section_content ?? ''}`}>
-                    {!isLoading ? (
-                        <>
-                            {data?.usp_category_title && (<div className="small_title">{data?.usp_category_title}</div>)}
-                            <div className={`title fw-bold ${Styles.title ?? ''}`}
-                                dangerouslySetInnerHTML={{__html: data?.usp_category_description || ''}}
-                             />
-                        </>
-                    ) : (
-                        <>
-                            <div className="skeleton mb-3" style={{ width: 150, height: 30 }} />
-                            <div className="skeleton skeletonTitle" />
-                        </>
-                    )}
+                    {data?.usp_category_title && (<div className="small_title">{data?.usp_category_title}</div>)}
+                    <div className={`title fw-bold ${Styles.title ?? ''}`}
+                        dangerouslySetInnerHTML={{__html: data?.usp_category_description || ''}}
+                     />
                 </div>
 
                 <Row className={`gx-0 ${Styles.row}`}>
-                    {!isLoading ? (
-                        <>
-                            {services?.map((item, index) => (
-                                <Card
-                                    key={index}
-                                    icon={item.wcp_icon_path}
-                                    title={item.wcp_title}
-                                    description={item.wcp_short_description}
-                                />
-                            ))}
+                    {services?.map((item, index) => (
+                        <Card
+                            key={index}
+                            icon={item.wcp_icon_path}
+                            title={item.wcp_title}
+                            description={item.wcp_short_description}
+                        />
+                    ))}
 
-                            {serviceCount > 0 && <SpecialCard col={col} />}
-                        </>
-                    ) : (
-                        <>
-                            {[...Array(8)].map((_, index) => (
-                                <Col lg={3} className={Styles.item} key={index}>
-                                    <div className={Styles.box}>
-                                        <figure className={`skeleton ${Styles.icon}`} />
-                                        <div className="skeleton mb-2" style={{ height: 24 }} />
-                                        <div className="skeleton skeletonText mb-1" />
-                                        <div className="skeleton skeletonText" />
-                                    </div>
-                                </Col>
-                            ))}
-                        </>
-                    )}
+                    {serviceCount > 0 && <SpecialCard col={col} />}
                 </Row>
             </Container>
         </div>

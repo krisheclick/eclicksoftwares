@@ -1,0 +1,28 @@
+.skeletonBanner{
+    height: 645px;
+    padding: 12px 0;
+    overflow: hidden;
+}
+.skeletonHeading{
+    height: 80px;
+    width: 320px;
+}
+.skeletonRegularTitle {
+    width: 60%;
+}
+.skeletonName{
+    height: 22px;
+}
+.skeletonIcon{
+    --size: 50px;
+    width: var(--size);
+    height: var(--size);
+    border-radius: 100%;
+    flex-shrink: 0;
+}
+.floatingCard{
+    width: 136px;
+}
+.stars{
+    color: var(--primary-background);
+}

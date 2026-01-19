@@ -711,12 +711,9 @@ grid-template-columns: inherit;
     overflow: hidden;
     padding: 0 0;
 }
-.MySliderSection figure{
+.sliderPost{
     background-color: var(--white-color);
     padding: 14px;
-    border-radius: 15px;
-}
-.MySliderSection figure img{
     border-radius: 15px;
 }
 .TestimonialContainer{

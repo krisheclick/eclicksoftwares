@@ -19,7 +19,7 @@
   text-transform: capitalize;
 }
 .separateText .hwdtilte{
-    width: 50%;
+  width: 50%;
 }
 .separateText .hwdtiltepara{
   display: grid;
@@ -39,12 +39,15 @@
 }
 .techcardimg {
 	--size: 80px;
+  padding: 0;
 	width: var(--size);
 	height: var(--size);
 	place-items: center;
 	margin: auto;
 	display: grid;
-	position: relative;
+}
+figure.techcardimg {
+  background: transparent;
 }
 .techcardimg img{
   object-fit: scale-down;

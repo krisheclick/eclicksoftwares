@@ -19,19 +19,18 @@ interface RecommendTeam {
     team_designation?: string;
 }
 interface Props {
-    hasLoading?: boolean;
     data?: BannerData;
     recommend_team?: RecommendTeam[];
     top_pick_team?: RecommendTeam;
     onHireClick?: () => void;
 }
 
-const Banner = ({ hasLoading, data, recommend_team, top_pick_team, onHireClick }: Props) => {
+const Banner = ({ data, recommend_team, top_pick_team, onHireClick }: Props) => {
     const mediaUrl = `${process.env.NEXT_PUBLIC_assetPrefix}/assets/images`;
     return (
         <div className={Styles.hero} style={{ background: `url(${mediaUrl + '/banner/hire-banner.webp'}) no-repeat center` }}>
             <Container>
-                <div className={Styles.containerr}>
+                <div className={Styles.heroWrapper}>
                     <div className={Styles.banner_content}>
                         <h1 className={Styles.banner_heading}> {data?.wkx5_heading} <span>{data?.wkx5_sub_heading}</span></h1>
                         <div

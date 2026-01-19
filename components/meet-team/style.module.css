@@ -19,7 +19,8 @@
     color: rgba(91, 91, 91, 1);
     font-weight: 500;
 }
-.card figure{
+.memberImage{
+    padding: 0;
     width: var(--size);
     height: var(--size);
     border-radius: 100%;
@@ -30,6 +31,9 @@
     font: 600 18px / 1.25 var(--primary-font);
     color: var(--black-color);
     margin-bottom: 4px;
+}
+.skeletonName{
+    height: 24px;
 }
 .name::first-letter{
     text-transform: capitalize;

@@ -1,27 +1,26 @@
 "use client";
-
 import { useEffect, useState } from "react";
-import { Container, Row, Col } from "react-bootstrap";
-import Counters from "@/components/counters/Counters";
+import { useLetsConnect, useHireModal } from "@/utils/useLetsConnect";
 import Banner from "@/components/hire-developer/banner/Banner";
 import Content from "./why-hire/Content";
-import Developer from "./Developer";
-import Image from "next/image";
-import { useLetsConnect, useHireModal } from "@/utils/useLetsConnect";
-import Faq from "./faq/Faq";
-import HireModal from "./HireModal";
 import Styles from "./style.module.css";
-import CustomImage from "@/utils/CustomImage";
+import HireModal from "./HireModal";
 import HireBannerSkeleton from "./banner/HireBannerSkeleton";
+import Developer from "./Developer";
+import { Col, Container, Row } from "react-bootstrap";
+import Faq from "./faq/Faq";
+import Image from "next/image";
+import CustomImage from "@/utils/CustomImage";
 
-
-interface BannerData {
-    wkx5_heading?: string;
-    wkx5_sub_heading?: string;
-    wkx5_description?: string;
-    wkx5_button_name?: string;
-    wkx5_button_link?: string;
-    wkx5_image?: string;
+interface RepeaterData {
+    title?: string;
+    description?: string;
+}
+interface TeamData {
+    team_feature_image_path?: string;
+    team_title?: string;
+    team_rating?: string;
+    team_designation?: string;
 }
 interface UspData {
     usp_feature_image_path?: string;
@@ -67,94 +66,82 @@ interface CounterData {
 type CounterItem = {
     site_counter_number: number;
     site_counter_simbol?: string;
-    site_counter_title?: string;
 }
-interface DataItem {
+interface PageObjectData {
     heading?: string;
+    page_feature_image?: string;
+    short_description?: string;
+    page_title?: string;
+    description?: string;
     pages_custom_field?: string;
+    page_repeater_data?: RepeaterData[];
+    recommend_team?: TeamData[];
+    top_pick_team?: TeamData;
     usp_categorys?: UspItem[];
-    page_repeater_data?: unknown;
     counter_data?: CounterItem[];
     technologies?: Technology[] | undefined;
     faqs?: FaqItem[];
-    recommend_team?: TeamData[];
-    top_pick_team?: TeamData;
 }
-
-
-const parseToArray = (value: unknown): unknown[] => {
-    try {
-        if (value == null) return [];
-
-        const parsed = typeof value === "string" ? JSON.parse(value) : value;
-        return Array.isArray(parsed) ? parsed : [parsed];
-
-    } catch {
-        return [];
-    }
-};
-
-
-const Hiredata = () => {
+interface BannerData {
+    wkx5_heading?: string;
+    wkx5_sub_heading?: string;
+    wkx5_description?: string;
+}
+interface Groupdata {
+    banner?: BannerData;
+}
+const Page = () => {
     const { openLetsConnectModal } = useLetsConnect();
     const { showHireModal, setShowHireModal, openHireModal } = useHireModal();
-    
-    const [data, setData] = useState<DataItem | null>(null);
-    const [loading, setLoading] = useState(true);
-    const [banner, setBanner] = useState<BannerData>();
+
+    const [hasLoading, setLoading] = useState(true);
+    const [data, setData] = useState<PageObjectData | null>(null);
+    const [groupData, setGroupData] = useState<Groupdata | null>(null);
     const [developerData, setDeveloperData] = useState<UspItem | null | undefined>();
     const [designerData, setDesignerData] = useState<UspItem | null | undefined>();
     const [technologySection, setTechnologySection] = useState<TechnologySection | null | undefined>(null);
     const [counterContent, setCounterContent] = useState<CounterData | null>(null);
     const [faqContent, setFaqContent] = useState<FAQContent | null>(null);
 
+    // Api Fetch data
+    const fetchData = async () => {
+        try {
+            setLoading(true);
+            const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/page/hire-developers`);
+            const { response_data } = await response.json();
+            setData(response_data);
+        } catch (err: unknown) {
+            console.log('Hire Developer API is something wrong: ', (err as Error).message)
+        } finally {
+            setLoading(false);
+        }
+    }
 
     useEffect(() => {
-        fetch(`${process.env.NEXT_PUBLIC_API_URL}/page/hire-developers`)
-            .then((res) => res.json())
-            .then((json) => setData(json.response_data))
-            .finally(() => setLoading(false));
+        fetchData();
     }, []);
 
-
+    // Parse Data 
     useEffect(() => {
-        if (!data) return;
-        if (data?.pages_custom_field) {
-            try {
-                const customResponse = JSON.parse(data?.pages_custom_field ?? "{}");
-                const response = customResponse.group_name;
-
-                setBanner(response.banner);
-                setTechnologySection(response?.technology);
-                setCounterContent(response?.counter)
-                setFaqContent(response?.faq)
-
-            } catch (err: unknown) {
-                console.log('Custom fields data is something wrong: ', (err as Error).message);
+        if (data) {
+            if (data?.pages_custom_field) {
+                try {
+                    const customData = JSON.parse(data?.pages_custom_field).group_name;
+                    setGroupData(customData);
+                    setTechnologySection(customData?.technology);
+                    setCounterContent(customData?.counter)
+                    setFaqContent(customData?.faq)
+                } catch (gropError: unknown) {
+                    console.log('Group Data Parse is something : ', (gropError as Error).message)
+                }
             }
+
+            setDeveloperData(data.usp_categorys?.[0] ?? null);
+            setDesignerData(data.usp_categorys?.[1] ?? null);
         }
-
-        setDeveloperData(data.usp_categorys?.[0] ?? null);
-        setDesignerData(data.usp_categorys?.[1] ?? null);
-
     }, [data]);
 
-    // if (loading) return <h2 style={{ textAlign: "center" }}>Loading...</h2>;
-    if (!data) return null;
-
-
-    /* ---------- PARSED DATA ---------- */
-    const repeaterData: RepeaterItem[] = parseToArray(data.page_repeater_data).map(item => {
-        if (typeof item === "object" && item !== null) {
-            const obj = item as Record<string, unknown>;
-            return {
-                title: typeof obj.title === "string" ? obj.title : "",
-                description: typeof obj.description === "string" ? obj.description : ""
-            };
-        }
-        return { title: "", description: "" };
-    });
-
+    const repeaterData: RepeaterData[] = data?.page_repeater_data ? JSON.parse(data.page_repeater_data as unknown as string) : [];
 
     const counterData: CounterItem[] = Array.isArray(data?.counter_data)
         ? data.counter_data
@@ -166,14 +153,14 @@ const Hiredata = () => {
         value: usp.usp_title || ""
     })) || [];
 
-    const technologies = data.technologies ?? [];
+    const technologies = groupData.technologies ?? [];
     const faqs = data.faqs ?? [];
 
     return (
-        <div className={Styles.papasudipda}>
-            {!loading ? (
+        <div className="hire-page">
+            {!hasLoading ? (
                 <Banner
-                    data={banner}
+                    data={groupData?.banner}
                     recommend_team={data?.recommend_team}
                     top_pick_team={data?.top_pick_team}
                     onHireClick={() => openHireModal()}
@@ -181,24 +168,12 @@ const Hiredata = () => {
             ) : (
                 <HireBannerSkeleton />
             )}
-
-            {repeaterData.length > 0 && (
-                <Content hasLoading={loading} data={repeaterData} />
-            )}
-
+            <Content hasLoading={hasLoading} data={repeaterData} />
             {developerData && (
                 <Developer
-                    hasLoading={loading} data={developerData}
+                    hasLoading={hasLoading} data={developerData}
                 />
             )}
-
-            {/* {designerData && (
-                <Developer
-                    hasLoading={loading} data={designerData}
-                    whiteClass={true} separateText={true}
-                />
-            )} */}
-
             {technologies.length > 0 && (
                 <div className={`${Styles.techSectionsam}`}>
                     <Container>
@@ -301,7 +276,7 @@ const Hiredata = () => {
                             </Col>
 
                             <Col lg={7}>
-                                <Faq hasLoading={loading} data={faqs} />
+                                <Faq hasLoading={hasLoading} data={faqs} />
                             </Col>
                         </Row>
                     </Container>
@@ -309,14 +284,14 @@ const Hiredata = () => {
             )}
 
             {/* Hire Modal */}
-            <HireModal 
-                show={showHireModal} 
+            <HireModal
+                show={showHireModal}
                 onHide={() => setShowHireModal(false)}
                 title="Hire Developers - Get Started"
                 uspOptions={uspOptions}
             />
         </div>
-    );
-};
+    )
+}
 
-export default Hiredata;
+export default Page

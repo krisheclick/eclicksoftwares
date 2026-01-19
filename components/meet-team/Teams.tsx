@@ -18,34 +18,22 @@ type Content = {
 }
 
 interface Props {
-    hasLoading?: boolean;
     content?: Content;
     data?: TeamMember[];
 }
 
-const Teams = ({ hasLoading, content, data }: Props) => {
+const Teams = ({content, data }: Props) => {
     const team = content?.team;
     return (
         <div className={Styles.sectionArea}>
             <Container>
                 <div className={`section-content text-center full ${Styles.section_content ?? ''}`}>
-                    {!hasLoading ? (
-                        <>
-                            {team?.hnd4_title && (
-                                <div className="small_title">{team.hnd4_title}</div>
-                            )}
-                            <div className={`title fw-bold text-black ${Styles.title ?? ''}`}
-                                dangerouslySetInnerHTML={{ __html: team?.hnd4_heading || '' }}
-                            />
-                        </>
-                    ) : (
-                        <>
-                            {team?.hnd4_title && (
-                                <div className="skeleton skeletonSmallTitle"></div>
-                            )}
-                            <div className="skeleton skeletonTitle" />
-                        </>
+                    {team?.hnd4_title && (
+                        <div className="small_title">{team.hnd4_title}</div>
                     )}
+                    <div className={`title fw-bold text-black ${Styles.title ?? ''}`}
+                        dangerouslySetInnerHTML={{ __html: team?.hnd4_heading || '' }}
+                    />
                 </div>
                 <div className={Styles.cardList}>
                     <Row className={`rowGap2 ${Styles.cardRow ?? ''}`}>

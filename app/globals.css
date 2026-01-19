@@ -13,6 +13,7 @@
   --submenu-color: #515151;
   --primary-title-color: #282828;
   --secondary-title-color: #024e72;
+  --swiper-theme-color: var(--primary-color) !important;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -725,6 +726,9 @@ input[type=number] {
 	margin-bottom: 8px;
 	height: 48px;
 	border-radius: 4px;
+}
+.skeletonRegularTitle{
+	height: 36px;
 }
 .skeletonDot {
 	background: linear-gradient(45deg, rgba(31, 88, 203, .26), var(--primary-background));

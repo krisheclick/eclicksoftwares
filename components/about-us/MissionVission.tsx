@@ -17,11 +17,10 @@ interface Props {
     data: {
         "vision-mission"?: VisionMission;
     };
-    hasLoading?: boolean;
 }
 
 
-const MissionVission = ({ hasLoading, data }: Props) => {
+const MissionVission = ({data }: Props) => {
     const content = data?.["vision-mission"];
 
     if (!content) return null;
@@ -31,14 +30,12 @@ const MissionVission = ({ hasLoading, data }: Props) => {
             <Container>
                 <div className={`rowCard ${Styles.row}`}>
                     <Card
-                        hasLoading = {hasLoading}
                         poster={content["96lg_vision_image"]}
                         subtitle={content["96lg_vision_title"]}
                         title={content["96lg_vision_heading"]}
                         description={content["96lg_vision_description"]}
                     />
                     <Card
-                        hasLoading = {hasLoading}
                         poster={content["96lg_mission_image"]}
                         subtitle={content["96lg_mission_title"]}
                         title={content["96lg_mission_heading"]}

@@ -108,8 +108,7 @@ const menuMaps = {
                      { title: "Content Writing", slug: "/solutions/digital-marketing-growth/content-writing" },
                      { title: "Email & Automation", slug: "/solutions/digital-marketing-growth/email-automation" },
                      { title: "Local SEO", slug: "/solutions/digital-marketing-growth/local-seo" },
-                     { title: "Influencer Marketing", slug: "/solutions/digital-marketing-growth/influencer-marketing" },
-                     { title: "E-Commerce Marketing", slug: "/solutions/digital-marketing-growth/e-eommerce-marketing" },
+                     { title: "E-Commerce Marketing", slug: "/solutions/digital-marketing-growth/e-commerce-marketing" },
                      { title: "Online Reputation Management", slug: "/solutions/digital-marketing-growth/online-reputation-management" },
                      { title: "App Store Optimization", slug: "/solutions/digital-marketing-growth/app-store-optimization" },
                   ],
@@ -177,9 +176,9 @@ const menuMaps = {
                   image: "/assets/images/navigation/website.jpg",
                },
                {
-                  title: "T-Shirt Design",
-                  slug: "t-shirt-design",
-                  image: "/assets/images/navigation/t-shirt-design.jpg",
+                  title: "Graphics Design",
+                  slug: "graphics-design",
+                  image: "/assets/images/navigation/flyer-design.jpg",
                },
                {
                   title: "Mobile App Design",
@@ -197,9 +196,9 @@ const menuMaps = {
                   image: "/assets/images/navigation/packaging-design.jpg",
                },
                {
-                  title: "Flyer Design",
-                  slug: "flyer-design",
-                  image: "/assets/images/navigation/flyer-design.jpg",
+                  title: "T-Shirt Design",
+                  slug: "t-shirt-design",
+                  image: "/assets/images/navigation/t-shirt-design.jpg",
                },
                {
                   title: "Illustration",

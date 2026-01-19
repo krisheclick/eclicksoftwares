@@ -7,14 +7,16 @@
     display: flex;
     flex-direction: column;
 }
-.hwdsbox figure{
-    position: relative;
-    z-index: 1;
+.technologyIcon{
+    padding: 0;
     width: 60px;
     height: 47px;
     margin-bottom: 12px;
 }
-.hwdsbox figure img{
+figure.technologyIcon{
+    background: transparent;
+}
+.technologyIcon img{
     object-fit: contain;
 }
 .hwdsboxh{

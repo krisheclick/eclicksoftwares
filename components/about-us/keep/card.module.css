@@ -3,16 +3,14 @@
     grid-template-columns: repeat(2, 1fr);
     --round: 20px;
 }
-.card figure{
-    position: relative;
+.cardPoster{
     padding-top: 70%;
     border-radius: var(--round) var(--round) 0px 0px;
-    overflow: hidden;
 }
-.cardItem:first-child figure{
+.cardItem:first-child .cardPoster{
     border-bottom-left-radius: var(--round);
 }
-.cardItem:nth-last-child(-n + 2) figure{
+.cardItem:nth-last-child(-n + 2) .cardPoster{
     order: 1;
     border-radius: 0px 0px var(--round) var(--round);
 }
@@ -30,4 +28,8 @@
     font: 600 22px / 1.25 var(--primary-font);
     margin-bottom: 12px;
     color: rgba(2, 78, 114, 1);
+}
+
+.skeleton_title{
+    height: 32px;
 }

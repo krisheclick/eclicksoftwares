@@ -1,7 +1,8 @@
-import Styles from './style.module.css';
 import Link from 'next/link';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faLink } from '@fortawesome/free-solid-svg-icons';
+import CustomImage from '@/utils/CustomImage';
+import Styles from './style.module.css';
 type Props = {
     poster?: string;
     slug?: string;
@@ -13,7 +14,11 @@ const Card = ({ poster, slug, title, projectName, proj_short_desc}: Props) => {
     return (
         <div className={Styles.cardBox}>
             <div className={Styles.thumbnail}>
-                <figure style={{backgroundImage: `url(${process.env.NEXT_PUBLIC_MEDIA_URL}${poster})`}}></figure>
+                <CustomImage
+                    src={`${process.env.NEXT_PUBLIC_MEDIA_URL}${poster}`}
+                    alt={title}
+                    className={Styles.thumbnailPoster}
+                />
             </div>
             <div className={Styles.cardData}>
                 <div className={Styles.subtitle}>{title}</div>

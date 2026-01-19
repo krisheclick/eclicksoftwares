@@ -109,11 +109,12 @@ const HookIndustry = () => {
                                             src={`${process.env.NEXT_PUBLIC_MEDIA_URL}${activeItem?.industry_feature_image_path}`}
                                             alt={activeItem?.industry_title}
                                             className={Styles.icon}
+                                            style={{objectFit: "scale-down"}}
                                         />
                                         <div className={`heading text-white ${Styles.heading}`}>{activeItem?.industry_title ?? activeItem?.project?.proj_name}</div>
                                         <div
                                             dangerouslySetInnerHTML={{
-                                                __html: activeItem?.project?.proj_short_desc ?? '',
+                                                __html: activeItem?.industry_short_description ?? '',
                                             }}
                                         />
                                         <div className="btn_left">

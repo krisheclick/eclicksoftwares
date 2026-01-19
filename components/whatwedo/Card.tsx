@@ -1,6 +1,6 @@
 import { Col } from 'react-bootstrap';
 import Styles from './card.module.css';
-import Image from 'next/image';
+import CustomImage from '@/utils/CustomImage';
 
 type Props = {
     icon?: string;
@@ -12,16 +12,13 @@ const Card = ({icon, title, description }: Props) => {
         <Col lg={3} className={Styles.item} >
             <div className={Styles.box}>
                 <div className={Styles.contentBox}>
-                    <figure className={Styles.icon}>
-                        <Image
-                            className='auto-img'
-                            src={`${process.env.NEXT_PUBLIC_MEDIA_URL}${icon}`}
-                            alt={title || 'Icon Title'}
-                            fill
-                            priority
-                            style={{ objectFit: "contain" }}
-                        />
-                    </figure>
+                    <CustomImage
+                        src={`${process.env.NEXT_PUBLIC_MEDIA_URL}${icon}`}
+                        alt={title || 'Icon Title'}
+                        className={Styles.icon}
+                        fallBack="/assets/images/default-icon.webp"
+                        style={{objectFit: "scale-down"}}
+                    />
                     <div className={Styles.content}>
                         <div className={Styles.boxtitle}>{title}</div>
                         <span dangerouslySetInnerHTML={{

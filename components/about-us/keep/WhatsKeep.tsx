@@ -14,26 +14,17 @@ type DataItem = {
     usps?: UspItem[];
 }
 type Props = {
-    hasLoading?: boolean;
     data?: DataItem;
 }
 
-const WhatsKeep = ({ hasLoading, data }: Props) => {
+const WhatsKeep = ({ data }: Props) => {
     return (
         <div className={`sectionArea ${Styles.whatsKeep ?? ''}`}>
             <Container>
                 <div className={`section-content text-center full ${Styles.section_content ?? ''}`}>
-                    {!hasLoading ? (
-                        <>
-                            <div className={`title fw-bold text-black ${Styles.title ?? ''}`}
-                                dangerouslySetInnerHTML={{ __html: data?.usp_category_description || '' }}
-                            />
-                        </>
-                    ) : (
-                        <>
-                            <div className="skeleton skeletonTitle" />
-                        </>
-                    )}
+                    <div className={`title fw-bold text-black ${Styles.title ?? ''}`}
+                        dangerouslySetInnerHTML={{ __html: data?.usp_category_description || '' }}
+                    />
                 </div>
                 <div className={Styles.cardList}>
                     <Row className={`gx-0 ${Styles.cardRow ?? ''}`}>

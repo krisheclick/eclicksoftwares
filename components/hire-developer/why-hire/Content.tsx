@@ -13,10 +13,16 @@ const Content = ({ hasLoading, data }: Props) => {
     return (
         <div className={Styles.hiredevsec}>
             <Container>
-                <h2 className={Styles.hdtilte}>
-                    hire remote developers
-                    <strong>facilities</strong>
-                </h2>
+                {!hasLoading ? (
+                    <h2 className={Styles.hdtilte}>
+                        hire remote developers
+                        <strong>facilities</strong>
+                    </h2>
+                ) : (
+                    <h2 className={Styles.hdtilte}>
+                        lullu
+                    </h2>
+                )}
                 <div className={Styles.mainboxhiretable}>
                     {data.map((item, index) => (
                         <div key={index} className={Styles.singleboxhiretable}>

@@ -2,10 +2,10 @@
 import { Col, Container, Row } from "react-bootstrap";
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Autoplay, FreeMode, Pagination } from 'swiper/modules';
-import Image from 'next/image';
 import 'swiper/css';
 import 'swiper/css/pagination';
 import Styles from "./style.module.css";
+import CustomImage from "@/utils/CustomImage";
 type Data = {
     proj_scope?: string;
     proj_cover_image_path?: string;
@@ -55,25 +55,24 @@ const Requirements = ({ projectType, data }: Props) => {
                                     className={`gallerySlider ${Styles.gallerySlider}`}
                                 >
                                     {galleryArray.map((value, index) => (
-                                        <SwiperSlide key={index} className={Styles.galleryPoster}>
-                                            <Image
+                                        <SwiperSlide key={index}>
+                                            <CustomImage
                                                 src={`${process.env.NEXT_PUBLIC_MEDIA_URL}/uploads/project/${value}`}
                                                 alt={data?.proj_name || "Project image"}
                                                 width={624}
                                                 height={598}
-                                                priority
+                                                className={Styles.galleryPoster}
                                             />
                                         </SwiperSlide>
                                     ))}
                                 </Swiper>
                             ) : (
                                 <figure className={Styles.galleryPoster}>
-                                    <Image
+                                    <CustomImage
                                         src={`${process.env.NEXT_PUBLIC_MEDIA_URL}${data?.proj_cover_image_path}`}
                                         alt={data?.proj_name || ''}
                                         width={624}
                                         height={598}
-                                        priority={true}
                                     />
                                 </figure>
                             )}

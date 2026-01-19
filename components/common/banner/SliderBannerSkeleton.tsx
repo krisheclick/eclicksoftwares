@@ -9,29 +9,32 @@ const SliderBannerSkeleton = () => {
                     {/* Left Side */}
                     <Col lg={6} xxl={5}>
                         <div className={Styles.content}>
-                            <div className="placeholder col-5 bg-secondary rounded-1 mb-3" style={{height:'20px'}}></div>
-                            <div className="placeholder col-10 bg-secondary rounded-1 mb-2" style={{height:'50px'}}></div>
-                            <div className="placeholder col-8 bg-secondary rounded-1 mb-2" style={{height:'50px'}}></div>
-                            <div className="placeholder col-6 bg-secondary rounded-1 mb-4" style={{height:'50px'}}></div>
+                            <div className={Styles.bannerText}>
+                                <div className="placeholder col-5 bg-secondary rounded-1 mb-3" style={{ height: '20px' }}></div>
+                                <div className="placeholder col-10 bg-secondary rounded-1 mb-2" style={{ height: '50px' }}></div>
+                                <div className="placeholder col-8 bg-secondary rounded-1 mb-2" style={{ height: '50px' }}></div>
+                                <div className="placeholder col-6 bg-secondary rounded-1 mb-4" style={{ height: '50px' }}></div>
+                                <div className="placeholder col-9 bg-secondary rounded-1 mb-3"></div>
+                                <div className="placeholder col-7 bg-secondary rounded-1"></div>
+                            </div>
 
-                            <div className="placeholder col-9 bg-secondary rounded-1 mb-3"></div>
-                            <div className="placeholder col-7 bg-secondary rounded-1 mb-5"></div>
-
-                            <Row className={Styles.row}>
-                                {[...Array(3)].map((_, i) => (
-                                    <Col lg={4} xxl={4} key={i}>
-                                        <div className={`${Styles.uspBox}`}>
-                                            <div
-                                                className="placeholder bg-secondary rounded-circle d-block mx-auto mb-2"
-                                                style={{ width: "50px", height: "50px" }}
-                                            ></div>
-                                            <div className="placeholder col-10 bg-secondary rounded-pill mx-auto"></div>
-                                            <div className="placeholder col-10 bg-secondary rounded-pill mx-auto"></div>
-                                            <div className="placeholder col-10 bg-secondary rounded-pill mx-auto w-50"></div>
-                                        </div>
-                                    </Col>
-                                ))}
-                            </Row>
+                            <div className={Styles.usp}>
+                                <Row className={Styles.row}>
+                                    {[...Array(3)].map((_, i) => (
+                                        <Col lg={4} xxl={4} key={i}>
+                                            <div className={`${Styles.uspBox}`}>
+                                                <div
+                                                    className="placeholder bg-secondary rounded-circle d-block mb-2"
+                                                    style={{ width: "50px", height: "50px" }}
+                                                ></div>
+                                                <div className="placeholder col-10 bg-secondary rounded-pill"></div>
+                                                <div className="placeholder col-10 bg-secondary rounded-pill"></div>
+                                                <div className="placeholder col-10 bg-secondary rounded-pill w-50"></div>
+                                            </div>
+                                        </Col>
+                                    ))}
+                                </Row>
+                            </div>
 
                             <div className="mt-5">
                                 <div className="placeholder col-5 btn btn-secondary disabled rounded-pill py-3"></div>

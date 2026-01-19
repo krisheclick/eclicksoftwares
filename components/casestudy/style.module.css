@@ -160,12 +160,16 @@
 }
 .brandLogo {
     --size: 80px;
+    padding: 0;
     width: var(--size);
     height: var(--size);
     place-items: center;
     margin: auto;
     display: grid;
     position: relative
+}
+figure.brandLogo{
+    background: none;
 }
 .brandLogo img {
     object-fit: contain;

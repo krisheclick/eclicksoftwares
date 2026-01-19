@@ -16,11 +16,15 @@
     overflow: hidden;
 }
 .icon{
+    padding: 0;
     --size: 60px;
     position: relative;
     width: var(--size);
     height: var(--size);
     margin-bottom: 30px;
+}
+figure.icon{
+    background: transparent;
 }
 .boxtitle{
 	font: 400 22px / 1.35 var(--primary-font);

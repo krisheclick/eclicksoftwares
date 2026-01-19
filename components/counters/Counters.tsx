@@ -1,5 +1,5 @@
 "use client";
-import { Col, Container, Row } from "react-bootstrap";
+import { Col, Row } from "react-bootstrap";
 import CountUp from "react-countup";
 import { useInView } from "react-intersection-observer";
 import Styles from "./style.module.css";

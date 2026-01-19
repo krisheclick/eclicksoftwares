@@ -1,12 +1,12 @@
 "use client";
 import NotFound from "@/app/not-found";
-import Banner from "@/components/portfoilo/Banner";
 import PortfolioList from "@/components/portfoilo/List";
 import { useEffect, useState } from "react";
 import { Container } from "react-bootstrap";
 import Styles from "@/components/portfoilo/style.module.css";
 import LogoDesign from "@/components/portfoilo/LogoDesign";
 import Tshirt from "@/components/portfoilo/t-shirt";
+import DeatilsBanner from "@/components/portfoilo/DeatilsBanner";
 type Portfolios = {
    portfolio_feature_image_path?: string;
    portfolio_title?: string;
@@ -60,7 +60,7 @@ const Page = ({ params }: { params: { slug: string } }) => {
          <NotFound />
       ) : (
          <>
-            <Banner title={title} />
+            <DeatilsBanner slug={pageSlug} />
 
             <div className={`sectionArea ${Styles.sectionArea ?? ''}`}>
                <Container>
