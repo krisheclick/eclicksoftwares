@@ -111,7 +111,7 @@ const HookIndustry = () => {
                                             className={Styles.icon}
                                             style={{objectFit: "scale-down"}}
                                         />
-                                        <div className={`heading text-white ${Styles.heading}`}>{activeItem?.industry_title ?? activeItem?.project?.proj_name}</div>
+                                        <div className={`title text-white ${Styles.heading}`}>{activeItem?.industry_title ?? activeItem?.project?.proj_name}</div>
                                         <div
                                             dangerouslySetInnerHTML={{
                                                 __html: activeItem?.industry_short_description ?? '',

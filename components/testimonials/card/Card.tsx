@@ -5,8 +5,8 @@ import { useState } from 'react';
 import { normalizeYouTubeUrl } from '@/utils/videoUrl';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEye, faPlay } from '@fortawesome/free-solid-svg-icons';
-import { limitHtmlWords } from '@/utils/limitcontent';
 import Styles from './style.module.css';
+import { limitHtmlLetters } from '@/utils/limitHtmlLetters';
 type Client = {
     client_logo?: string;
     client_name?: string;
@@ -64,9 +64,8 @@ const Card = ({ cardData }: CardProps) => {
             setModalType(null);
         }, 300);
     };
-
-
-
+    
+    const clickBtn = ` ...<span className="text-primary">read more</span>`;
     return (
         <>
             {cardData?.map((userValue, useIndex) => {
@@ -125,50 +124,10 @@ const Card = ({ cardData }: CardProps) => {
                                 <div className={Styles.cardText}>
                                     <div className={Styles.testmonial_paragraph}>
                                         <p
-                                            dangerouslySetInnerHTML={{ __html: limitHtmlWords(testimonial_description ?? '', 36) }}
+                                            dangerouslySetInnerHTML={{ __html: limitHtmlLetters(testimonial_description ?? '', 195, clickBtn) }}
                                         />
                                     </div>
                                 </div>
-
-                                {/* <figcaption className={videoFunction ? Styles.cardPosterDesign : Styles.cardPosterDesignText}>
-                                    <span
-                                        className={Styles.icon}
-                                        onClick={() =>
-                                            videoFunction
-                                                ? handleOpenVideo(testimonial_video ?? "", client?.client_name ?? "")
-                                                : handleOpenContent(testimonial_author_name, testimonial_description)
-                                        }
-                                    >
-                                        <FontAwesomeIcon icon={videoFunction ? faPlay : faEye} />
-                                    </span>
-
-                                    {!videoFunction && (
-                                        <div className={Styles.posterData}>
-                                            <div className={Styles.industry_type}>{testimonial_industry ? testimonial_industry : 'Other'}</div>
-                                            <em className={Styles.ownerName}>{client?.client_name}</em>
-                                            <div className={Styles.projectName}>{testimonial_author_name}</div>
-                                            <Image
-                                                className={Styles.brandLogo}
-                                                src={`${process.env.NEXT_PUBLIC_assetPrefix}/assets/images/logo.png`}
-                                                alt={"Eclick Softwares & Solutions"}
-                                                width={90} height={36}
-                                                priority
-                                            />
-                                        </div>
-                                    )}
-                                    
-                                </figcaption>
-
-                                <div className={Styles.cardText}>
-                                    <div className={Styles.cardTitle}>{testimonial_author_name}</div>
-
-                                    <div className={Styles.designation}>{client?.client_name} </div>
-                                    <div className={Styles.testmonial_paragraph}>
-                                        <p
-                                            dangerouslySetInnerHTML={{ __html: limitHtmlWords(testimonial_description ?? '', 20) }}
-                                        />
-                                    </div>
-                                </div> */}
                             </div>
                         )}
                     </Col>

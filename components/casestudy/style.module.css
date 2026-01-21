@@ -59,6 +59,7 @@
 }
 .tabItem{
     min-width: 200px;
+    min-height: 52px;
     padding: 14px 24px;
     border-radius: var(--round);
     text-align: center;
@@ -190,9 +191,10 @@ figure.brandLogo{
 .calltoAction_content .calltoActionTitle{
     color: #313131;
 }
-.calltoActionTitle span{
+.calltoActionTitle :is(span, b, strong){
     display: block;
     color: var(--black-color);
+    font-weight: inherit;
 }
 @media only screen and (max-width: 1600px) {
     .cmsBanner{

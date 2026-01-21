@@ -43,7 +43,6 @@ const Blog = () => {
         fetchBlogsData();
     }, []);
 
-
     return (
         <div className={`sectionArea ${Styles.sectionArea ?? ''}`}>
             <Container>

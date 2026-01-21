@@ -109,11 +109,21 @@ const Hiredata = () => {
     const [faqContent, setFaqContent] = useState<FAQContent | null>(null);
 
 
+    const fetchData = async() => {
+        try{
+            setLoading(true);
+            const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/page/hire-developers`);
+            const {response_data} = await response.json();
+            setData(response_data);
+
+        }catch(err: unknown){
+            console.log('API data fetch is something wrong : ', (err as Error).message);
+        }finally{
+            setLoading(false);
+        }
+    }
     useEffect(() => {
-        fetch(`${process.env.NEXT_PUBLIC_API_URL}/page/hire-developers`)
-            .then((res) => res.json())
-            .then((json) => setData(json.response_data))
-            .finally(() => setLoading(false));
+        fetchData();
     }, []);
 
 

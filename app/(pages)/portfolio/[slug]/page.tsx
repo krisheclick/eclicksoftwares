@@ -44,7 +44,7 @@ const Page = ({ params }: { params: { slug: string } }) => {
    const pageSlug = data?.portfolio_group_slug;
    const items = data?.Portfolios ?? [];
    const title = data?.portfolio_group_title;
-   
+
    let content;
 
    if (pageSlug === "logo-design" || pageSlug === "illustration") {
@@ -60,7 +60,16 @@ const Page = ({ params }: { params: { slug: string } }) => {
          <NotFound />
       ) : (
          <>
-            <DeatilsBanner slug={pageSlug} />
+            {!hasLoading ? (
+
+               <DeatilsBanner slug={pageSlug} />
+            ) : (
+               <div className={Styles.bannerSection}>
+                  <div className={Styles.bannerPoster}>
+                     <div className="skeleton skeletonFill"></div>
+                  </div>
+               </div>
+            )}
 
             <div className={`sectionArea ${Styles.sectionArea ?? ''}`}>
                <Container>

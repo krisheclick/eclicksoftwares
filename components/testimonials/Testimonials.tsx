@@ -3,6 +3,7 @@ import { Container, Row } from 'react-bootstrap'
 import Styles from './style.module.css';
 import { useEffect, useState } from 'react';
 import Card from './card/Card';
+import CardSkeleton from './card/CardSkeleton';
 
 type Client = {
     client_logo?: string;
@@ -52,10 +53,10 @@ const Testimonials = () => {
         <div className={`sectionArea ${Styles.sectionArea}`}>
             <Container>
                 <div className={Styles.containerWrapper}>
-                    {!hasLoading ? (
-                        <>
-                            <div className={Styles.tabList}>
-                                <ul className='noList'>
+                    <div className={Styles.tabList}>
+                        <ul className='noList'>
+                            {!hasLoading ? (
+                                <>
                                     <li
                                         className={`${Styles.tabItem} ${tabActive === 'videos' ? Styles.active : ''}`}
                                         onClick={() => setActiveTab('videos')}
@@ -69,19 +70,36 @@ const Testimonials = () => {
                                     >
                                         Written
                                     </li>
-                                </ul>
-                            </div>
+                                </>
+                            ) : (
+                                [...Array(2)].map((_, index) => (
+                                    <li
+                                        key={index}
+                                        className={`skeleton ${Styles.tabItem}`}
+                                    />
+                                ))
+                            )}
+                        </ul>
+                    </div>
 
-                            <div className={Styles.cardList}>
-                                <Row className='rowGap gx-5'>
-                                    <Card cardData={filteredData} />
-                                </Row>
-                            </div>
-
-                        </>
-                    ) : (
-                        <>Loading</>
-                    )}
+                    <div className={Styles.cardList}>
+                        <Row className='rowGap gx-5'>
+                            {!hasLoading ? (
+                                <Card cardData={filteredData} />
+                            ) : (
+                                [...Array(10)].map((_, index) => (
+                                    <CardSkeleton key={index} />
+                                ))
+                            )}
+                        </Row>
+                    </div>
+                    <div className={`section-content max-content text-center ${Styles.info ?? ''}`}>
+                        {tabActive === 'videos' ? (
+                            <>We currently have Videos testimonials available. If you are interested, please feel free to contact us.</>
+                        ) : (
+                            <>We currently have testimonials available. If you are interested, please feel free to contact us.</>
+                        )}
+                    </div>
                 </div>
             </Container>
         </div>

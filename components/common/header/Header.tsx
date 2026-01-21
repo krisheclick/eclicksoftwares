@@ -21,8 +21,9 @@ type MenuData = {
 type MenuProps = {
     menuData: MenuItem[];
 }
-const Header = ({menuData}: MenuProps) => {
-    const {headerExtraClass} = useThemeContext();
+const Header = ({ menuData }: MenuProps) => {
+    const { headerExtraClass, setCommonBanner } = useThemeContext();
+
     useEffect(() => {
         const body = document.body as HTMLElement;
         let previousScroll = 0;
@@ -52,6 +53,26 @@ const Header = ({menuData}: MenuProps) => {
             window.removeEventListener('scroll', handleScroll);
         };
     }, []);
+
+    // Common Banner
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/site-setting`);
+                if (!res.ok) throw new Error(`HTTP ${res.status}`);
+
+                const json = await res.json();
+                setCommonBanner(json?.response_data?.filteredSettings?.common_banner ?? null);
+            } catch (err) {
+                console.error('Site-setting API error:', err);
+            }
+        };
+
+        fetchData();
+    }, [setCommonBanner]);
+
+
+
     return (
         <header role="banner" className={`header_main ${Styles.mainHeader ?? ''} ${headerExtraClass ?? ''}`}>
             <div className="container">

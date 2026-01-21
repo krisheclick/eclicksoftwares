@@ -34,7 +34,7 @@ const CasestudyList = () => {
 
     const apiResponse = `${process.env.NEXT_PUBLIC_API_URL}projects/group`;
 
-    const fetchGroups = useCallback( async () => {
+    const fetchGroups = useCallback(async () => {
         try {
             const response = await fetch(apiResponse);
             const { response_data } = await response.json();
@@ -80,16 +80,24 @@ const CasestudyList = () => {
             <Container>
                 <div className={Styles.tabList}>
                     <ul className="noList">
-                        {groups.map((value) => (
-                            <li
-                                key={value.project_group_slug}
-                                className={`${Styles.tabItem} ${activeGroup === value.project_group_slug ? Styles.active : ""
-                                    }`}
-                                onClick={() => setActiveGroup(value.project_group_slug)}
-                            >
-                                {value.project_group_title}
-                            </li>
-                        ))}
+                        {!hasLoading && groups ? (
+                            groups.map((value) => (
+                                <li
+                                    key={value.project_group_slug}
+                                    className={`${Styles.tabItem} ${activeGroup === value.project_group_slug ? Styles.active : ""
+                                        }`}
+                                    onClick={() => setActiveGroup(value.project_group_slug)}
+                                >
+                                    {value.project_group_title}
+                                </li>
+                            ))) : (
+                            [...Array(2)].map((_, index) => (
+                                <li
+                                    key={index}
+                                    className={`skeleton ${Styles.tabItem}`}
+                                />
+                            ))
+                        )}
                     </ul>
                 </div>
 

@@ -495,8 +495,10 @@ input[type=number] {
 .section-content{
 	margin-bottom: 48px;
 }
-.section-content.max-content{
+.max-content{
 	max-width: 840px;
+}
+.max-content.text-center{
 	margin-inline: auto;
 }
 .section-content:last-child{
@@ -827,6 +829,7 @@ label.is-invalid {
 
 /* Wrapper */
 .custom_image {
+	display: block;
     background-color: var(--primary-background);
 	position: relative;
 	z-index: 1;

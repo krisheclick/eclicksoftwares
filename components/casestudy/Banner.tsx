@@ -1,5 +1,7 @@
+"use client"
 import { Col, Container, Row } from 'react-bootstrap';
 import Styles from './style.module.css';
+import { useThemeContext } from '@/context/ThemeContext';
 
 type Data = {
     proj_name?: string;
@@ -12,13 +14,13 @@ type Props = {
     data?: Data;
 }
 const Banner = ({data} : Props) => {
+    const {commonBanner} = useThemeContext();
     const bannerImage = data?.proj_main_banne_image_path;
-    const poster = bannerImage ? `${process.env.NEXT_PUBLIC_MEDIA_URL}${bannerImage}`
-                : `${process.env.NEXT_PUBLIC_assetPrefix}/assets/images/banner/details-poster.png`;
+    const poster = bannerImage ? bannerImage : commonBanner;
 
     const title = data?.proj_main_banner_title;
     return (
-        <div className={Styles.cmsBanner} style={{background: `url('${poster}') center / cover`}}>
+        <div className={Styles.cmsBanner} style={{background: `url('${process.env.NEXT_PUBLIC_MEDIA_URL}${poster}') center / cover`}}>
             <Container>
                 <Row className='text-white align-items-center'>
                     <Col lg={6}>

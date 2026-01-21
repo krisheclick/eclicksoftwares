@@ -18,7 +18,7 @@
 .calltoAction_content .title *{
     display: block;
     color: var(--black-color);
-    font-weight: 600;
+    font-weight: inherit;
 }
 .skeletonTitle{
     height: 46px;

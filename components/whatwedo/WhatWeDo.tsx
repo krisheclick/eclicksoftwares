@@ -33,7 +33,7 @@ const WhatWeDo = ({ isLoading, data, title, services }: props) => {
     return (
         <div className={`sectionArea ${Styles.sectionArea ?? ''}`}>
             <Container>
-                <div className={`section-content full ${Styles.section_content ?? ''}`}>
+                <div className={`section-content max-content ${Styles.section_content ?? ''}`}>
                     {!isLoading ? (
                         <>
                             <div className={Styles.subtitle}>{data?.related_solutions_title || 'Subtitle'}</div>

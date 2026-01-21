@@ -1,19 +1,22 @@
-export const limitHtmlWords = (html: string, maxWords: number) => {
+export const limitHtmlWords = ( html: string, maxWords: number, subString = "" ): string => {
   const temp = document.createElement("div");
   temp.innerHTML = html;
 
-  const words = [];
+  const words: string[] = [];
   const walker = document.createTreeWalker(temp, NodeFilter.SHOW_TEXT);
 
-  while (walker.nextNode()) {
-    const text = walker.currentNode.nodeValue?.trim();
+  while (walker.nextNode() && words.length < maxWords) {
+    const text = walker.currentNode.nodeValue;
     if (!text) continue;
 
-    const split = text.split(/\s+/);
+    const split = text.split(/\s+/).filter(Boolean);
+
     for (const w of split) {
-      if (words.length < maxWords) words.push(w);
+      if (words.length >= maxWords) break;
+      words.push(w);
     }
   }
 
-  return words.join(" ") +'';
+  const result = words.join(" ");
+  return words.length === maxWords ? result + subString : result;
 };

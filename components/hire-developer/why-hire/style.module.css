@@ -10,7 +10,7 @@
     text-align: center;
 }
 .singleboxhiretable:nth-child(2) {
-    box-shadow: 0 0 16px 8px #00000012;
+    box-shadow: 0 0 16px 10px #00000024;
     z-index: 2;
 }
 .mainboxhiretable ul {

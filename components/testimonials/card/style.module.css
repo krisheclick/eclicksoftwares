@@ -1,77 +1,3 @@
-/* 
-.card figcaption{
-    border-radius: 8px;
-    border: 1px solid rgba(229, 229, 229, 1);
-    position: relative;
-}
-.cardPosterDesignText{
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    overflow: hidden;
-}
-.posterData{
-    --leave: 36px;
-    background: linear-gradient(180deg, #1E58CA 0%, #0F2C64 100%);
-    color: var(--white-color);
-    padding: 12px var(--leave) 12px 8px;
-    font-size: 15px;
-    line-height: normal;
-    text-align: right;
-    display: grid;
-    align-content: center;
-    position: relative;
-}
-
-.logo{
-    width: auto !important;
-    height: auto !important;
-    object-fit: scale-down;
-    margin: auto;
-    max-width: 80%;
-}
-.icon{
-    --size: 48px;
-    width: var(--size);
-    height: var(--size);
-    color: var(--white-color);
-    background: #ff0000;
-    display: grid;
-    place-items: center;
-    border-radius: 100%;
-    position: absolute;
-    z-index: 2;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    font-size: 18px;
-    cursor: pointer;
-}
-.cardPosterDesign .icon{
-    padding-left: 2px;
-}
-.cardText{
-    font-size: 16px;
-    padding: 16px 12px;
-}
-.cardTitle{
-    font: 600 24px / 1.25 var(--primary-font);
-    margin-bottom: 8px;
-    color: var(--black-color);
-}
-.designation{
-    margin-bottom: 20px;
-    font-size: 1.2em;
-    color: #a49999;
-    letter-spacing: 0.3px;
-}
-@media only screen and (max-width: 1600px) {
-    .cardTitle{
-        font-size: 20px;
-    }
-    .cardText{
-        font-size: 14px;
-    }
-} */
 .cardPoster{
     position: relative;
     z-index: 1;
@@ -83,7 +9,6 @@
     width: var(--size);
     height: var(--size);
     color: var(--white-color);
-    background: #ff0000;
     display: grid;
     place-items: center;
     border-radius: 100%;
@@ -94,6 +19,9 @@
     transform: translate(-50%, -50%);
     font-size: 18px;
     cursor: pointer;
+}
+span.icon{
+    background: #ff0000;    
 }
 /* text  */
 .card{
@@ -161,9 +89,13 @@
     height: auto !important;
 }
 .cardText{
-    padding: 30px;
+    padding: 24px 30px;
 }
-.cardText p{
+.cardText span{
+    color: var(--primary-color);
+    font-size: .9em;
+}
+/* .cardText p{
     height: 4lh;
     overflow: hidden;
-}
+} */

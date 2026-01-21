@@ -23,6 +23,9 @@ type ThemeData = {
 
     selectedUsp: string | '';
     setSelectedUsp: (selectedUsp: string | '') => void;
+
+    commonBanner: string | null;
+    setCommonBanner: (commonBanner: string | null) => void;
 }
 
 export const ThemeContext = createContext<ThemeData | undefined>(undefined);
@@ -37,6 +40,9 @@ export const ThemeProvider = ({children} : {children: ReactNode}) => {
     const [showHireModal, setShowHireModal] = useState(false);
     const [showReferModal, setShowReferModal] = useState(false);
     const [selectedUsp, setSelectedUsp] = useState('');
+
+    // Common Banner
+    const [commonBanner, setCommonBanner] = useState<string | null>(null);
 
     return(
         <ThemeContext.Provider value={{
@@ -53,7 +59,9 @@ export const ThemeProvider = ({children} : {children: ReactNode}) => {
             showReferModal,
             setShowReferModal,
             selectedUsp,
-            setSelectedUsp
+            setSelectedUsp,
+            commonBanner,
+            setCommonBanner
         }}>
             {children}
         </ThemeContext.Provider>

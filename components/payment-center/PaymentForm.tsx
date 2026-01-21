@@ -496,10 +496,8 @@ const PaymentForm = () => {
                     </div>
                     <div className={Styles.formItem}>
                         <button type="submit" className={`eclick-btn-submit ${Styles.submitBtn}`} disabled={isSubmit}>
-                            <span>
-                                <FontAwesomeIcon icon={faArrowRight} />
-                            </span>{" "}
-                            Submit Payment Request
+                            <span><FontAwesomeIcon icon={faArrowRight} /></span>
+                            <em>Submit Payment Request</em>
                         </button>
                     </div>
                 </form>

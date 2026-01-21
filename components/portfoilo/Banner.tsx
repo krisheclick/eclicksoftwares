@@ -1,4 +1,3 @@
-import { Container } from "react-bootstrap";
 import Styles from "./style.module.css";
 import CustomImage from "@/utils/CustomImage";
 
@@ -15,13 +14,6 @@ const Banner = ({title, poster}: Props) => {
             alt={title}
             className={Styles.bannerPoster}
         />
-        <div className={Styles.bannerText}>
-            <Container>
-                <article className={Styles.bannerContent}>
-                    <h1 className={Styles.pageTitle}>{title}</h1>
-                </article>
-            </Container>
-        </div>
     </div>
   )
 }

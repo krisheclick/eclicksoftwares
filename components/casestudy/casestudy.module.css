@@ -496,9 +496,9 @@ grid-template-columns: inherit;
     display: inline-block;
 }
 .campaignList{
-    /* color: var(--black-color); */
-    font-weight: 500;
     font-size: 1.1em;
+    text-transform: uppercase;
+    letter-spacing: 0.3px;
 }
 .campaignList span:not(:last-child)::after {
 	content: ', ';
