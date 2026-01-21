@@ -43,6 +43,10 @@ body::-webkit-scrollbar {
 		scroll-behavior: smooth;    
 		scrollbar-color: var(--primary-color) #f1f1f1;
 	}
+	select option{
+		font-family: 'Arial';
+		font-size: .92em;
+	}
 }
 body {
 	margin: 0;
@@ -324,6 +328,7 @@ em{
 	padding: 0px var(--padding);
 	white-space: nowrap;
 	overflow: hidden;
+	cursor: pointer;
 	-moz-transition: all .3s ease-in-out;
 	-webkit-transition: all .3s ease-in-out;
 	transition: all .3s ease-in-out;
@@ -731,6 +736,9 @@ input[type=number] {
 }
 .skeletonRegularTitle{
 	height: 36px;
+}
+.skeletonSubtitle{
+	height: 24px;
 }
 .skeletonDot {
 	background: linear-gradient(45deg, rgba(31, 88, 203, .26), var(--primary-background));

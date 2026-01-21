@@ -37,55 +37,10 @@
 .hwdtectilte {
   width: 60%;
 }
-.techcardimg {
-	--size: 80px;
-  padding: 0;
-	width: var(--size);
-	height: var(--size);
-	place-items: center;
-	margin: auto;
-	display: grid;
-}
-figure.techcardimg {
-  background: transparent;
-}
-.techcardimg img{
-  object-fit: scale-down;
-}
 
 .uspSliderSection {
   padding: 60px 0;
 }
-
-
-.techCardsbx {
-  border: 1px solid #D9D9D9;
-  border-radius: 10px;
-  text-align: center;
-  padding: 25px;
-}
-
-.techstitle {
-  text-transform: uppercase;
-  font-weight: 600;
-  color: #222222;
-  font-size: 17px;
-  line-height: 25px;
-}
-
-.techcmb .row {
-  row-gap: 25px;
-}
-
-.techcardimg {
-  max-width: 100px;
-  margin: 0 auto 15px;
-}
-
-.techcardimg img {
-  width: 100%;
-}
-
 /*=============HIRE-DEVELOPER-ENDS=============*/
 
 

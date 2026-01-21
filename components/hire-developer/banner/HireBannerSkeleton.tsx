@@ -13,6 +13,8 @@ const HireBannerSkeleton = () => {
                         <div className={Styles.bannersubTitle}>
                             <div className="skeleton skeletonText mb-2"></div>
                             <div className="skeleton skeletonText mb-2"></div>
+                            <div className="skeleton skeletonText mb-2"></div>
+                            <div className="skeleton skeletonText mb-2"></div>
                             <div className="skeleton skeletonText"></div>
                         </div>
                         <div className="skeleton" style={{ width: 220 }}>

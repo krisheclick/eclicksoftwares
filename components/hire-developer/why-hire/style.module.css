@@ -68,7 +68,7 @@
 .hdtilte {
     text-align: center;
     font-size: 45px;
-    line-height: 54px;
+    line-height: 1.2;
     color: var(--black-color);
     font-weight: 400;
     text-transform: capitalize;
@@ -78,6 +78,11 @@
     display: block;
     font-size: 60px;
     color: #282828;
-    line-height: 70px;
     font-weight: 600;
+}
+.skeletonRegularTitle{
+    height: 54px;
+}
+.skeletonTitle{
+    height: 70px;
 }

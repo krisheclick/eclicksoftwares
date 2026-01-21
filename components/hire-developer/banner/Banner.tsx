@@ -4,7 +4,7 @@ import Styles from "./style.module.css";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowRight } from '@fortawesome/free-solid-svg-icons';
 
-interface BannerData {
+type BannerData  = {
     wkx5_heading?: string;
     wkx5_sub_heading?: string;
     wkx5_description?: string;
@@ -12,13 +12,13 @@ interface BannerData {
     wkx5_button_link?: string;
     wkx5_image?: string;
 }
-interface RecommendTeam {
+type RecommendTeam  = {
     team_feature_image_path?: string;
     team_title?: string;
     team_rating?: string;
     team_designation?: string;
 }
-interface Props {
+type Props  = {
     data?: BannerData;
     recommend_team?: RecommendTeam[];
     top_pick_team?: RecommendTeam;

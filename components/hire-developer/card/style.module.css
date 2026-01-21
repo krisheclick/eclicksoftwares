@@ -1,0 +1,27 @@
+.techCardsbx {
+  border: 1px solid #D9D9D9;
+  border-radius: 10px;
+  text-align: center;
+  padding: 24px;
+}
+.techstitle {
+  text-transform: uppercase;
+  font-weight: 600;
+  color: #222222;
+  font-size: 17px;
+}
+.techcardimg {
+	--size: 80px;
+    padding: 0;
+    margin: 0 auto 16px;
+	width: var(--size);
+	height: var(--size);
+	place-items: center;
+	display: grid;
+}
+figure.techcardimg {
+  background: transparent;
+}
+.techcardimg img{
+  object-fit: scale-down;
+}

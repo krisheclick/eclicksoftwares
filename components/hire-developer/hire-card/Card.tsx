@@ -2,6 +2,8 @@
 import Styles from './style.module.css';
 import { useHireModal } from '@/utils/useLetsConnect';
 import CustomImage from '@/utils/CustomImage';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faArrowRight } from '@fortawesome/free-solid-svg-icons';
 
 interface Props {
     icon?: string;
@@ -23,14 +25,13 @@ const HireCard = ({icon, title, description}: Props) => {
             <div className={Styles.hwdsboxp}>
                 <div dangerouslySetInnerHTML={{ __html: description || "" }}/>
             </div>
-            <div className={Styles.btnhwdsbx}>
-                <a 
-                    onClick={()=>{openHireModal(); setSelectedUsp(title??'')}}
-                    className={Styles.btnhwdsbx_btn}
-                >
-                    Hire Now
-                </a>
-            </div>      
+            <span 
+                onClick={()=>{openHireModal(); setSelectedUsp(title??'')}}
+                className={`eclick-btn-action sm ${Styles.btnhwdsbx_btn}`}
+            >
+                <span><FontAwesomeIcon icon={faArrowRight} /></span>
+                <em>Hire Now</em>
+            </span>
         </div>
     )
 }

@@ -8,6 +8,7 @@ type CounterItem = {
     site_counter_number: number;
     site_counter_simbol?: string;
     site_counter_title?: string;
+    site_counter_icon?: string;
 }
 type Props = {
     hasLoading?: boolean;
@@ -24,42 +25,44 @@ const Counters = ({ hasLoading, counters }: Props) => {
     return (
         <div className={Styles.counterList} ref={ref}>
             <Row className="gx-3 rowGap">
-                {counters?.map((item, i) => (
-                    <Col lg={3} key={i}>
-                        <div className={Styles.counterBox}>
-                            {!hasLoading ? (
-                                <>
-                                    <div className={Styles.counterTitle}>
-                                        <span className={Styles.count}>
-                                            {inView ? (
-                                                <CountUp
-                                                    start={0}
-                                                    end={item.site_counter_number ?? 0}
-                                                    duration={duration}
-                                                    useEasing={false}
-                                                />
-                                            ) : (
-                                                0
-                                            )}
-                                        </span>
-                                        <em>{item.site_counter_simbol}</em>
-                                    </div>
-                                    <p
-                                        dangerouslySetInnerHTML={{ __html: item.site_counter_title || '' }}
-                                    />
-                                </>
-                            ) : (
-                                <>
-                                    <div className={Styles.counterTitle}>
-                                        <span className={`skeleton ${Styles.skeletonCount}`}></span>
-                                        <em className={`skeleton ${Styles.skeletonPrefix}`}></em>
-                                    </div>
-                                    <div className="skeleton skeletonText"></div>
-                                </>
-                            )}
-                        </div>
-                    </Col>
-                ))}
+                {!hasLoading ? (
+                    counters?.map((item, index) => (
+                        <Col lg={3} key={index}>
+                            <div className={Styles.counterBox}>
+                                <div className={Styles.counterTitle}>
+                                    <span className={Styles.count}>
+                                        {inView ? (
+                                            <CountUp
+                                                start={0}
+                                                end={item.site_counter_number ?? 0}
+                                                duration={duration}
+                                                useEasing={false}
+                                            />
+                                        ) : (
+                                            0
+                                        )}
+                                    </span>
+                                    <em>{item.site_counter_simbol}</em>
+                                </div>
+                                <p
+                                    dangerouslySetInnerHTML={{ __html: item.site_counter_title || '' }}
+                                />
+                            </div>
+                        </Col>
+                    ))
+                ) : (
+                    [...Array(8)].map((_, index) => (
+                        <Col lg={3} key={index}>
+                            <div className={Styles.counterBox}>
+                                <div className={Styles.counterTitle}>
+                                    <span className={`skeleton ${Styles.skeletonCount}`}></span>
+                                    <em className={`skeleton ${Styles.skeletonPrefix}`}></em>
+                                </div>
+                                <div className="skeleton skeletonText"></div>
+                            </div>
+                        </Col>
+                    ))
+                )}
             </Row>
         </div>
     )
