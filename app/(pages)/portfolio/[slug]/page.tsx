@@ -50,7 +50,7 @@ const Page = ({ params }: { params: { slug: string } }) => {
    if (pageSlug === "logo-design" || pageSlug === "illustration") {
       content = <LogoDesign hasLoading={hasLoading} title={title ?? ''} portfolios={items} />;
    } else if (pageSlug === "website-design") {
-      content = <PortfolioList />;
+      content = <PortfolioList slug={pageSlug} />;
    } else {
       content = <Tshirt hasLoading={hasLoading} title={title ?? ''} portfolios={items} />;
    }

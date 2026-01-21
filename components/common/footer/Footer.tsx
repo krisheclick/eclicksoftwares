@@ -1,7 +1,5 @@
 "use client";
 import Link from 'next/link';
-import Styles from './style.module.css';
-import Image from 'next/image';
 import Social from '../social/Social';
 import { useEffect, useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -10,6 +8,8 @@ import Area from './Area';
 import { useLetsConnect, useScheduleCall } from '@/utils/useLetsConnect';
 import ScheduleCall from '@/components/schedule-a-call/ScheduleCall';
 import LetsConnectModal from '@/components/schedule-a-call/LetsConnetModal';
+import CustomImageLink from '@/utils/CustomImageLink';
+import Styles from './style.module.css';
 
 type RecursiveMenuItem = {
     url: string;
@@ -18,7 +18,43 @@ type RecursiveMenuItem = {
     id: number;
     children?: RecursiveMenuItem[];
 };
-const Footer = () => {
+
+type SocialItem = {
+    site_social_link_name?: string;
+    site_social_link_url?: string;
+    site_social_icon?: string;
+    site_class_name?: string;
+}
+type ResponseData = {
+    response_data?: {
+        filteredSettings?: {
+            site_title?: string;
+            site_footer_email?: string;
+            site_footer_phone?: string;
+            site_footer_copyright?: string;
+            footer_logo?: string;
+            footer_iso_logo1?: string;
+            footer_iso_logo2?: string;
+            social_media?: SocialItem[];
+        }
+    }
+}
+type FooterProps = {
+    sitedata?: ResponseData;
+};
+const Footer = ({ sitedata }: FooterProps) => {
+    const data = sitedata?.response_data?.filteredSettings;
+    const safeParseArray = <Text extends object>(value?: unknown): Text[] => {
+        try {
+            if (!value) return [];
+            return (typeof value === "string" ? JSON.parse(value) : value) as Text[];
+        } catch {
+            return [];
+        }
+    };
+
+    const social = safeParseArray<SocialItem>(data?.social_media);
+
     const [visible, setVisible] = useState(false);
     const { showScheduleModal, setShowScheduleModal, clickFrom } = useScheduleCall();
     const { showLetsConnectModal, setShowLetsConnectModal } = useLetsConnect();
@@ -84,6 +120,7 @@ const Footer = () => {
             </div>
         </div>
     );
+
     return (
         <>
             <Area />
@@ -93,39 +130,33 @@ const Footer = () => {
                         <div className={Styles.row}>
                             <div className={Styles.columnBox}>
                                 <div className={Styles.logoColumn}>
-                                    <Link href={`${process.env.NEXT_PUBLIC_ENV_URL}`} className={Styles.logo}>
-                                        <Image
-                                            className="dark:invert"
-                                            src={`${process.env.NEXT_PUBLIC_assetPrefix}/assets/images/logo.webp`}
-                                            alt="Logo"
-                                            width={160}
-                                            height={80}
-                                            priority={true}
-                                        />
-                                    </Link>
+                                    <CustomImageLink
+                                        link={`${process.env.NEXT_PUBLIC_ENV_URL}`}
+                                        src={`${process.env.NEXT_PUBLIC_MEDIA_URL}${data?.footer_logo}`}
+                                        className={Styles.logo}
+                                        width={175} height={85}
+                                        alt="Logo"
+                                        fallBack="/assets/images/logo.webp"
+                                    />
                                     <div className={Styles.certified}>
-                                        <div className={Styles.isoBox}>
-                                            <Image
-                                                className='auto-img'
-                                                src={`${process.env.NEXT_PUBLIC_assetPrefix}/assets/images/iso.png`}
-                                                alt='ISO Certificate'
-                                                width={98} height={86}
-                                                loading='lazy'
-                                            />
-                                        </div>
-                                        <div className={Styles.isoBox}>
-                                            <Image
-                                                className='auto-img'
-                                                src={`${process.env.NEXT_PUBLIC_assetPrefix}/assets/images/iso-2.png`}
-                                                alt='ISO Certificate'
-                                                width={98} height={86}
-                                                loading='lazy'
-                                            />
-                                        </div>
+                                        <CustomImageLink
+                                            className={Styles.isoBox}
+                                            src={`${process.env.NEXT_PUBLIC_MEDIA_URL}${data?.footer_iso_logo1}`}
+                                            alt='ISO Certificate'
+                                            width={98} height={86}
+                                            fallBack="/assets/images/favicon.png"
+                                        />
+                                        <CustomImageLink
+                                            className={Styles.isoBox}
+                                            src={`${process.env.NEXT_PUBLIC_MEDIA_URL}${data?.footer_iso_logo2}`}
+                                            alt='ISO Certificate'
+                                            width={98} height={86}
+                                            fallBack="/assets/images/favicon.png"
+                                        />
                                     </div>
                                     <div className={Styles.followSocial}>
                                         <span>Follow us</span>
-                                        <Social itemSize="" />
+                                        <Social social={social} />
                                     </div>
                                 </div>
                             </div>
@@ -137,7 +168,7 @@ const Footer = () => {
                     <div className="container">
                         <hr />
                         <div className="d-flex align-items-center justify-content-between gap-2">
-                            <p className='mb-0'>Copyright © 2025 <Link href={'https://www.eclicksoftwares.com/'} target='_blank'>Eclick Softwares & Solutions Pvt Ltd.</Link></p>
+                            <p className='mb-0'>Copyright © {new Date().getFullYear()} <Link href={'https://www.eclicksoftwares.com/'} target='_blank'>Eclick Softwares & Solutions Pvt Ltd.</Link></p>
                             <ul className={`${Styles.inlineLink} d-flex flex-wrap`}>
                                 {subFooterMenu?.map(child => (
                                     <li key={child.id}>
@@ -146,8 +177,6 @@ const Footer = () => {
                                         </Link>
                                     </li>
                                 ))}
-                                {/* <li><Link href={`${process.env.NEXT_PUBLIC_ENV_URL}/privacy-policy`}>Privacy Policy</Link></li>
-                                <li><Link href={`${process.env.NEXT_PUBLIC_ENV_URL}/refund-policy`}>Refund Policy</Link></li> */}
                             </ul>
                         </div>
                     </div>

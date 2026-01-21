@@ -27,6 +27,17 @@
 .columnBox{
     padding-inline: 12px;
 }
+.logo{
+    padding: 0;
+    background: transparent;
+    display: inline-block;
+    max-width: 175px;
+}
+.logo img, .isoBox img{
+    width: auto;
+    height: auto;
+    object-fit: scale-down;
+}
 .certified{
     display: flex;
     flex-wrap: wrap;
@@ -39,6 +50,8 @@
     padding: 8px;
     border-radius: 8px;
     background: var(--white-color);
+    display: grid;
+    place-items: center;
 }
 .followSocial{
     margin-top: 30px;

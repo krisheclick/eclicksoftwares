@@ -5,6 +5,8 @@ import Styles from "./style.module.css";
 import { useCallback, useEffect, useState } from "react";
 import Card from "./card/Card";
 import Cardskeleton from "./card/Cardskeleton";
+import { useRouter, useSearchParams } from "next/navigation";
+
 
 type GroupItem = {
     project_group_title: string;
@@ -27,6 +29,10 @@ interface CaseStudyData {
 }
 
 const CasestudyList = () => {
+    const router = useRouter();
+    const searchParams = useSearchParams();
+    const groupFromUrl = searchParams.get("group");
+
     const [hasLoading, setLoading] = useState(true);
     const [groups, setGroups] = useState<GroupItem[]>([]);
     const [activeGroup, setActiveGroup] = useState<string>("");
@@ -45,10 +51,19 @@ const CasestudyList = () => {
             if (groupList.length > 0) {
                 setActiveGroup(groupList[0].project_group_slug);
             }
+
+            if (groupList.length > 0) {
+                const defaultGroup =
+                    groupFromUrl && groupList.some((g: GroupItem) => g.project_group_slug === groupFromUrl)
+                        ? groupFromUrl
+                        : groupList[0].project_group_slug;
+
+                setActiveGroup(defaultGroup);
+            }
         } catch (err: unknown) {
             console.error("Group list API error:", (err as Error).message);
         }
-    }, [apiResponse]);
+    }, [apiResponse, groupFromUrl]);
 
     const fetchGroupProjects = useCallback(async (groupSlug: string) => {
         if (!groupSlug) return;
@@ -82,14 +97,19 @@ const CasestudyList = () => {
                     <ul className="noList">
                         {!hasLoading && groups ? (
                             groups.map((value) => (
+
                                 <li
                                     key={value.project_group_slug}
                                     className={`${Styles.tabItem} ${activeGroup === value.project_group_slug ? Styles.active : ""
                                         }`}
-                                    onClick={() => setActiveGroup(value.project_group_slug)}
+                                    onClick={() => {
+                                        setActiveGroup(value.project_group_slug);
+                                        router.push(`?group=${value.project_group_slug}`, { scroll: false });
+                                    }}
                                 >
                                     {value.project_group_title}
                                 </li>
+
                             ))) : (
                             [...Array(2)].map((_, index) => (
                                 <li

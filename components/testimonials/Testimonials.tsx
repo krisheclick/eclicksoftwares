@@ -4,6 +4,7 @@ import Styles from './style.module.css';
 import { useEffect, useState } from 'react';
 import Card from './card/Card';
 import CardSkeleton from './card/CardSkeleton';
+import { useRouter, useSearchParams } from 'next/navigation';
 
 type Client = {
     client_logo?: string;
@@ -22,9 +23,17 @@ type TestimonialData = {
     client?: Client;
 }
 const Testimonials = () => {
+    const router = useRouter();
+    const searchParams = useSearchParams();
+    const groupUrl = searchParams.get('group');
+
     const [data, setData] = useState<TestimonialData[]>([]);
     const [hasLoading, setHasLoading] = useState(true);
-    const [tabActive, setActiveTab] = useState<'videos' | 'written'>('videos');
+    // const [tabActive, setActiveTab] = useState<'videos' | 'text'>('videos');
+
+    const defaultTab = groupUrl === 'text' || groupUrl === 'videos' ? groupUrl : 'videos';
+    const [tabActive, setActiveTab] = useState<'videos' | 'text'>(defaultTab);
+
 
 
     const APIfunction = async () => {
@@ -42,12 +51,27 @@ const Testimonials = () => {
         APIfunction();
     }, []);
 
+    // const filteredData = data.filter(item => {
+    //     if (tabActive === 'videos') {
+    //         return item.testimonial_type === 'video';
+    //     }
+    //     return item.testimonial_type !== 'video';
+    // });
+
     const filteredData = data.filter(item => {
         if (tabActive === 'videos') {
             return item.testimonial_type === 'video';
         }
         return item.testimonial_type !== 'video';
     });
+
+
+    useEffect(() => {
+        if (groupUrl === 'videos' || groupUrl === 'text') {
+            setActiveTab(groupUrl);
+        }
+    }, [groupUrl]);
+
 
     return (
         <div className={`sectionArea ${Styles.sectionArea}`}>
@@ -59,16 +83,27 @@ const Testimonials = () => {
                                 <>
                                     <li
                                         className={`${Styles.tabItem} ${tabActive === 'videos' ? Styles.active : ''}`}
-                                        onClick={() => setActiveTab('videos')}
+                                        // onClick={() => 
+                                        //     setActiveTab('videos')
+                                        //     router.push('?group=videos', { scroll: false });
+                                        // }
+
+                                        onClick={() => {
+                                            setActiveTab('videos');
+                                            router.push('?group=videos', { scroll: false });
+                                        }}
                                     >
                                         Videos
                                     </li>
 
                                     <li
-                                        className={`${Styles.tabItem} ${tabActive === 'written' ? Styles.active : ''}`}
-                                        onClick={() => setActiveTab('written')}
+                                        className={`${Styles.tabItem} ${tabActive === 'text' ? Styles.active : ''}`}
+                                        onClick={() => {
+                                            setActiveTab('text');
+                                            router.push('?group=text', { scroll: false });
+                                        }}
                                     >
-                                        Written
+                                        Text
                                     </li>
                                 </>
                             ) : (
@@ -100,9 +135,9 @@ const Testimonials = () => {
                             <>We currently have testimonials available. If you are interested, please feel free to contact us.</>
                         )}
                     </div>
-                </div>
-            </Container>
-        </div>
+                </div >
+            </Container >
+        </div >
     )
 }
 

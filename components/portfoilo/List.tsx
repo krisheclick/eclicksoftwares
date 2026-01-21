@@ -3,7 +3,6 @@ import { Col, Row } from "react-bootstrap";
 import Styles from "./style.module.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEye } from "@fortawesome/free-solid-svg-icons";
-import Link from "next/link";
 import { useLetsConnect } from "@/utils/useLetsConnect";
 import { useEffect, useState } from "react";
 import Card from "../casestudy/card/Card";
@@ -19,20 +18,23 @@ type CasestudyList = {
     proj_tools_used?: string;
 };
 
-const PortfolioList = () => {
+type Props = {
+    slug?: string;
+};
+const PortfolioList = ({slug}: Props) => {
+    console.log('first', `${process.env.NEXT_PUBLIC_API_URL}projects/group/${slug}`)
     const [hasLoading, setLoading] = useState(true);
     const [data, setData] = useState<CasestudyList[]>([]);
 
     const { openLetsConnectModal } = useLetsConnect();
 
-    const fetchAPI = async (pageNumber: number) => {
-        const postPerpage = 6;
+    const fetchAPI = async () => {
         try {
             const response = await fetch(
-                `${process.env.NEXT_PUBLIC_API_URL}project?limit=${postPerpage}&page=${pageNumber}`
+                `${process.env.NEXT_PUBLIC_API_URL}projects/group/${slug}`
             );
             const { response_data } = await response.json();
-            setData(response_data?.data || []);
+            setData(response_data?.projectGroup?.Projects || []);
         } catch (err: unknown) {
             console.log("Case Study API error:", (err as Error).message);
         } finally {
@@ -41,7 +43,7 @@ const PortfolioList = () => {
     };
 
     useEffect(() => {
-        fetchAPI(1);
+        fetchAPI();
     }, []);
 
 

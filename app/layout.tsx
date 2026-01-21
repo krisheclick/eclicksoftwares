@@ -14,18 +14,18 @@ import seoData from "@/data/seo.json";
 export const dynamic = 'force-dynamic';
 
 const primaryFont = Instrument_Sans({
-  variable: "--primary-font",
-  subsets: ["latin"],
+    variable: "--primary-font",
+    subsets: ["latin"],
 });
 
 const secondaryFont = DM_Sans({
-  variable: "--secondary-font",
-  subsets: ["latin"],
+    variable: "--secondary-font",
+    subsets: ["latin"],
 });
 
 const tertiaryFont = Inter({
-  variable: "--tertiary-font",
-  subsets: ["latin"],
+    variable: "--tertiary-font",
+    subsets: ["latin"],
 });
 
 // export const metadata: Metadata = {
@@ -34,39 +34,49 @@ const tertiaryFont = Inter({
 // };
 
 export async function generateMetadata() {
-  return seoData;
+    return seoData;
 }
 
 
 export default async function RootLayout({
-  children,
+    children,
 }: Readonly<{
-  children: React.ReactNode;
+    children: React.ReactNode;
 }>) {
-  let response = null;
+    let response = null;
+    let sitedata = null;
 
-  try {
-    // const res = await fetch(API_URL, { cache: 'no-store' });
-    const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}menu/07e44c0de79cdf07b8b1`, { cache: 'no-store' });
-    if (!res.ok) throw new Error('API failed');
-    response = await res.json();
-  } catch (err) {
-    console.error('API fetch failed:', err);
-  }
-  // const menuBar = await fetch(`${process.env.NEXT_PUBLIC_API_URL}menu/07e44c0de79cdf07b8b1`);
-  // const response = await menuBar.json();
+    try {
+        // const res = await fetch(API_URL, { cache: 'no-store' });
+        const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}menu/07e44c0de79cdf07b8b1`, { cache: 'no-store' });
+        if (!res.ok) throw new Error('API failed');
+        response = await res.json();
+    } catch (err) {
+        console.error('API fetch failed:', err);
+    }
+
+    // Site Settings
+    try {
+        
+        const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/site-setting`, { cache: 'no-store' });
+        sitedata = await response.json();
+    }catch(err: unknown){
+        console.log('Site Settings API fetch failed:', (err as Error).message);
+    }
+  
+  
   return (
-    <ThemeProvider>
-      <html lang="en">
-        <body
-          className={`${primaryFont.variable} ${secondaryFont.variable} ${tertiaryFont.variable} antialiased`}
-        >
-          <RouteLoader />
-          <Header menuData={response.response_data} />
-          <main role="main" className="mainContainer">{children}</main>
-          <Footer />
-        </body>
-      </html>
-    </ThemeProvider>
-  );
+        <ThemeProvider>
+            <html lang="en">
+                <body
+                    className={`${primaryFont.variable} ${secondaryFont.variable} ${tertiaryFont.variable} antialiased`}
+                >
+                    <RouteLoader />
+                    <Header menuData={response.response_data} />
+                    <main role="main" className="mainContainer">{children}</main>
+                    <Footer sitedata={sitedata} />
+                </body>
+            </html>
+        </ThemeProvider>
+    );
 }
