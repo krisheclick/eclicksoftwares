@@ -5,7 +5,6 @@ import Aboutcomponent from "@/components/home/About";
 import Blog from "@/components/home/blog/Blog";
 import HookIndustry from "@/components/home/industry/Industry";
 import HookClients from "@/components/home/our-clients/Clients";
-import Workaction from "@/components/home/casestudy/Workaction";
 import Platformscomponent from "@/components/home/platforms/Platforms";
 import Coreservice from "@/components/home/service/Coreservice";
 import { useEffect, useState } from "react";
@@ -116,9 +115,8 @@ export default function Home() {
       <Coreservice />
       <HookIndustry />
       <Platformscomponent />
-      <Workaction />
-      <HookClients />
       <Blog />
+      <HookClients />
     </>
   );
 }

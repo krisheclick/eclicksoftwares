@@ -27,7 +27,7 @@ const Card = ({ poster, slug, title, projectName, proj_short_desc}: Props) => {
                 />
                 <Link href={`${process.env.NEXT_PUBLIC_ENV_URL}/casestudies/${slug}`} className={Styles.projectName}>
                     <FontAwesomeIcon icon={faLink} />
-                    {projectName}
+                    Read More
                 </Link>
             </div>
         </div>
