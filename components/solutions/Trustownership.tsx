@@ -2,6 +2,7 @@ import { Col, Container, Row } from 'react-bootstrap';
 import Styles from './style.module.css';
 import Image from 'next/image';
 import { useScheduleCall } from '@/utils/useLetsConnect';
+import CustomImage from '@/utils/CustomImage';
 
 type ServiceCta = {
     cta_title: string;
@@ -16,7 +17,7 @@ const Trustownership = ({ isLoading, cta_title, cta_description, cta_image }: Se
             <div className={Styles.innerSection}>
                 <Container>
                     <Row className='align-items-center'>
-                        <Col lg={6}>
+                        <Col lg={5}>
                             <div className={`section-content ${Styles.ctaContent}`}>
                                 {!isLoading ? (
                                     <>
@@ -60,17 +61,13 @@ const Trustownership = ({ isLoading, cta_title, cta_description, cta_image }: Se
                                 )}
                             </div>
                         </Col>
-                        <Col lg={6}>
+                        <Col lg={7}>
                             {!isLoading ? (
-                                <figure className={Styles.poster}>
-                                    <Image
-                                        src={`${process.env.NEXT_PUBLIC_MEDIA_URL}${cta_image}`}
-                                        alt={cta_title || "Poster Title"}
-                                        fill
-                                        loading="lazy"
-                                    />
-                                </figure>
-
+                                <CustomImage
+                                    className={Styles.poster}
+                                    src={`${process.env.NEXT_PUBLIC_MEDIA_URL}${cta_image}`}
+                                    alt={cta_title}
+                                />
                             ) : (
                                 <div className={`skeleton ${Styles.poster}`}></div>
                             )}

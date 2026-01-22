@@ -31,7 +31,7 @@
 }
 /* Call to Action Start */
 .callToAction{
-    --extraSpace: 145px;
+    --extraSpace: 90px;
     padding-top: var(--extraSpace);
     /* background: #f8fafc; */
 }
@@ -67,9 +67,31 @@
 }
 .poster{
     position: relative;
-    padding-top: 100%;
+    padding-top: 70%;
     margin-top: calc(-.9 * var(--extraSpace));
+    width: 54vw;
+}
+figure.poster{
+    background: transparent;
 }
 .poster img{
     mix-blend-mode: multiply;
+}
+
+@media only screen and (max-width: 1600px){
+    .smallTitle{
+        font-size: 1.2em;
+    }
+    .actionTitle{
+        font-size: 36px;
+    }
+    .ctaContent{
+        padding-block: 50px;
+    }
+    .poster{
+        padding-top: 66%;
+    }
+    .callToAction {
+        --extraSpace: 60px;
+    }
 }
