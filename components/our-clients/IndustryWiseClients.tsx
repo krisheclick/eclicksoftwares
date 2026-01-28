@@ -49,7 +49,7 @@ const IndustryWiseClients = () => {
                 <div className={`${Styles.sectionHeader} text-center mb-5`}>
                     {!hasLoading ? (
                         <>
-                            <h2 className={`${Styles.sectionTitle}`}>Our Clients by Industry</h2>
+                            <h2 className={`${Styles.sectionTitle}`}>Clients Across Industries</h2>
                             <p className={Styles.sectionDesc}>
                                 We have worked with leading companies across various industries
                             </p>

@@ -10,6 +10,7 @@ import ScheduleCall from '@/components/schedule-a-call/ScheduleCall';
 import LetsConnectModal from '@/components/schedule-a-call/LetsConnetModal';
 import CustomImageLink from '@/utils/CustomImageLink';
 import Styles from './style.module.css';
+import CustomImage from '@/utils/CustomImage';
 
 type RecursiveMenuItem = {
     url: string;
@@ -139,14 +140,14 @@ const Footer = ({ sitedata }: FooterProps) => {
                                         fallBack="/assets/images/logo.webp"
                                     />
                                     <div className={Styles.certified}>
-                                        <CustomImageLink
+                                        <CustomImage
                                             className={Styles.isoBox}
                                             src={`${process.env.NEXT_PUBLIC_MEDIA_URL}${data?.footer_iso_logo1}`}
                                             alt='ISO Certificate'
                                             width={98} height={86}
                                             fallBack="/assets/images/favicon.png"
                                         />
-                                        <CustomImageLink
+                                        <CustomImage
                                             className={Styles.isoBox}
                                             src={`${process.env.NEXT_PUBLIC_MEDIA_URL}${data?.footer_iso_logo2}`}
                                             alt='ISO Certificate'

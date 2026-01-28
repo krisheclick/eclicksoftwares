@@ -51,9 +51,9 @@ const Clients = ({ classValue }: classProps) => {
                 <div className={`${Styles.boxwrapper} ${classValue ? Styles[classValue] : ""}`}>
                     <Swiper
                         onSwiper={setSwiperInstance}
-                        loop={data.length > 6}
+                        loop={(data.length || 0) > 7}
                         slidesPerGroup={1}
-                        slidesPerView={'auto'}
+                        slidesPerView={data && data.length > 0 ? Math.min(data.length, 7) : 7}
                         spaceBetween={16}
                         autoplay={{ delay: 3000 }}
                         modules={[Autoplay, Navigation]}

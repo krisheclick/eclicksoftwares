@@ -52,6 +52,7 @@ const Area = () => {
     const pathName = usePathname();
     const innerLocation = (pathName === '/') ? '' : Styles.innerLocation;
 
+    console.log('activeData', activeData)
     return (
         <div className={`${Styles.locationArea} ${innerLocation}`}>
             <Container>
@@ -92,7 +93,7 @@ const Area = () => {
                                                             )}
                                                             {location_phone && (
                                                                 <li className={Styles.phone}>
-                                                                    <Link href={`tel:${location_phone}`}>{location_phone}</Link>
+                                                                    <Link href={`tel:${location_phone.replace(/[^\d]/g, "")}`}>{location_phone}</Link>
                                                                 </li>
                                                             )}
                                                             {location_email && (
@@ -177,11 +178,15 @@ const Area = () => {
                                         <ul>
                                             <li className={Styles.address}>
                                                 <FontAwesomeIcon icon={faLocationDot} />
-                                                <address>Godrej Genesis, 12 Floor, Unit - 1207, Sector V, Salt Lake, Kolkata -700091, West Bengal, India.</address>
+                                                <address>{activeData?.location_address ? activeData?.location_address : "Godrej Genesis, 12 Floor, Unit - 1207, Sector V, Salt Lake, Kolkata -700091, West Bengal, India."}</address>
                                             </li>
                                             <li className={Styles.phone}>
                                                 <FontAwesomeIcon icon={faPhone} />
-                                                <Link href={'tel:+913340044425'}>+91 33 4004 4425</Link>
+                                                <Link 
+                                                    href={`tel:${activeData?.location_phone?.replace(/[^\d]/g, "") || "+913340044425"}`}
+                                                >
+                                                    {activeData?.location_phone ||"+91 33 4004 4425"}
+                                                </Link>
                                             </li>
                                         </ul>
                                     </div>
