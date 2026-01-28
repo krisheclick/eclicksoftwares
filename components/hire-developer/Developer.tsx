@@ -19,8 +19,12 @@ interface Props {
     data?: UspItem;
     whiteClass?: boolean;
     separateText?: boolean;
+    isButton?: boolean;
+    boxClass3?: boolean;
 }
-const Developer = ({ hasLoading, whiteClass, separateText, data }: Props) => {
+const Developer = ({ hasLoading, whiteClass, separateText, data, isButton = true, boxClass3}: Props) => {
+    const lg = boxClass3 ? 4 : 3;
+    const md = boxClass3 ? 6 : 4;
     return (
         <div className={`${Styles.hwbsec}${whiteClass ? ' bg-white' : ''}`}>
             <Container>
@@ -51,16 +55,17 @@ const Developer = ({ hasLoading, whiteClass, separateText, data }: Props) => {
                     <Row className="rowGap">
                         {!hasLoading ? (
                             data?.usps?.map((item, index) => (
-                                <Col lg={3} md={4} key={index}>
+                                <Col lg={lg} md={md} key={index}>
                                     <HireCard
                                         icon={`${process.env.NEXT_PUBLIC_MEDIA_URL}${item.usp_feature_image_path}`}
                                         title={item.usp_title}
                                         description={item.usp_description}
+                                        button={isButton}
                                     />
                                 </Col>
                             ))) : (
                             [...Array(8)].map((_, index) => (
-                                <Col lg={3} md={4} key={index}>
+                                <Col lg={lg} md={md} key={index}>
                                     <HireCardSkeleton />
                                 </Col>
                             )))}

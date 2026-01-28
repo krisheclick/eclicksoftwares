@@ -9,8 +9,9 @@ interface Props {
     icon?: string;
     title?: string;
     description?: string;
+    button?: boolean;
 }
-const HireCard = ({icon, title, description}: Props) => {
+const HireCard = ({icon, title, description, button = true}: Props) => {
     const { openHireModal, setSelectedUsp } = useHireModal();
 
     return (
@@ -25,13 +26,15 @@ const HireCard = ({icon, title, description}: Props) => {
             <div className={Styles.hwdsboxp}>
                 <div dangerouslySetInnerHTML={{ __html: description || "" }}/>
             </div>
-            <span 
-                onClick={()=>{openHireModal(); setSelectedUsp(title??'')}}
-                className={`eclick-btn-action sm ${Styles.btnhwdsbx_btn}`}
-            >
-                <span><FontAwesomeIcon icon={faArrowRight} /></span>
-                <em>Hire Now</em>
-            </span>
+            {button && (
+                <span 
+                    onClick={()=>{openHireModal(); setSelectedUsp(title??'')}}
+                    className={`eclick-btn-action sm ${Styles.btnhwdsbx_btn}`}
+                >
+                    <span><FontAwesomeIcon icon={faArrowRight} /></span>
+                    <em>Hire Now</em>
+                </span>
+            )}
         </div>
     )
 }

@@ -52,7 +52,6 @@ const Area = () => {
     const pathName = usePathname();
     const innerLocation = (pathName === '/') ? '' : Styles.innerLocation;
 
-    console.log('activeData', activeData)
     return (
         <div className={`${Styles.locationArea} ${innerLocation}`}>
             <Container>

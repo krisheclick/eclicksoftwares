@@ -243,7 +243,14 @@ const Partnerships = () => {
             {/* ================= VALUES-BUSINESS-STARTS ================= */}      
             <div className={Styles.valuesbus_partner}>     
                 {pageData && (
-                    <Developer hasLoading={hasLoading} data={pageData?.usp_categorys[1]} whiteClass={true} separateText={true}/>
+                    <Developer 
+                        hasLoading={hasLoading} 
+                        data={pageData?.usp_categorys[1]} 
+                        whiteClass={true} 
+                        separateText={true}
+                        isButton={false}
+                        boxClass3={true}
+                    />
                 )}
             </div>
             {/* ================= VALUES-BUSINESS-ENDS ================= */}
