@@ -129,11 +129,12 @@ const Testimonials = () => {
                         </Row>
                     </div>
                     <div className={`section-content max-content text-center ${Styles.info ?? ''}`}>
-                        {tabActive === 'videos' ? (
+                        We currently have testimonials available. If you are interested, please feel free to contact us.
+                        {/* {tabActive === 'videos' ? (
                             <>We currently have Videos testimonials available. If you are interested, please feel free to contact us.</>
                         ) : (
                             <>We currently have testimonials available. If you are interested, please feel free to contact us.</>
-                        )}
+                        )} */}
                     </div>
                 </div >
             </Container >
