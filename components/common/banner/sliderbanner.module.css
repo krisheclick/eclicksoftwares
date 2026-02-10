@@ -2,8 +2,15 @@
     background: var(--primary-background);
     padding: 90px 0px 156px;
 }
+.usp{
+    display: none;
+}
 .content{
     max-width: 530px;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
 }
 .titleTag{
     color: var(--primary-color);

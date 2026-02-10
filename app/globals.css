@@ -838,7 +838,7 @@ label.is-invalid {
 /* Wrapper */
 .custom_image {
 	display: block;
-    background-color: var(--primary-background);
+    /* background-color: var(--primary-background); */
 	position: relative;
 	z-index: 1;
 	overflow: hidden;

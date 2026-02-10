@@ -105,12 +105,12 @@ const HookIndustry = () => {
                             <Col md={6} xl={5}>
                                 {!hasLoading ? (
                                     <div className="section-content text-white">
-                                        <CustomImage
+                                        {/* <CustomImage
                                             src={`${process.env.NEXT_PUBLIC_MEDIA_URL}${activeItem?.industry_feature_image_path}`}
                                             alt={activeItem?.industry_title}
                                             className={Styles.icon}
                                             style={{objectFit: "scale-down"}}
-                                        />
+                                        /> */}
                                         <div className={`title text-white ${Styles.heading}`}>{activeItem?.industry_title ?? activeItem?.project?.proj_name}</div>
                                         <div
                                             dangerouslySetInnerHTML={{
