@@ -13,7 +13,7 @@ const Information = () => {
                         <li>
                             <span className={Styles.icon}><FontAwesomeIcon icon={faBriefcase} /></span>
                             <div className={Styles.subtitle}>Looking for career?</div>
-                            <Link href={`${process.env.NEXT_PUBLIC_ENV_URL}/`}>Apply for a job </Link>
+                            <Link href={`${process.env.NEXT_PUBLIC_ENV_URL}/career`}>Apply for a job </Link>
                         </li>
                         <li>
                             <span className={Styles.icon}><FontAwesomeIcon icon={faQuestion} /></span>
@@ -23,12 +23,12 @@ const Information = () => {
                         <li>
                             <span className={Styles.icon}><FontAwesomeIcon icon={faHeadphones} /></span>
                             <div className={Styles.subtitle}>Sales Inquiries</div>
-                            <Link href={`${process.env.NEXT_PUBLIC_ENV_URL}/`}>+61 881264524 3 ECLICK</Link>
+                            <Link href="tel:+618812645243">+61 881264524 3 ECLICK</Link>
                         </li>
                         <li>
                             <span className={Styles.icon}><FontAwesomeIcon icon={faMessage} /></span>
                             <div className={Styles.subtitle}>Customer Support</div>
-                            <Link href={`${process.env.NEXT_PUBLIC_ENV_URL}/`}>support@eclicksoftwares.com</Link>
+                            <Link href="mailto:support@eclicksoftwares.com">support@eclicksoftwares.com</Link>
                         </li>
                     </ul>
                 </div>

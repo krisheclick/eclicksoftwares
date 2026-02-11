@@ -1,7 +1,8 @@
-import { Container } from "react-bootstrap";
+import { Button, Container } from "react-bootstrap";
 import Image from "next/image";
 import Styles from "./style.module.css";
 import Link from "next/link";
+import { useScheduleCall } from "@/utils/useLetsConnect";
 type CallToAction = {
     "4e3s_title"?: string;
     "4e3s_button_name"?: string;
@@ -15,6 +16,7 @@ type classType = {
     isLoading: boolean;
 }
 const CalltoAction = ({ spaceClass, content, isLoading }: classType) => {
+    const { openScheduleModal} = useScheduleCall();
     const data = content?.["call-to-action"];
     return (
         <div className={`${spaceClass ?? ''} ${Styles.calltoAction ?? ''}`}>
@@ -30,8 +32,8 @@ const CalltoAction = ({ spaceClass, content, isLoading }: classType) => {
                                     }}
                                 />
                             </div>
-                            <Link
-                                href={data?.["4e3s_button_link"] ?? "#"}
+                            <button
+                                onClick={() => openScheduleModal('general_schedule_a_call')}
                                 className={`eclick-btn-schedule ${Styles.scheduleBtn ?? ''}`}
                             >
                                 <span>
@@ -44,7 +46,7 @@ const CalltoAction = ({ spaceClass, content, isLoading }: classType) => {
                                     />
                                 </span>
                                 <em>{data?.["4e3s_button_name"] ?? "Schedule a Call"}</em>
-                            </Link>
+                            </button>
                         </>
                     ) : (
                         <>

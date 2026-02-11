@@ -195,6 +195,7 @@ const Aboutcomponent = () => {
             </div>
 
             <CalltoAction spaceClass={Styles.spaceAdd} content={customData?.group_name} isLoading={hasLoading} />
+
             {!hasLoading && aboutData?.usp_categorys?.[1] ? (
                 <WhatWeDo
                     data={aboutData.usp_categorys[1]}
