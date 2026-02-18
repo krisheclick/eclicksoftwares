@@ -11,6 +11,7 @@ import LetsConnectModal from '@/components/schedule-a-call/LetsConnetModal';
 import CustomImageLink from '@/utils/CustomImageLink';
 import Styles from './style.module.css';
 import CustomImage from '@/utils/CustomImage';
+import Image from 'next/image';
 
 type RecursiveMenuItem = {
     url: string;
@@ -162,6 +163,19 @@ const Footer = ({ sitedata }: FooterProps) => {
                                 </div>
                             </div>
                             {mainFooterMenu.map(renderMenuColumn)}
+                            <div className={Styles.columnBox}>
+                                <div className={Styles.navLinkWrapper}>
+                                    <div className={Styles.navList}>
+                                        <ul className={Styles.navMenu}>
+                                            <li className={Styles.navItem}>
+                                                <Link href={`/payment-center`} className={Styles.navLink}>
+                                                    <CustomImage className={Styles.PaymentCenter} src={`${process.env.NEXT_PUBLIC_assetPrefix}/assets/images/payment-icon.png`} alt="Footer Image" />
+                                                </Link>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>

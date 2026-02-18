@@ -129,8 +129,10 @@ const Partnerships = () => {
         <div className="about_page">
 
             {/* ================= PARTNER-BANNER-STARTS ================= */} 
-            {bannerData && (
+            {!hasLoading ? (
                 <Banner hasLoading={hasLoading} data={bannerData} />
+            ):(
+                <div className="skeleton skeletonFill"></div>
             )}
             {/* ================= PARTNER-BANNER-ENDS ================= */}
 
