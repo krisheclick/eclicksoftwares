@@ -116,7 +116,7 @@ const SliderBanner = ({ banner, bannerdata }: Props) => {
                             <div className={Styles.imagePart}>
                                 <CustomImage
                                     src={`${process.env.NEXT_PUBLIC_MEDIA_URL}${banner?.proj_banne_image_path}`}
-                                    alt="Dashboard"
+                                    alt={banner?.proj_name || "Dashboard"}
                                     width={584} height={556}
                                     className={Styles.big_img}
                                 />

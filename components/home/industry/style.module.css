@@ -95,7 +95,9 @@
     background: #ccc;
     color: var(--black-color);
 }
-
+.auditBtn:not(:hover) span img{
+    filter: brightness(0) invert(1);
+}
 @media only screen and (max-width: 1600px) {
     .sectionArea{
         padding-block: 100px;

@@ -7,6 +7,7 @@ import { Col, Container, Row } from "react-bootstrap";
 import Styles from "./style.module.css";
 import Skeleton from "@/components/common/Skeleton";
 import CustomImage from "@/utils/CustomImage";
+import { useScheduleCall } from "@/utils/useLetsConnect";
 type IndustryItem = {
     industry_feature_image_path?: string;
     industry_title?: string;
@@ -46,6 +47,7 @@ const HookIndustry = () => {
     }, [data, activeTab]);
 
     const activeItem = data.find((item) => item.industry_title === activeTab);
+    const { openScheduleModal} = useScheduleCall();
     return (
         <div className={Styles.sectionArea}>
             <Container className="container-full">
@@ -118,7 +120,19 @@ const HookIndustry = () => {
                                             }}
                                         />
                                         <div className="btn_left">
-                                            <Link href={`${process.env.NEXT_PUBLIC_ENV_URL}/casestudies/${activeItem?.project?.proj_slug}`} className={`eclick-btn-audit white-btn lg ${Styles.auditBtn}`}>Get a Free Website Audit</Link>
+                                            <button type="button" onClick={() => openScheduleModal('general_schedule_a_call')} className={`eclick-btn-schedule white-btn lg ${Styles.auditBtn ?? ''}`}>
+                                                <span>
+                                                    <Image
+                                                        className="auto-img"
+                                                        src={`${process.env.NEXT_PUBLIC_assetPrefix}/assets/images/phone.webp`}
+                                                        alt="Schedule a Call"
+                                                        width={21} height={21}
+                                                        priority={true}
+                                                    />
+                                                </span>
+                                                <em>Get in Touch</em>
+                                            </button>
+                                            {/* <Link href={`${process.env.NEXT_PUBLIC_ENV_URL}/casestudies/${activeItem?.project?.proj_slug}`} className={`eclick-btn-audit white-btn lg ${Styles.auditBtn}`}>Get a Free Website Audit</Link> */}
                                         </div>
                                     </div>
                                 ) : (

@@ -1,19 +1,10 @@
 "use client";
-// import Clients from "@/components/clients/Clients";
-// import Banner from "@/components/common/banner/Banner";
-// import Technologies from "@/components/solutions/Technologies";
-// import CalltoAction from "@/components/home/CalltoAction";
-// import WhoWeAre from "@/components/whoweare/WhoWeAre";
-// import WhatWeDo from "@/components/whatwedo/WhatWeDo";
-// import Trustownership from "@/components/solutions/Trustownership";
-// import Organization from "@/components/organization/Organization";
 import { useEffect, useState } from "react";
 import Styles from "./style.module.css";
 import { Col, Container, Row } from "react-bootstrap";
 import Link from "next/link";
 import Image from "next/image";
 import { useScheduleCall } from "@/utils/useLetsConnect";
-import ScheduleCall from "@/components/schedule-a-call/ScheduleCall";
 
 type PageCustomField = {
     group_name: {
