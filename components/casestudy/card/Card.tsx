@@ -8,6 +8,7 @@ type Props = {
     slug?: string;
     title?: string;
     proj_short_desc?: string;
+    projectName?: string;
 }
 const Card = ({ poster, slug, title, proj_short_desc}: Props) => {
     return (
