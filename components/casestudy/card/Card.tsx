@@ -7,10 +7,9 @@ type Props = {
     poster?: string;
     slug?: string;
     title?: string;
-    projectName?: string;
     proj_short_desc?: string;
 }
-const Card = ({ poster, slug, title, projectName, proj_short_desc}: Props) => {
+const Card = ({ poster, slug, title, proj_short_desc}: Props) => {
     return (
         <div className={Styles.cardBox}>
             <div className={Styles.thumbnail}>

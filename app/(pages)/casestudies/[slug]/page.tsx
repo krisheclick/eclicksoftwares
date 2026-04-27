@@ -18,7 +18,7 @@ const APIURL = process.env.NEXT_PUBLIC_API_URL;
 export async function generateMetadata({params}: {params: {slug: string}}): Promise<Metadata> {
     const {slug} = await params;
     const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}project/${slug}/seo`, {
-        cache: "no-store", // or 'force-cache' for static
+        cache: "no-store",
     });
     if (!res.ok) {
         return seoData;
@@ -89,9 +89,6 @@ const CasestudyDeatils = async ({ params }: { params: { slug: string } }) => {
                 ) : (
                     <Banner data={response_data} />
                 )}
-                {/* <span className={Styles.bannerArrow}>
-                    <FontAwesomeIcon icon={faArrowDownLong} />
-                </span> */}
             </div>
             <ProjectInfo
                 business_data={response_data?.proj_business_objectives}
