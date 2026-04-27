@@ -114,7 +114,7 @@ const Card = ({ cardData }: CardProps) => {
                                     <figure className={Styles.cardLogo}>
                                         <Image
                                             className={!videoFunction && Styles.logo || ''}
-                                            src={`${process.env.NEXT_PUBLIC_MEDIA_URL}${videoFunction ? testimonial_video_poster_image : testimonial_feature_image}`}
+                                            src={`${process.env.NEXT_PUBLIC_MEDIA_URL}${videoFunction ? testimonial_video_poster_image : client?.client_logo}`}
                                             alt={testimonial_title ?? "testimonial image"}
                                             fill
                                             priority
