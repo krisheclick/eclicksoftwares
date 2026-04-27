@@ -11,6 +11,7 @@ import Footer from "@/components/common/footer/Footer";
 import { ThemeProvider } from "@/context/ThemeContext";
 import RouteLoader from "@/components/RouteLoader";
 import seoData from "@/data/seo.json";
+import Script from "next/script";
 export const dynamic = 'force-dynamic';
 
 const primaryFont = Instrument_Sans({
@@ -75,6 +76,11 @@ export default async function RootLayout({
                     <Header menuData={response.response_data} />
                     <main role="main" className="mainContainer">{children}</main>
                     <Footer sitedata={sitedata} />
+                    <Script
+                            src="https://voiceassistant.eclickprojects.com/widget/widget.js"
+                            strategy="afterInteractive"
+                            data-key="0364d085-f963-430e-9c4f-1999a41df4b8"
+                        />
                 </body>
             </html>
         </ThemeProvider>

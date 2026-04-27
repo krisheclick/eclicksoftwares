@@ -140,7 +140,7 @@ const Footer = ({ sitedata }: FooterProps) => {
                                         alt="Logo"
                                         fallBack="/assets/images/logo.webp"
                                     />
-                                    <div className={Styles.certified}>
+                                    {/* <div className={Styles.certified}>
                                         <CustomImage
                                             className={Styles.isoBox}
                                             src={`${process.env.NEXT_PUBLIC_MEDIA_URL}${data?.footer_iso_logo1}`}
@@ -155,7 +155,7 @@ const Footer = ({ sitedata }: FooterProps) => {
                                             width={98} height={86}
                                             fallBack="/assets/images/favicon.png"
                                         />
-                                    </div>
+                                    </div> */}
                                     <div className={Styles.followSocial}>
                                         <span>Follow us</span>
                                         <Social social={social} />
@@ -168,7 +168,7 @@ const Footer = ({ sitedata }: FooterProps) => {
                                     <div className={Styles.navList}>
                                         <ul className={Styles.navMenu}>
                                             <li className={Styles.navItem}>
-                                                <Link href={`/payment-center`} className={Styles.navLink}>
+                                                <Link href={`/payment-center`} className={Styles.navLink} style={{display:"block"}}>
                                                     <CustomImage className={Styles.PaymentCenter} src={`${process.env.NEXT_PUBLIC_assetPrefix}/assets/images/payment-icon.png`} alt="Footer Image" />
                                                 </Link>
                                             </li>

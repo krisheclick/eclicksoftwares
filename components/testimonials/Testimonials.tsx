@@ -5,6 +5,9 @@ import { useEffect, useState } from 'react';
 import Card from './card/Card';
 import CardSkeleton from './card/CardSkeleton';
 import { useRouter, useSearchParams } from 'next/navigation';
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faEye } from "@fortawesome/free-solid-svg-icons";
+import { useLetsConnect } from '@/utils/useLetsConnect';
 
 type Client = {
     client_logo?: string;
@@ -26,6 +29,7 @@ const Testimonials = () => {
     const router = useRouter();
     const searchParams = useSearchParams();
     const groupUrl = searchParams.get('group');
+    const { openLetsConnectModal } = useLetsConnect();
 
     const [data, setData] = useState<TestimonialData[]>([]);
     const [hasLoading, setHasLoading] = useState(true);
@@ -129,13 +133,22 @@ const Testimonials = () => {
                         </Row>
                     </div>
                     <div className={`section-content max-content text-center ${Styles.info ?? ''}`}>
-                        We currently have testimonials available. If you are interested, please feel free to contact us.
+                        We are pleased to share few testimonials from our valued clients. If you are interested, please contact us for further information.
+ 
                         {/* {tabActive === 'videos' ? (
                             <>We currently have Videos testimonials available. If you are interested, please feel free to contact us.</>
                         ) : (
                             <>We currently have testimonials available. If you are interested, please feel free to contact us.</>
                         )} */}
                     </div>
+                    <div className={`btn_center ${Styles.btn_center ?? ''}`}>
+                    <button type="button" className={`eclick-btn-view lg ${Styles.viewBtn ?? ''}`} onClick={() => openLetsConnectModal("general_lets_connect")}>
+                        <span>
+                            <FontAwesomeIcon icon={faEye} />
+                        </span>
+                        <em>Let's Connect</em>
+                    </button>
+                </div>
                 </div >
             </Container >
         </div >
