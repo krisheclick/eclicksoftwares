@@ -1,7 +1,6 @@
 'use client';
 import { useEffect, useState } from 'react';
 import { Container, Row, Col } from 'react-bootstrap';
-import Image from 'next/image';
 import Link from 'next/link';
 import Styles from './style.module.css';
 import Skeleton from '@/components/common/Skeleton';

@@ -131,7 +131,6 @@ const CasestudyList = () => {
                                         poster={item.proj_feature_image_path}
                                         slug={item.proj_slug}
                                         title={item.proj_title}
-                                        projectName={item.proj_title}
                                         proj_short_desc={item.proj_short_desc}
                                     />
                                 </Col>
