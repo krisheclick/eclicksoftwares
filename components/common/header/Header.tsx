@@ -4,7 +4,7 @@ import Styles from "./style.module.css";
 import Image from "next/image";
 import Navigation from "./Navigation";
 import { useThemeContext } from "@/context/ThemeContext";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
 type MenuItem = {
     id: number;
@@ -72,37 +72,53 @@ const Header = ({ menuData }: MenuProps) => {
     }, [setCommonBanner]);
 
 
+    // Navigation Mobile Menu
+    const [show, setShow] = useState(false);
+
+    const handleShow = () => setShow(true);
+    const handleClose = () => setShow(false);
 
     return (
-        <header role="banner" className={`header_main ${Styles.mainHeader ?? ''} ${headerExtraClass ?? ''}`}>
-            <div className="container">
-                <div className="header_wrap d-flex align-items-center justify-content-between gap-3">
-                    <Link href={`${process.env.NEXT_PUBLIC_ENV_URL}/`} className={Styles.logo}>
-                        <Image
-                            src={`${process.env.NEXT_PUBLIC_assetPrefix}/assets/images/eclick-logo.webp`}
-                            alt="Logo"
-                            width={274}
-                            height={69}
-                            priority={true}
-                        />
-                    </Link>
-                    <div className={Styles.navWrapper}>
-                        <Navigation />
-                        <Link href="tel:+913340044425" className={`eclick-btn-connect ${Styles.headerButton ?? ''}`}>
-                            <span>
-                                <Image
-                                    src={`${process.env.NEXT_PUBLIC_assetPrefix}/assets/images/phone.webp`}
-                                    alt="Phone"
-                                    width={18} height={18}
-                                    loading="lazy"
-                                />
-                            </span>
-                            <em>Connect</em>
+        <>
+            {/* <ResponsiveHeader
+                title={commonData?.site_title}
+                menu={menuData}
+                show={show}
+                handleClose={handleClose}
+            /> */}
+            <header role="banner" className={`header_main ${Styles.mainHeader ?? ''} ${headerExtraClass ?? ''}`}>
+                <div className="container">
+                    <div className="header_wrap d-flex align-items-center justify-content-between gap-3">
+                        <Link href={`${process.env.NEXT_PUBLIC_ENV_URL}/`} className={Styles.logo}>
+                            <Image
+                                src={`${process.env.NEXT_PUBLIC_assetPrefix}/assets/images/eclick-logo.webp`}
+                                alt="Logo"
+                                width={274}
+                                height={69}
+                                priority={true}
+                            />
                         </Link>
+                        <div className={Styles.navWrapper}>
+                            <Navigation />
+                            <Link href="tel:+913340044425" className={`eclick-btn-connect ${Styles.headerButton ?? ''}`}>
+                                <span>
+                                    <Image
+                                        src={`${process.env.NEXT_PUBLIC_assetPrefix}/assets/images/phone.webp`}
+                                        alt="Phone"
+                                        width={18} height={18}
+                                        loading="lazy"
+                                    />
+                                </span>
+                                <em>Connect</em>
+                            </Link>
+                            <span className='responsive_btn d-lg-none' onClick={handleShow}>
+                                <em></em>
+                            </span>
+                        </div>
                     </div>
                 </div>
-            </div>
-        </header>
+            </header>
+        </>
     )
 }
 

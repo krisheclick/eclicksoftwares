@@ -1,6 +1,7 @@
 .sliderBanner{
     background: var(--primary-background);
     padding: 90px 0px 156px;
+    overflow: hidden;
 }
 .usp{
     display: none;
@@ -20,14 +21,13 @@
 .titleTag::after{
     height: 2px;
 }
+.sliderBanner .title{
+    font-size: 40px;
+}
 .bannerContent{
     color: var(--black-color);
     font-size: 18px;
     max-width: 520px;
-}
-.row{
-    row-gap: var(--bs-gutter-x);
-    margin-top: 32px;
 }
 .imagePart{
     max-width: 630px;
@@ -36,13 +36,14 @@
 }
 .big_img{
     background: var(--white-color);
-    padding: 20px;
     --radius: 20px;
     border-radius: var(--radius);  
     box-shadow: 0px 4px 8px rgb(101, 101, 101, 25%);
+    aspect-ratio: 1/.95;
 }
 .big_img img{
-    border-radius: var(--radius);    
+    border-radius: var(--radius); 
+    padding: var(--radius);   
 }
 .small_img{
     --size: 320px;
@@ -61,6 +62,9 @@
     left: calc(-.4 * var(--size));
     animation: leftright 3s ease-in-out infinite;
 }
+.small_img img{
+    width: 100%;
+}
 .slogan_list ul{
     padding: 0;
     margin: 0;
@@ -74,6 +78,7 @@
     font: 500 16px / 1 var(--primary-font);
     padding: 16px 24px;
     position: absolute;
+    text-align: center;
     animation: leftright 3s ease-in-out infinite;
 }
 @keyframes leftright {
@@ -107,21 +112,21 @@
     bottom: 40px;
     right: -90px;
 }
+.small_img > div {
+    width: 100%;
+    height: 180px;
+}
 
 @media only screen and (max-width:1600px){
     .content{
         max-width: 420px;
-    }
-    .row{
-        --bs-gutter-x: 10px;
-        margin-top: 24px;
     }
     .titleTag{
         font-size: 22px;
         margin-bottom: 20px;
     }
     .small_img{
-        size:300px;
+        --size:300px;
     }
     .slogan_list li{
         font-size: 14px;
@@ -132,5 +137,169 @@
     }
     .slogan_list li:nth-child(3) {
         right: -32px;
+    }
+}
+@media only screen and (max-width: 1399px){
+    .sliderBanner{
+        padding: 48px 0px 126px;
+    }
+    .bannerContent{
+        font-size: 16px;
+    }
+    .sliderBanner .title{
+        font-size: 32px;
+    }
+    .small_img{
+        --size: 260px;
+        outline-width: 10px;
+        padding: 12px;
+        border-radius: 4px;
+    }
+}
+@media only screen and (max-width: 1199px){
+    .imagePart{
+        margin-left: 16px;
+    }
+    .titleTag{
+        font-size: 20px;
+        margin-bottom: 12px;
+    }
+    .titleTag::after{
+        width: 70px;
+    }
+    .sliderBanner .title{
+        font-size: 28px;
+        margin-bottom: 12px;
+    }
+    .slogan_list li:first-child{
+        top: 24px;
+    }
+    .slogan_list li:nth-child(2){
+        top: 12%;
+    }
+}
+@media only screen and (max-width: 991px){
+    .sliderBanner {
+        padding: 36px 0 100px;
+    }
+    .row{
+        flex-direction: column-reverse;
+        row-gap: 32px;
+    }
+    .content{
+        max-width: 100%;
+    }
+    .sliderBanner .title{
+        font-size: 32px;
+        text-wrap: balance;
+    }
+    .sliderBanner .title br{
+        display: none;
+    }
+    .imagePart{
+        margin-left: 0;
+    }
+    .mixinDassboard{
+        padding-inline: 30px;
+    }
+    .big_img{
+        --radius: 12px;
+    }
+    .small_img{
+        --size:300px;
+        left: calc(-0.25 * var(--size));
+    }
+}
+@media only screen and (max-width: 767px){
+    .sliderBanner .title{
+        font-size: 27px;
+    }
+    .small_img{
+        --size: 240px;
+    }
+    .slogan_list li {
+        padding: 11px 16px;
+        font-size: 13px;
+    }
+    .slogan_list li:nth-child(4){
+        right: -48px;
+    }
+}
+@media only screen and (max-width: 575px){
+    .small_img{
+        --size: 200px;
+        padding: 8px;
+    }
+}
+@media only screen and (max-width: 479px){
+    .sliderBanner {
+        padding: 30px 0px;
+    }
+    .mixinDassboard{
+        padding: 0;
+    }
+    .small_img {
+        --size: 140px;
+        padding: 8px;
+        left: calc(-0.15 * var(--size));
+        outline-width: 6px;
+        bottom: 20%;
+    }
+    .slogan_list li{
+        font-size: 12px;
+    }
+    .slogan_list li:first-child{
+        left: -32px;
+    }
+    .slogan_list li:nth-child(2){
+        right: -24px;
+    }
+    .slogan_list li:nth-child(4){
+        right: -20px;
+    }
+    .row{
+        row-gap: 24px;
+    }
+    .titleTag {
+        margin-bottom: 10px;
+        font-size: 18px;
+    }
+    .sliderBanner .title{
+        font-size: 25px;
+    }
+    .buttonWrap{
+        margin-top: 20px;
+    }
+    .scrollup{
+        --area: 36px;
+        bottom: 10px;
+        right: 10px;
+    }
+}
+@media only screen and (max-width: 359px){
+    .titleTag{
+        font-size: 16px;
+    }
+    .titleTag::after{
+        width: 60px;
+    }
+    .sliderBanner .title{
+        font-size: 24px;
+    }
+    .small_img {
+        --size: 120px;
+        padding: 6px;
+        left: calc(-0.2 * var(--size));
+        outline-width: 4px;
+    }
+    .slogan_list li{
+        font-size: 11px;
+        min-width: 100px;
+    }
+    .slogan_list li:first-child{
+        top: 24px;
+    }
+    .slogan_list li:nth-child(4){
+        bottom: 30px;
     }
 }

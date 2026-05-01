@@ -23,12 +23,13 @@ export type SocialItem = {
 
 type Props = {
     itemSize?: string;
+    className?: string;
     social?: SocialItem[];
 };
 
 /* ================= COMPONENT ================= */
 
-const Social = ({ itemSize, social }: Props) => {
+const Social = ({ itemSize, social, className}: Props) => {
     /* -------- Icon Map -------- */
     const iconMap: Record<string, IconDefinition> = {
         "fa-facebook-f": faFacebookF,
@@ -48,7 +49,7 @@ const Social = ({ itemSize, social }: Props) => {
     if (!social?.length) return null;
 
     return (
-        <div className={`${Styles.social} ${itemSize ? Styles[itemSize] : ""}`}>
+        <div className={`${Styles.social} ${className || ""}  ${itemSize ? Styles[itemSize] : ""}`}>
             {social.map((item, index) => {
                 const iconKey = getIconKey(item.site_social_icon);
                 const Icon = iconMap[iconKey] ?? faYoutube;

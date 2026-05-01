@@ -36,12 +36,12 @@ const SliderBanner = ({ banner, bannerdata }: Props) => {
     return (
         <div className={Styles.sliderBanner}>
             <Container>
-                <Row className="gx-xl-0">
-                    <Col lg={6} xxl={5}>
+                <Row className={`gx-xl-0 justify-content-between ${Styles.row}`}>
+                    <Col lg={5} xl={6} xxl={5}>
                         <div className={Styles.content}>
                             <div className={Styles.bannerText}>
                                 <div className={`titleTag ${Styles.titleTag}`}>{bannerdata?.title_tag}</div>
-                                <div className={`title`} dangerouslySetInnerHTML={{
+                                <div className={`title ${Styles.title}`} dangerouslySetInnerHTML={{
                                     __html: bannerdata?.joza_title
                                         .replace(/Â+/g, "")
                                         .replace(/\s+/g, " ")
@@ -91,7 +91,7 @@ const SliderBanner = ({ banner, bannerdata }: Props) => {
                                     </Col>
                                 </Row>
                             </div>
-                            <div className="mt-5">
+                            <div className={`btn_left ${Styles.buttonWrap ?? ''}`}>
                                 <button
                                     type="button"
                                     onClick={() => openLetsConnectModal('general_lets_connect')}
@@ -111,13 +111,12 @@ const SliderBanner = ({ banner, bannerdata }: Props) => {
                             </div>
                         </div>
                     </Col>
-                    <Col lg={6} xxl={7}>
+                    <Col lg={6} xl={6} xxl={7}>
                         <div className={Styles.mixinDassboard}>
                             <div className={Styles.imagePart}>
                                 <CustomImage
                                     src={`${process.env.NEXT_PUBLIC_MEDIA_URL}${banner?.proj_banne_image_path}`}
                                     alt={banner?.proj_name || "Dashboard"}
-                                    width={584} height={556}
                                     className={Styles.big_img}
                                 />
                                 <figure className={Styles.small_img}>

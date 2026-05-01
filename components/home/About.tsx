@@ -72,7 +72,7 @@ const Aboutcomponent = ({ isLoading, content, calltoaction }: Props) => {
         <>
             <div className={`sectionArea ${Styles.aboutArea ?? ''}`}>
                 <Container>
-                    <Row className="align-items-center">
+                    <Row className="align-items-center rowGap">
                         <Col lg={6}>
 
                             {!isLoading ? (
@@ -100,23 +100,15 @@ const Aboutcomponent = ({ isLoading, content, calltoaction }: Props) => {
                                 </div>
                             ) : (
                                 <>
-                                    <div className={Styles.skeltonTitle}>
-                                        <div className="skeleton"></div>
-                                        <div className="skeleton"></div>
-                                        <div className="skeleton"></div>
+                                    <div className={Styles.aboutTitle}>
+                                        <span className="skeleton mb-2">&nbsp;</span>
+                                        <div className="skeleton">&nbsp;</div>
                                     </div>
                                     <div className="skeleton skeletonText"></div>
                                     <div className="skeleton skeletonText"></div>
                                     <div className="skeleton skeletonText"></div>
-                                    <div className="skeleton skeletonText"></div>
-                                    <div className="skeleton skeletonText"></div>
-                                    <div className="skeleton skeletonText" style={{ width: "72%" }}></div>
-                                    <div className="skeleton skeletonText" style={{ width: "45%" }}></div>
-                                    <br />
-                                    <div className="skeleton skeletonText"></div>
-                                    <div className="skeleton skeletonText"></div>
-                                    <div className="skeleton skeletonText"></div>
-                                    <div className="skeleton skeletonText" style={{ width: "35%" }}></div>
+                                    <div className="skeleton skeletonText w-75"></div>
+                                    <div className="skeleton skeletonText w-50 d-sm-none" style={{ width: "45%" }}></div>
                                 </>
                             )}
                         </Col>

@@ -4,6 +4,8 @@ import "react-bootstrap";
 import { config } from "@fortawesome/fontawesome-svg-core";
 import "@fortawesome/fontawesome-svg-core/styles.css";
 config.autoAddCss = false;
+import 'swiper/css';
+import "swiper/css/autoplay";
 import "@/app/globals.css";
 import "@/app/responsive.css";
 import Header from "@/components/common/header/Header";

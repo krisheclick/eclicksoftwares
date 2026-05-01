@@ -11,7 +11,7 @@ import LetsConnectModal from '@/components/schedule-a-call/LetsConnetModal';
 import CustomImageLink from '@/utils/CustomImageLink';
 import Styles from './style.module.css';
 import CustomImage from '@/utils/CustomImage';
-import Image from 'next/image';
+import FooterAccordion from './FooterAccordion';
 
 type RecursiveMenuItem = {
     url: string;
@@ -101,26 +101,39 @@ const Footer = ({ sitedata }: FooterProps) => {
     const scrollToTop = () => {
         window.scrollTo({ top: 0, behavior: "smooth" });
     };
+
     const renderMenuColumn = (menu: RecursiveMenuItem) => (
-        <div className={Styles.columnBox} key={menu.id}>
-            <div className={Styles.navLinkWrapper}>
-                <div className={Styles.title}>{menu.label}</div>
-                <div className={Styles.navList}>
-                    <ul className={Styles.navMenu}>
-                        {menu.children?.map(child => (
-                            <li className={Styles.navItem} key={child.id}>
-                                <Link
-                                    href={`${process.env.NEXT_PUBLIC_ENV_URL}/${child.url}`}
-                                    className={Styles.navLink}
-                                >
-                                    {child.label}
-                                </Link>
-                            </li>
-                        ))}
-                    </ul>
-                </div>
-            </div>
-        </div>
+        // <div className={Styles.columnBox} key={menu.id}>
+        //     <div className={Styles.navLinkWrapper}>
+        //         <div className={Styles.title}>{menu.label}</div>
+        //         <div className={Styles.navList}>
+        //             <ul className={Styles.navMenu}>
+        //                 {menu.children?.map(child => (
+        //                     <li className={Styles.navItem} key={child.id}>
+        //                         <Link
+        //                             href={`${process.env.NEXT_PUBLIC_ENV_URL}/${child.url}`}
+        //                             className={Styles.navLink}
+        //                         >
+        //                             {child.label}
+        //                         </Link>
+        //                     </li>
+        //                 ))}
+        //             </ul>
+        //         </div>
+        //     </div>
+        // </div>
+        <FooterAccordion title={menu.label} key={menu.id}>
+            {menu.children?.map(child => (
+                <li className={Styles.navItem} key={child.id}>
+                    <Link
+                        href={`${process.env.NEXT_PUBLIC_ENV_URL}/${child.url}`}
+                        className={Styles.navLink}
+                    >
+                        {child.label}
+                    </Link>
+                </li>
+            ))}
+        </FooterAccordion>
     );
 
     return (
@@ -158,23 +171,15 @@ const Footer = ({ sitedata }: FooterProps) => {
                                     </div> */}
                                     <div className={Styles.followSocial}>
                                         <span>Follow us</span>
-                                        <Social social={social} />
+                                        <Social social={social} className={Styles.footerSocial} />
                                     </div>
                                 </div>
                             </div>
                             {mainFooterMenu.map(renderMenuColumn)}
                             <div className={Styles.columnBox}>
-                                <div className={Styles.navLinkWrapper}>
-                                    <div className={Styles.navList}>
-                                        <ul className={Styles.navMenu}>
-                                            <li className={Styles.navItem}>
-                                                <Link href={`/payment-center`} className={Styles.navLink} style={{display:"block"}}>
-                                                    <CustomImage className={Styles.PaymentCenter} src={`${process.env.NEXT_PUBLIC_assetPrefix}/assets/images/payment-icon.png`} alt="Footer Image" />
-                                                </Link>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                </div>
+                                <Link href={`/payment-center`} className={Styles.navLink} style={{display:"block"}}>
+                                    <CustomImage className={Styles.paymentCenter} src={`${process.env.NEXT_PUBLIC_assetPrefix}/assets/images/payment-icon.png`} alt="Footer Image" />
+                                </Link>
                             </div>
                         </div>
                     </div>
@@ -182,7 +187,7 @@ const Footer = ({ sitedata }: FooterProps) => {
                 <div className={Styles.copyright}>
                     <div className="container">
                         <hr />
-                        <div className="d-flex align-items-center justify-content-between gap-2">
+                        <div className="d-flex align-items-center justify-content-between flex-column flex-lg-row gap-2">
                             <p className='mb-0'>Copyright © {new Date().getFullYear()} <Link href={'https://www.eclicksoftwares.com/'} target='_blank'>Eclick Softwares & Solutions Pvt Ltd.</Link></p>
                             <ul className={`${Styles.inlineLink} d-flex flex-wrap`}>
                                 {subFooterMenu?.map(child => (

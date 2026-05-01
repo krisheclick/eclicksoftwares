@@ -5,17 +5,17 @@ const SliderBannerSkeleton = () => {
     return (
         <div className={`${Styles.sliderBanner}`}>
             <Container>
-                <Row className="gx-xl-0">
-                    {/* Left Side */}
-                    <Col lg={6} xxl={5}>
+                <Row className={`gx-xl-0 justify-content-between ${Styles.row}`}>
+                    <Col lg={5} xl={6} xxl={5}>
                         <div className={Styles.content}>
                             <div className={Styles.bannerText}>
-                                <div className="placeholder col-5 bg-secondary rounded-1 mb-3" style={{ height: '20px' }}></div>
-                                <div className="placeholder col-10 bg-secondary rounded-1 mb-2" style={{ height: '50px' }}></div>
-                                <div className="placeholder col-8 bg-secondary rounded-1 mb-2" style={{ height: '50px' }}></div>
-                                <div className="placeholder col-6 bg-secondary rounded-1 mb-4" style={{ height: '50px' }}></div>
-                                <div className="placeholder col-9 bg-secondary rounded-1 mb-3"></div>
-                                <div className="placeholder col-7 bg-secondary rounded-1"></div>
+                                <div className={`skeleton titleTag col-5 bg-secondary ${Styles.titleTag}`}>&nbsp;</div>
+                                <div className={`skeleton title mb-2 ${Styles.title}`}>&nbsp;</div>
+                                <div className={`skeleton title mb-2 d-sm-none d-lg-block ${Styles.title}`}>&nbsp;</div>
+                                <div className={`skeleton title w-75 ${Styles.title}`}>&nbsp;</div>
+                                <div className={`skeleton skeletonText`}></div>
+                                <div className={`skeleton skeletonText w-75`}></div>
+                                <div className={`skeleton skeletonText w-50`}></div>
                             </div>
 
                             <div className={Styles.usp}>
@@ -36,32 +36,27 @@ const SliderBannerSkeleton = () => {
                                 </Row>
                             </div>
 
-                            <div className="mt-5">
-                                <div className="placeholder col-5 btn btn-secondary disabled rounded-pill py-3"></div>
+                            <div className={`btn_left ${Styles.buttonWrap ?? ''}`}>
+                                <span className={`placeholder eclick-btn-connect lg disabled bg-secondary ${Styles.bannerBtn ?? ''}`}>&nbsp;</span>
                             </div>
                         </div>
                     </Col>
-
-                    <Col lg={6} xxl={7}>
+                    <Col lg={6} xl={6} xxl={7}>
                         <div className={Styles.imagePart}>
-                            <figure
-                                className={`${Styles.big_img} placeholder bg-secondary d-flex align-items-center justify-content-center`}
-                                style={{ height: "556px" }}
-                            >
-                                <div className="placeholder col-6 bg-light rounded-1"></div>
-                            </figure>
+                            <figure className={`${Styles.big_img} skeleton`}></figure>
 
                             <figure
                                 className={`${Styles.small_img} placeholder bg-light d-flex align-items-center justify-content-center`}
+                                style={{width: "100%"}}
                             >
-                                <div className="placeholder bg-secondary rounded-3 mx-1" style={{ width: "100px", height: "200px" }}></div>
-                                <div className="placeholder bg-secondary rounded-3 mx-1" style={{ width: "100px", height: "200px" }}></div>
+                                <div className="placeholder bg-secondary rounded-3 mx-1"></div>
+                                <div className="placeholder bg-secondary rounded-3 mx-1"></div>
                             </figure>
 
                             <div className={Styles.slogan_list}>
                                 <ul>
                                     {[...Array(4)].map((_, i) => (
-                                        <li key={i} className="placeholder bg-secondary rounded-pill col-3"></li>
+                                        <li key={i} className="skeleton placeholder bg-secondary rounded-pill col-3"></li>
                                     ))}
                                 </ul>
                             </div>

@@ -393,7 +393,7 @@ function MegaMenuBlocks({ megaMenu, megaMenuActive, itemClass}: MegaMenuBlocksPr
    }
 
    return (
-      <div className={`${Styles.megaMenu} ${megaMenuActive ? Styles.showMegaMenu : ""} ${Styles.megaMenuBlock}`}>
+      <div className={`${Styles.megaMenu} ${megaMenuActive ? Styles.showMegaMenu : ""} ${Styles.megaMenuBlock ?? ''}`}>
          <Container className="ps-2 pe-2">
             <Row className={`gx-3 ${Styles.mega_menu_row ?? ''}`}>
                <Col lg={col1}>

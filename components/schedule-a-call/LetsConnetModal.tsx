@@ -215,7 +215,7 @@ const LetsConnectModal = ({ show, onHide, services, action }: ScheduleCallProps)
                         serviceOptions={serviceOptions}
                         heading={
                             <div className="text-center mb-4">
-                                <h4 className="mb-2">Let&apos;s Connect</h4>
+                                <h4 className="title fw-bold mb-2">Let&apos;s Connect</h4>
                                 <p className="text-muted">Fill in your details and we&apos;ll get back to you</p>
                             </div>
                         }

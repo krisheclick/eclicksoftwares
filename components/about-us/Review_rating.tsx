@@ -38,7 +38,7 @@ const Review_rating = ({ hasLoading, data }: Props) => {
                                     style={{ objectFit: "contain" }}
                                 />
                             </div>
-                            <div className={`d-flex align-items-start gap-2${Styles.supportBoxText ?? ''}`}>
+                            <div className={`d-flex align-items-start gap-2 ${Styles.supportBoxText ?? ''}`}>
                                 <Image
                                     className="flex-shrink-0"
                                     src={`${process.env.NEXT_PUBLIC_MEDIA_URL}/uploads/page_image/${rating?.jrne_icon_1}`}

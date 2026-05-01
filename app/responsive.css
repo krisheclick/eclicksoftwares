@@ -8,6 +8,10 @@
 	.title{
 		font-size: 32px;
 	}
+	.titleTag{
+		font-size: 30px;
+		margin-bottom: 12px;
+	}
 	.subheading{
 		font-size: 24px;
 	}
@@ -26,6 +30,7 @@
 	[class*="eclick-btn-"]{
 		font-size: 14px;
 		--size:40px;
+		--padding: 20px;
 	}
 	[class*="eclick-btn-"].lg {
 		--size: 48px;
@@ -53,6 +58,7 @@
 	}
 	.title{
 		font-size: 28px;
+		margin-bottom: 16px;
 	}
 	.subheading{
 		font-size: 20px;
@@ -71,5 +77,56 @@
 	}
 	.swiper-pagination-bullet {
 		--size: 8px;
+	}
+}
+@media only screen and (max-width: 1199px){
+	.header_wrap{
+		min-height: 72px;
+	}
+	.title{
+		font-size: 30px;
+	}
+}
+@media only screen and (max-width: 991px){
+	.btn_left, .btn_center{
+		margin-top: 30px;
+	}
+	:is(.btn_left, .btn_center).sm {
+		margin-top: 20px;
+	}
+	:is(.heading, .titleTag)::after{
+		width: 72px;
+	}
+	.title{
+		font-size: 28px;
+	}
+}
+@media only screen and (max-width: 767px){
+	.sectionArea {
+		margin-block: 50px;
+	}
+	[class*="eclick-btn-"].lg {
+		font-size: 14px;
+		--size: 44px;
+		--padding: 20px;
+	}
+	.titleTag{
+		font-size: 26px;
+	}
+	:is(.heading, .titleTag)::after{
+		width: 60px;
+	}
+}
+@media only screen and (max-width: 575px){}
+@media only screen and (max-width: 479px){
+	.sectionArea {
+		margin-block: 40px;
+	}
+	[class*="eclick-btn-"].lg {
+		--size: 40px;
+		font-size: 13px;
+	}
+	.title{
+		font-size: 24px;
 	}
 }

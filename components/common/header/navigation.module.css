@@ -154,6 +154,7 @@
 }
 .blockTitle::after{
     height: 2px;
+    width: 60px;
 }
 .navMenu p {
     font-weight: normal;
@@ -257,5 +258,46 @@
     }
     .portfolioList ul{
         grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+    }
+}
+@media only screen and (max-width: 1199px){
+    .menu_wrapper{
+        gap: 10px;
+        font-size: 10px;
+    }
+    .menu_wrapper > .navItem > .navLink{
+        line-height: 72px;
+        gap: 1px;
+    }
+    .megaMenu{
+        padding-block: 24px;
+    }
+    .blockTitle{
+        font-size: 18px;
+    }
+    .submenu a{
+        padding-block: 6px;
+    }
+    .tabSubmenu .navItem{
+        font-size: 13px;
+        padding-block: 6px;
+    }
+    .circleIcon{
+        --size: 26px;
+    }
+    .navPoster{
+        height: 220px;
+    }
+    .portfolioList ul{
+        grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+        gap: 8px;
+    }
+    .posterTitle{
+        font-size: 11px;
+    }
+}
+@media only screen and (max-width: 991px){
+    .navMenu{
+        display: none;
     }
 }

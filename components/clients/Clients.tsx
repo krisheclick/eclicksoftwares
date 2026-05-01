@@ -3,8 +3,6 @@ import { useEffect, useState } from "react";
 import { Container } from "react-bootstrap";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay, Navigation } from "swiper/modules";
-import 'swiper/css';
-import "swiper/css/autoplay";
 import Styles from "./style.module.css";
 import type { Swiper as SwiperType } from "swiper";
 import CustomImage from "@/utils/CustomImage";
@@ -54,9 +52,30 @@ const Clients = ({ classValue }: classProps) => {
                         loop={(data.length || 0) > 7}
                         slidesPerGroup={1}
                         slidesPerView={data && data.length > 0 ? Math.min(data.length, 7) : 7}
-                        spaceBetween={16}
+                        spaceBetween={12}
                         autoplay={{ delay: 3000 }}
                         modules={[Autoplay, Navigation]}
+                        breakpoints={{
+                            0:{
+                                loop: true,
+                                slidesPerView: 2.5
+                            },
+                            480:{
+                                loop: true,
+                                slidesPerView: 3.5
+                            },
+                            768:{
+                                loop: true,
+                                slidesPerView: 4.5
+                            },
+                            992:{
+                                slidesPerView: 6
+                            },
+                            1200:{
+                                spaceBetween: 16,
+                                slidesPerView: 7
+                            },
+                        }}
                     >
                         {!hasLoading ? (
                             data.slice(0, 12).map((value, index) => {

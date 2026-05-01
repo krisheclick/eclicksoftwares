@@ -85,17 +85,6 @@
     z-index: 2;
     cursor: pointer;
 }
-.skeltonTitle{
-    margin-bottom: 40px;
-}
-.skeltonTitle * {
-    height: 28px;
-    width: 75%;
-    margin-bottom: 8px;
-}
-.skeltonTitle div:last-child{
-    width: 45%;
-}
 /* =============About Section Ends============= */
 
 /* =============Call to Action Section Start============= */
@@ -143,5 +132,45 @@
     }
     .calltoAction_wrapper{
         padding: 36px 32px;
+    }
+}
+@media only screen and (max-width: 1399px){
+    .aboutTitle{
+        font-size: 48px;
+        margin-bottom: 20px;
+    }
+}
+@media only screen and (max-width: 1199px){
+    .aboutTitle{
+        font-size: 42px;
+        margin-bottom: 16px;
+    }
+    .spaceAdd{
+        margin-top: 36px;
+    }
+    .calltoAction_wrapper{
+        padding: 30px 24px;
+        border-radius: 8px;
+    }
+}
+@media only screen and (max-width: 767px){
+    .calltoAction_wrapper{
+        flex-wrap: wrap;
+        gap: 16px;
+        padding: 20px;
+    }
+}
+@media only screen and (max-width: 575px){
+    .aboutTitle{
+        font-size: 36px;
+        margin-bottom: 12px;
+    }
+    .calltoAction_content .title span{
+        display: initial;
+    }
+}
+@media only screen and (max-width: 479px){
+    .aboutTitle{
+        font-size: 32px;
     }
 }

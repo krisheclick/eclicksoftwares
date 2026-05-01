@@ -26,3 +26,19 @@
         gap: 24px;
     }
 }
+@media only screen and (max-width: 991px){
+    .navWrapper{
+        gap: 16px;
+    }
+}
+
+@media only screen and (max-width: 360px){
+    .logo{
+        max-width: 150px;
+    }
+    .navWrapper [class*="eclick-btn-"]{
+        --size: 36px;
+        font-size: 12px;
+        min-width: auto;
+    }
+}
