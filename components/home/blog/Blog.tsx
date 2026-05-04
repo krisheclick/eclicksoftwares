@@ -9,7 +9,6 @@ import Link from 'next/link';
 import { useEffect, useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowRight } from '@fortawesome/free-solid-svg-icons';
-import Skeleton from '@/components/common/Skeleton';
 import CustomImage from '@/utils/CustomImage';
 
 type BlogItem = {
@@ -18,8 +17,8 @@ type BlogItem = {
     blog_slug: string;
     blog_short_description: string;
     publish_date: string;
-    Category:{
-        blog_category_slug:string;
+    Category: {
+        blog_category_slug: string;
     }
 };
 
@@ -46,12 +45,11 @@ const Blog = () => {
     return (
         <div className={`sectionArea ${Styles.sectionArea ?? ''}`}>
             <Container>
-                <div className={`section-content d-lg-flex align-items-start justify-content-between gap-3 ${Styles.section_content ?? ''}`}>
+                <div className={`section-content d-lg-flex align-items-center justify-content-between gap-3 ${Styles.section_content ?? ''}`}>
                     {!hasLoading ? (
                         <>
                             <h2 className="heading mb-0">Blogs & Insights</h2>
-
-                            <div className="mt-2 pt-1">
+                            <div className="d-none d-lg-block">
                                 <Link
                                     className={`eclick-btn-viewBtn ${Styles.viewBtn ?? ''}`}
                                     href={`/blog`}
@@ -65,9 +63,11 @@ const Blog = () => {
                         </>
                     ) : (
                         <>
-                            <Skeleton />
-                            <div className="mt-1">
-                                <div className="skeleton eclick-btn-blog"></div>
+                            <div className="w-75">
+                                <div className={`heading mb-0 skeleton`}>&nbsp;</div>
+                            </div>
+                            <div className="d-none d-lg-block">
+                                <span className={`skeleton eclick-btn-viewBtn ${Styles.viewBtn ?? ''}`}>&nbsp;</span>
                             </div>
                         </>
                     )}
@@ -83,7 +83,7 @@ const Blog = () => {
                     className={`blogSlider ${Styles.blogSlider}`}
                     breakpoints={{
                         320: { slidesPerView: 1 },
-                        768: { slidesPerView: 2 },
+                        576: { slidesPerView: 2 },
                         1024: { slidesPerView: 3 },
                         1200: { slidesPerView: 4 },
                     }}
@@ -117,17 +117,35 @@ const Blog = () => {
                             <SwiperSlide key={index} className={Styles.slideCard}>
                                 <div className={`skeleton w-100 ${Styles.card}`}>
                                     <div className={`skeleton ${Styles.imageWrapper}`}></div>
-                                    <div className="mt-3">
-                                        <div className={`skeleton ${Styles.skeletontitle}`} style={{ width: "85%" }}></div>
-                                        <div className={"mt-3 skeleton skeletonText"} style={{ width: "100%" }}></div>
-                                        <div className={"skeleton skeletonText"} style={{ width: "85%" }}></div>
-                                        <div className={`skeleton ${Styles.skeletonlearnMore}`}></div>
+                                    <div className={Styles.cardBody}>
+                                        <div className={`skeleton mb-2 ${Styles.skeletontitle}`}>&nbsp;</div>
+                                        <div className={`skeleton ${Styles.skeletontitle}`}>&nbsp;</div>
+                                        <div className={"skeleton skeletonText"}>&nbsp;</div>
+                                        <div className={"skeleton skeletonText w-75"}></div>
+                                        <div className={`skeleton learnMore w-25 ${Styles.readMore}`}>&nbsp;</div>
                                     </div>
                                 </div>
                             </SwiperSlide>
                         ))
                     )}
                 </Swiper>
+                {!hasLoading ? (
+                    <div className="btn_center d-lg-none">
+                        <Link
+                            className={`eclick-btn-viewBtn ${Styles.viewBtn ?? ''}`}
+                            href={`/blog`}
+                        >
+                            <span className={Styles.icon}>
+                                <FontAwesomeIcon icon={faArrowRight} />
+                            </span>
+                            <em>View All Blog</em>
+                        </Link>
+                    </div>
+                ) : (
+                    <div className="btn_center d-lg-none">
+                        <span className={`skeleton eclick-btn-viewBtn ${Styles.viewBtn ?? ''}`}>&nbsp;</span>
+                    </div>
+                )}
             </Container>
         </div>
     );

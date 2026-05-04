@@ -161,6 +161,7 @@
 }
 .paymentCenter{
     padding: 0 !important;
+    max-width: 150px;
 }
 .paymentCenter img{
     width: auto;

@@ -66,7 +66,7 @@ export default function CoreServices() {
                         </div>
 
                         <div className={Styles.serviceTab}>
-                            <ul className="noList d-flex gap-2">
+                            <ul className="noList d-flex">
                                 {getData.slice(0, 6).map(({ service_category_title, service_category_slug }, index) => (
                                     <li
                                         key={index}
@@ -80,11 +80,11 @@ export default function CoreServices() {
                         </div>
                         <div className={Styles.serviceContent}>
                             {activeServices.length > 0 ? (
-                                <Row>
+                                <Row className="rowGap gx-3 gx-xl-4">
                                     {activeServices.slice(0, 4).map((service, index) => {
                                         const textColor = service?.service_text_color ? service?.service_text_color : '#000000';
                                         return (
-                                            <Col lg={4} xl={3} key={index} className={Styles.item}>
+                                            <Col xs={6} md={4} xl={3} key={index} className={Styles.item}>
                                                 <Link
                                                     href={`/solutions/${activeData}/${service.service_slug}`}
                                                     className={Styles.box}
@@ -113,13 +113,13 @@ export default function CoreServices() {
                             <Skeleton />
                         </div>
                         <div className={Styles.serviceTab}>
-                            <ul className="noList d-flex flex-wrap gap-2">
+                            <ul className="noList d-flex flex-wrap">
                                 {[...Array(6)].map((_, index) => (
-                                    <li className={`skeleton ${Styles.tabSkeleton}`} key={index}></li>
+                                    <li className={`skeleton ${Styles.tabSkeleton}`} key={index}>&nbsp;</li>
                                 ))}
                             </ul>
                         </div>
-                        <Row className="rowGap">
+                        <Row className="rowGap gx-3 gx-xl-4">
                             {[...Array(4)].map((_, index) => (
                                 <SkeletonCard key={index} />
                             ))}

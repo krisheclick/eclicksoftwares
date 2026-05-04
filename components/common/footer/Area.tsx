@@ -55,7 +55,7 @@ const Area = () => {
     return (
         <div className={`${Styles.locationArea} ${innerLocation}`}>
             <Container>
-                <Row className="row rowGap align-items-center">
+                <Row className="rowGap align-items-center">
                     <Col lg={pathName === '/' ? 6 : 12}>
                         {!hasLoading ? (
                             <div className={Styles.infoBox}>

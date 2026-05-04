@@ -2,7 +2,6 @@
 
 import { useEffect, useState } from "react";
 import Image from "next/image";
-import Link from "next/link";
 import { Col, Container, Row } from "react-bootstrap";
 import Styles from "./style.module.css";
 import Skeleton from "@/components/common/Skeleton";
@@ -52,7 +51,7 @@ const HookIndustry = () => {
         <div className={Styles.sectionArea}>
             <Container className="container-full">
                 <div className={`section-content text-center ${Styles.section_content ?? ""}`}>
-                    {!hasLoading ? <h3 className={`heading text-white ${Styles.heading ?? ""}`}>Industries We Empower</h3> : <Skeleton />}
+                    {!hasLoading ? <h3 className={`heading text-white ${Styles.sectionHeading ?? ""}`}>Industries We Empower</h3> : <Skeleton />}
                 </div>
 
                 <hr />
@@ -60,7 +59,7 @@ const HookIndustry = () => {
                 <div className={Styles.tabWrapper}>
                     <div className={Styles.navigation}>
                         <ul className="noList">
-                            {!hasLoading ? (
+                            {hasLoading ? (
                                 data?.map((value, index) => {
                                     const { industry_title, industry_feature_image_path } = value;
                                     return (
@@ -84,15 +83,15 @@ const HookIndustry = () => {
                                 [...Array(8)].map((_, index) => (
                                     <li key={index} className={`${Styles.navLink}`}>
                                         <div className={`${Styles.navIcon} skeleton`}></div>
-                                        <div className="skeleton h-100 w-75"></div>
+                                        <div className={`${Styles.navText} skeleton h-100`}></div>
                                     </li>
                                 ))
                             )}
                         </ul>
                     </div>
                     <div className={Styles.tabContent}>
-                        <Row className="align-items-center justify-content-center gx-xl-5">
-                            <Col md={6} xl={7}>
+                        <Row className="align-items-center justify-content-center gx-xxl-5 rowGap">
+                            <Col lg={6} xl={7}>
                                 {!hasLoading ? (
                                     <CustomImage
                                         src={`${process.env.NEXT_PUBLIC_MEDIA_URL}${activeItem?.project?.proj_cover_image_path}`}
@@ -104,7 +103,7 @@ const HookIndustry = () => {
                                     <div className={`skeleton ${Styles.poster}`}></div>
                                 )}
                             </Col>
-                            <Col md={6} xl={5}>
+                            <Col lg={6} xl={5}>
                                 {!hasLoading ? (
                                     <div className="section-content text-white">
                                         {/* <CustomImage
@@ -137,18 +136,20 @@ const HookIndustry = () => {
                                     </div>
                                 ) : (
                                     <>
-                                        <figure className={`skeleton ${Styles.icon}`}></figure>
-                                        <div className={`skeleton skeletonTitle rounded`}></div>
-                                        <div className={`skeleton skeletonTitle rounded-0 w-75`}></div>
+                                        <div className={`skeleton title text-white mb-2 ${Styles.heading}`}>&nbsp;</div>
+                                        <div className={`skeleton title text-white w-75 ${Styles.heading}`}>&nbsp;</div>
                                         <br />
-                                        <div className="skeleton skeletonText" style={{ width: "100%" }}></div>
-                                        <div className="skeleton skeletonText" style={{ width: "100%" }}></div>
-                                        <div className="skeleton skeletonText" style={{ width: "100%" }}></div>
-                                        <div className="skeleton skeletonText" style={{ width: "100%" }}></div>
-                                        <div className="skeleton skeletonText" style={{ width: "100%" }}></div>
-                                        <div className="skeleton skeletonText" style={{ width: "50%" }}></div>
+                                        <div className="skeleton skeletonText"></div>
+                                        <div className="skeleton skeletonText"></div>
+                                        <div className="skeleton skeletonText"></div>
+                                        <div className="skeleton skeletonText"></div>
+                                        <div className="skeleton skeletonText"></div>
+                                        <div className="skeleton skeletonText d-lg-none"></div>
+                                        <div className="skeleton skeletonText d-lg-none"></div>
+                                        <div className="skeleton skeletonText w-75"></div>
+                                        <div className="skeleton skeletonText w-50"></div>
                                         <div className="btn_left">
-                                            <div className="skeleton eclick-btn-audit" style={{ width: "20%" }}></div>
+                                            <span className={`skeleton eclick-btn-audit max-btn m-0 ${Styles.viewBtn ?? ''}`}>&nbsp;</span>
                                         </div>
                                     </>
                                 )}

@@ -6,10 +6,7 @@ import { faArrowRight } from "@fortawesome/free-solid-svg-icons";
 import Image from "next/image";
 import Skeleton from "@/components/common/Skeleton";
 import { Swiper, SwiperSlide } from "swiper/react";
-import { Autoplay, Mousewheel, Pagination } from "swiper/modules";
-import "swiper/css";
-import "swiper/css/autoplay";
-import "swiper/css/pagination";
+import { Autoplay, Mousewheel, Pagination, Navigation } from "swiper/modules";
 import Styles from "./style.module.css";
 import CustomImage from "@/utils/CustomImage";
 
@@ -74,7 +71,7 @@ const Platformscomponent = () => {
                 </div>
 
                 <div className={Styles.cardWrapper}>
-                    <Row className="gx-xl-5">
+                    <Row className="gx-xxl-5">
                         <Col lg={6} className="align-self-start">
                             <div className={Styles.cardBox}>
                                 {!hasLoading ? (
@@ -95,9 +92,49 @@ const Platformscomponent = () => {
                                             </button>
 
                                             {activeIndex === index && (
-                                                <div className={`editorText ${Styles.accordionContent}`}
-                                                    dangerouslySetInnerHTML={{ __html: faq.proj_home_short_desc ?? '' }}
-                                                />
+                                                <>
+                                                    <div className={Styles.accordionContent}>
+                                                        <div className={`editorText ${Styles.editorText}`}
+                                                            dangerouslySetInnerHTML={{ __html: faq.proj_home_short_desc ?? '' }}
+                                                        />
+                                                        <div className={`${Styles.galleryBackground} d-lg-none`}>
+                                                            {activeIndex !== null && projects[activeIndex] && projects[activeIndex].proj_industry_bg_image_path && (
+                                                                <Image
+                                                                    className={Styles.grayscale}
+                                                                    src={`${process.env.NEXT_PUBLIC_MEDIA_URL}${projects[activeIndex].proj_industry_bg_image_path}`}
+                                                                    alt={projects[activeIndex].proj_name || 'Project image'}
+                                                                    fill
+                                                                />
+                                                            )}
+                                                            {(
+                                                                activeIndex !== null &&
+                                                                projects[activeIndex] &&
+                                                                parseGallery(projects[activeIndex].proj_gallery).length > 0 &&
+                                                                (
+                                                                    <Swiper
+                                                                        key={activeIndex}
+                                                                        modules={[Autoplay, Pagination, Mousewheel, Navigation]}
+                                                                        spaceBetween={20}
+                                                                        slidesPerView={1}
+                                                                        autoplay={{ delay: 3000 }}
+                                                                        pagination
+                                                                        autoHeight={false}
+                                                                        className={`gallerySwiper ${Styles.gallerySwiper ?? ''}`}
+                                                                    >
+                                                                        {parseGallery(projects[activeIndex].proj_gallery).map((img, i) => (
+                                                                            <SwiperSlide key={i}>
+                                                                                <CustomImage
+                                                                                    src={`${process.env.NEXT_PUBLIC_MEDIA_URL}/uploads/project/${img}`}
+                                                                                    alt={`${projects[activeIndex].proj_name} image ${i + 1}`}
+                                                                                    className={Styles.imageWrapper}
+                                                                                />
+                                                                            </SwiperSlide>
+                                                                        ))}
+                                                                    </Swiper>
+                                                                ))}
+                                                        </div>
+                                                    </div>
+                                                </>
                                             )}
                                         </div>
                                     ))
@@ -109,17 +146,24 @@ const Platformscomponent = () => {
                                                 }`}
                                         >
                                             <button className={Styles.accordionTitle}>
-                                                <div className="skeleton" style={{ width: "85%", height: "32px" }}></div>
-                                                <em className={`${Styles.icon} ${index === 0 ? Styles.iconRotated : ""}`}>
-                                                    <FontAwesomeIcon icon={faArrowRight} />
-                                                </em>
+                                                <div className="skeleton w-100">&nbsp;</div>
+                                                <em className={`skeleton ${Styles.icon} ${index === 0 ? Styles.iconRotated : ""}`}>&nbsp;</em>
                                             </button>
 
                                             {index === 0 && (
                                                 <div className={Styles.accordionContent}>
-                                                    <div className="skeleton skeletonText" style={{ width: "95%" }}></div>
-                                                    <div className="skeleton skeletonText" style={{ width: "95%" }}></div>
-                                                    <div className="skeleton" style={{ width: "20%", height: "32px", marginTop: "20px" }}></div>
+                                                    <div className="editorText">
+                                                        <div className="skeleton skeletonText"></div>
+                                                        <div className="skeleton skeletonText"></div>
+                                                        <div className="skeleton skeletonText"></div>
+                                                        <div className="skeleton skeletonText d-xxl-none"></div>
+                                                        <div className="skeleton skeletonText d-sm-none"></div>
+                                                        <div className="skeleton skeletonText w-75"></div>
+
+                                                    </div>
+                                                    <div className={`placeholder bg-secondary shadow-sm d-lg-none ${Styles.galleryBackground}`}>
+                                                        <div className={`skeleton ${Styles.imageWrapper}`}></div>
+                                                    </div>
                                                 </div>
                                             )}
                                         </div>
@@ -128,7 +172,7 @@ const Platformscomponent = () => {
                             </div>
                         </Col>
 
-                        <Col lg={6}>
+                        <Col lg={6} className="d-none d-lg-block">
                             <div className={Styles.galleryBackground}>
                                 {activeIndex !== null && projects[activeIndex] && projects[activeIndex].proj_industry_bg_image_path && (
                                     <Image
@@ -165,12 +209,13 @@ const Platformscomponent = () => {
                                                     alt={`${projects[activeIndex].proj_name} image ${i + 1}`}
                                                     className={Styles.imageWrapper}
                                                 />
-                                                <div className={Styles.imageWrapper}></div>
                                             </SwiperSlide>
                                         ))}
                                     </Swiper>
                                 ) : (
-                                    <div className={`skeleton shadow-sm ${Styles.imageWrapper}`}></div>
+                                    <div className="d-none d-lg-block">
+                                        <div className={`skeleton ${Styles.gallerySwiper}`}></div>
+                                    </div>
                                 )}
                             </div>
                         </Col>

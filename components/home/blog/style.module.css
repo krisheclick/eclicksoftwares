@@ -59,12 +59,8 @@
   text-decoration: underline;
 }
 .skeletontitle{
-  height: 32px;
+  height: 28px;
   margin-bottom: 8px;
-}
-.skeletonlearnMore{
-  height: 32px;
-  width: 120px;
 }
 @media only screen and (max-width:1399px) {
   .cardTitle {
@@ -72,5 +68,10 @@
   }
   .readMore{
     font-size: 15px;
+  }
+}
+@media only screen and (max-width: 575px){
+  .cardTitle {
+    font-size: 18px;
   }
 }

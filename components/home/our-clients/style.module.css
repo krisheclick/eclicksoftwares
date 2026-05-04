@@ -1,13 +1,14 @@
 .sectionArea{
     background: var(--secondary-background);
     padding-block: 70px;
+    margin-bottom: 0;
 }
 .cardWrapper{
-    background: url(../../../public/assets/images/quote-bg.png) no-repeat bottom right / contain;
-    background-size: 120px;
     position: relative;
     z-index: 1;
+    overflow: hidden;
     margin-top: 70px;
+    --space: 1.5rem;
 }
 .cardWrapper hr{
     position: absolute;
@@ -23,7 +24,7 @@
     grid-template-columns: repeat(3, 1fr);
     position: relative;
     z-index: 1;
-    padding-right: 1.5rem;
+    padding-right: var(--space);
 }
 .cardLogo::after{
     content: '';
@@ -56,8 +57,23 @@
     opacity: 0;
     transition: all 100ms ease-in-out;
 } */
-.item:nth-child(3n + 3){
-    border-right-width: 0px;
+@media only screen and (min-width: 992px){
+    .item:nth-child(3n + 3){
+        border-right-width: 0px;
+    }
+}
+@media only screen and (min-width: 768px) and (max-width: 991px){
+    .item:nth-child(even){
+        border-right-width: 0px;
+    }
+    .cardLogo{
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+@media only screen and (min-width: 480px) and (max-width: 767px){
+    .item:nth-child(3n + 3){
+        border-right-width: 0px;
+    }
 }
 .item:hover:after,
 .active.item::after{
@@ -90,7 +106,7 @@
     color: #707070;
     font-size: 1.1em;
     line-height: 1.8;
-    padding-left: 1.5rem;
+    padding-left: var(--space);
 }
 .card .content{
     height: 7lh;
@@ -98,11 +114,12 @@
     position: relative;
 }
 .videoPoster{
-    height: 318px;
+    aspect-ratio: 16/8.5;
     min-height: 100%;
     cursor: pointer;
     max-width: 600px;
     position: relative;
+    overflow: hidden;
 }
 .videoIcon{
     --size: 48px;
@@ -142,8 +159,11 @@
     color: var(--secondary-color);
 }
 @media only screen and (max-width: 1600px) {
-    .videoPoster{
-        height: 312px;
+    .sectionArea{
+        padding-block: 60px;
+    }
+    .cardWrapper{
+        margin-top: 48px;
     }
     .title{
         font-size: 24px;
@@ -156,8 +176,9 @@
     }
 }
 @media only screen and (max-width: 1399px) {
-    .videoPoster{
-        height: 292px;
+    .cardWrapper{
+        margin-top: 48px;
+        --space: .5rem;
     }
     .title{
         font-size: 20px;
@@ -167,5 +188,60 @@
     }
     .designation{
         font-size: 15px;
+    }
+}
+@media only screen and (max-width: 1199px){
+    .sectionArea{
+        padding-block: 48px;
+    }
+    .card{
+        font-size: 15px;
+    }
+    .title{
+        margin-block: 16px 0px;
+    }
+    .videoPoster{
+        aspect-ratio: 16/9.2;
+        max-width: 100%;
+    }
+}
+@media only screen and (max-width: 991px){
+    .cardWrapper{
+        margin-top: 36px;
+        --space: 0px;
+    }
+    .cardWrapper hr{
+        left: 41%;
+        right: inherit;
+    }
+    .box{
+        height: 65px;
+    }
+    .viewBtn{
+        max-width: max-content;
+        margin: auto;
+    }
+}
+@media only screen and (max-width: 767px){
+    .sectionArea{
+        padding-block: 36px;
+    }
+    .cardWrapper hr{
+        display: none;
+    }
+    .box{
+        height: 84px;
+    }
+}
+@media only screen and (max-width: 479px){
+    .cardLogo{
+        grid-template-columns: repeat(2, 1fr);
+    }
+    .box{
+        height: auto;
+        aspect-ratio: 16/9;
+    }
+    .item:nth-child(even){
+        border-right-width: 0px;
     }
 }

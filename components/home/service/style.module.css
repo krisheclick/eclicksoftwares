@@ -6,6 +6,7 @@
 }
 .serviceTab ul{
     justify-content: space-between;
+    gap: 8px;
 }
 .serviceTab li{
     min-width: 120px;
@@ -120,10 +121,35 @@ background:
 @media only screen and (max-width:1399px){
 	.serviceTab li {
 		padding: 14px 20px;
-		font-size: 14px;
+		font-size: 13px;
 	}
     .subtitle{
         font-size: 15px;
         max-width: 240px;
+    }
+}
+@media only screen and (max-width: 1199px){
+    .serviceTab{
+        box-shadow: none;
+        padding: 0;
+    }
+	.serviceTab ul {
+        gap: 4px;
+        flex-wrap: wrap;
+        justify-content: center;
+        margin: auto;
+	}
+    .serviceTab{
+        margin-bottom: 30px;
+    }
+}
+@media only screen and (max-width: 767px){
+    .serviceTab li {
+        padding: 12px 12px;
+    }
+}
+@media only screen and (max-width: 479px){
+    .serviceTab li {
+        font-size: 12px;
     }
 }

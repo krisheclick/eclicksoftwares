@@ -58,14 +58,16 @@ body {
 	color: var(--body-color);
 }
 @media only screen and (min-width:1601px){
-.container{
-	max-width: 1440px;
+	.container{
+		max-width: 1440px;
+	}
 }
-}
-.container.container-full {
-	--leave_space: 120px;
-	max-width: calc(1920px - var(--leave_space));
-	padding-inline: 50px;
+@media only screen and (min-width: 768px){
+	.container.container-full {
+		--leave_space: 120px;
+		max-width: calc(1920px - var(--leave_space));
+		padding-inline: 36px;
+	}
 }
 .container .container{
 	padding: 0;
@@ -439,8 +441,9 @@ em{
 select.form-control{
 	background-image: url(../public/assets/images/select.svg);
 	background-repeat: no-repeat;
-	background-position: calc(100% - 6px) 8px;
+	background-position: calc(100% - 6px) 14px;
 	background-size: 20px;
+	padding-right: 32px;
 }
 .form-control {
     font-size: 16px;
@@ -617,7 +620,7 @@ input[type=number] {
 	position: static !important;
 	transform: none !important;
 	margin: 50px auto 0;
-	padding-bottom: 4px;
+	padding-block: 4px;
 }
 .swiper-pagination-bullet {
 	cursor: pointer;
@@ -632,6 +635,28 @@ input[type=number] {
     opacity: 1;
 	transform: scale(1) !important;
 }
+/* [class*="swiper-button-"] {
+    --area: 40px;
+    --space: -12px;
+    position: absolute;
+    z-index: 9;
+    top: 50%;
+    transform: translateY(-50%);
+    width: var(--area);
+    height: var(--area);
+    display: grid;
+    place-items: center;
+    
+    background: var(--primary-color);
+    border-radius: 100%;
+    font-size: 16px;
+}
+[class*="swiper-button-"].swiper-button-prev {
+    left: var(--space)
+}
+[class*="swiper-button-"].swiper-button-next {
+    right: var(--space)
+} */
 /* ====== Platform Gallery====== */
 .gallerySwiper .swiper-pagination {
 	background: var(--white-color);
@@ -758,10 +783,10 @@ input[type=number] {
     height: 100%;
     border-radius: 2px;
     position: absolute;
-    left: 60%;
+    left: 45%;
 }
 .skeletonDot span + span {
-    left: 80%;
+    left: 65%;
 }
 .skeletonFill{
 	position: absolute;
@@ -876,6 +901,10 @@ label.is-invalid {
 .custom-image.loaded {
     opacity: 1;
     transform: scale(1);
+}
+.max-btn{
+	max-width: max-content;
+	margin: auto;
 }
 
 /* Mobile Menu */

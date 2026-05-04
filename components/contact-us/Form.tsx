@@ -176,11 +176,11 @@ const Form = () => {
                     </div>
                 </div>
 
-                <div className={`d-xl-none ${Styles.service}`}>
+                <div className={`${Styles.service}`}>
                     <select name="service" id="service3" className="form-control" onChange={(e) => setFormData({...formData, service: e.target.value})}>
                         <option value="">Select Service</option>
-                        {serviceCategories.map((category) => (
-                            <option key={category.service_category_slug} value={category.service_category_slug} selected={formData.service === category.service_category_slug}>{category.service_category_title}</option>
+                        {serviceCategories.map((category, index) => (
+                            <option key={index} value={category.service_category_slug} /*selected={formData.service === category.service_category_slug}*/>{category.service_category_title}</option>
                         ))}
                     </select>
                 </div>

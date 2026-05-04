@@ -56,10 +56,10 @@ const Card = ({ data = [] }: Props) => {
     }
     return (
         <>
-            <Row className="gx-xl-5">
-                <Col lg={6} className="align-self-center">
+            <Row className="gx-xl-5 rowGap">
+                <Col md={5} lg={6} className="align-self-center">
                     <div className={Styles.cardLogo}>
-                        {data.slice(0, 9).map((value, index) => {
+                        {data.slice(0, 6).map((value, index) => {
                             return (
                                 <div
                                     key={index}
@@ -83,7 +83,7 @@ const Card = ({ data = [] }: Props) => {
                     </div>
                 </Col>
 
-                <Col lg={6}>
+                <Col md={7} lg={6}>
                     <div className={Styles.card}>
                         {activeItem?.testimonial_type === 'video' ? (
                             <figure className={Styles.videoPoster} onClick={() => activeItem?.testimonial_video && handleOpenVideo(activeItem?.testimonial_video, activeItem?.client?.client_name ?? "")}>

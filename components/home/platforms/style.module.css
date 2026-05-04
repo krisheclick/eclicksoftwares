@@ -25,6 +25,7 @@
     justify-content: space-between;
     gap: 20px;
     padding: 20px 20px 20px 30px;
+    font-size: 24px;
     color: inherit;
     margin-bottom: 0;
     cursor: pointer;
@@ -65,9 +66,15 @@
     pointer-events: none;
 }
 .accordionContent {
-    padding: 20px 30px 30px;
+    padding: 20px 30px;
     padding-top: 0;
-    font-size: 1.1em;
+    font-size: 16px;
+    line-height: 1.75;
+}
+.editorText{
+    max-height: 142px;
+    overflow: hidden auto;
+    padding-right: 12px;
 }
 .learnMore {
     color: #1B1B1B;
@@ -78,25 +85,26 @@
     position: relative;
     width: 50vw;
     --round: 20px;
+    --rightArea: 80px;
+    --height: 640px;
     max-width: 960px;
     border-radius: 0px 0px 0px;
     border-radius: var(--round);
     overflow: hidden;
     padding: 20px;
-    --rightArea: 80px;
-    --height: 680px;
-    height: var(--height);
+    height: calc(var(--height) + 40px);
 }
 .grayscale {
     opacity: .4;
 }
 .gallerySwiper {
-    height: calc(var(--height) - 40px);
+    height: var(--height);
     margin: 0;
 }
 .imageWrapper {
     width: calc(100% - var(--rightArea));
     height: 100%;
+    padding-top: 0;
     padding: 0;
     overflow: hidden;
     position: relative;
@@ -107,18 +115,21 @@
     border-radius: var(--round);
 }
 @media only screen and (max-width: 1600px) {
+    .sectionArea{
+        padding-block: 72px;
+    }
+    .galleryBackground{
+        --height: 540px;
+    }
+    .accordionContent {
+        padding: 0px 20px 24px;
+    }
     .icon {
         --size: 36px;
     }
     .accordionTitle {
         padding: 16px 16px 16px 20px;
-        font-size: 15px;
-    }
-    .imageWrapper {
-        padding-top: 85%;
-    }
-    .accordionContent {
-        font-size: 0.92em;
+        font-size: 20px;
     }
     .learnMore {
         font-size: 0.95em;
@@ -129,7 +140,43 @@
     }
 }
 @media only screen and (max-width: 1399px) {
-    .imageWrapper {
-        padding-top: 97%;
+    .sectionArea{
+        padding-block: 60px;
+    }
+    .accordionContent{
+        font-size: 15px;
+    }
+    .galleryBackground{
+        --round: 12px;
+        --rightArea: 48px;
+    }
+}
+@media only screen and (max-width: 1199px) {
+    .sectionArea{
+        padding-block: 50px;
+    }
+    .accordionTitle{
+        font-size: 18px;
+    }
+    .editorText{
+        max-height: 130px;
+    }
+}
+@media only screen and (max-width: 991px){
+    .galleryBackground {
+        width: 100%;
+        --rightArea: 0px;
+        margin-top: 24px;
+        border-radius: 0;
+    }
+}
+@media only screen and (max-width: 767px){
+    .galleryBackground {
+        --height: 320px;
+    }
+}
+@media only screen and (max-width: 575px){
+    .cardWrapper{
+        margin-top: 36px;
     }
 }

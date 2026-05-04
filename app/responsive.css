@@ -40,6 +40,9 @@
 	.swiper-pagination-bullet {
 		--size: 10px;
 	}
+	.skeletonDot{
+		width: 100px;
+	}
 }
 @media only screen and (max-width:1399px) {
 	body{
@@ -75,8 +78,10 @@
 	[class*="eclick-btn-"].lg {
 		font-size: 15px;
 	}
-	.swiper-pagination-bullet {
-		--size: 8px;
+	.gallerySwiper .swiper-pagination {
+		width: 28px !important;
+		height: 80px !important;
+		right: 4px !important;
 	}
 }
 @media only screen and (max-width: 1199px){
@@ -85,6 +90,12 @@
 	}
 	.title{
 		font-size: 30px;
+	}
+	.swiper-pagination{
+		margin-top: 40px;
+	}
+	.skeletonDot{
+		width: 80px;
 	}
 }
 @media only screen and (max-width: 991px){
@@ -97,8 +108,26 @@
 	:is(.heading, .titleTag)::after{
 		width: 72px;
 	}
+	.heading{
+		font-size: 32px;
+	}
 	.title{
 		font-size: 28px;
+	}
+	[class*="eclick-btn-"] {
+		font-size: 13px;
+	}
+	.gallerySwiper .swiper-wrapper{
+		height: calc(100% - 48px);
+	}
+	.gallerySwiper .swiper-pagination {
+		flex-direction: row;
+		width: auto !important;
+		height: auto !important;
+		position: static !important;
+		transform: none !important;
+		margin: 16px auto 0 !important;
+		max-width: max-content;
 	}
 }
 @media only screen and (max-width: 767px){
@@ -116,8 +145,18 @@
 	:is(.heading, .titleTag)::after{
 		width: 60px;
 	}
+	.section-content {
+		margin-bottom: 30px;
+	}
+	.skeletonDot{
+		width: 70px;
+	}
 }
-@media only screen and (max-width: 575px){}
+@media only screen and (max-width: 575px){
+	.swiper-pagination-bullet {
+		--size: 8px;
+	}
+}
 @media only screen and (max-width: 479px){
 	.sectionArea {
 		margin-block: 40px;
@@ -126,7 +165,20 @@
 		--size: 40px;
 		font-size: 13px;
 	}
+	.heading{
+		font-size: 28px;
+	}
+	:is(.heading, .titleTag)::after {
+		width: 50px;
+	}
 	.title{
 		font-size: 24px;
+	}
+	[class*="eclick-btn-"] {
+		--size: 36px;
+		font-size: 12px;
+	}
+	.skeletonDot{
+		width: 60px;
 	}
 }
