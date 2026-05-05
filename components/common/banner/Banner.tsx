@@ -17,7 +17,7 @@ const Banner = ({ isLoading, title, subtitle, image, short_description, showButt
         return (
             <div className={`${Styles.sliderBanner} ${Styles.skeletonBanner}`}>
                 <Container>
-                    <Row className="justify-content-between align-items-center">
+                    <Row className={`rowGap justify-content-between align-items-center ${Styles.row}`}>
                         <Col lg={6} xl={5} className={Styles.contentItem}>
                             <div className={Styles.content}>
                                 <div className={Styles.bannerText}>
@@ -57,7 +57,7 @@ const Banner = ({ isLoading, title, subtitle, image, short_description, showButt
     return (
         <div className={Styles.sliderBanner}>
             <Container>
-                <Row className="justify-content-between align-items-center">
+                <Row className={`rowGap justify-content-between align-items-center ${Styles.row}`}>
                     <Col lg={6} xl={5} className={Styles.contentItem}>
                         <div className={Styles.content}>
                             <div className={Styles.bannerText}>

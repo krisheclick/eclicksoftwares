@@ -202,7 +202,13 @@ export default function Page({ params }: { params: Promise<{ category: string, s
             <NotFound />
         ) : (
             <div>
-                <Banner isLoading={isLoading} title={data?.service_title} subtitle={data?.service_sub_title} image={data?.service_banner_image_path} short_description={data?.service_short_description} />
+                <Banner 
+                    isLoading={isLoading} 
+                    title={data?.service_title} 
+                    subtitle={data?.service_sub_title} 
+                    image={data?.service_banner_image_path} 
+                    short_description={data?.service_short_description}
+                />
 
                 <div className={`sectionArea ${Styles.aboutArea ?? ''}`}>
                     <Container>
@@ -222,7 +228,7 @@ export default function Page({ params }: { params: Promise<{ category: string, s
                                 )}
                             </Col>
                             <Col lg={6} className="align-self-center">
-                                <div className="ps-xl-4">
+                                <div className="ps-xxl-4">
                                     <div className={Styles.about_content}>
                                         {!isLoading ? (
                                             <div className={Styles.content}>

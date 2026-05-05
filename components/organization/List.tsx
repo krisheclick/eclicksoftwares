@@ -39,14 +39,16 @@ const List = ({ isLoading, process_steps }: props) => {
                 <Swiper
                     className={`${Styles.process_slider ?? ''} process_slider height-auto`}
                     spaceBetween={12}
-                    slidesPerView={Math.min(process_steps?.length || 5, 5)}
+                    slidesPerView={2}
                     autoplay={{ delay: 5000, disableOnInteraction: false }}
                     rewind={true}
                     modules={[Autoplay, FreeMode]}
                     breakpoints={{
                         0: { slidesPerView: 1 },
-                        640: { slidesPerView: 2 },
-                        1024: { slidesPerView: 5 },
+                        360: { slidesPerView: 2 },
+                        992: { slidesPerView: 3 },
+                        120: { slidesPerView: 4 },
+                        1400: { slidesPerView: 5 },
                     }}
                     onSlideChange={(swiper) => {
                         const visible =

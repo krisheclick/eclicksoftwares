@@ -7,7 +7,7 @@ interface SpecialCardProps {
 const SpecialCard = ({col}: SpecialCardProps) => {
     const { openLetsConnectModal} = useLetsConnect();
     return (
-        <Col lg={col} className={`${Styles.item} ${Styles.specialBox}`}>
+        <Col lg={col} xs={6} className={`${Styles.item} ${Styles.specialBox}`}>
             <div className={Styles.box}>
                 <div className={Styles.smallTitle}>Special Offers</div>
                 <div className={Styles.specialBoldTitle}>Be the First to Know</div>

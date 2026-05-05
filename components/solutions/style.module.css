@@ -16,6 +16,7 @@
 .brands li:nth-child(odd){
     background: #e1e7f3;
 }
+
 .brandLogo {
     --size: 80px;
     width: var(--size);
@@ -93,5 +94,36 @@ figure.poster{
     }
     .callToAction {
         --extraSpace: 60px;
+    }
+}
+@media only screen and (max-width: 1399px){
+    .actionTitle{
+        font-size: 30px;
+    }
+    .smallTitle{
+        margin-bottom: 12px;
+    }
+}
+@media only screen and (max-width: 1199px){
+    .brands li{
+        font-size: 1em;
+    }
+    .brandLogo {
+        --size: 60px;
+    }
+}
+@media only screen and (max-width: 991px){
+    .brands ul {
+        grid-template-columns: repeat(3,1fr);
+    }
+}
+@media only screen and (max-width: 479px){
+    .brands li{
+        font-size: .85em;
+        gap: 4px;
+        padding: 10px;
+    }
+    .brandLogo {
+        --size: 48px;
     }
 }

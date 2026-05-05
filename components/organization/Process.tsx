@@ -24,7 +24,7 @@ const Process = ({ isLoading, process_title, process_steps }: props) => {
                             dangerouslySetInnerHTML={{__html: process_title ? process_title : 'Our Process'}}
                         />
                     ) : (
-                        <div className="skeleton w-100 skeletonTitle"></div>
+                        <h3 className={`skeleton title fw-normal ${Styles.title ?? ''}`}>&nbsp;</h3>
                     )}
                 </div>
                 <List isLoading={isLoading} process_steps={process_steps} />

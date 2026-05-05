@@ -1,10 +1,12 @@
 .item {
   border: 0 solid #d3d3d3;
   border-width: 0 0 1px 1px;
-  padding: 35px;
+  padding: 36px;
 }
-.item:nth-child(4n+1) {
-  border-left-width: 0;
+@media only screen and (min-width: 992px){
+    .item:nth-child(4n+1) {
+        border-left-width: 0;
+    }
 }
 .box{
     color: rgba(44, 44, 44, 1);
@@ -66,6 +68,9 @@ figure.icon{
 }
 
 @media only screen and (max-width: 1600px){
+    .item{
+        padding: 30px;
+    }
     .specialBox .box{
         padding: 20px;
     }
@@ -76,6 +81,57 @@ figure.icon{
         font-size: 1.3em;
     }
     .boxtitle{
+        font-size: 20px;
+    }
+}
+@media only screen and (max-width: 1399px){
+    .item{
+        padding: 24px;
+    }
+    .smallTitle{
+        font-size: 1.2em;
+    }
+    .specialBoldTitle{
+        font-size: 26px;
+    }
+    .icon{
+        --size: 48px;
+        margin-bottom: 20px;
+    }
+    .boxtitle{
+        margin-bottom: 10px;
+        font-size: 18px;
+    }
+}
+@media only screen and (max-width: 1199px){
+    .item{
+        padding: 16px;
+    }
+}
+@media only screen and (max-width: 991px){
+    .item:nth-child(odd){
+        border-left-width: 0;        
+    }
+}
+@media only screen and (max-width: 479px){
+    .item{
+        padding: 12px;
+    }
+    .icon {
+        --size: 36px;
+        margin-bottom: 12px;
+    }
+    .boxtitle{
+        margin-bottom: 6px;
+        font-size: 15px;
+    }
+    .specialBox .box{
+        padding: 12px;
+    }
+    .smallTitle{
+        font-size: 1em;
+    }
+    .specialBoldTitle{
         font-size: 20px;
     }
 }

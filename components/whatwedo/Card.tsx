@@ -9,7 +9,7 @@ type Props = {
 }
 const Card = ({icon, title, description }: Props) => {
     return (
-        <Col lg={3} className={Styles.item} >
+        <Col xs={6} lg={3} className={Styles.item} >
             <div className={Styles.box}>
                 <div className={Styles.contentBox}>
                     <CustomImage
