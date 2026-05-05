@@ -27,7 +27,7 @@ const Testimonial = () => {
         <section>
             <section className={Styles.TestimonialContainer}>
                 <Container>
-                    <Row>
+                    <Row className="rowGap align-items-center">
                         <Col lg={6}>
                             <div className={Styles.videoSection}>
                                 <figure className={Styles.videoGraphi}></figure>

@@ -1,6 +1,6 @@
 import { Container } from 'react-bootstrap';
 import Styles from './style.module.css';
-import SkeletonStyle from './skeletonBanner.module.css';
+import SkeletonStyle from './style.module.css';
 
 const HireBannerSkeleton = () => {
     return (
@@ -8,11 +8,12 @@ const HireBannerSkeleton = () => {
             <Container>
                 <div className={Styles.heroWrapper}>
                     <div className={Styles.banner_content}>
-                        <h1 className={`skeleton mb-2 ${SkeletonStyle.skeletonHeading}`}></h1>
-                        <span className={`skeleton skeletonRegularTitle mb-3 ${SkeletonStyle.skeletonRegularTitle}`}></span>
+                        <div className={`mb-2 ${SkeletonStyle.banner_heading}`}>&nbsp;</div>
+                        <div className={SkeletonStyle.banner_heading}>
+                            <span className='skeleton'>&nbsp;</span>
+                        </div>
+                        <span className={`skeleton mb-3 ${SkeletonStyle.bannersubTitle}`}>&nbsp;</span>
                         <div className={Styles.bannersubTitle}>
-                            <div className="skeleton skeletonText mb-2"></div>
-                            <div className="skeleton skeletonText mb-2"></div>
                             <div className="skeleton skeletonText mb-2"></div>
                             <div className="skeleton skeletonText mb-2"></div>
                             <div className="skeleton skeletonText"></div>
@@ -22,7 +23,7 @@ const HireBannerSkeleton = () => {
                             <span className="skeleton" style={{ width: 40, height: 40 }}></span>
                         </div>
                         <div className={Styles.recommend}>
-                            <div className={`skeleton skeletonRegularTitle ${Styles.banner_rech}`} style={{ width: 360 }}></div>
+                            <div className={`skeleton ${Styles.banner_rech}`}>&nbsp;</div>
                             <div className={Styles.recommendCards}>
                                 {[...Array(2)].map((_, index) => (
                                     <div className={Styles.card} key={index}>

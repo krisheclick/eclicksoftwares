@@ -32,13 +32,21 @@
     }
 }
 
-@media only screen and (max-width: 360px){
+@media only screen and (max-width: 479px){
     .logo{
         max-width: 150px;
     }
+    .navWrapper{
+        gap: 12px;
+    }
     .navWrapper [class*="eclick-btn-"]{
         --size: 36px;
-        font-size: 12px;
+        font-size: 0px;
+        padding: 0;
+        gap: 0;
         min-width: auto;
     }
+}
+
+@media only screen and (max-width: 359px){
 }

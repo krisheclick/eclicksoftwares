@@ -158,7 +158,7 @@ const Form = () => {
     return (
         <div className={Styles.contactForm}>
             <form method="post" onSubmit={handleSubmit}>
-                <div className={`d-none d-xl-block ${Styles.formItem}`}>
+                <div className={`d-none d-lg-block ${Styles.formItem}`}>
                     <div className={Styles.inquiryOption}>
                         {serviceCategories.map((category) => (
                             <label key={category.service_category_slug} htmlFor={category.service_category_slug}>
@@ -176,7 +176,7 @@ const Form = () => {
                     </div>
                 </div>
 
-                <div className={`${Styles.service}`}>
+                <div className={`d-lg-none ${Styles.service}`}>
                     <select name="service" id="service3" className="form-control" onChange={(e) => setFormData({...formData, service: e.target.value})}>
                         <option value="">Select Service</option>
                         {serviceCategories.map((category, index) => (
@@ -197,7 +197,7 @@ const Form = () => {
                             value={formData.name}
                             onChange={handleChange}
                         />
-                        {errors.name && <div className="text-danger">{errors.name}</div>}
+                        {errors.name && <div className={`text-danger ${Styles.errorText}`}>{errors.name}</div>}
                     </div>
                 </div>
 
@@ -213,7 +213,7 @@ const Form = () => {
                             value={formData.email}
                             onChange={handleChange}
                         />
-                        {errors.email && <div className="text-danger">{errors.email}</div>}
+                        {errors.email && <div className={`text-danger ${Styles.errorText}`}>{errors.email}</div>}
                     </div>
                 </div>
 
@@ -231,7 +231,7 @@ const Form = () => {
                             value={formData.phone_number}
                             onChange={handleChange}
                         />
-                        {errors.phone_number && <div className="text-danger">{errors.phone_number}</div>}
+                        {errors.phone_number && <div className={`text-danger ${Styles.errorText}`}>{errors.phone_number}</div>}
                     </div>
                 </div>
 
@@ -247,7 +247,7 @@ const Form = () => {
                             value={formData.budget}
                             onChange={handleChange}
                         />
-                        {errors.budget && <div className="text-danger">{errors.budget}</div>}
+                        {errors.budget && <div className={`text-danger ${Styles.errorText}`}>{errors.budget}</div>}
                     </div>
                 </div>
 
@@ -263,7 +263,7 @@ const Form = () => {
                             ref={messageRef}
                             onChange={handleChange}
                         ></textarea>
-                        {errors.message && <div className="text-danger">{errors.message}</div>}
+                        {errors.message && <div className={`text-danger ${Styles.errorText}`}>{errors.message}</div>}
                     </div>
                 </div>
 
@@ -285,7 +285,7 @@ const Form = () => {
                                     </Link>
                                 </p>
                             </label>
-                            {errors.policyCheck && <div className="text-danger">{errors.policyCheck}</div>}
+                            {errors.policyCheck && <div className={`text-danger ${Styles.errorText}`}>{errors.policyCheck}</div>}
                         </div>
                         <div>
                             <label htmlFor="newsletterCheck" className="d-flex align-items-start">
@@ -298,7 +298,7 @@ const Form = () => {
                                 />
                                 <p>Receive newsletters about Eclicksoftwares products and services</p>
                             </label>
-                            {errors.newsletterCheck && <div className="text-danger">{errors.newsletterCheck}</div>}
+                            {errors.newsletterCheck && <div className={`text-danger ${Styles.errorText}`}>{errors.newsletterCheck}</div>}
                         </div>
                     </div>
                 </div>

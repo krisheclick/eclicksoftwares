@@ -22,7 +22,6 @@ type Props = {
     slug?: string;
 };
 const PortfolioList = ({slug}: Props) => {
-    console.log('first', `${process.env.NEXT_PUBLIC_API_URL}projects/group/${slug}`)
     const [hasLoading, setLoading] = useState(true);
     const [data, setData] = useState<CasestudyList[]>([]);
 
@@ -54,7 +53,7 @@ const PortfolioList = ({slug}: Props) => {
     return (
         <>
             <div className={Styles.caseList}>
-                <Row className="rowGap">
+                <Row className="rowGap row">
                     {!hasLoading ? (
                         data?.map((item, index) => (
                             <Col lg={6} key={index}>

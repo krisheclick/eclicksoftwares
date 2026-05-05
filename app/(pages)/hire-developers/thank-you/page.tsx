@@ -65,7 +65,7 @@ const HireDeveloperThankYou = () => {
                             <div className={Styles.actionButtons}>
                                 <Link
                                     href="/"
-                                    className={`eclick-btn-primary ${Styles.homeBtn}`}
+                                    className={`eclick-btn-primary lg ${Styles.homeBtn ?? ''}`}
                                 >
                                     <em>Go to Home Now</em>
                                 </Link>

@@ -12,6 +12,7 @@
 }
 .counterTitle{
     font-size: 36px;
+    line-height: normal;
     font-weight: 700;
     color: var(--black-color);
     display: flex;
@@ -23,14 +24,26 @@
 .skeletonTitleWrapper{
     max-width: 480px;
 }
-.skeletonTitle{
-    height: 36px;
+@media only screen and (max-width: 1399px){
+    .counterBox {
+        padding: 24px 12px;
+        font-size: 1em;
+    }
+    .counterTitle{
+        font-size: 32px;
+    }
 }
-.skeletonCount{
-    width: 150px;
-    height: 36px;
+@media only screen and (max-width: 991px){
+    .counterBox {
+        padding: 16px 12px;
+        font-size: .9em;
+    }
+    .counterTitle{
+        font-size: 28px;
+    }
 }
-.skeletonPrefix{
-    width: 32px;
-    height: 28px;
+@media only screen and (max-width: 479px){
+    .counterTitle{
+        font-size: 24px;
+    }
 }

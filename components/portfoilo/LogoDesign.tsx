@@ -13,50 +13,41 @@ type Portfolios = {
 };
 
 type Props = {
-    hasLoading: boolean;
     title: string;
     portfolios?: Portfolios[];
 };
 
-const LogoDesign = ({ hasLoading, title, portfolios = [] }: Props) => {
+const LogoDesign = ({ title, portfolios = [] }: Props) => {
 
     const { openLetsConnectModal } = useLetsConnect();
 
-    if (!hasLoading && portfolios.length === 0) {
+    if (portfolios.length === 0) {
         return <p className="notFound text-center">{title} Portfolio items found.</p>;
     }
 
     return (
         <FancyboxWrapper>
-            <Row className="rowGap">
-                {!hasLoading ? (
-                    portfolios.map((item, index) => (
-                        <Col xl={3} md={4} sm={6} key={index}>
-                            <a
-                                href={`${process.env.NEXT_PUBLIC_MEDIA_URL}${item.portfolio_feature_image_path ?? ""}`}
-                                className={Styles.logoBox}
-                                data-fancybox="gallery"
-                            >
-                                <Image
-                                    src={`${process.env.NEXT_PUBLIC_MEDIA_URL}${item.portfolio_feature_image_path ?? ""}`}
-                                    alt={item.portfolio_title || "Logo Design Title"}
-                                    fill
-                                    priority
-                                />
-                            </a>
-                        </Col>
-                    ))
-                ) : (
-                    [...Array(8)].map((_, index) => (
-                        <Col xl={3} md={4} sm={6} key={index}>
-                            <div className={`skeleton ${Styles.logoBox}`}></div>
-                        </Col>
-                    ))
-                )}
+            <Row className='rowGap gx-2 gx-sm-3 gx-xxl-4'>
+                {portfolios.map((item, index) => (
+                    <Col xl={3} md={4} xs={6} key={index}>
+                        <a
+                            href={`${process.env.NEXT_PUBLIC_MEDIA_URL}${item.portfolio_feature_image_path ?? ""}`}
+                            className={Styles.logoBox}
+                            data-fancybox="gallery"
+                        >
+                            <Image
+                                src={`${process.env.NEXT_PUBLIC_MEDIA_URL}${item.portfolio_feature_image_path ?? ""}`}
+                                alt={item.portfolio_title || "Logo Design Title"}
+                                fill
+                                priority
+                            />
+                        </a>
+                    </Col>
+                ))}
             </Row>
 
             {/* MODAL BUTTON */}
-            {!hasLoading && portfolios.length > 0 && (
+            {portfolios.length > 0 && (
                 <div className={`btn_center ${Styles.btn_center ?? ''}`}>
                     <button type="button" className={`eclick-btn-view lg ${Styles.viewBtn ?? ''}`} onClick={() => openLetsConnectModal("general_lets_connect")}>
                         <span>

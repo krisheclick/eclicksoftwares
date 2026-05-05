@@ -23,8 +23,7 @@ interface Props {
     boxClass3?: boolean;
 }
 const Developer = ({ hasLoading, whiteClass, separateText, data, isButton = true, boxClass3}: Props) => {
-    const lg = boxClass3 ? 4 : 3;
-    const md = boxClass3 ? 6 : 4;
+    const xl = boxClass3 ? 4 : 3;
     return (
         <div className={`${Styles.hwbsec}${whiteClass ? ' bg-white' : ''}`}>
             <Container>
@@ -52,10 +51,10 @@ const Developer = ({ hasLoading, whiteClass, separateText, data, isButton = true
                     )}
                 </div>
                 <div className={Styles.hwdsboxes}>
-                    <Row className="rowGap">
+                    <Row className="rowGap gx-2 gx-md-3 gx-xxl-4">
                         {!hasLoading ? (
                             data?.usps?.map((item, index) => (
-                                <Col lg={lg} md={md} key={index}>
+                                <Col xl={xl} lg={4} sm={6} key={index}>
                                     <HireCard
                                         icon={`${process.env.NEXT_PUBLIC_MEDIA_URL}${item.usp_feature_image_path}`}
                                         title={item.usp_title}
@@ -65,7 +64,7 @@ const Developer = ({ hasLoading, whiteClass, separateText, data, isButton = true
                                 </Col>
                             ))) : (
                             [...Array(8)].map((_, index) => (
-                                <Col lg={lg} md={md} key={index}>
+                                <Col xl={xl} lg={4} sm={6} key={index}>
                                     <HireCardSkeleton />
                                 </Col>
                             )))}

@@ -33,12 +33,10 @@
 .bannerTitle > *{
     display: block;
 }
-.skeletonTitle{
-    height: 42px;
+@media only screen and (max-width: 1600px){
+    .bannerTitle{
+        font-size: 42px;
+    }
 }
-.skeletonTitle:last-child{
-    height: 36px;
-}
-.lullu{
-    background-color: red;
+@media only screen and (max-width: 1399px){
 }

@@ -29,10 +29,10 @@ const GridList = () => {
         fetchData();
     }, []);
     return (
-        <div className={`sectionArea ${Styles.portfoli_section ?? ''}`}>
+        <div className={`sectionArea ${Styles.portfolio_section ?? ''}`}>
             <Container>
                 <div className={Styles.portfoiloList}>
-                    <Row className='rowGap'>
+                    <Row className='rowGap gx-2 gx-sm-3 gx-lg-4'>
                         {!hasLoading ? (
                             portfoiloData && portfoiloData.length > 0 && (
                                 portfoiloData?.map((value, index) => {
@@ -52,7 +52,7 @@ const GridList = () => {
 
                                     const textColor = text_color ? text_color : '#000000';
                                     return (
-                                        <Col key={index} lg={4} xl={3} className={Styles.columnBox}>
+                                        <Col key={index} xs={6} lg={4} xl={3} className={Styles.columnBox}>
                                             <Link href={`${process.env.NEXT_PUBLIC_ENV_URL}/portfolio/${slug}`}
                                                 className={Styles.portfolioBox}
                                                 style={{ '--text-color': textColor } as React.CSSProperties}
@@ -73,9 +73,9 @@ const GridList = () => {
                             )
                         ) : (
                             Array.from({ length: 8 }).map((_, index) => (
-                                <Col key={index} lg={4} xl={3}>
-                                    <div className={`${Styles.portfolioBox} skeleton text-center p-2`}>
-                                        <div className="skeleton w-80" style={{ height: 32 }}></div>
+                                <Col key={index} xs={6} lg={4} xl={3}>
+                                    <div className={`${Styles.portfolioBox}`}>
+                                        <div className={`skeleton ${Styles.posterTitle}`}>&nbsp;</div>
                                         <div className={`${Styles.portfolioPoster} skeleton w-100`}></div>
                                     </div>
                                 </Col>

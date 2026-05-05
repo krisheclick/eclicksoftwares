@@ -308,17 +308,16 @@ const HireModal: React.FC<HireModalProps> = ({
         >
             <Modal.Body className={`px-4 position-relative ${Styles.hireModalBody}`}>
                 <a 
-                    className={`${Styles.modalCloseBtn} position-absolute`}
+                    className={`modelButton ${Styles.modalCloseBtn}`}
                     onClick={handleClose}
-                    style={{ cursor: 'pointer', top: '1rem', right: '1rem', fontSize: '1.5rem' }}
                     aria-label="Close"
                 >
                     <FontAwesomeIcon icon={faXmark} />
                 </a>
 
                 {/* Header */}
-                <div className="text-center mb-4">
-                    <h4 className="mb-2 fw-bold" style={{ fontSize: '1.75rem', color: '#2d3436' }}>
+                <div className={Styles.modelHead}>
+                    <h4 className={`title fw-bold mb-2 ${Styles.formTitle ?? ''}`}>
                         {title}
                     </h4>
                     <p className="text-muted" style={{ fontSize: '0.95rem' }}>
@@ -342,7 +341,7 @@ const HireModal: React.FC<HireModalProps> = ({
                         {/* Name Field */}
                         <Col md={6}>
                             <Form.Group className="mb-3">
-                                <Form.Label className="fw-bold">
+                                <Form.Label className="fw-semibold">
                                     Full Name <span style={{ color: '#e74c3c' }}>*</span>
                                 </Form.Label>
                                 <Form.Control
@@ -366,7 +365,7 @@ const HireModal: React.FC<HireModalProps> = ({
                         {/* Email Field */}
                         <Col md={6}>
                             <Form.Group className="mb-3">
-                                <Form.Label className="fw-bold">
+                                <Form.Label className="fw-semibold">
                                     Email Address <span style={{ color: '#e74c3c' }}>*</span>
                                 </Form.Label>
                                 <Form.Control
@@ -390,7 +389,7 @@ const HireModal: React.FC<HireModalProps> = ({
                         {/* Phone Number Field */}
                         <Col md={6}>
                             <Form.Group className="mb-3">
-                                <Form.Label className="fw-bold">
+                                <Form.Label className="fw-semibold">
                                     Phone Number <span style={{ color: '#e74c3c' }}>*</span>
                                 </Form.Label>
                                 <Form.Control
@@ -413,7 +412,7 @@ const HireModal: React.FC<HireModalProps> = ({
                         {/* Company Field */}
                         <Col md={6}>
                             <Form.Group className="mb-3">
-                                <Form.Label className="fw-bold">
+                                <Form.Label className="fw-semibold">
                                     Company Name <span style={{ color: '#e74c3c' }}>*</span>
                                 </Form.Label>
                                 <Form.Control
@@ -437,7 +436,7 @@ const HireModal: React.FC<HireModalProps> = ({
 
                     {/* Service Type (USP) Select */}
                     <Form.Group className="mb-3">
-                        <Form.Label className="fw-bold">
+                        <Form.Label className="fw-semibold">
                             Hire For <span style={{ color: '#e74c3c' }}>*</span>
                         </Form.Label>
                         <Form.Select
@@ -447,6 +446,7 @@ const HireModal: React.FC<HireModalProps> = ({
                             onChange={handleChange}
                             disabled={isSubmitting}
                             isInvalid={!!errors.usp}
+                            className="form-control"
                         >
                             <option value="">Select a Hire For...</option>
                             {uspOptions.map((option) => (
@@ -464,7 +464,7 @@ const HireModal: React.FC<HireModalProps> = ({
 
                     {/* Project Description Field */}
                     <Form.Group className="mb-4">
-                        <Form.Label className="fw-bold">
+                        <Form.Label className="fw-semibold">
                             Project Description <span style={{ color: '#e74c3c' }}>*</span>
                         </Form.Label>
                         <Form.Control
@@ -486,13 +486,14 @@ const HireModal: React.FC<HireModalProps> = ({
                     </Form.Group>
 
                     {/* Submit Button */}
-                    <div className="d-flex justify-content-center gap-3 mt-5">
+                    <div className="btn_wrap justify-content-center">
                         {!isSubmitting &&
                             <Button
                                 variant="secondary"
                                 onClick={handleClose}
                                 disabled={isSubmitting}
                                 className={`eclick-btn-connect ${Styles.cancelBtn ?? ''}`}
+                                style={{color: "#000"}}
                             >
                                 <em>Cancel</em>
                             </Button>

@@ -16,7 +16,7 @@
     --gap: 24px;
     gap: var(--gap) 0px;
     margin: 0 calc(-1 * var(--gap));
-    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
 }
 .infoBox{
     max-width: 660px;
@@ -234,6 +234,10 @@
     }
     .country img{
         --size: 24px;
+    }
+    .innerLocation .locationRow{
+        grid-template-columns: repeat(auto-fill, minmax(252px, 1fr));
+        --gap: 12px;
     }
 }
 @media only screen and (max-width: 479px){

@@ -24,10 +24,10 @@ const Counters = ({ hasLoading, counters }: Props) => {
     const duration = 3;
     return (
         <div className={Styles.counterList} ref={ref}>
-            <Row className="gx-3 rowGap">
+            <Row className="gx-2 gx-lg-3 rowGap">
                 {!hasLoading ? (
                     counters?.map((item, index) => (
-                        <Col lg={3} key={index}>
+                        <Col xs={6} sm={4} xl={3} key={index}>
                             <div className={Styles.counterBox}>
                                 <div className={Styles.counterTitle}>
                                     <span className={Styles.count}>
@@ -52,11 +52,11 @@ const Counters = ({ hasLoading, counters }: Props) => {
                     ))
                 ) : (
                     [...Array(8)].map((_, index) => (
-                        <Col lg={3} key={index}>
+                        <Col xs={6} md={4} xl={3} key={index}>
                             <div className={Styles.counterBox}>
                                 <div className={Styles.counterTitle}>
-                                    <span className={`skeleton ${Styles.skeletonCount}`}></span>
-                                    <em className={`skeleton ${Styles.skeletonPrefix}`}></em>
+                                    <span className={`skeleton ${Styles.count}`}>&nbsp;</span>
+                                    <em className="skeleton">&nbsp;</em>
                                 </div>
                                 <div className="skeleton skeletonText"></div>
                             </div>

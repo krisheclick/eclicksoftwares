@@ -129,7 +129,7 @@ const Area = () => {
                                                 </div>
                                                 <div className="w-100">
                                                     <div className="skeleton skeletonText"></div>
-                                                    <div className="skeleton skeletonText"></div>
+                                                    <div className="skeleton skeletonText w-50 mb-3"></div>
                                                     <div className="skeleton skeletonText"></div>
                                                     <div className="skeleton skeletonText"></div>
                                                 </div>

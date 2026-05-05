@@ -59,7 +59,7 @@ const HookIndustry = () => {
                 <div className={Styles.tabWrapper}>
                     <div className={Styles.navigation}>
                         <ul className="noList">
-                            {hasLoading ? (
+                            {!hasLoading ? (
                                 data?.map((value, index) => {
                                     const { industry_title, industry_feature_image_path } = value;
                                     return (

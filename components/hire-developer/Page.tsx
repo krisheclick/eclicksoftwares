@@ -155,7 +155,7 @@ const Page = () => {
     })) || [];
 
     return (
-        <div className={`hire-page ${Styles.hire_page}`}>
+        <div className={`hire-page ${Styles.hire_page ?? ''}`}>
             {!isLoading ? (
                 <Banner
                     data={customData?.group_name?.banner ?? undefined}
@@ -194,7 +194,7 @@ const Page = () => {
                         </div>
                     </div>
                     <div className={Styles.techcmb}>
-                        <Row className={`rowGap ${Styles.techRow ?? ''}`}>
+                        <Row className={`rowGap gx-2 gx-lg-3 gx-xxl-4 ${Styles.techRow ?? ''}`}>
                             {!isLoading ? (
                                 <TechCard
                                     data={data?.technologies}
@@ -209,7 +209,7 @@ const Page = () => {
 
             <div className={Styles.counter_section}>
                 <Container>
-                    <div className={`section-content w-75 ${Styles.counter_content ?? ''}`}>
+                    <div className={`section-content w-lg-75 ${Styles.counter_content ?? ''}`}>
                         {!isLoading ? (
                             <>
                                 <div className={`title ${Styles.title ?? ''}`}
@@ -235,7 +235,7 @@ const Page = () => {
 
             <div className={`sectionArea ${Styles.faqSectionsam ?? ''}`}>
                 <Container>
-                    <Row className={Styles.row}>
+                    <Row className={`rowGap ${Styles.row ?? ''}`}>
                         <Col lg={5}>
                             <div className={Styles.hmfaq_tpbx}>
                                 <h2 className={Styles.hwdtilte}>{faqContent?.yt43_heading}</h2>

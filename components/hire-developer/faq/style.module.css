@@ -36,7 +36,7 @@
 .icon::after {
   content: "";
   position: absolute;
-  background-color: #1F58CB;
+  background-color: var(--primary-color);
   transition: all 0.3s ease;
 }
 .icon::before {
@@ -58,17 +58,38 @@
 }
 :global(.accordion-body) {
   padding: 0 20px 18px 56px;
-  background: #fff;
+  background: var(--white-color);
 }
 .faqhtilte {
   font-size: 20px;
-  line-height: 30px;
+  line-height: 1.5;
   font-weight: 600;
-  color: #000000;
+  color: var(--black-color);
 }
 .faqbpara {
   font-size: 18px;
-  line-height: 30px;
-  color: #000000;
+  line-height: 1.75;
+  color: var(--black-color);
   font-weight: 400;
+}
+@media only screen and (max-width: 1399px){
+  .faqbpara{
+    font-size: 16px;
+  }
+}
+@media only screen and (max-width: 1199px){
+  .faqhtilte{
+    font-size: 18px;
+  }
+}
+@media only screen and (max-width: 479px){
+  .accHeader {
+    padding: 12px 8px;
+  }
+  .faqhtilte{
+    font-size: 16px;
+  }
+  .faqbpara{
+    font-size: 15px;
+  }
 }

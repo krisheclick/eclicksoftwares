@@ -11,7 +11,7 @@ import Link from "next/link";
 const ScheduleCallSuccess = () => {
     const router = useRouter();
     const hasRun = useRef(false);
-    const [counter, setCounter] = useState(30); // countdown in seconds
+    const [counter, setCounter] = useState(300); // countdown in seconds
 
     useEffect(() => {
         // if (hasRun.current) return;
@@ -63,10 +63,10 @@ const ScheduleCallSuccess = () => {
                                 <strong>{counter} second{counter !== 1 ? "s" : ""}</strong>.
                             </p>
 
-                            <div className={Styles.actionButtons}>
+                            <div className={`btn_center ${Styles.actionButtons ?? ''}`}>
                                 <Link
                                     href="/"
-                                    className={`eclick-btn-primary ${Styles.homeBtn}`}
+                                    className={`eclick-btn-primary lg ${Styles.homeBtn ?? ''}`}
                                 >
                                     <em>Go to Home Now</em>
                                 </Link>

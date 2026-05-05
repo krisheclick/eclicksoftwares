@@ -244,4 +244,8 @@
     .item:nth-child(even){
         border-right-width: 0px;
     }
+    .videoIcon{
+        --size: 40px;
+        font-size: 15px;
+    }
 }

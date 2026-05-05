@@ -23,7 +23,7 @@
     font-size: 16px;
     text-transform: capitalize;
     font-weight: 400;
-    line-height: 25px;
+    line-height: 1.5;
     color: var(--black-color);
     padding: 6px 10px;
     height: 94px;
@@ -31,6 +31,7 @@
     align-items: center;
     justify-content: center;
     margin: 0;
+    overflow: hidden;
 }
 .mainboxhiretable ul li:nth-child(odd) {
     background: #F3F7FA;
@@ -43,14 +44,13 @@
     text-transform: capitalize;
     font-weight: 600;
     font-size: 18px;
-    line-height: 27px;
+    line-height: 1.5;
     color: var(--black-color);
     height: 100px;
     display: flex;
     align-items: center;
     justify-content: center;
     margin: 0;
-    padding-top: 28px;
     -moz-transition: all 300ms ease-in-out;
     -webkit-transition: all 300ms ease-in-out;
     transition: all 300ms ease-in-out;
@@ -63,7 +63,6 @@
     color: var(--white-color);
     font-size: 22px;
     line-height: 30px;
-    padding: 0;
 }
 .hdtilte {
     text-align: center;
@@ -72,17 +71,87 @@
     color: var(--black-color);
     font-weight: 400;
     text-transform: capitalize;
-    margin-bottom: 50px;
 }
 .hdtilte strong {
     display: block;
-    font-size: 60px;
+    font-size: 1.25em;
     color: #282828;
     font-weight: 600;
 }
-.skeletonRegularTitle{
-    height: 54px;
+@media only screen and (max-width: 1600px){
+    .hiredevsec{
+        padding-block: 60px;
+    }
+    .hdtilte{
+        font-size: 40px;
+    }
+    .tablehireheading{
+        height: 80px;
+    }
+    .singleboxhiretable:nth-child(2) .tablehireheading{
+        font-size: 20px;
+    }
+    .mainboxhiretable ul li{
+        height: 80px;
+        font-size: 15px;
+    }
 }
-.skeletonTitle{
-    height: 70px;
+@media only screen and (max-width: 1199px){
+    .tablehireheading{
+        height: 70px;
+        font-size: 16px;
+    }
+    .singleboxhiretable:nth-child(2) .tablehireheading{
+        font-size: 18px;
+    }
+    .mainboxhiretable ul li{
+        height: 72px;
+        font-size: 14px;
+    }
+}
+@media only screen and (max-width: 991px){
+    .hiredevsec {
+        padding-block: 50px;
+    }
+    .hdtilte{
+        font-size: 36px;
+    }
+    .mainboxhiretableResponsive{
+        overflow: auto hidden;
+    }
+    .mainboxhiretable{
+        width: 1000px;
+    }
+}
+@media only screen and (max-width: 767px){
+    .hiredevsec {
+        padding-block: 40px;
+    }
+    .hdtilte{
+        font-size: 32px;
+    }
+    .mainboxhiretable{
+        width: 840px;
+    }
+    .tablehireheading {
+        height: 56px;
+        font-size: 15px;
+    }
+    .singleboxhiretable:nth-child(2) .tablehireheading{
+        font-size: 16px;
+    }
+    .mainboxhiretable ul li {
+        height: 60px;
+        font-size: 13px;
+    }
+}
+@media only screen and (max-width: 575px){
+    .hdtilte{
+        font-size: 28px;
+    }
+}
+@media only screen and (max-width: 479px){
+    .hdtilte{
+        font-size: 24px;
+    }
 }

@@ -30,10 +30,10 @@ const Tshirt = ({ hasLoading, title, portfolios = [] }: Props) => {
 
     return (
         <>
-            <Row className="rowGap">
+            <Row className='rowGap gx-2 gx-sm-3 gx-xxl-4'>
                 {!hasLoading ? (
                     portfolios.map((item, index) => (
-                        <Col lg={4} sm={6} key={index}>
+                        <Col lg={4} xs={6} key={index}>
                             <div className={Styles.shirtBox}>
                                 <Image
                                     src={`${process.env.NEXT_PUBLIC_MEDIA_URL}${item.portfolio_feature_image_path ?? ""}`}
@@ -46,7 +46,7 @@ const Tshirt = ({ hasLoading, title, portfolios = [] }: Props) => {
                     ))
                 ) : (
                     [...Array(6)].map((_, index) => (
-                        <Col lg={4} sm={6} key={index}>
+                        <Col lg={4} xs={6} key={index}>
                             <div className={`skeleton ${Styles.shirtBox}`} />
                         </Col>
                     ))

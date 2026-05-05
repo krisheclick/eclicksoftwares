@@ -20,3 +20,26 @@
     font-size: 1.05em;
     line-height: 1.9;
 }
+@media only screen and (max-width: 1600px){
+    .cmsBanner {
+        min-height: 320px;
+        padding: 70px 0;
+    }
+    .sectionArea{
+        margin-block: 60px;
+    }
+}
+@media only screen and (max-width: 1199px){
+    .cmsBanner {
+        min-height: 270px;
+        padding: 50px 0;
+    }
+    .sectionArea{
+        margin-block: 50px;
+    }
+}
+@media only screen and (max-width: 767px){
+    .sectionArea{
+        margin-block: 40px;
+    }
+}

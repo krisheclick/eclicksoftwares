@@ -91,7 +91,7 @@ const CasestudyList = () => {
     const projects = data?.projectGroup?.Projects;
 
     return (
-        <div className={`sectionArea ${Styles.casestudies_section}`}>
+        <div className={`sectionArea ${Styles.casestudies_section ?? ''}`}>
             <Container>
                 <div className={Styles.tabList}>
                     <ul className="noList">

@@ -186,64 +186,26 @@
     opacity: 0.6;
     cursor: not-allowed;
 }
+.modelHead{
+    text-align: center;
+    margin-bottom: 30px;
+}
 
 /* Responsive Styles */
-@media (max-width: 768px) {
-    .hireModal {
-        --bs-modal-width: 100%;
-        --bs-modal-margin: 0.5rem;
-    }
-
-    .hireModalHeader {
-        padding: 1.5rem;
-    }
-
+@media (max-width: 991px) {
     .hireModalBody {
         padding: 2rem;
         max-height: calc(100vh - 150px);
     }
-
-    .hireModalTitle {
-        font-size: 1.5rem;
-    }
-
-    .formActions {
-        flex-direction: column;
-        gap: 0.75rem;
-    }
-
-    .submitBtn,
-    .cancelBtn {
-        width: 100%;
-    }
 }
 
 /* Mobile styles for very small screens */
-@media (max-width: 480px) {
-    .hireModalHeader {
-        padding: 1.25rem;
+@media (max-width: 479px) {
+    .modelHead{
+        max-width: 90%;
+        margin: 0px auto 20px;
     }
-
     .hireModalBody {
-        padding: 1.5rem;
-    }
-
-    .hireModalTitle {
-        font-size: 1.25rem;
-    }
-
-    .formLabel {
-        font-size: 0.9rem;
-    }
-
-    .formControl {
-        font-size: 0.9rem;
-        padding: 0.75rem 0.875rem;
-    }
-
-    .submitBtn,
-    .cancelBtn {
-        padding: 0.65rem 1rem;
-        font-size: 0.85rem;
+        padding: 16px;
     }
 }

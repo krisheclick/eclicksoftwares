@@ -1,6 +1,8 @@
 .reqLeft{
     padding-right: 6px;
     max-width: 95%;
+}
+.scrollData{
     max-height: 580px;
     overflow: hidden auto;
 }
@@ -17,6 +19,7 @@
 }
 .galleryPoster{
     border-radius: 20px;
+    padding-top: 88%;
 }
 .galleryPoster img{
     border-radius: 20px;
@@ -69,4 +72,61 @@
 }
 .readmore:hover{
     color: var(--primary-color);
+}
+@media only screen and (max-width: 1399px){
+    .reqLeft{
+        max-width: 100%;
+    }
+    .reqLeft h2{
+        font-size: 40px;
+    }
+    .reqLeft h6{
+        font-size: 20px;
+    }
+}
+@media only screen and (max-width: 1199px){
+    .reqLeft h2{
+        font-size: 36px;
+    }
+    .achivement_title{
+        font-size: 20px;
+    }
+    .achivement_data table :is(td, th){
+        padding: 12px 6px;
+    }
+    .reqLeft h6{
+        font-size: 18px;
+        padding-bottom: 10px;
+    }
+}
+@media only screen and (max-width: 991px){
+    .requirSec{
+        flex-direction: column-reverse;
+    }
+}
+@media only screen and (max-width: 767px){
+    .reqLeft h2{
+        font-size: 30px;
+        margin-bottom: 0;
+    }
+    .galleryPoster{
+        border-radius: 8px;
+    }
+}
+@media only screen and (max-width: 479px){
+    .reqLeft h2{
+        font-size: 26px;
+    }
+    .reqLeft h6{
+        font-size: 16px;
+    }
+    .achivement_title {
+        font-size: 18px;
+        margin-bottom: 12px;
+    }
+}
+@media only screen and (max-width: 359px){
+    .reqLeft h2{
+        font-size: 24px;
+    }
 }

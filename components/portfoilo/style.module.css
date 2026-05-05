@@ -17,14 +17,10 @@
     font: 600 42px / 1.1 var(--primary-font);
     color: var(--primary-title-color);
 }
-.portfoiloList{
-    margin-top: 48px;
-}
 .portfolioBox{
     text-align: center;
     gap: 30px;
     display: grid;
-    /* padding-top: 20px; */
     position: relative;
     z-index: 1;
 }
@@ -61,7 +57,7 @@
     transform: scale(1.1);
 }
 /* Case Study */
-.smallList .rowList{
+/* .smallList .rowList{
     box-shadow: 0 5px 10px rgba(0, 0, 0, .2);
     border-radius: 20px; 
     padding: 0;
@@ -143,7 +139,7 @@
 }
 .listTarget a svg{
     margin-top: 5px;
-}
+} */
 .btn_center{
     margin-top: 60px;
 }
@@ -152,25 +148,96 @@
     --padding: 60px;
     font-size: calc(var(--size) / 3.5);
 }
-.viewBtn em{
-    margin-left: 8px;
-}
 @media only screen and (max-width: 1600px) {
-    .card{
-        font-size: 13px;
+    .bannerPoster{
+        height: 360px;
     }
-    .boxTitle{
+    .posterTitle{
         font-size: 22px;
-        margin-bottom: 6px;
+    }
+    .btn_center .viewBtn{
+        --size: 60px;
+        --padding: 30px;
     }
 }
 
 @media only screen and (max-width: 1399px) {
-    .card{
-        font-size: 12px;
+    .bannerPoster{
+        height: 280px;
     }
-    .boxTitle{
+    .posterTitle{
         font-size: 20px;
-        margin-bottom: 4px;
+        padding: 16px;
+    }
+    .pageTitle{
+        font-size: 36px;
+    }
+    .btn_center{
+        margin-top: 48px;
+    }
+    .btn_center .viewBtn{
+        --size: 54px;
+        --padding: 24px;
+    }
+}
+
+@media only screen and (max-width: 991px) {
+    .bannerPoster{
+        height: 220px;
+    }
+    .pageTitle{
+        font-size: 32px;
+    }
+    .btn_center{
+        margin-top: 40px;
+    }
+    .btn_center .viewBtn{
+        --size: 48px;
+        --padding: 16px;
+    }
+}
+@media only screen and (max-width: 575px) {
+    .bannerPoster{
+        height: 180px;
+    }
+    .posterTitle{
+        font-size: 18px;
+        padding: 12px;
+    }
+    .pageTitle{
+        font-size: 28px;
+    }
+    .btn_center{
+        margin-top: 36px;
+    }
+}
+@media only screen and (max-width: 479px) {
+    .bannerPoster{
+        height: 140px;
+    }
+    .posterTitle{
+        padding: 12px 4px;
+        font-size: 15px;
+    }
+    .pageTitle{
+        font-size: 26px;
+    }
+    .btn_center{
+        margin-top: 36px;
+    }
+    .btn_center .viewBtn{
+        --size: 44px;
+        --padding: 12px;
+    }
+}
+@media only screen and (max-width: 359px) {
+    .bannerPoster{
+        height: 120px;
+    }
+    .posterTitle{
+        font-size: 14px;
+    }
+    .pageTitle{
+        font-size: 24px;
     }
 }

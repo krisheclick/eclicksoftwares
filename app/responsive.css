@@ -53,6 +53,7 @@
 	}
 	.heading{
 		font-size: 36px;
+		margin-bottom: 20px;
 	}
 	:is(.heading, .titleTag)::after {
 		width: 80px;
@@ -78,6 +79,11 @@
 	[class*="eclick-btn-"].lg {
 		font-size: 15px;
 	}
+	[class*="eclick-btn-"].sm {
+		--size: 36px;
+		--padding: 12px;
+		font-size: 13px;
+	}
 	.gallerySwiper .swiper-pagination {
 		width: 28px !important;
 		height: 80px !important;
@@ -87,6 +93,9 @@
 @media only screen and (max-width: 1199px){
 	.header_wrap{
 		min-height: 72px;
+	}
+	.sticky {
+		margin-top: 72px;
 	}
 	.title{
 		font-size: 30px;
@@ -99,6 +108,17 @@
 	}
 }
 @media only screen and (max-width: 991px){
+	.sectionArea {
+		margin-block: 50px;
+	}
+	.form-control {
+		--height: 44px;
+		padding: 8px 12px;
+		font-size: 15px;
+	}
+	select.form-control{
+		background-position-y: 10px;
+	}
 	.btn_left, .btn_center{
 		margin-top: 30px;
 	}
@@ -110,6 +130,7 @@
 	}
 	.heading{
 		font-size: 32px;
+		margin-bottom: 16px;
 	}
 	.title{
 		font-size: 28px;
@@ -129,15 +150,27 @@
 		margin: 16px auto 0 !important;
 		max-width: max-content;
 	}
+	.swiper-pagination {
+		margin-top: 30px;
+	}
+	.sliderdiv .swiper-wrapper {
+		padding-block: 30px;
+	}
+	.modal-dialog {
+		max-width: calc(100% - 24px);
+	}
+	.modelButton{
+		padding: 10px;
+	}
 }
 @media only screen and (max-width: 767px){
-	.sectionArea {
-		margin-block: 50px;
-	}
 	[class*="eclick-btn-"].lg {
 		font-size: 14px;
 		--size: 44px;
 		--padding: 20px;
+	}	
+	[class*="eclick-btn-"].sm {
+		font-size: 12px;
 	}
 	.titleTag{
 		font-size: 26px;
@@ -151,19 +184,37 @@
 	.skeletonDot{
 		width: 70px;
 	}
+	.sliderdiv .swiper-wrapper {
+		padding-block: 0px;
+	}
 }
 @media only screen and (max-width: 575px){
 	.swiper-pagination-bullet {
 		--size: 8px;
 	}
-}
-@media only screen and (max-width: 479px){
+	body{
+		font-size: 14px;
+	}
+	.swiper-pagination {
+		margin-top: 24px;
+	}
 	.sectionArea {
 		margin-block: 40px;
+	}
+}
+@media only screen and (max-width: 479px){
+	.header_wrap {
+		min-height: 60px;
+	}
+	.sticky {
+		margin-top: 60px;
 	}
 	[class*="eclick-btn-"].lg {
 		--size: 40px;
 		font-size: 13px;
+	}
+	.sectionArea {
+		margin-block: 30px;
 	}
 	.heading{
 		font-size: 28px;
@@ -180,5 +231,15 @@
 	}
 	.skeletonDot{
 		width: 60px;
+	}
+	.form-control {
+		--height: 40px;
+		font-size: 14px;
+	}
+	select.form-control{
+		background-size: 17px;
+	}
+	textarea.form-control{
+		height: 90px;
 	}
 }

@@ -20,6 +20,22 @@
     clip-path: polygon(0 0, 100% 0%, 80% 100%, 0% 100%);
     width: 58vw;
 }
+/* .bannerArrow{
+    --size: 48px;
+    width: var(--size);
+    height: var(--size);
+    margin: -24px auto 0;
+    background: var(--primary-color);
+    color: var(--white-color);
+    display: grid;
+    place-items: center;
+    border-radius: 100%;
+    font-size: 16px;
+    border: 2px solid var(--white-color);
+    position: relative;
+    z-index: 1;
+    cursor: pointer;
+} */
 .bannerText{
     max-width: 500px;
 }
@@ -56,6 +72,71 @@
     background: var(--primary-color);
     color: var(--white-color);
 }
+/* Card */
+/* .cardBox{
+    --round: 16px;
+    display: grid;
+    grid-template-columns: repeat(1, 5fr 6fr);
+    box-shadow: 0px 4px 8px 0px #53535340;
+    border-radius: var(--round);
+    min-height: 100%;
+} */
+.thumbnail{
+    padding: 16px;
+    background: #CEE5FF;
+    border-radius: var(--round);
+}
+.thumbnail figure{
+    width: 100%;
+    height: 330px;
+    border-radius: var(--round);
+    overflow: hidden;
+    object-fit: cover;
+    /* background-size: 100%;
+    background-position-x: 0;
+    background-repeat: no-repeat;
+    transition: all 2s ease; */
+}
+/* .thumbnail:hover figure{
+    background-position-y: 100%;
+} */
+.cardData{
+    padding: 12px 16px 12px 20px;
+    align-self: center;
+}
+.subtitle{
+    font: 600 24px / 1.2 var(--primary-font);
+    margin-bottom: 12px;
+    color: #303030;
+}
+.cardData ul{
+    display: grid;
+    row-gap: 10px;
+}
+.cardData ul li{
+    display: flex;
+    align-items: start;
+    gap: 2px;
+}
+.cardData ul li::before{
+    content: '';
+    display: inline-block;
+    vertical-align: middle;
+    flex-shrink: 0;
+    --size: 18px;
+    width: var(--size);
+    height: var(--size);
+    background: url('./images/check.svg') no-repeat center / contain;
+    margin-top: 2px;
+    color: #1F58CB;
+}
+.projectName{
+    font: 600 1.1em / 1.3 var(--primary-font);
+    margin-top: 16px;
+}
+.projectName svg{
+    margin-right: 8px;
+}
 
 /* Technologies Area */
 .technologiesArea{
@@ -87,8 +168,10 @@
     place-items: center;
     margin: auto;
     display: grid;
-    position: relative;
-    background: none !important;
+    position: relative
+}
+figure.brandLogo{
+    background: none;
 }
 .brandLogo img {
     object-fit: contain;
@@ -96,7 +179,7 @@
 }
 .calltoAction{
     background: var(--primary-background);
-    /* box-shadow: 0px 4px 4px #2c2c2c40; */
+    box-shadow: 0px 4px 4px #2c2c2c40;
     margin-bottom: 48px;
 }
 .calltoAction_wrapper{
@@ -104,7 +187,7 @@
     align-items: center;
     justify-content: space-between;
     gap: 16px 30px;
-    padding: 40px 0px;
+    padding: 40px 48px;
 }
 .calltoAction_content .calltoActionTitle{
     color: #313131;
@@ -125,9 +208,6 @@
         margin-bottom: 60px;
         font-size: 15px;
     }
-    .calltoAction_wrapper{
-        padding: 36px 0px;
-    }
 }
 @media only screen and (max-width: 1399px){  
     .tabList ul{
@@ -138,121 +218,4 @@
         min-height: 46px;
         padding: 10px 24px;
     }
-    .technologiesArea{
-        margin-bottom: 60px;
-    }
-}
-@media only screen and (max-width: 1199px){
-    .brands li{
-        font-size: 1em;
-    }
-    .brandLogo {
-        --size: 60px;
-    }
-    .calltoAction_wrapper{
-        padding: 30px 0px;
-        border-radius: 8px;
-    }
-}
-@media only screen and (max-width: 991px){
-    .casestudies_section{
-        margin-block: 40px;
-    }
-    .cmsBanner {
-        min-height: 280px;
-    }
-    .cmsBanner::after{
-        width: 72vw;
-        opacity: 0.85;
-    }
-    .bannerTitle{
-        font-size: 36px;
-    }
-    .bannerText {
-        max-width: 440px;
-    }
-    .tabList ul{
-        margin-bottom: 36px;
-    }
-    .brands ul {
-        grid-template-columns: repeat(3,1fr);
-    }
-    .technologiesArea{
-        margin-bottom: 50px;
-    }
-}
-@media only screen and (max-width: 767px){
-    .cmsBanner::after{
-        width: 100%;
-        clip-path: none;
-        opacity: 0.85;
-    }
-    .calltoAction{
-        margin-bottom: 36px;
-    }
-    .calltoAction_wrapper{
-        flex-wrap: wrap;
-        gap: 16px;
-        padding-block: 20px;
-    }
-}
-@media only screen and (max-width: 575px){
-    .cmsBanner {
-        min-height: 240px;
-        padding-block: 36px;
-        font-size: 1em;
-    }
-    .bannerTitle{
-        font-size: 32px;
-        margin-bottom: 10px;
-    }
-    .technologiesArea{
-        margin-bottom: 40px;
-    }
-    .calltoActionTitle span{
-        display: initial;
-    }
-    .calltoAction{
-        margin-bottom: 24px;
-    }
-}
-@media only screen and (max-width: 479px){
-    .cmsBanner{
-        min-height: 200px;
-        padding-block: 30px;
-    }
-    .bannerTitle{
-        font-size: 26px;
-    }
-    .tabList ul {
-        margin-bottom: 30px;
-        box-shadow: none;
-        padding: 0;
-        flex-wrap: wrap;
-        background: transparent;
-        font-size: 13px;
-        gap: 4px;
-    }
-    .tabItem{
-        min-width: 130px;
-        background: #f5f5f5;
-        min-height: 38px;
-        padding: 8px 18px;
-    }
-    .brands li{
-        font-size: .85em;
-        gap: 4px;
-        padding: 10px;
-    }
-    .brandLogo {
-        --size: 48px;
-    }
-    .technologiesArea{
-        margin-bottom: 30px;
-    }
-    .calltoAction{
-        margin-bottom: 20px;
-    }
-}
-@media only screen and (max-width: 359px){
 }

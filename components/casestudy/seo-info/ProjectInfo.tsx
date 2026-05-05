@@ -10,7 +10,7 @@ const ProjectInfo = ({ business_data, initial_challenges }: Props) => {
     return (
         <div className={`sectionArea ${Styles.sectionArea ?? ''}`}>
             <Container>
-                <Row>
+                <Row className='rowGap'>
                     {business_data && (
                         <Col lg={6}>
                             <div className={Styles.business_data}>

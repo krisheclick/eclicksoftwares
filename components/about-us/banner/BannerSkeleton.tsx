@@ -9,8 +9,10 @@ const BannerSkeleton = () => {
                 <div className={Styles.bannerText}>
                     <Container>
                         <div className={Styles.bannerText_in}>
-                            <div className={`skeleton w-50 mx-auto mb-2 ${Styles.skeletonTitle}`}></div>
-                            <div className={`skeleton w-75 mx-auto ${Styles.skeletonTitle}`}></div>
+                            <div className={`title ${Styles.bannerTitle}`}>
+                                <b className="skeleton mb-2">&nbsp;</b>
+                                <div className="skeleton mb-2">&nbsp;</div>
+                            </div>
                         </div>
                     </Container>
                 </div>

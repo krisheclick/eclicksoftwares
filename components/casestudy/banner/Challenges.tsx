@@ -21,11 +21,11 @@ const Challenges = ({ data }: Props) => {
     return (
         <section className={Styles.challengesSection}>
             <Container>
-                <Row>
-                    <Col lg={6}>
+                <Row className={`rowGap gx-2 gx-sm-3 gx-xl-4 ${Styles.mobileNone}`}>
+                    <Col sm={6}>
                         <h6>Challenges</h6>
                     </Col>
-                    <Col lg={6}>
+                    <Col sm={6}>
                         <h6>Solutions</h6>
                     </Col>
                 </Row>
@@ -34,28 +34,34 @@ const Challenges = ({ data }: Props) => {
                         const { ca_std_name, ca_std_problem_statement, ca_std_approach } = value;
                         return (
                             <div className={Styles.challengesList} key={index}>
-                                <Row>
-                                    <Col lg={6}>
+                                <Row className="rowGap gx-2 gx-sm-3 gx-xl-4">
+                                    <Col sm={6}>
                                         <div className={Styles.challenges}>
-                                            <div className={Styles.listIcon}>
-                                                <FontAwesomeIcon icon={faFlag} />
+                                            <div className={`${Styles.headWrap} d-flex align-items-center gap-2`}>
+                                                <div className={Styles.listIcon}>
+                                                    <FontAwesomeIcon icon={faFlag} />
+                                                </div>
+                                                <h6 className={Styles.mobileBlock}>Challenges</h6>
                                             </div>
                                             <aside>
                                                 <h2>{ca_std_name}</h2>
-                                                <div 
-                                                    dangerouslySetInnerHTML={{__html: ca_std_problem_statement || ""}}
+                                                <div
+                                                    dangerouslySetInnerHTML={{ __html: ca_std_problem_statement || "" }}
                                                 />
                                             </aside>
                                         </div>
                                     </Col>
-                                    <Col lg={6}>
+                                    <Col sm={6}>
                                         <div className={`${Styles.challenges} ${Styles.solutions}`}>
-                                            <div className={Styles.listIcon}>
-                                                <FontAwesomeIcon icon={faLightbulb} />
+                                            <div className={`${Styles.headWrap} d-flex align-items-center gap-2`}>
+                                                <div className={Styles.listIcon}>
+                                                    <FontAwesomeIcon icon={faLightbulb} />
+                                                </div>
+                                                <h6 className={Styles.mobileBlock}>Solutions</h6>
                                             </div>
                                             <aside>
-                                                <div 
-                                                    dangerouslySetInnerHTML={{__html: ca_std_approach || ""}}
+                                                <div
+                                                    dangerouslySetInnerHTML={{ __html: ca_std_approach || "" }}
                                                 />
                                             </aside>
                                         </div>

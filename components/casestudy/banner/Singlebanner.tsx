@@ -44,7 +44,7 @@ const Singlebanner = ({ data }: Props) => {
     return (
         <div className={Styles.singleBannerSection}>
             <Container>
-                <Row>
+                <Row className="rowGap">
                     <Col lg={5}>
                         <div className={Styles.leftContent}>
                             <h1>
