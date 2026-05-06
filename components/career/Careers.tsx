@@ -6,6 +6,8 @@ import Image from "next/image";
 import Styles from "./style.module.css";
 import ReferAFriendModal from "../careers/ReferAFriendModal";
 import { useReferModal } from "@/utils/useLetsConnect";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faArrowRight } from "@fortawesome/free-solid-svg-icons";
 
 type PageData = {
     id: number;
@@ -62,7 +64,7 @@ type Pagination = {
 
 const Careers = () => {
     const { showReferModal, setShowReferModal, openReferModal } = useReferModal();
-    
+
     const [isLoading, setIsLoading] = useState(true);
     const [pageData, setPageData] = useState<PageData | null>(null);
     const [bannerData, setBannerData] = useState<Banner | null>(null);
@@ -85,7 +87,7 @@ const Careers = () => {
             console.error("Failed to fetch About Page:", (err as Error).message);
         } finally {
             setIsLoading(false);
-        
+
         };
     }
 
@@ -166,66 +168,60 @@ const Careers = () => {
 
     return (
         <>
-            {/* Hero Section */}
-            <div className={Styles.heroSection}>
-                <Container className="container-full">
-                    <figure>
-                        {!isLoading ? (
-                            <Image
-                                src={`${process.env.NEXT_PUBLIC_MEDIA_URL}/uploads/page_image/${bannerData?.t8vk_image}`}
-                                alt={bannerData?.t8vk_title || "Banner Poster"}
-                                fill
-                                priority
-                            />
-                        ) : (
-                            <div className="skeleton skeletonFill"></div>
-                        )}
-                    </figure>
+            {!isLoading ? (
+                <div className={Styles.heroSection} style={{background: `url(${`${process.env.NEXT_PUBLIC_MEDIA_URL}/uploads/page_image/${bannerData?.t8vk_image}`}) no-repeat top center`}}>
                     <div className={Styles.bannerText}>
                         <Container>
                             <div className={Styles.bannerText_in}>
-                                {!isLoading ? (
-                                    <>
-                                        {
-                                            bannerData?.t8vk_title && (
-                                                <h1 dangerouslySetInnerHTML={{ __html: bannerData?.t8vk_title }} className={`${Styles.bannerTitle}`} />
-                                            )
-                                        }
-                                        {bannerData?.t8vk_description && (
-                                            <div className={Styles.banerparaul}><div dangerouslySetInnerHTML={{ __html: bannerData.t8vk_description }}/></div>
-                                        )}
-                                        <div className={Styles.btnbanner}>
-                                            <Link href="#job_openings" className={Styles.btnbnrs}>
-                                                Let’s start your journey
-                                            </Link>
-                                            <Link href="#" onClick={openReferModal} className={Styles.btnbnrs}>
-                                                refer a friend
-                                            </Link>
-                                        </div>
-                                    </>
-                                ) : (
-                                    <>
-                                        <div className={`skeleton w-50 mx-auto mb-2 ${Styles.skeletonTitle}`}></div>
-                                        <div className={`skeleton w-75 mx-auto ${Styles.skeletonTitle}`}></div>
-                                    </>
+                                {
+                                    bannerData?.t8vk_title && (
+                                        <h1 dangerouslySetInnerHTML={{ __html: bannerData?.t8vk_title }} className={`${Styles.bannerTitle}`} />
+                                    )
+                                }
+                                {bannerData?.t8vk_description && (
+                                    <div className={Styles.banerparaul}>
+                                        <div dangerouslySetInnerHTML={{ __html: bannerData.t8vk_description }} className="editorText" />
+                                    </div>
                                 )}
-                                
+                                <div className={`btn_wrap btn_left ${Styles.btnbanner}`}>
+                                    <Link href="#job_openings" className={`eclick-btn-journey`}>
+                                        <em>Let’s start your journey</em>
+                                        <span className={Styles.icon}>
+                                            <FontAwesomeIcon icon={faArrowRight} />
+                                        </span>
+                                    </Link>
+                                    <Link href="#" onClick={openReferModal} className={`eclick-btn-refer white-btn`}>
+                                        <span>
+                                            <Image
+                                                src={`${process.env.NEXT_PUBLIC_assetPrefix}/assets/images/phone.webp`}
+                                                alt="Phone"
+                                                width={18} height={18}
+                                                loading="lazy"
+                                            />
+                                        </span>
+                                        <em>Refer a friend</em>
+                                    </Link>
+                                </div>
                             </div>
                         </Container>
                     </div>
-                </Container>
-            </div>
+                </div>
+            ) : (
+                <div className={Styles.heroSection}>
+                    <div className="skeleton skeletonFill"></div>
+                </div>
+            )}
 
             {/* Why Eclick Section */}
-            <div className={`${Styles.sectionArea}`}>
+            <div className={`sectionArea ${Styles.sectionArea ?? ''}`}>
                 <Container>
-                    <Row className="justify-content-center">
-                        <Col lg={6}>
-                            <div className={`ps-4 ${Styles.about_content}`}>
+                    <Row className="rowGap gx-xl-5 justify-content-center">
+                        <Col lg={6} className="align-self-center">
+                            <div className={Styles.about_content}>
                                 {!isLoading ? (
                                     <>
-                                        <p >{pageData?.short_description}</p>
-                                        <h2 className={`title fw-bold ${Styles.page_title}`}>{pageData?.page_title}</h2>
+                                        {pageData?.short_description && <p >{pageData?.short_description}</p>}                                        
+                                        <h2 className={`title fw-bold ${Styles.page_title ?? ''}`}>{pageData?.page_title}</h2>
                                         <div
                                             className="editorText"
                                             dangerouslySetInnerHTML={{ __html: pageData?.description || "" }}
@@ -233,13 +229,12 @@ const Careers = () => {
                                     </>
                                 ) : (
                                     <>
-                                        <div className={`skeleton mb-2 ${Styles.skeletonTitle}`}></div>
-                                        <div className={`skeleton w-75 ${Styles.skeletonTitle}`}></div>
-                                        <div className="skeleton skeletonText w-100"></div>
-                                        <div className="skeleton skeletonText w-100"></div>
-                                        <div className="skeleton skeletonText w-100"></div>
-                                        <div className="skeleton skeletonText w-100"></div>
-                                        <div className="skeleton skeletonText w-100"></div>
+                                        <div className={`title ${Styles.page_title}`}>&nbsp;</div>
+                                        <div className="skeleton skeletonText"></div>
+                                        <div className="skeleton skeletonText"></div>
+                                        <div className="skeleton skeletonText"></div>
+                                        <div className="skeleton skeletonText"></div>
+                                        <div className="skeleton skeletonText"></div>
                                         <div className="skeleton skeletonText w-75"></div>
                                         <div className="skeleton skeletonText w-50"></div>
                                     </>
@@ -268,40 +263,55 @@ const Careers = () => {
             </div>
 
             {/* Referral Section */}
-             <div className={`${Styles.referralSectionsam}`}>
+            <div className={`${Styles.referralSectionsam}`}>
                 <Container>
                     <Row className="justify-content-center align-items-center">
                         <Col lg={6}>
-                            <div className={Styles.referralContentl}>
-                                <div className={Styles.lablheading}>for freshers</div>
-                                <h2 className={Styles.sectionTitle}>First Flush - Start Your Journey Here</h2>
-                                <p className={Styles.referralText}>
-                                    If you are fresh out of college and want to jumpstart your IT career, our First Flush program can help you explore your flair for innovation in the industry. Come and join the INT. family, and help us inspire possibilities throughout the world. 
+                            <div className={Styles.referralContent}>
+                                <div className={`small_title ${Styles.small_title}`}>For Freshers</div>
+                                <h2 className={`title fw-semibold ${Styles.sectionTitle}`}>First Flush - Start Your Journey Here</h2>
+                                <p>
+                                    If you are fresh out of college and want to jumpstart your IT career, our First Flush program can help you explore your flair for innovation in the industry. Come and join the INT. family, and help us inspire possibilities throughout the world.
                                 </p>
-                                <Link href="/contact-us" className={Styles.btncare}>
-                                    Let’s start your journey
-                                </Link>
+                                <div className="btn_left sm">
+                                    <Link href="/contact-us" className={`eclick-btn-journey white-btn`}>
+                                        <em>Let’s start your journey</em>
+                                        <span className={Styles.icon}>
+                                            <FontAwesomeIcon icon={faArrowRight} />
+                                        </span>
+                                    </Link>
+                                </div>
                             </div>
                         </Col>
                         <Col lg={6}>
-                            <div className={Styles.referralContentr}>
-                                <div className={Styles.lablheading}>refer</div>
-                                <h2 className={Styles.sectionTitle}>Refer a Friend & get Rewarded!</h2>
-                                <p className={Styles.referralText}>
-                                    Join our “Refer a Friend and Get Rewarded” program! Invite a friend to our community and enjoy great rewards together. For each successful referral, you’ll get exclusive discounts, and your friend will receive a welcome bonus. 
+                            <div className={Styles.referralContent}>
+                                <div className={`small_title ${Styles.small_title}`}>Refer</div>
+                                <h2 className={`title fw-semibold ${Styles.sectionTitle}`}>Refer a Friend & get Rewarded!</h2>
+                                <p>
+                                    Join our “Refer a Friend and Get Rewarded” program! Invite a friend to our community and enjoy great rewards together. For each successful referral, you’ll get exclusive discounts, and your friend will receive a welcome bonus.
                                 </p>
-                                <Link href="#" onClick={openReferModal} className={Styles.btncare}>
-                                    Refer a Friend
-                                </Link>
+                                <div className="btn_left sm">
+                                    <Link href="#" onClick={openReferModal} className={`eclick-btn-refer`}>
+                                        <span>
+                                            <Image
+                                                src={`${process.env.NEXT_PUBLIC_assetPrefix}/assets/images/phone.webp`}
+                                                alt="Phone"
+                                                width={18} height={18}
+                                                loading="lazy"
+                                            />
+                                        </span>
+                                        <em>Refer a Friend</em>
+                                    </Link>
+                                </div>
                             </div>
                         </Col>
                     </Row>
                 </Container>
-            </div> 
+            </div>
 
             {/* Current Openings */}
             <div className={`${Styles.openingsSection}`}>
-                <Container>                    
+                <Container>
                     <div id="job_openings" className={Styles.openingsContent}>
                         <div className="d-flex justify-content-center align-items-center mb-4">
                             <h2 className={Styles.sectionTitle}>Job Vacancies</h2>
@@ -313,7 +323,7 @@ const Careers = () => {
                             </div>
                         ) : vacancies.length > 0 ? (
                             <Row className={`${Styles.jobsContainer} justify-content-center`}>
-                                {vacancies.map((job) => (                                    
+                                {vacancies.map((job) => (
                                     <Col key={job.career_id} className={Styles.jobCard}>
                                         <div className={Styles.jobHeader}>
                                             <h3 className={Styles.jobTitle}>

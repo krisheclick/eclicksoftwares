@@ -413,6 +413,9 @@ em{
 	background: var(--primary-color);
 	color: var(--white-color);
 }
+[class*="eclick-btn-"].white-btn:not(:hover) img{
+	filter: brightness(0) invert(1);
+}
 [class*="eclick-btn-"].transparent-btn{
 	background: transparent;
 	color: var(--hover-color);

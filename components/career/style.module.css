@@ -1,17 +1,37 @@
-body{
-    overflow-x: hidden;
-}
-
-/* Hero Section - LNSEL Concept */
 .heroSection {
     background: linear-gradient(135deg, var(--primary-color) 0%, var(--hover-color) 100%);
     padding: 100px 0;
-    color: var(--white-color);
+    color: var(--black-color);
     position: relative;
     overflow: hidden;
     min-height: 500px;
+    font-size: 1.1em;
 } 
-.heroSection::before {
+.bannerText{
+    position: relative;
+    z-index: 1;
+}
+.bannerTitle{
+    color: var(--black-color);
+    text-transform: capitalize;
+    margin-bottom: 20px;
+    font-size: 80px;
+    font-weight: 700;
+    line-height: 1;
+}
+.bannerTitle span{
+    font-size: .55em;
+    font-weight: 600;
+    line-height: 1.2em;
+    display: block;
+}
+.aboutPoster{
+    aspect-ratio: 16/9;
+}
+.referralSectionsam{
+    background: linear-gradient(90deg var(--hover-color) 50%, #ededed 100%);
+}
+/* .heroSection::before {
     content: '';
     position: absolute;
     top: 0;
@@ -43,11 +63,11 @@ body{
 } 
 .heroImage img:hover {
     transform: scale(1.05);
-} 
+}
 .sectionArea {
     padding: 80px 0;
     background: var(--white-color);
-} 
+}
 .openingsSection {
     background: #f8f9fa;
     padding: 80px 0;
@@ -203,8 +223,8 @@ body{
 } 
 .jobFooter {
     text-align: center;
-} 
-.banerparaul ul{
+}    */
+/* .banerparaul ul{
     margin: 15px 0 28px;
     padding: 0;
 }
@@ -276,8 +296,7 @@ body{
 .referralContentl .btncare:hover{
     background: #111111;
     color: #ffffff;
-}
-.referralContentr{ 
+} .referralContentr{ 
     padding-right: 99999px;
     margin-right: -99999px;
 }
@@ -310,8 +329,8 @@ body{
 .referralContentr .btncare:hover{
     background: #111111;
     color: #ffffff;
-}
-.btnbnrs{
+} */
+/* .btnbnrs{
     display: inline-block;
     padding: 10px 22px;
     border-radius: 7px;
@@ -323,130 +342,7 @@ body{
 .btnbnrs:hover{
     background: #000000;
     color: #ffffff;
-}
-
-/* Responsive Styles */
-@media (max-width: 768px) {
-    .sectionArea {
-        padding: 60px 0;
-    }
-
-    .openingsSection {
-        padding: 60px 0;
-    }
-
-    .sectionTitle {
-        font-size: 2rem;
-        margin-bottom: 30px;
-    }
-
-    .whyIntro {
-        font-size: 1rem;
-        margin-bottom: 30px;
-    }
-
-    .whyGrid {
-        gap: 20px;
-        grid-template-columns: 1fr;
-    }
-
-    .whyCard {
-        padding: 25px;
-    }
-
-    .cardIcon {
-        font-size: 2.5rem;
-        margin-bottom: 15px;
-    }
-
-    .cardContent h3 {
-        font-size: 1.2rem;
-    }
-
-    .referralSection {
-        padding: 60px 0;
-    }
-
-    .referralContent h2 {
-        font-size: 1.8rem;
-    }
-
-    .referralText {
-        font-size: 1rem;
-    }
-
-    .openingsIntro {
-        font-size: 1rem;
-        margin-bottom: 30px;
-    }
-
-    .jobsContainer {
-        gap: 20px;
-        grid-template-columns: 1fr;
-    }
-
-    .jobCard {
-        padding: 25px;
-    }
-
-    .jobTitle {
-        font-size: 1.3rem;
-    }
-
-    .jobMeta {
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 8px;
-    }
-}
-
-@media (max-width: 480px) {
-    .sectionArea {
-        padding: 40px 0;
-    }
-
-    .openingsSection {
-        padding: 40px 0;
-    }
-
-    .sectionTitle {
-        font-size: 1.8rem;
-        margin-bottom: 25px;
-    }
-
-    .whyCard {
-        padding: 20px;
-    }
-
-    .cardIcon {
-        font-size: 2rem;
-        margin-bottom: 12px;
-    }
-
-    .cardContent h3 {
-        font-size: 1.1rem;
-    }
-
-    .referralSection {
-        padding: 40px 0;
-    }
-
-    .referralContent h2 {
-        font-size: 1.5rem;
-    }
-
-    .referralText {
-        font-size: 0.95rem;
-    }
-
-    .jobCard {
-        padding: 20px;
-    }
-
-    .jobTitle {
-        font-size: 1.2rem;
-    }
-}
+} */
 
 .connectSection {
     background: var(--white-color);
@@ -516,82 +412,40 @@ body{
     color: var(--body-color);
     margin: 0;
 }
-
-/* Responsive Design */
-@media (max-width: 768px) {
-    .heroSection {
-        padding: 60px 0;
-    }
-
-    .heroTitle {
-        font-size: 2.2rem;
-    }
-
-    .sectionArea {
-        padding: 60px 0;
-    }
-
-    .openingsSection {
-        padding: 60px 0;
-    }
-
-    .sectionTitle {
-        font-size: 2rem;
-    }
-
-    .whyGrid {
-        grid-template-columns: 1fr;
-    }
-
-    .whyCard {
-        padding: 20px;
-    }
-
-    .jobItem {
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 15px;
-    }
-
-    .jobActions {
-        align-self: flex-end;
-    }
-
-    .connectGrid {
-        gap: 30px;
-    }
-
-    .connectSection {
-        padding: 60px 0;
+@media only screen and (max-width: 1600px){
+    .bannerTitle{
+        font-size: 66px;
     }
 }
-
-@media (max-width: 480px) {
-    .heroTitle {
-        font-size: 1.8rem;
+@media only screen and (max-width: 1399px){
+    .bannerTitle{
+        font-size: 54px;
     }
-
-    .sectionTitle {
-        font-size: 1.8rem;
+}
+@media only screen and (max-width: 991px){
+    .heroSection {
+        padding: 70px 0;
+        min-height: 360px;
     }
-
-    .jobTitle {
-        font-size: 1.3rem;
+    .heroSection::before{
+        content: '';
+        position: absolute;
+        inset: 0;
+        background: var(--white-color);
+        opacity: 0.5;
     }
-
-    .jobItem {
-        padding: 15px;
+    .bannerTitle{
+        font-size: 48px;
     }
-
-    .whyCard {
-        padding: 15px;
+}
+@media only screen and (max-width: 767px){
+    .bannerTitle{
+        font-size: 36px;
     }
-
-    .cardContent h3 {
-        font-size: 1.2rem;
-    }
-
-    .cardIcon {
-        font-size: 2.5rem;
+}
+@media only screen and (max-width: 479px){
+    .heroSection {
+        min-height: 300px;
+        padding: 50px 0;
     }
 }
