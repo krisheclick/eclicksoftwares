@@ -3,19 +3,19 @@ import { useEffect, useState } from "react";
 import { Container } from "react-bootstrap";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay, Navigation } from "swiper/modules";
-import Styles from "./style.module.css";
 import type { Swiper as SwiperType } from "swiper";
 import CustomImage from "@/utils/CustomImage";
+import Styles from "./style.module.css";
 
 type classProps = {
-    classValue?: string;
+    className?: string;
 }
 type ClientData = {
     client_name?: string;
     client_logo?: string;
 };
 
-const Clients = ({ classValue }: classProps) => {
+const Clients = ({ className = '' }: classProps) => {
     const [hasLoading, setLoading] = useState(true);
     const [data, setdata] = useState<ClientData[]>([]);
     const [swiperInstance, setSwiperInstance] = useState<SwiperType | null>(null);
@@ -44,15 +44,14 @@ const Clients = ({ classValue }: classProps) => {
     }, [swiperInstance, data]);
 
     return (
-        <div className={Styles.clients}>
+        <div className={`${Styles.clients} ${Styles[className] ?? ''}`}>
             <Container>
-                <div className={`${Styles.boxwrapper} ${classValue ? Styles[classValue] : ""}`}>
+                <div className={Styles.boxwrapper}>
                     <Swiper
                         onSwiper={setSwiperInstance}
                         loop={(data.length || 0) > 7}
                         slidesPerGroup={1}
                         slidesPerView={data && data.length > 0 ? Math.min(data.length, 7) : 7}
-                        spaceBetween={12}
                         autoplay={{ delay: 3000 }}
                         modules={[Autoplay, Navigation]}
                         breakpoints={{
@@ -72,7 +71,6 @@ const Clients = ({ classValue }: classProps) => {
                                 slidesPerView: 6
                             },
                             1200:{
-                                spaceBetween: 16,
                                 slidesPerView: 7
                             },
                         }}
@@ -93,7 +91,7 @@ const Clients = ({ classValue }: classProps) => {
                             })
                         ) : (
                             <>
-                                {[...Array(7)].map((_, index) => (
+                                {[...Array(10)].map((_, index) => (
                                     <SwiperSlide className={Styles.sliderItem} key={index}>
                                         <div className={`skeleton w-100 ${Styles.box}`}></div>
                                     </SwiperSlide>

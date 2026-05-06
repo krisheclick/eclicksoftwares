@@ -107,7 +107,7 @@
 }
 .process_title{
     font-size: 19px;
-    line-height: 1.1em;
+    line-height: 1.25em;
     color: var(--black-color);
     margin-bottom: 12px;
 }
@@ -127,13 +127,50 @@
         font-size: 16px;
     }
 }
-@media only screen and (max-width: 1199px){
+@media only screen and (max-width: 1399px){
+    .valuesArea{
+        padding-block: 60px;
+    }
+    .cardsRow{
+        --size: 100px;
+    }
     .processBox{
         font-size: 15px;
     }
 }
-@media only screen and (max-width: 575px){
+@media only screen and (max-width: 1199px){
+    .processBox{
+        font-size: 15px;
+        line-height: 1.5;
+    }
+}
+@media only screen and (max-width: 991px){
+    .valuesArea{
+        padding-block: 50px;
+    }
+    .process_title{
+        font-size: 18px;
+    }
+}
+@media only screen and (max-width: 575px){    
+    .valuesArea{
+        padding-block: 40px;
+    }
     .cardsRow{
         --size: 80px;
+    }
+    .icon{
+        margin-bottom: 16px;
+    }
+    .icon img {
+        padding: calc(var(--size) / 5);
+    }
+    .boxtitle{
+        font-size: 15px;
+    }
+}
+@media only screen and (max-width: 479px){
+    .valuesArea{
+        padding-block: 30px;
     }
 }

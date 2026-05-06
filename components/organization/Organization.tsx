@@ -23,20 +23,24 @@ const Organization = ({ isLoading, values_title, value_points }: props) => {
                                 dangerouslySetInnerHTML={{__html: values_title ? values_title : 'Custom Software Brings Value To Your Organization'}}
                             />
                         ) : (
-                            <div className="skeleton w-100 skeletonTitle"></div>
+                            <div className={`title fw-normal ${Styles.title ?? ''}`}>
+                                <div className='skeleton w-75'>&nbsp;</div>
+                                <b className='skeleton mt-1'>&nbsp;</b>
+                                <b className='skeleton d-sm-none mt-1'>&nbsp;</b>
+                            </div>
                         )}
                     </div>
                     <div className={Styles.cardList}>
-                        <Row className={`justify-content-center ${Styles.cardsRow}`}>
+                        <Row className={`rowGap gx-2 gx-sm-3 gx-xl-4 justify-content-center ${Styles.cardsRow}`}>
                             {!isLoading ? (
                                 <Card value_points={value_points} />
                             ) : (
                                 [...Array(4)].map((_, index) => (
-                                    <Col lg={3} key={index}>
+                                    <Col xs={6} lg={3} key={index}>
                                         <div className={Styles.box}>
                                             <figure className={`skeleton ${Styles.icon}`}></figure>
-                                            <div className="skeleton w-100" style={{ height: 22, marginBottom: 4 }}></div>
-                                            <div className="skeleton w-75 m-auto" style={{ height: 22 }}></div>
+                                            <div className={`${Styles.boxtitle} skeleton w-75`}>&nbsp;</div>
+                                            <div className={`${Styles.boxtitle} skeleton w-75 d-xl-none mt-1`}>&nbsp;</div>
                                         </div>
                                     </Col>
                                 ))

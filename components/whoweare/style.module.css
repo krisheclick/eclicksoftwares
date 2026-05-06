@@ -36,7 +36,14 @@
     font-weight: 500;
 }
 .icon{
+    --size: 50px;
+    padding: 0;
+    width: var(--size);
+    height: var(--size);
     margin-bottom: 8px;
+}
+.icon img {
+    object-fit: contain;
 }
 .countWrap{
     display: flex;
@@ -50,5 +57,59 @@
 @media only screen and (max-width: 1600px){
     .sectionArea{
         padding-block: 60px;
+    }
+}
+@media only screen and (max-width: 1399px){
+    .section_content{
+        padding: 36px 24px;
+    }
+    .subtitle{
+        margin-bottom: 16px;
+        font-size: 17px;
+    }
+}
+@media only screen and (max-width: 1199px){
+    .sectionArea{
+        padding-block: 50px;
+    }
+    .countBox{
+        padding: 20px;
+        font-size: 1em;
+    }
+    .icon{
+        --size: 44px;
+    }
+}
+@media only screen and (max-width: 767px){
+    .sectionArea{
+        padding-block: 40px;
+    }
+    .subtitle{
+        margin-bottom: 12px;
+    }
+    .section_content{
+        padding: 30px 20px;
+    }
+}
+@media only screen and (max-width: 479px){
+    .sectionArea{
+        padding-block: 30px;
+    }
+    .section_content{
+        padding: 24px 16px;
+    }
+    .subtitle{
+        margin-bottom: 10px;
+        font-size: 16px;
+    }
+    .counterWrapper{
+        gap: 12px;
+    }
+    .countBox {
+        padding: 16px;
+        font-size: 14px;
+    }
+    .countWrap{
+        font-size: 26px;
     }
 }

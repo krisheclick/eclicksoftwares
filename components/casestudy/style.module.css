@@ -118,6 +118,9 @@
     .cmsBanner{
         min-height: 320px;
     }
+    .testimonialsBanner{
+        background-position: right !important;
+    }
     .bannerTitle{
         font-size: 40px;
     }

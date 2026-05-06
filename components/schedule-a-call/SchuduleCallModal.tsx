@@ -40,7 +40,6 @@ interface ServiceCategory {
     }[];
 }
 
-
 const SchuduleCallModal = ({ show, onHide, action }: ScheduleCallProps) => {
     const router = useRouter();
 
@@ -182,47 +181,6 @@ const SchuduleCallModal = ({ show, onHide, action }: ScheduleCallProps) => {
         } finally {
             setIsSubmit(false);
         }
-
-        // try {
-        //     // // Combine date and time
-        //     // if (selectedDate && selectedSlot) {
-        //     //     const [hours, minutes] = selectedSlot.split(':');
-        //     //     const dateTime = new Date(selectedDate);
-        //     //     dateTime.setHours(parseInt(hours), parseInt(minutes));
-        //     //     formData.preferredDateTime = dateTime.toISOString();
-        //     // }
-
-
-
-        //     // Simulate API call
-        //     await new Promise(resolve => setTimeout(resolve, 1000));
-        //     setStatusMessage('Thank you! We will get back to you soon.');
-        //     // Reset form
-        //     setFormData({
-        //         fullName: '',
-        //         email: '',
-        //         phone: '',
-        //         company: '',
-        //         service: '',
-        //         requirement: '',
-        //         preferredDateTime: '',
-        //         skipDateTime: false,
-        //         privacyConsent: false
-        //     });
-        //     setErrors({});
-        //     setCurrentView('calendar');
-        //     setSelectedDate(undefined);
-        //     // setSelectedTime(null);
-        //     // Close modal after success
-        //     setTimeout(() => {
-        //         onHide();
-        //         setStatusMessage('');
-        //     }, 2000);
-        // } catch {
-        //     setStatusMessage('An error occurred. Please try again.');
-        // } finally {
-        //     setIsSubmit(false);
-        // }
     };
 
     function addMinutesToTime(
@@ -299,158 +257,6 @@ const SchuduleCallModal = ({ show, onHide, action }: ScheduleCallProps) => {
                 label: service.service_title,
             })),
         }));
-
-    // const renderDetailsForm = () => (
-    //     <div className={styles.detailsView}>
-    //         <div className="text-center mb-4">
-    //             <h4 className="mb-2">Enter Details</h4>
-    //             <p className="text-muted">Tell us about your project and contact information</p>
-    //         </div>
-    //         <Form className={styles.detailsForm}>
-    //             <Row>
-    //                 <Col md={6}>
-    //                     <Form.Group className="mb-3">
-    //                         <Form.Label className="fw-bold">Full Name *</Form.Label>
-    //                         <Form.Control
-    //                             type="text"
-    //                             name="fullName"
-    //                             value={formData.fullName}
-    //                             onChange={handleInputChange}
-    //                             isInvalid={!!errors.fullName}
-    //                             placeholder="Your full name"
-    //                         />
-    //                         <Form.Control.Feedback type="invalid">{errors.fullName}</Form.Control.Feedback>
-    //                     </Form.Group>
-    //                 </Col>
-    //                 <Col md={6}>
-    //                     <Form.Group className="mb-3">
-    //                         <Form.Label className="fw-bold">Company *</Form.Label>
-    //                         <Form.Control
-    //                             type="text"
-    //                             name="company"
-    //                             value={formData.company}
-    //                             onChange={handleInputChange}
-    //                             isInvalid={!!errors.company}
-    //                             placeholder="Your company name"
-    //                         />
-    //                         <Form.Control.Feedback type="invalid">{errors.company}</Form.Control.Feedback>
-    //                     </Form.Group>
-    //                 </Col>
-    //             </Row>
-
-    //             <Form.Group className="mb-3">
-    //                 <Form.Label className="fw-bold">Email Address *</Form.Label>
-    //                 <Form.Control
-    //                     type="email"
-    //                     name="email"
-    //                     value={formData.email}
-    //                     onChange={handleInputChange}
-    //                     isInvalid={!!errors.email}
-    //                     placeholder="your.email@company.com"
-    //                 />
-    //                 <Form.Control.Feedback type="invalid">{errors.email}</Form.Control.Feedback>
-    //             </Form.Group>
-
-    //             <Form.Group className="mb-3">
-    //                 <Form.Label className="fw-bold">Phone Number *</Form.Label>
-    //                 <Form.Control
-    //                     type="tel"
-    //                     name="phone"
-    //                     value={formData.phone}
-    //                     onChange={handleInputChange}
-    //                     isInvalid={!!errors.phone}
-    //                     placeholder="+1 (555) 123-4567"
-    //                 />
-    //                 <Form.Control.Feedback type="invalid">{errors.phone}</Form.Control.Feedback>
-    //             </Form.Group>
-
-    //             <Form.Group className="mb-3">
-    //                 <Form.Label className="fw-bold">What service are you interested in? *</Form.Label>
-    //                 {/* <Form.Select
-    //                     name="service"
-    //                     value={formData.service}
-    //                     onChange={handleInputChange}
-    //                     isInvalid={!!errors.service}
-    //                     >
-    //                     <option value="">Select a service...</option>
-
-    //                     {serviceCategories.length > 0 &&
-    //                         serviceCategories.map(category => (
-    //                         <optgroup key={category.service_category_slug} label={category.service_category_title}>
-    //                             {category.services?.map(service => (
-    //                             <option key={service.service_slug} value={String(service.service_slug)}>
-    //                                 {service.service_title}
-    //                             </option>
-    //                             ))}
-    //                         </optgroup>
-    //                         ))}
-    //                 </Form.Select> */}
-
-    //                 <Select
-    //                     options={serviceOptions}
-    //                     placeholder="Select a service..."
-    //                     isSearchable
-    //                     onChange={(selected) =>
-    //                         setFormData(prev => ({
-    //                             ...prev,
-    //                             service: selected?.value || "",
-    //                         }))
-    //                     }
-    //                     value={serviceOptions
-    //                         .flatMap(group => group.options)
-    //                         .find(opt => opt.value === formData.service)}
-    //                     classNamePrefix="react-select"
-    //                     styles={{
-    //                         menu: base => ({ ...base, zIndex: 9999 }),
-    //                     }}
-    //                     />
-    //                 <Form.Control.Feedback type="invalid">{errors.service}</Form.Control.Feedback>
-    //             </Form.Group>
-
-    //             <Form.Group className="mb-3">
-    //                 <Form.Label className="fw-bold">Project Details *</Form.Label>
-    //                 <Form.Control
-    //                     as="textarea"
-    //                     rows={3}
-    //                     name="requirement"
-    //                     placeholder="Tell us briefly about your project, goals, challenges, and timeline..."
-    //                     value={formData.requirement}
-    //                     onChange={handleInputChange}
-    //                     isInvalid={!!errors.requirement}
-    //                 />
-    //                 <Form.Control.Feedback type="invalid">{errors.requirement}</Form.Control.Feedback>
-    //             </Form.Group>
-
-                
-
-    //             <Form.Group className="mb-4">
-    //                 <Form.Check
-    //                     type="checkbox"
-    //                     label="I agree to the Privacy Policy and Terms & Conditions *"
-    //                     name="privacyConsent"
-    //                     checked={formData.privacyConsent}
-    //                     onChange={handleInputChange}
-    //                     isInvalid={!!errors.privacyConsent}
-    //                 />
-    //                 <Form.Control.Feedback type="invalid">{errors.privacyConsent}</Form.Control.Feedback>
-    //             </Form.Group>
-    //         </Form>
-
-    //         <div className="d-flex justify-content-between">
-    //             <button onClick={handleDetailsSubmit} className={`eclick-btn-connect ${styles.bannerBtn ?? ''}`}>
-    //                 <span className={styles.phoneIcon}>
-    //                     <Image
-    //                         src={`${process.env.NEXT_PUBLIC_assetPrefix}/assets/images/phone.webp`}
-    //                         alt="Conversation"
-    //                         width={22} height={21}
-    //                         loading="lazy"
-    //                     />
-    //                 </span>
-    //                 <em>Schedule a Call</em>
-    //             </button>
-    //         </div>
-    //     </div>
-    // );
 
     const renderConfirmation = () => (
         <div className={styles.confirmView}>
@@ -567,16 +373,15 @@ const SchuduleCallModal = ({ show, onHide, action }: ScheduleCallProps) => {
             <Modal.Body className="px-4">
                 <a className={`${styles.modalCloseBtn} position-absolute`} onClick={()=>{resetAllFormData();onHide();}}  aria-label="Close"><FontAwesomeIcon icon={faXmark} /></a>
 
-                <Row className="mb-30" style={{ minHeight: "650px" }}>
-                    <Col className={(!visibleTimeField ? "col-6" : "col-4")} style={{ borderRight: '1px solid #eee' }}>
+                <Row className={`schuduleRow rowGap ${styles.schuduleRow}`}>
+                    <Col sm={12} className={`${(!visibleTimeField ? `col-md-6 ${styles.borderRight}` : "col-xl-4")}`}>
                         {step !=1 && (<Button
-                            variant="outline-secondary"
                             className={styles.backButton}
                             onClick={() => setStep(step - 1)}
                         >
-                            <FontAwesomeIcon icon={faArrowLeft} className="me-2" />
+                            <FontAwesomeIcon icon={faArrowLeft} />
                         </Button>)}
-                        <h4 className="mb-1">Schedule a call with Eclick Softwares Solutions</h4>
+                        <h4 className="mb-1 fw-semibold">Schedule a call with Eclick Softwares Solutions</h4>
                         {/* <p className="text-muted mb-0">Getting Started - Eclick Softwares Solutions</p> */}
                         <div className={styles.scheduleDetails}>
                             <p className="text-muted mb-0 pt-2"><FontAwesomeIcon icon={faClock} /> 30 Min</p>
@@ -591,7 +396,7 @@ const SchuduleCallModal = ({ show, onHide, action }: ScheduleCallProps) => {
                         </div>
 
                     </Col>
-                    <Col className={(!visibleTimeField ? "col-6" : "col-8")}>
+                    <Col sm={12} className={(!visibleTimeField ? "col-md-6" : "col-xl-8")}>
                         {renderCurrentView()}
                     </Col>
                 </Row>

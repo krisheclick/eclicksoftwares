@@ -15,7 +15,7 @@ interface BannerProps {
 const Banner = ({ data }: BannerProps) => {
     return (
         <div className={Styles.banner}>
-            <Container className="container-full">
+            <Container className={`${Styles.tabFull} container-full`}>
                 <CustomImage
                     src={`${process.env.NEXT_PUBLIC_MEDIA_URL}/uploads/page_image/${data?.h6xu_image}`}
                     alt={data?.h6xu_title || "Banner Poster"}

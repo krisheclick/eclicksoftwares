@@ -71,6 +71,12 @@
     .review{
         font-size: 36px;
     }
+    .whatwedo{
+        padding-block: 12px;
+    }
+    .counter_section{
+        padding-block: 60px;
+    }
 }
 
 @media only screen and (max-width: 1199px){
@@ -83,10 +89,24 @@
     .supportBox::after{
         margin-inline: 16px;
     }
+    .whatwedo{
+        padding-block: 0px;
+    }
+    .counter_section{
+        padding-block: 50px;
+    }
 }
 @media only screen and (max-width: 991px){
     .supportRow{
         margin-top: 20px;
+    }
+    .counterDatatitle br{
+        display: none;
+    }
+}
+@media only screen and (max-width: 767px){
+    .counter_section{
+        padding-block: 40px;
     }
 }
 @media only screen and (max-width: 479px){
@@ -111,5 +131,8 @@
     .supportBoxText img{
         width: 18px;
         height: 18px;
+    }
+    .counter_section{
+        padding-block: 30px;
     }
 }

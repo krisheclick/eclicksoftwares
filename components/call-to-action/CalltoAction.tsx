@@ -1,7 +1,6 @@
-import { Button, Container } from "react-bootstrap";
+import { Container } from "react-bootstrap";
 import Image from "next/image";
 import Styles from "./style.module.css";
-import Link from "next/link";
 import { useScheduleCall } from "@/utils/useLetsConnect";
 type CallToAction = {
     "4e3s_title"?: string;

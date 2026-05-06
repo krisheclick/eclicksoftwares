@@ -80,7 +80,7 @@ export default function CoreServices() {
                         </div>
                         <div className={Styles.serviceContent}>
                             {activeServices.length > 0 ? (
-                                <Row className="rowGap gx-3 gx-xl-4">
+                                <Row className="rowGap gx-2 gx-sm-3 gx-xl-4">
                                     {activeServices.slice(0, 4).map((service, index) => {
                                         const textColor = service?.service_text_color ? service?.service_text_color : '#000000';
                                         return (

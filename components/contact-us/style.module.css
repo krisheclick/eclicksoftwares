@@ -58,6 +58,8 @@
 }
 .videoSection{
     margin-top: 40px;
+    border-radius: 1em;
+    overflow: hidden;
 }
 
 @media only screen and (max-width: 1600px) {
@@ -91,6 +93,9 @@
     .information {
         width: 100%;
     }
+    .videoSection{
+        border-radius: 8px;
+    }
 }
 @media only screen and (max-width: 767px){
     .subtitle{
@@ -109,7 +114,7 @@
     .sectionArea {
         margin-block: 30px;
     }
-    .informationContent{
+    .information{
         padding: 16px;
     }
     .informationContent ul{

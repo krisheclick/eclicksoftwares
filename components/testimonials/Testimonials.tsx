@@ -122,7 +122,7 @@ const Testimonials = () => {
                     </div>
 
                     <div className={Styles.cardList}>
-                        <Row className='rowGap gx-5'>
+                        <Row className='rowGap gx-3 gx-lg-4 gx-xxl-5'>
                             {!hasLoading ? (
                                 <Card cardData={filteredData} />
                             ) : (
@@ -146,7 +146,7 @@ const Testimonials = () => {
                         <span>
                             <FontAwesomeIcon icon={faEye} />
                         </span>
-                        <em>Let's Connect</em>
+                        <em>{`Let's Connect`}</em>
                     </button>
                 </div>
                 </div >

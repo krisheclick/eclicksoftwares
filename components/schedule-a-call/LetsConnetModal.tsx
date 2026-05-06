@@ -220,7 +220,7 @@ const LetsConnectModal = ({ show, onHide, services, action }: ScheduleCallProps)
                             </div>
                         }
                         buttonComponent={
-                            <div className="d-flex justify-content-center">
+                            <div className="d-flex justify-content-center gap-1 mt-4">
                                 <Button onClick={handleDetailsSubmit} className={`eclick-btn-connect ${styles.bannerBtn ?? ''}`} disabled={isSubmit}>
                                     {isSubmit ? (
                                         <>

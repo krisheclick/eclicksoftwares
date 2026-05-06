@@ -84,7 +84,7 @@ const Blog = () => {
                     breakpoints={{
                         320: { slidesPerView: 1 },
                         576: { slidesPerView: 2 },
-                        1024: { slidesPerView: 3 },
+                        992: { slidesPerView: 3 },
                         1200: { slidesPerView: 4 },
                     }}
                 >

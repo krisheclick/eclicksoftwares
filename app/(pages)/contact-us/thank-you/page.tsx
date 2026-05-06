@@ -5,13 +5,13 @@ import { useRouter } from "next/navigation";
 import { Container, Row, Col } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCheckCircle } from "@fortawesome/free-solid-svg-icons";
-import Styles from "./style.module.css";
+import Styles from "@/components/common/thank-you.module.css";
 import Link from "next/link";
 
 const ScheduleCallSuccess = () => {
     const router = useRouter();
     const hasRun = useRef(false);
-    const [counter, setCounter] = useState(300); // countdown in seconds
+    const [counter, setCounter] = useState(30); // countdown in seconds
 
     useEffect(() => {
         // if (hasRun.current) return;
@@ -63,7 +63,7 @@ const ScheduleCallSuccess = () => {
                                 <strong>{counter} second{counter !== 1 ? "s" : ""}</strong>.
                             </p>
 
-                            <div className={`btn_center ${Styles.actionButtons ?? ''}`}>
+                            <div className={`btn_wrap justify-content-center btn_center ${Styles.actionButtons ?? ''}`}>
                                 <Link
                                     href="/"
                                     className={`eclick-btn-primary lg ${Styles.homeBtn ?? ''}`}

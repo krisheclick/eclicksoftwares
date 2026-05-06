@@ -1,4 +1,4 @@
-import { Col, Container, Row } from 'react-bootstrap';
+import { Container, Stack } from 'react-bootstrap';
 import Styles from './style.module.css';
 import TeamCardSkeleton from './TeamCardSkeleton';
 
@@ -11,13 +11,13 @@ const TeamSkeleton = () => {
                     <div className="skeleton skeletonTitle" />
                 </div>
                 <div className={Styles.cardList}>
-                    <Row className={`rowGap2 ${Styles.cardRow ?? ''}`}>
+                    <div className={Styles.cardRow}>
                         {[...Array(10)]?.map((value, index) => (
-                            <Col xl={3} lg={4} sm={6} key={index} className={Styles.cardItem}>
+                            <Stack className={Styles.cardItem} key={index}>
                                 <TeamCardSkeleton />
-                            </Col>
+                            </Stack>
                         ))}
-                    </Row>
+                    </div>
                 </div>
             </Container>
         </div>

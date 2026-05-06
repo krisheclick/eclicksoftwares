@@ -17,7 +17,7 @@ const Trustownership = ({ isLoading, cta_title, cta_description, cta_image }: Se
             <div className={Styles.innerSection}>
                 <Container>
                     <Row className='align-items-center'>
-                        <Col lg={5}>
+                        <Col md={6} lg={5}>
                             <div className={`section-content ${Styles.ctaContent}`}>
                                 {!isLoading ? (
                                     <>
@@ -61,7 +61,7 @@ const Trustownership = ({ isLoading, cta_title, cta_description, cta_image }: Se
                                 )}
                             </div>
                         </Col>
-                        <Col lg={7}>
+                        <Col md={6} lg={7}>
                             {!isLoading ? (
                                 <CustomImage
                                     className={Styles.poster}

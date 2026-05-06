@@ -60,16 +60,16 @@ const PaymentFailed = () => {
                                 <strong>{counter} second{counter !== 1 ? "s" : ""}</strong>.
                             </p>
 
-                            <div className={Styles.actionButtons}>
+                            <div className={`btn_wrap justify-content-center btn_center ${Styles.actionButtons ?? ''}`}>
                                 <Link
                                     href="/payment-center"
-                                    className={`eclick-btn-primary ${Styles.retryBtn}`}
+                                    className={`eclick-btn-primary lg ${Styles.retryBtn ?? ''}`}
                                 >
                                     <em>Try Again</em>
                                 </Link>
                                 <Link
                                     href="/"
-                                    className={`eclick-btn-secondary ${Styles.homeBtn}`}
+                                    className={`eclick-btn-secondary transparent-btn lg ${Styles.homeBtn ?? ''}`}
                                 >
                                     <em>Go to Home</em>
                                 </Link>

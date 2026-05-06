@@ -2,7 +2,8 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import Styles from './style.module.css';
 import Link from 'next/link';
 import { faBriefcase, faHeadphones, faMessage, faQuestion } from '@fortawesome/free-solid-svg-icons';
-import Video from './Video'
+// import Video from './Video'
+import CustomImage from '@/utils/CustomImage';
 
 const Information = () => {
     return (
@@ -34,7 +35,12 @@ const Information = () => {
                 </div>
                 <div className={Styles.videoSection}>
                     <div className={Styles.subtitle}>So what happens next?</div>
-                    <Video />
+                    {/* <Video /> */}
+                    <CustomImage
+                        className={Styles.videoSection}
+                        src="/assets/images/contact -poster.webp"
+                        alt="poster"
+                    />
                 </div>
             </div>
         </div>

@@ -24,7 +24,7 @@ const PaymentCenterModal = ({ show, onClose, formData }: Props) => {
         >
             <Modal show={show} onHide={onClose} centered backdrop="static">
                 <Modal.Header closeButton>
-                    <Modal.Title>Confirm Payment</Modal.Title>
+                    <Modal.Title className="fw-semibold text-black">Confirm Payment</Modal.Title>
                 </Modal.Header>
 
                 <Modal.Body>
@@ -64,7 +64,7 @@ const PaymentCenterModal = ({ show, onClose, formData }: Props) => {
                         <p><strong>Project:</strong> {formData.project_name}</p>
                     </div> */}
                     <div className="border p-3 mb-4 bg-light">
-                        <h5>Payable Amount</h5>
+                        <h5 className="text-black fw-semibold">Payable Amount</h5>
                         <p className="mb-1">
                             <strong>Amount:</strong> {formData.amount} {formData.currency}
                         </p>
@@ -211,7 +211,7 @@ const PaymentCenterModal = ({ show, onClose, formData }: Props) => {
                 </Modal.Body>
 
                 <Modal.Footer>
-                    <Button variant="secondary" onClick={onClose}>
+                    <Button variant="secondary" onClick={onClose} className="eclick-btn-cancel">
                         Cancel
                     </Button>
                 </Modal.Footer>

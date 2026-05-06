@@ -2,7 +2,6 @@ import Banner from '@/components/casestudy/Banner';
 import Challenges from '@/components/casestudy/banner/Challenges';
 import Styles from '@/components/casestudy/style.module.css';
 import Requirements from '@/components/casestudy/requirements/Requirements';
-import Testimonial from "@/components/casestudy/banner/Testimonial";
 import MySlider from '@/components/casestudy/banner/Casestudyslider';
 import Technologies from '@/components/casestudy/Technologies';
 import CalltoAction from '@/components/casestudy/CalltoAction';
@@ -106,7 +105,6 @@ const CasestudyDeatils = async ({ params }: { params: { slug: string } }) => {
             )}
             <Challenges data={response_data} />
             <MySlider data={response_data?.projects} />
-            <Testimonial />
             <CalltoAction data={response_data?.proj_call_to_action} />
         </div>
     )

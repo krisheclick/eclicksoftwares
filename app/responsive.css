@@ -116,6 +116,12 @@
 		padding: 8px 12px;
 		font-size: 15px;
 	}
+	.react-select__control{
+		height: 44px;
+	}
+	.react-select__value-container{
+		padding-left: 12px;
+	}
 	select.form-control{
 		background-position-y: 10px;
 	}
@@ -187,6 +193,9 @@
 	.sliderdiv .swiper-wrapper {
 		padding-block: 0px;
 	}
+	.small_title{
+		margin-bottom: 4px;
+	}
 }
 @media only screen and (max-width: 575px){
 	.swiper-pagination-bullet {
@@ -200,6 +209,9 @@
 	}
 	.sectionArea {
 		margin-block: 40px;
+	}
+	.section-content {
+		margin-bottom: 30px;
 	}
 }
 @media only screen and (max-width: 479px){
@@ -224,6 +236,7 @@
 	}
 	.title{
 		font-size: 24px;
+		margin-bottom: 12px;
 	}
 	[class*="eclick-btn-"] {
 		--size: 36px;
@@ -232,7 +245,7 @@
 	.skeletonDot{
 		width: 60px;
 	}
-	.form-control {
+	.form-control{
 		--height: 40px;
 		font-size: 14px;
 	}
@@ -241,5 +254,21 @@
 	}
 	textarea.form-control{
 		height: 90px;
+	}
+	.react-select__control{
+		height: 40px;
+	}
+	.section-content {
+		margin-bottom: 24px;
+	}
+	.btn_left, .btn_center{
+		margin-top: 24px;
+	}
+	.small_title{
+		font-size: 1em;
+	}
+	.rdp-day_button{
+		--rdp-day_button-width: 36px;
+		--rdp-day_button-height: 36px;
 	}
 }

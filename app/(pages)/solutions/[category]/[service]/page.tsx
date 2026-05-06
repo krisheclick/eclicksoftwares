@@ -212,7 +212,7 @@ export default function Page({ params }: { params: Promise<{ category: string, s
 
                 <div className={`sectionArea ${Styles.aboutArea ?? ''}`}>
                     <Container>
-                        <Row className="gx-xl-5">
+                        <Row className="rowGap gx-xxl-5">
                             <Col lg={6}>
                                 {!isLoading ? (
                                     <figure className={Styles.aboutPoster}>
@@ -228,64 +228,62 @@ export default function Page({ params }: { params: Promise<{ category: string, s
                                 )}
                             </Col>
                             <Col lg={6} className="align-self-center">
-                                <div className="ps-xxl-4">
-                                    <div className={Styles.about_content}>
-                                        {!isLoading ? (
-                                            <div className={Styles.content}>
-                                                <h1 className={`title ${Styles.title ?? ''}`} dangerouslySetInnerHTML={{
-                                                    __html: data?.service_details_title ?? ''
-                                                        .replace(/Â+/g, "")
-                                                        .replace(/\s+/g, " ")
-                                                        .trim(),
-                                                }} />
-                                                <div className={`editorText ${Styles.editorText ?? ''}`} dangerouslySetInnerHTML={{
-                                                    __html: data?.service_description ?? ''
-                                                        .replace(/Â+/g, "")
-                                                        .replace(/\s+/g, " ")
-                                                        .trim(),
-                                                }} />
+                                <div className={Styles.about_content}>
+                                    {!isLoading ? (
+                                        <div className={Styles.content}>
+                                            <h1 className={`title ${Styles.title ?? ''}`} dangerouslySetInnerHTML={{
+                                                __html: data?.service_details_title ?? ''
+                                                    .replace(/Â+/g, "")
+                                                    .replace(/\s+/g, " ")
+                                                    .trim(),
+                                            }} />
+                                            <div className={`editorText ${Styles.editorText ?? ''}`} dangerouslySetInnerHTML={{
+                                                __html: data?.service_description ?? ''
+                                                    .replace(/Â+/g, "")
+                                                    .replace(/\s+/g, " ")
+                                                    .trim(),
+                                            }} />
 
-                                                {data?.usp && data.usp.length > 0 && (
-                                                    <div className={Styles.usp}>
-                                                        {data.usp.map((item, index) => (
-                                                            <div key={index} className={Styles.uspItem}>
-                                                                <figure className={Styles.uspIcon}>
-                                                                    <Image
-                                                                        src={`${process.env.NEXT_PUBLIC_MEDIA_URL}${item.service_usp_feature_image_path}`}
-                                                                        alt={item.service_usp_title ?? "USP image"}
-                                                                        fill
-                                                                        priority
-                                                                    />
-                                                                </figure>
-                                                                <div className={Styles.uspTitle}>{item.service_usp_title}</div>
-                                                            </div>
-                                                        ))}
-                                                    </div>
-                                                )}
+                                            {data?.usp && data.usp.length > 0 && (
+                                                <div className={Styles.usp}>
+                                                    {data.usp.map((item, index) => (
+                                                        <div key={index} className={Styles.uspItem}>
+                                                            <figure className={Styles.uspIcon}>
+                                                                <Image
+                                                                    src={`${process.env.NEXT_PUBLIC_MEDIA_URL}${item.service_usp_feature_image_path}`}
+                                                                    alt={item.service_usp_title ?? "USP image"}
+                                                                    fill
+                                                                    priority
+                                                                />
+                                                            </figure>
+                                                            <div className={Styles.uspTitle}>{item.service_usp_title}</div>
+                                                        </div>
+                                                    ))}
+                                                </div>
+                                            )}
 
-                                            </div>
-                                        ) : (
-                                            <>
-                                                <div className="skeleton w-100 mb-2" style={{ height: 32 }}></div>
-                                                <div className="skeleton w-75 mb-2" style={{ height: 32 }}></div>
-                                                <div className="skeleton w-50 mb-4" style={{ height: 32 }}></div>
-                                                <div className="skeleton skeletonText w-100"></div>
-                                                <div className="skeleton skeletonText w-100"></div>
-                                                <div className="skeleton skeletonText w-100"></div>
-                                                <div className="skeleton skeletonText w-100"></div>
-                                                <div className="skeleton skeletonText w-100"></div>
-                                                <div className="skeleton skeletonText w-100"></div>
-                                                <div className="skeleton skeletonText w-100"></div>
-                                                <div className="skeleton skeletonText w-100"></div>
-                                                <div className="skeleton skeletonText w-50 mb-3"></div>
-                                                <div className="skeleton skeletonText w-100"></div>
-                                                <div className="skeleton skeletonText w-100"></div>
-                                                <div className="skeleton skeletonText w-100"></div>
-                                                <div className="skeleton skeletonText w-100"></div>
-                                                <div className="skeleton skeletonText w-25 mb-3"></div>
-                                            </>
-                                        )}
-                                    </div>
+                                        </div>
+                                    ) : (
+                                        <>
+                                            <div className="skeleton w-100 mb-2" style={{ height: 32 }}></div>
+                                            <div className="skeleton w-75 mb-2" style={{ height: 32 }}></div>
+                                            <div className="skeleton w-50 mb-4" style={{ height: 32 }}></div>
+                                            <div className="skeleton skeletonText w-100"></div>
+                                            <div className="skeleton skeletonText w-100"></div>
+                                            <div className="skeleton skeletonText w-100"></div>
+                                            <div className="skeleton skeletonText w-100"></div>
+                                            <div className="skeleton skeletonText w-100"></div>
+                                            <div className="skeleton skeletonText w-100"></div>
+                                            <div className="skeleton skeletonText w-100"></div>
+                                            <div className="skeleton skeletonText w-100"></div>
+                                            <div className="skeleton skeletonText w-50 mb-3"></div>
+                                            <div className="skeleton skeletonText w-100"></div>
+                                            <div className="skeleton skeletonText w-100"></div>
+                                            <div className="skeleton skeletonText w-100"></div>
+                                            <div className="skeleton skeletonText w-100"></div>
+                                            <div className="skeleton skeletonText w-25 mb-3"></div>
+                                        </>
+                                    )}
                                 </div>
                             </Col>
                         </Row>
@@ -309,7 +307,7 @@ export default function Page({ params }: { params: Promise<{ category: string, s
                 {groupName && (
                     <WhoWeAre data={groupName["who-we-are"]} counterData={counterData} />
                 )}
-                <Clients classValue="fullBox" />
+                <Clients />
             </div>
         )
     );

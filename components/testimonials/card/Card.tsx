@@ -74,7 +74,7 @@ const Card = ({ cardData }: CardProps) => {
                 const videoFunction = testimonial_type === 'video';
                 const testimonial_industry = client?.industry?.industry_title;
                 return (
-                    <Col lg={6} key={useIndex} className={Styles.cardItem}>
+                    <Col md={6} key={useIndex} className={Styles.cardItem}>
                         {videoFunction ? (
                             <div className={Styles.videoCard}>
                                 <figure className={Styles.cardPoster}>

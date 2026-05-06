@@ -1,18 +1,21 @@
 .card{
+    --round: 20px;
     display: grid;
     grid-template-columns: repeat(2, 1fr);
-    --round: 20px;
+    height: 100%;
 }
 .cardPoster{
     padding-top: 70%;
     border-radius: var(--round) var(--round) 0px 0px;
 }
-.cardItem:first-child .cardPoster{
-    border-bottom-left-radius: var(--round);
-}
-.cardItem:nth-last-child(-n + 2) .cardPoster{
-    order: 1;
-    border-radius: 0px 0px var(--round) var(--round);
+@media only screen and (min-width: 768px){
+    .cardItem:first-child .cardPoster{
+        border-bottom-left-radius: var(--round);
+    }
+    .cardItem:nth-last-child(-n + 2) .cardPoster{
+        order: 1;
+        border-radius: 0px 0px var(--round) var(--round);
+    }
 }
 .card figure img{
     object-fit: cover;
@@ -29,7 +32,75 @@
     margin-bottom: 12px;
     color: rgba(2, 78, 114, 1);
 }
-
-.skeleton_title{
-    height: 32px;
+.card_description{
+    height: 7lh;
+    overflow: hidden auto;
+    padding-right: 10px;
+    margin-right: -10px;
+}
+@media only screen and (max-width: 1399px){
+    .card_content{
+        padding: 16px 20px;
+    }
+    .card_title{
+        font-size: 20px;
+        margin-bottom: 8px;
+    }
+}
+@media only screen and (max-width: 1199px){
+    .card{
+        --round: 12px;
+    }
+    .card_content{
+        padding: 16px;
+    }
+    .card_title{
+        font-size: 18px;
+        margin-bottom: 6px;
+    }
+}
+@media only screen and (max-width: 991px){
+    .card{
+        --round: 8px;
+    }
+    .card_content{
+        padding: 12px;
+        font-size: 13px;
+    }
+    .card_title{
+        font-size: 15px;
+    }
+    .card_description{
+        height: 5lh;
+    }
+}
+@media only screen and (max-width: 767px){
+    .card{
+        grid-template-columns: inherit;
+        border-radius: var(--round);
+        overflow: hidden;
+    }
+    .card_content{
+        padding: 16px;
+        background: var(--primary-background);
+    }
+    .cardPoster{
+        border-radius: 0;
+    }
+}
+@media only screen and (max-width: 575px){
+    .card_title{
+        font-size: 18px;
+    }
+    .card_content{
+        font-size: 15px;
+    }
+    .card_description{
+        height: auto;
+    }
+}
+@media only screen and (max-width: 479px){
+    .card_content{
+        font-size: 14px;
+    }
 }

@@ -1,4 +1,4 @@
-import { Col, Container, Row } from 'react-bootstrap';
+import { Container, Stack } from 'react-bootstrap';
 import Styles from './style.module.css';
 import Card from './Card';
 
@@ -36,17 +36,17 @@ const Teams = ({content, data }: Props) => {
                     />
                 </div>
                 <div className={Styles.cardList}>
-                    <Row className={`rowGap2 ${Styles.cardRow ?? ''}`}>
+                    <div className={Styles.cardRow}>
                         {data?.map((value, index) => (
-                            <Col xl={3} lg={4} sm={6} key={index} className={Styles.cardItem}>
-                                <Card
-                                    poster={value?.team_feature_image_path}
-                                    name={value?.team_title}
-                                    designation={value?.team_designation}
-                                />
-                            </Col>
+                        <Stack className={Styles.cardItem} key={index}>
+                            <Card
+                                poster={value?.team_feature_image_path}
+                                name={value?.team_title}
+                                designation={value?.team_designation}
+                            />
+                        </Stack>
                         ))}
-                    </Row>
+                    </div>
                 </div>
             </Container>
         </div>

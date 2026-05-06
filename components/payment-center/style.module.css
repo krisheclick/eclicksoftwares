@@ -1,8 +1,3 @@
-.sectionArea{
-	position: relative;
-	z-index: 1;
-	margin-block: 70px;
-}
 .contentArea {
     height: 100%;
     width: calc(50vw - 28px);
@@ -76,5 +71,36 @@
 @media only screen and (max-width: 1600px) {
     .contentArea, .information {
         padding: 36px;
+    }
+}
+@media only screen and (max-width: 991px){
+    .information {
+        width: 100%;
+    }
+    .informationContent ul {
+        grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    }
+    .information {
+        padding: 24px;
+    }
+}
+@media only screen and (max-width: 767px){
+    .subtitle{
+        font-size: 17px;
+    }
+}
+@media only screen and (max-width: 479px) {
+    .information{
+        padding: 16px;
+    }
+    .informationContent ul{
+        --gap: 16px;
+    }
+    .informationContent li{
+        padding-right: 0;
+    }
+    .icon{
+        --area: 36px;
+        margin-bottom: 8px;
     }
 }

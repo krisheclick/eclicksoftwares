@@ -80,7 +80,7 @@ const page = async () => {
     };
     return (
         <div className="testimonials-page">
-            <Banner data={bannerProps} />
+            <Banner data={bannerProps} className="testimonialsBanner" />
             <Testimonials />
         </div>
     )

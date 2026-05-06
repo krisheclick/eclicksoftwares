@@ -110,7 +110,7 @@ export default function Home() {
     return (
         <>
             {isLoading ? <SliderBannerSkeleton /> : <SliderBanner banner={pagedata?.banner} bannerdata={bannerContent} />}
-            <Clients />
+            <Clients className="home_clients" />
             <Aboutcomponent isLoading={isLoading} content={aboutContent} calltoaction={callToActContent} />
             <Coreservice />
             <HookIndustry />

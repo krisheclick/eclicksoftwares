@@ -11,7 +11,6 @@ import { Col, Container, Row } from "react-bootstrap";
 import Review_rating from "./Review_rating";
 import WhatsKeep from "./keep/WhatsKeep";
 import Teams from "../meet-team/Teams";
-import Styles from "./style.module.css";
 import BannerSkeleton from "./banner/BannerSkeleton";
 import CustomImage from "@/utils/CustomImage";
 import WhatWeDoSkeleton from "./WhatWeDoSkeleton";
@@ -19,6 +18,7 @@ import MissionVissionSkeleton from "./MissionVissionSkeleton";
 import SkeletonCounter from "../counters/SkeletonCounter";
 import WhatsKeepSkeleton from "./keep/WhatsKeepSkeleton";
 import TeamSkeleton from "../meet-team/TeamSkeleton";
+import Styles from "./style.module.css";
 
 type UspCategory = {
     usp_category_title: string;
@@ -147,25 +147,23 @@ const Aboutcomponent = () => {
             ) : (
                 <BannerSkeleton />
             )}
-            <div className={`sectionArea pt-3 ${Styles.about_section ?? ''}`}>
+            <div className={`sectionArea pt-xxl-3 pt-xl-2 ${Styles.about_section ?? ''}`}>
                 <Container>
-                    <Row className="rowGap gx-xl-5 align-items-center">
+                    <Row className="rowGap gx-xl-5">
                         <Col lg={6}>
                             {!hasLoading ? (
                                 <CustomImage
                                     src={`${process.env.NEXT_PUBLIC_MEDIA_URL}/uploads/page_image/${aboutData?.page_feature_image}`}
                                     alt={aboutData?.page_title}
-                                    className={Styles.aboutPoster}
+                                    className={`h-100 ${Styles.aboutPoster}`}
                                     style={{ objectFit: "cover" }}
                                 />
                             ) : (
-                                <figure className={`skeletonPoster ${Styles.aboutPoster}`}>
-                                    <div className="skeleton skeletonFill"></div>
-                                </figure>
+                                <figure className={`skeleton h-100 ${Styles.aboutPoster}`}></figure>
                             )}
                         </Col>
-                        <Col lg={6}>
-                            <div className={`ps-4 ${Styles.about_content}`}>
+                        <Col lg={6} className="align-self-center">
+                            <div className={Styles.about_content}>
                                 {!hasLoading ? (
                                     <>
                                         <h2 className={`title fw-bold ${Styles.page_title}`}>{aboutData?.page_title}</h2>
@@ -228,17 +226,14 @@ const Aboutcomponent = () => {
                                     <div className="small_title">{counterData.dz44_title}</div>
                                 )}
 
-                                <div className={`title fw-bold ${Styles.title ?? ''}`}
+                                <div className={`title fw-bold ${Styles.counterDatatitle ?? ''}`}
                                     dangerouslySetInnerHTML={{ __html: counterData?.dz44_heading || '' }}
                                 />
                             </>
                         ) : (
                             <>
-                                <div className="skeleton skeletonSmallTitle"></div>
-                                <div className={Styles.skeletonTitleWrapper}>
-                                    <div className={`skeleton w-100 mb-2 ${Styles.skeletonTitle}`}></div>
-                                    <div className={`skeleton w-50 ${Styles.skeletonTitle}`}></div>
-                                </div>
+                                <div className={`skeleton small_title w-25 ${Styles.subtitle ?? ''}`}>&nbsp;</div>
+                                <div className={`skeleton title fw-bold ${Styles.counterDatatitle ?? ''}`}>&nbsp;</div>
                             </>
                         )}
                     </div>
@@ -257,12 +252,12 @@ const Aboutcomponent = () => {
                 <WhatsKeepSkeleton />
             )}
 
-            {!hasLoading && teamData ? (
+            {/* {!hasLoading && teamData ? (
                 <Teams content={customData?.group_name} data={teamData} />
             ) : (
                 <TeamSkeleton />
-            )}
-            <Clients classValue={"fullBox"} />
+            )} */}
+            <Clients />
         </div>
     );
 };

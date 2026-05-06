@@ -15,9 +15,6 @@
     gap: 8px;
     cursor: pointer;
 }
-.service{
-    margin-bottom: 16px;
-}
 .policyCheck label{
     margin-block: 8px;
     cursor: pointer;
@@ -50,4 +47,9 @@
 .phoneInputContainer .iti input {
     width: 100% !important;
     border-radius: 4px;
+}
+@media only screen and (max-width: 1199px){
+    .submitBtn{
+        margin-top: 8px;
+    }
 }

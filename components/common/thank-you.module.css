@@ -5,7 +5,6 @@
     display: flex;
     align-items: center;
 }
-
 .successContent {
     text-align: center;
     max-width: 600px;
@@ -46,51 +45,32 @@
     line-height: 1.6;
     margin-bottom: 30px;
 }
-
-.actionButtons {
-    display: flex;
-    justify-content: center;
+@media only screen and (max-width: 1399px){
+    .successPage {
+        min-height: 80vh;
+    }
+    .successTitle{
+        font-size: 2.25rem;
+    }
 }
-
-.homeBtn {
-    padding: 12px 30px;
-    border-radius: 25px;
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-    transition: all 0.3s ease;
-    text-decoration: none;
-    display: inline-flex;
-    align-items: center;
-    background: var(--primary-color);
-    color: var(--white-color);
-    border: 2px solid var(--primary-color);
-}
-
-.homeBtn:hover {
-    background: var(--hover-color);
-    border-color: var(--hover-color);
-    transform: translateY(-2px);
-    box-shadow: 0 5px 15px rgba(31, 88, 203, 0.3);
-}
-
-/* Responsive Design */
-@media (max-width: 768px) {
+@media (max-width: 991px) {
     .successPage {
         padding: 60px 0 40px;
+        min-height: 50vh;
     }
-
     .successTitle {
         font-size: 2rem;
     }
-
     .successIcon {
         font-size: 3rem;
     }
 }
 
-@media (max-width: 480px) {
+@media (max-width: 575px) {
     .successTitle {
         font-size: 1.8rem;
+    }
+    .successMessage{
+        font-size: 15px;
     }
 }

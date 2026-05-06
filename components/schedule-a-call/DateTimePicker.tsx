@@ -123,7 +123,7 @@ export default function DateTimePicker() {
 
     return (
         <>
-            <label className="form-label text-bold">Select a Date & Time</label>
+            <label className="form-label fw-bold text-center">Select a Date & Time</label>
             <div className={`${visibleTimeField ? `${styles.container}` : ""}`}>
                 <div>
                     <DayPicker
@@ -150,7 +150,7 @@ export default function DateTimePicker() {
 
                 {/* RIGHT */}
                 <div className={`${!visibleTimeField ? 'd-none' : ""}`}>
-                    <label className="form-label text-bold mb-2">
+                    <label className="form-label fw-semibold mb-2">
                         {selectedDate
                             ? format(selectedDate, "EEEE, MMMM d")
                             : "Select a date"}

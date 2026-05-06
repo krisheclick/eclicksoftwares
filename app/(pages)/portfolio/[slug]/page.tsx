@@ -52,6 +52,10 @@ const Page = ({ params }: { params: { slug: string } }) => {
         content = !hasLoading ? <LogoDesign title={title ?? ''} portfolios={items} /> : <LogoDesignSkeleton />;
     } else if (pageSlug === "website-design") {
         content = <PortfolioList slug={pageSlug} />;
+    } else if (pageSlug === "website-design") {
+        content = <PortfolioList slug={pageSlug} />;
+    }  else if (pageSlug === "graphics-design") {
+        content = <Tshirt hasLoading={hasLoading} className="graphicsBox" title={title ?? ''} portfolios={items} />;
     } else {
         content = <Tshirt hasLoading={hasLoading} title={title ?? ''} portfolios={items} />;
     }

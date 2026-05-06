@@ -72,9 +72,6 @@
     margin-top: calc(-.9 * var(--extraSpace));
     width: 54vw;
 }
-figure.poster{
-    background: transparent;
-}
 .poster img{
     mix-blend-mode: multiply;
 }
@@ -103,6 +100,9 @@ figure.poster{
     .smallTitle{
         margin-bottom: 12px;
     }
+    .ctaContent{
+        padding-block: 32px;
+    }
 }
 @media only screen and (max-width: 1199px){
     .brands li{
@@ -116,6 +116,49 @@ figure.poster{
     .brands ul {
         grid-template-columns: repeat(3,1fr);
     }
+    .callToAction{
+        --extraSpace: 40px;
+        position: relative;
+        overflow: hidden;
+    }
+    .poster {
+        width: 48vw;
+        padding-top: 0;
+        margin: 0;
+        aspect-ratio: 4/3;
+    }
+    .actionTitle{
+        font-size: 26px;
+    }
+    .smallTitle {
+        margin-bottom: 12px;
+        font-size: 1.1em;
+    }
+    .smallTitle::after{
+        width: 100px;
+    }
+}
+@media only screen and (max-width: 767px){
+    .poster {
+        position: absolute;
+        transform: scaleX(-1);
+        right: 0;
+        bottom: 0;
+        opacity: .35;
+    }
+    .ctaContent{
+        padding-block: 36px;
+    }
+    .actionTitle span{
+        display: initial;
+    }
+    .processBox p {
+        max-height: 3lh;
+        overflow: hidden auto;
+        padding-right: 10px;
+        margin-right: -10px;
+    }
+
 }
 @media only screen and (max-width: 479px){
     .brands li{

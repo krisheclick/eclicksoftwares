@@ -28,7 +28,7 @@ const MissionVission = ({data }: Props) => {
     return (
         <div className={Styles.mission_vission}>
             <Container>
-                <div className={`rowCard ${Styles.row}`}>
+                <div className={`rowCard ${Styles.rowCard}`}>
                     <Card
                         poster={content["96lg_vision_image"]}
                         subtitle={content["96lg_vision_title"]}

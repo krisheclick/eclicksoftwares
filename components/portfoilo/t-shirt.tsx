@@ -14,10 +14,11 @@ type Portfolio = {
 type Props = {
     hasLoading: boolean;
     title: string;
+    className?: string;
     portfolios?: Portfolio[];
 };
 
-const Tshirt = ({ hasLoading, title, portfolios = [] }: Props) => {
+const Tshirt = ({ hasLoading, title, className="", portfolios = [] }: Props) => {
     const { openLetsConnectModal } = useLetsConnect();
 
     if (!hasLoading && portfolios.length === 0) {
@@ -34,7 +35,7 @@ const Tshirt = ({ hasLoading, title, portfolios = [] }: Props) => {
                 {!hasLoading ? (
                     portfolios.map((item, index) => (
                         <Col lg={4} xs={6} key={index}>
-                            <div className={Styles.shirtBox}>
+                            <div className={`${Styles.shirtBox} ${Styles[className] ?? ''}`}>
                                 <Image
                                     src={`${process.env.NEXT_PUBLIC_MEDIA_URL}${item.portfolio_feature_image_path ?? ""}`}
                                     alt={item.portfolio_title || "Logo Design"}

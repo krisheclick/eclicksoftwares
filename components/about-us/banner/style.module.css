@@ -3,7 +3,8 @@
     z-index: 1;
 }
 .bannerPoster{
-    padding-top: 32.25%;
+    padding-top: 0;
+    aspect-ratio: 15/5;
     border-radius: 20px;
 }
 .bannerPoster:not(.bannerSkeleton)::before{
@@ -39,4 +40,51 @@
     }
 }
 @media only screen and (max-width: 1399px){
+    .bannerPoster{
+        border-radius: 16px;
+    }
+}
+@media only screen and (max-width: 1199px){
+    .bannerTitle{
+        font-size: 36px;
+    }
+}
+@media only screen and (max-width: 991px){
+    .tabFull{
+        max-width: 100% !important;
+        padding: 0 !important;
+    }
+    .bannerText{
+        padding-inline: 15px;
+    }
+    .bannerPoster{
+        border-radius: 0px;
+    }
+    .bannerTitle{
+        font-size: 32px;
+    }
+}
+@media only screen and (max-width: 767px){
+    .bannerPoster{
+        aspect-ratio: 2/1;
+    }
+    .bannerPoster img{
+        object-fit: cover;
+        object-position: top;
+    }
+}
+@media only screen and (max-width: 575px){
+    .bannerTitle{
+        font-size: 28px;
+    }
+}
+@media only screen and (max-width: 479px){
+    .bannerTitle{
+        font-size: 24px;
+    }
+}
+@media only screen and (max-width: 359px){
+    .bannerTitle{
+        font-size: 22px;
+    }
 }

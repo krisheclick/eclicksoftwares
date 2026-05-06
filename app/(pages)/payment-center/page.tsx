@@ -80,7 +80,7 @@ export default function PaymentCenter() {
         )}
             <div className={`sectionArea ${Styles.sectionArea}`}>
                 <Container>
-                    <Row className="gx-xl-5">
+                    <Row className="gx-xl-5 rowGap">
                         <Col lg={6}>
                             <PaymentContact />
                         </Col>

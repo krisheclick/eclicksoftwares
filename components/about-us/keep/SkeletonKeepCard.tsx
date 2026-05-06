@@ -9,9 +9,12 @@ const SkeletonKeepCard = () => {
                     <div className="skeleton skeletonFill"></div>
                 </figure>
                 <div className={Styles.card_content}>
-                    <div className={`skeleton ${Styles.card_title} ${Styles.skeleton_title}`}></div>
-                    <div className="skeleton skeletonText mb-2"></div>
+                    <div className={`skeleton ${Styles.card_title} ${Styles.skeleton_title}`}>&nbsp;</div>
                     <div className="skeleton skeletonText"></div>
+                    <div className="skeleton skeletonText"></div>
+                    <div className="skeleton skeletonText"></div>
+                    <div className="skeleton skeletonText w-75"></div>
+                    <div className="skeleton skeletonText w-50"></div>
                 </div>
             </div>
         </Col>

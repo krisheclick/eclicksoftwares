@@ -5,7 +5,7 @@ import { useRouter } from "next/navigation";
 import { Container, Row, Col } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCheckCircle } from "@fortawesome/free-solid-svg-icons";
-import Styles from "./style.module.css";
+import Styles from "@/components/common/thank-you.module.css";
 import Link from "next/link";
 
 const HireDeveloperThankYou = () => {
@@ -62,7 +62,7 @@ const HireDeveloperThankYou = () => {
                                 </strong>.
                             </p>
 
-                            <div className={Styles.actionButtons}>
+                            <div className={`btn_wrap justify-content-center btn_center ${Styles.actionButtons ?? ''}`}>
                                 <Link
                                     href="/"
                                     className={`eclick-btn-primary lg ${Styles.homeBtn ?? ''}`}

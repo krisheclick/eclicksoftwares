@@ -288,8 +288,8 @@ const PaymentForm = () => {
         <>
             <div className={Styles.contactForm}>
                 <form method="post" onSubmit={handleSubmit}>
-                    <div className={`d-none d-xl-block ${Styles.formItem}`}>
-                        <label htmlFor="paymentFor">Payment For</label>
+                    <div className={`d-none d-lg-block ${Styles.formItem}`}>
+                        <label htmlFor="paymentFor" className="subtitle mb-2 mb-xl-3">Payment For</label>
                         <div className={`${Styles.inquiryOption} ${errors.paymentFor ? "is-invalid" : ""}`}>
                             {serviceCategories.map((category) => (
                                 <label key={category.service_category_slug} htmlFor={category.service_category_slug}>
@@ -308,7 +308,7 @@ const PaymentForm = () => {
                         </div>
                     </div>
 
-                    <div className={`d-xl-none ${Styles.service}`}>
+                    <div className={`d-lg-none ${Styles.service}`}>
                         <select
                             id="paymentFor"
                             className={`form-control ${errors.paymentFor ? 'is-invalid' : ''}`}

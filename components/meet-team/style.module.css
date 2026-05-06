@@ -8,10 +8,16 @@
 .cardList{
     padding-top: 20px;
 }
-@media only screen and (min-width: 1200px){
+/* @media only screen and (min-width: 1200px){
     .cardItem{
         width: 20%;
     }
+} */
+.cardRow{
+    --area: 220px;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(var(--area), 1fr));
+    gap: 30px;
 }
 .card{
     --size: 120px;
@@ -37,4 +43,9 @@
 }
 .name::first-letter{
     text-transform: capitalize;
+}
+@media only screen and (max-width: 1399px){
+    .cardRow{
+        --area: 175px;
+    }
 }

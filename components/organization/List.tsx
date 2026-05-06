@@ -2,7 +2,6 @@
 import { useEffect } from 'react';
 import Image from 'next/image'
 import Styles from './style.module.css';
-import "swiper/swiper-bundle.css";
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Autoplay, FreeMode } from 'swiper/modules';
 type ProcessStep = {
@@ -45,9 +44,9 @@ const List = ({ isLoading, process_steps }: props) => {
                     modules={[Autoplay, FreeMode]}
                     breakpoints={{
                         0: { slidesPerView: 1 },
-                        360: { slidesPerView: 2 },
-                        992: { slidesPerView: 3 },
-                        120: { slidesPerView: 4 },
+                        440: { slidesPerView: 2 },
+                        768: { slidesPerView: 3 },
+                        1200: { slidesPerView: 4 },
                         1400: { slidesPerView: 5 },
                     }}
                     onSlideChange={(swiper) => {

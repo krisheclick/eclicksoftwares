@@ -23,3 +23,32 @@
 .skeletonTitle{
     height: 46px;
 }
+@media only screen and (max-width: 1600px){
+    .spaceAdd{
+        margin-top: 48px;
+    }
+    .calltoAction_wrapper{
+        padding: 36px 32px;
+    }
+}
+@media only screen and (max-width: 1199px){
+    .spaceAdd{
+        margin-top: 36px;
+    }
+    .calltoAction_wrapper{
+        padding: 30px 24px;
+        border-radius: 8px;
+    }
+}
+@media only screen and (max-width: 767px){
+    .calltoAction_wrapper{
+        flex-wrap: wrap;
+        gap: 16px;
+        padding: 20px;
+    }
+}
+@media only screen and (max-width: 575px){
+    .calltoAction_content .title span{
+        display: initial;
+    }
+}

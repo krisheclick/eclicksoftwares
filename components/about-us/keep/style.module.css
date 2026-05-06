@@ -1,0 +1,8 @@
+.whatsKeep{
+    margin-bottom: 20px;
+}
+@media only screen and (max-width: 479px){
+   .whatsKeep{
+        margin-bottom: 0px;
+    } 
+}

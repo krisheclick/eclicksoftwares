@@ -27,7 +27,7 @@ const WhatsKeep = ({ data }: Props) => {
                     />
                 </div>
                 <div className={Styles.cardList}>
-                    <Row className={`gx-0 ${Styles.cardRow ?? ''}`}>
+                    <Row className={`gx-3 gx-md-0 rowGap ${Styles.cardRow ?? ''}`}>
                         {data?.usps?.slice(0, 4)?.map((value, index) => (
                             <Card
                                 key={index}
