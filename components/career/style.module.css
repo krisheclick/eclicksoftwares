@@ -33,12 +33,15 @@
     background: linear-gradient(90deg, var(--primary-color) 50%, #ededed 50%, #ededed 100%);
 }
 .referralContent{
-    padding: 72px 36px;
+    --paddingX: 36px;
+    --paddingY: 72px;
+    padding: var(--paddingY) 0px var(--paddingY) var(--paddingX);
     font-size: 1.1em;
     color: var(--black-color);
 }
 .referralContentWhite{
     color: var(--white-color);
+    padding-inline: 0px var(--paddingX);
 }
 .referralContentWhite :is(.sectionTitle, .small_title){
     color: inherit;
@@ -88,7 +91,8 @@
         font-size: 54px;
     }
     .referralContent{
-        padding: 56px 24px;
+        --paddingY: 56px;
+        --paddingX: 24px;
     }
     .jobCardTitle{
         font-size: 20px;
@@ -99,7 +103,7 @@
 }
 @media only screen and (max-width: 1199px){
     .referralContent{
-        padding: 40px 20px;
+        --paddingX: 20px;
     }
 }
 @media only screen and (max-width: 991px){
@@ -146,6 +150,9 @@
 @media only screen and (max-width: 575px){
     .referralContent{
         padding: 30px 16px;
+    }
+    .bannerTitle span{
+        font-size: .7em;
     }
 }
 @media only screen and (max-width: 479px){

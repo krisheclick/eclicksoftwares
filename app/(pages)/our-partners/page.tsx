@@ -3,11 +3,12 @@ import Banner from "@/components/our-partner/Banner";
 import { useEffect, useState } from 'react';
 import { Col, Container, Row } from "react-bootstrap";
 import Image from "next/image";
-import Styles from "./style.module.css";
 import List from "@/components/organization/List";
 import Developer from "@/components/hire-developer/Developer";
 import Faq from "@/components/hire-developer/faq/Faq";
 import { useScheduleCall } from "@/utils/useLetsConnect";
+import CustomImage from "@/utils/CustomImage";
+import Styles from "./style.module.css";
 
 type PageData = {
     id: number;
@@ -126,51 +127,46 @@ const Partnerships = () => {
     return (
 
 
-        <div className="about_page">
-
-            {/* ================= PARTNER-BANNER-STARTS ================= */} 
+        <div className="partner_page">
             <Banner hasLoading={hasLoading} data={bannerData} />
-            {/* ================= PARTNER-BANNER-ENDS ================= */}
-
-
-            {/* ================= PARTNER-ABOUT-STARTS ================= */}
-            <div className={`sectionArea pt-3 ${Styles.about_section ?? ''}`}>
+            
+            <div className={`sectionArea pt-xxl-2 ${Styles.about_section ?? ''}`}>
                 <Container>
-                    <Row className="rowGap gx-xl-5 align-items-center">
+                    <Row className="rowGap gx-xl-5 justify-content-center">
                         <Col lg={6}>
-                            <figure className={Styles.aboutPoster}>
-                                {!hasLoading ? (
-                                    <Image
-                                        src={`${process.env.NEXT_PUBLIC_MEDIA_URL}/uploads/page_image/${pageData?.page_feature_image}`}
-                                        alt={pageData?.page_title ?? "Card Poster"}
-                                        fill
-                                        priority
-                                        style={{ objectFit: "cover" }}
-                                    />
-                                ) : (
-                                    <div className='skeleton skeletonFill'></div>
-                                )}
-                            </figure>
+                            {!hasLoading ? (
+                                <CustomImage
+                                    src={`${process.env.NEXT_PUBLIC_MEDIA_URL}/uploads/page_image/${pageData?.page_feature_image}`}
+                                    alt={pageData?.page_title ?? "Card Poster"}
+                                    className={Styles.aboutPoster}
+                                />
+                            ) : (
+                                <div className={`skeleton ${Styles.aboutPoster}`}></div>
+                            )}
                         </Col>
-                        <Col lg={6}>
+                        <Col lg={6} className="align-self-center">
                             <div className={`${Styles.about_content}`}>
                                 {!hasLoading ? (
                                     <>
-                                        <div className={`small_title ${Styles.lablheading ?? ''}`}>{pageData?.short_description}</div>
-                                        <h2 className={`title fw-bold ${Styles.partab_mheading ?? ''}`}>{pageData?.page_title}</h2>
-                                        <div className={Styles.editorTextpartner}>
-                                            <div className="editorText" dangerouslySetInnerHTML={{ __html: pageData?.description || "" }}/>
-                                        </div>
+                                        {pageData?.short_description && <div className="small_title">{pageData?.short_description}</div>}
+                                        <h2 className={`title fw-bold ${Styles.page_title ?? ''}`}>{pageData?.page_title}</h2>
+                                        <div
+                                            className="editorText"
+                                            dangerouslySetInnerHTML={{ __html: pageData?.description || "" }}
+                                        />
                                     </>
                                 ) : (
                                     <>
-                                        <div className={`skeleton mb-2 ${Styles.skeletonTitle}`}></div>
-                                        <div className={`skeleton w-75 ${Styles.skeletonTitle}`}></div>
-                                        <div className="skeleton skeletonText w-100"></div>
-                                        <div className="skeleton skeletonText w-100"></div>
-                                        <div className="skeleton skeletonText w-100"></div>
-                                        <div className="skeleton skeletonText w-100"></div>
-                                        <div className="skeleton skeletonText w-100"></div>
+                                        <div className={"small_title skeleton w-25"}>&nbsp;</div>
+                                        <div className={`title skeleton ${Styles.page_title}`}>&nbsp;</div>
+                                        <div className="skeleton skeletonText"></div>
+                                        <div className="skeleton skeletonText"></div>
+                                        <div className="skeleton skeletonText"></div>
+                                        <div className="skeleton skeletonText"></div>
+                                        <div className="skeleton skeletonText"></div>
+                                        <div className="skeleton skeletonText"></div>
+                                        <div className="skeleton skeletonText"></div>
+                                        <div className="skeleton skeletonText"></div>
                                         <div className="skeleton skeletonText w-75"></div>
                                         <div className="skeleton skeletonText w-50"></div>
                                     </>
@@ -180,10 +176,7 @@ const Partnerships = () => {
                     </Row>
                 </Container>
             </div>
-            {/* ================= PARTNER-ABOUT-ENDS ================= */}                        
 
-
-            {/* ================= PARTNERSHIP-PROGRAMS-RJ-STARTS ================= */}              
             <div className={`sectionArea ${Styles.processSection ?? ''}`}>
                 <Container>
                     <div className={`section-content full text-center ${Styles.section_content ?? ''}`}>
@@ -192,7 +185,7 @@ const Partnerships = () => {
                                 dangerouslySetInnerHTML={{ __html: processData?.usp_category_title ?? '' }}
                             />
                         ) : (
-                            <div className="skeleton w-100 skeletonTitle"></div>
+                            <div className={`title fw-normal ${Styles.title ?? ''}`}>&nbsp;</div>
                         )}
                     </div>
                     <List isLoading={hasLoading} process_steps={processData?.usps.map((item) => ({
@@ -204,30 +197,28 @@ const Partnerships = () => {
                     } />
                 </Container>
             </div>
-            {/* ================= PARTNERSHIP-PROGRAMS-RJ-ENDS ================= */}
 
 
-            {/* ================= RESELLER-MARKETING-STARTS ================= */}              
-            <div className={`sectionAreaa ${Styles.processSection ?? ''}`}>
+            <div className={`sectionArea ${Styles.referralSectionsam ?? ''}`}>
                 <Container className={Styles.reselmarketsec}>
                     {pageCustomField?.program && (
-                        <Row>
+                        <Row className="gx-xl-5 justify-content-center align-items-center">
                             <Col lg={6}>
-                                <div className={Styles.reslsbbg}>
-                                    <div className={Styles.lablheading}>{pageCustomField?.program.nplh_title_1}</div>
-                                    <h3 className={Styles.maleb_mheading}>{pageCustomField?.program.nplh_heading_1}</h3>
-                                    <div className={Styles.resamr_paraul}>
-                                        <div dangerouslySetInnerHTML={{__html:pageCustomField?.program.nplh_description_1}}/>
+                                <div className={`text-white ${Styles.referralContent} ${Styles.referralContentWhite}`}>
+                                    <div className={Styles.referralContentInner}>
+                                        <div className={`small_title fw-semibold ${Styles.small_title}`}>{pageCustomField?.program.nplh_title_1}</div>
+                                        <div className={`title fw-bold ${Styles.sectionTitle}`}>{pageCustomField?.program.nplh_heading_1}</div>
+                                        <div dangerouslySetInnerHTML={{__html:pageCustomField?.program.nplh_description_1}} className="editorText" />
                                     </div>
                                 </div>
                             </Col>
                             <Col lg={6}>    
-                                <div className={Styles.marksbbg}>                     
-                                    <div className={Styles.lablheading}>{pageCustomField?.program.nplh_title_2}</div>
-                                    <h3 className={Styles.maleb_mheading}>{pageCustomField?.program.nplh_heading_2}</h3>
-                                    <div className={Styles.resamr_paraul}>
-                                        <div dangerouslySetInnerHTML={{__html:pageCustomField?.program.nplh_description_2}}/>
-                                    </div>
+                                <div className={Styles.referralContent}>
+                                    <div className={Styles.referralContentInner}>                     
+                                        <div className={`small_title ${Styles.small_title}`}>{pageCustomField?.program.nplh_title_2}</div>
+                                        <div className={`title fw-bold ${Styles.sectionTitle}`}>{pageCustomField?.program.nplh_heading_2}</div>
+                                        <div dangerouslySetInnerHTML={{__html:pageCustomField?.program.nplh_description_2}} className="editorText" />
+                                    </div>   
                                 </div>   
                             </Col>
                         </Row>   
@@ -235,52 +226,45 @@ const Partnerships = () => {
                     
                 </Container>
             </div>
-            {/* ================= RESELLER-MARKETING-ENDS ================= */}
 
+            {pageData && (
+                <Developer 
+                    hasLoading={hasLoading} 
+                    data={pageData?.usp_categorys[1]} 
+                    separateText={true}
+                    isButton={false}
+                    boxClass3={true}
+                />
+            )}
 
-            {/* ================= VALUES-BUSINESS-STARTS ================= */}      
-            <div className={Styles.valuesbus_partner}>     
-                {pageData && (
-                    <Developer 
-                        hasLoading={hasLoading} 
-                        data={pageData?.usp_categorys[1]} 
-                        whiteClass={true} 
-                        separateText={true}
-                        isButton={false}
-                        boxClass3={true}
-                    />
-                )}
-            </div>
-            {/* ================= VALUES-BUSINESS-ENDS ================= */}
-
-
-            {/* ================= FAQ-STARTS ================= */}
             {pageData && pageData?.faqs?.length > 0 && (
                 <div className={`sectionArea ${Styles.faqSectionsam ?? ''}`}>
                     <Container>
-                        <Row className={Styles.row}>
+                        <Row className={`rowGap ${Styles.row ?? ''}`}>
                             <Col lg={5}>
-                                <div className={Styles.hmfaq_tpbx}>
-                                    <h2 className={Styles.hwdtilte}>{pageCustomField?.faq?.khft_title}</h2>
-                                    <div className={`${Styles.hwdtiltepara} ${Styles.hwdtectiltepara}`}
+                                <div className={`section-content ${Styles.hmfaq_tpbx ?? ''}`}>
+                                    <h2 className={`title ${Styles.hwdtilte}`}>{pageCustomField?.faq?.khft_title}</h2>
+                                    <div className={Styles.hwdtiltepara}
                                         dangerouslySetInnerHTML={{ __html: pageCustomField?.faq?.khft_description || '' }}
                                     />
-                                    <button
-                                        type="button"
-                                        onClick={() => openScheduleModal('general_schedule_a_call')}
-                                        className={`eclick-btn-schedule ${Styles.scheduleBtn ?? ''}`}
-                                    >
-                                        <span>
-                                            <Image
-                                                className="auto-img"
-                                                src={`${process.env.NEXT_PUBLIC_assetPrefix}/assets/images/phone.webp`}
-                                                alt={"Schedule a Call"}
-                                                width={21} height={21}
-                                                priority={true}
-                                            />
-                                        </span>
-                                        <em>Schedule a Call</em>
-                                    </button>
+                                    <div className="btn_left">
+                                        <button
+                                            type="button"
+                                            onClick={() => openScheduleModal('general_schedule_a_call')}
+                                            className={`eclick-btn-schedule ${Styles.scheduleBtn ?? ''}`}
+                                        >
+                                            <span>
+                                                <Image
+                                                    className="auto-img"
+                                                    src={`${process.env.NEXT_PUBLIC_assetPrefix}/assets/images/phone.webp`}
+                                                    alt={"Schedule a Call"}
+                                                    width={21} height={21}
+                                                    priority={true}
+                                                />
+                                            </span>
+                                            <em>Schedule a Call</em>
+                                        </button>
+                                    </div>
                                 </div>
                             </Col>
 
@@ -291,8 +275,6 @@ const Partnerships = () => {
                     </Container>
                 </div>
             )}
-            {/* ================= FAQ-ENDS ================= */}
-
         </div>
     )
 }

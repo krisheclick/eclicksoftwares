@@ -41,11 +41,13 @@ const Developer = ({ hasLoading, whiteClass, separateText, data, isButton = true
                         <>
                             <div className={`skeleton skeletonRegularTitle w-50 ${Styles.hwdtilte}`}></div>
                             <div className={Styles.hwdtiltepara}>
-                                <div className="skeleton skeletonText mb-2"></div>
-                                <div className="skeleton skeletonText mb-2"></div>
-                                <div className="skeleton skeletonText mb-2"></div>
-                                <div className="skeleton skeletonText mb-2"></div>
-                                <div className="skeleton skeletonText mb"></div>
+                                <div className="">
+                                    <div className="skeleton skeletonText mb-2"></div>
+                                    <div className="skeleton skeletonText mb-2"></div>
+                                    <div className="skeleton skeletonText mb-2"></div>
+                                    <div className="skeleton skeletonText mb-2"></div>
+                                    <div className="skeleton skeletonText mb"></div>
+                                </div>
                             </div>
                         </>
                     )}

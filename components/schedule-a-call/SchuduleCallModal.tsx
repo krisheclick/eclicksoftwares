@@ -369,7 +369,7 @@ const SchuduleCallModal = ({ show, onHide, action }: ScheduleCallProps) => {
     };
 
     return (
-        <Modal show={show} onHide={()=>{resetAllFormData();onHide();}} size={(visibleTimeField ? "xl" : "lg")} backdrop="static" keyboard={false} centered className={styles.scheduleModal} scrollable={false}>
+        <Modal show={show} onHide={()=>{resetAllFormData();onHide();}} size={(visibleTimeField ? "xl" : "lg")} backdrop="static" keyboard={false} centered className={`scheduleModal ${styles.scheduleModal ?? ''}`} scrollable={false}>
             <Modal.Body className="px-4">
                 <a className={`${styles.modalCloseBtn} position-absolute`} onClick={()=>{resetAllFormData();onHide();}}  aria-label="Close"><FontAwesomeIcon icon={faXmark} /></a>
 

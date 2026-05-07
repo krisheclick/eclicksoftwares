@@ -227,4 +227,7 @@
     .backButton{
         --size: 36px;
     }
+    .backButton{
+        margin-bottom: 12px;
+    }
 }

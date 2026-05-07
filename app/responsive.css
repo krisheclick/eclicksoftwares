@@ -165,7 +165,7 @@
 	.sliderdiv .swiper-wrapper {
 		padding-block: 30px;
 	}
-	.modal-dialog {
+	.scheduleModal .modal-dialog {
 		max-width: calc(100% - 24px);
 	}
 	.modelButton{
@@ -276,8 +276,7 @@
 	.small_title{
 		font-size: 1em;
 	}
-	.rdp-day_button{
-		--rdp-day_button-width: 36px;
-		--rdp-day_button-height: 36px;
+	.gallerySwiper .swiper-pagination{
+		margin-top: 12px !important;
 	}
 }

@@ -2,7 +2,7 @@
 import { useEffect, useState } from "react";
 import Banner from "@/components/hire-developer/banner/Banner";
 import HireBannerSkeleton from "./banner/HireBannerSkeleton";
-import { useHireModal, useLetsConnect } from "@/utils/useLetsConnect";
+import { useHireModal, useLetsConnect, useScheduleCall } from "@/utils/useLetsConnect";
 import Content from "./why-hire/Content";
 import HireModal from "./HireModal";
 import Developer from "./Developer";
@@ -92,6 +92,7 @@ type RootData = {
 const Page = () => {
     const { openLetsConnectModal } = useLetsConnect();
     const { showHireModal, setShowHireModal, openHireModal } = useHireModal();
+    const { openScheduleModal } = useScheduleCall();
 
     const [isLoading, setHasLoading] = useState(true);
     const [data, setData] = useState<RootData | null>(null);
@@ -237,27 +238,29 @@ const Page = () => {
                 <Container>
                     <Row className={`rowGap ${Styles.row ?? ''}`}>
                         <Col lg={5}>
-                            <div className={Styles.hmfaq_tpbx}>
-                                <h2 className={Styles.hwdtilte}>{faqContent?.yt43_heading}</h2>
-                                <div className={`${Styles.hwdtiltepara} ${Styles.hwdtectiltepara}`}
+                            <div className={`section-content ${Styles.hmfaq_tpbx ?? ''}`}>
+                                <h2 className={`title ${Styles.hwdtilte}`}>{faqContent?.yt43_heading}</h2>
+                                <div className={Styles.hwdtiltepara}
                                     dangerouslySetInnerHTML={{ __html: faqContent?.yt43_description || '' }}
                                 />
-                                <button
-                                    type="button"
-                                    onClick={() => openLetsConnectModal('general_lets_connect')}
-                                    className={`eclick-btn-schedule ${Styles.scheduleBtn ?? ''}`}
-                                >
-                                    <span>
-                                        <Image
-                                            className="auto-img"
-                                            src={`${process.env.NEXT_PUBLIC_assetPrefix}/assets/images/phone.webp`}
-                                            alt="Schedule a Call"
-                                            width={21} height={21}
-                                            priority={true}
-                                        />
-                                    </span>
-                                    <em>Schedule a Call</em>
-                                </button>
+                                <div className="btn_left">
+                                    <button
+                                        type="button"
+                                        onClick={() => openScheduleModal('general_schedule_a_call')}
+                                        className={`eclick-btn-schedule ${Styles.scheduleBtn ?? ''}`}
+                                    >
+                                        <span>
+                                            <Image
+                                                className="auto-img"
+                                                src={`${process.env.NEXT_PUBLIC_assetPrefix}/assets/images/phone.webp`}
+                                                alt={"Schedule a Call"}
+                                                width={21} height={21}
+                                                priority={true}
+                                            />
+                                        </span>
+                                        <em>Schedule a Call</em>
+                                    </button>
+                                </div>
                             </div>
                         </Col>
 

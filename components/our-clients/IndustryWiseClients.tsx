@@ -1,9 +1,9 @@
 "use client";
 import { useEffect, useState } from "react";
-import { Container, Row, Col } from "react-bootstrap";
+import { Container, Row, Col, Stack } from "react-bootstrap";
 import Image from "next/image";
 import Styles from "./style.module.css";
-import Skeleton from "@/components/common/Skeleton";
+import CustomImage from "@/utils/CustomImage";
 
 type ClientData = {
     id?: number;
@@ -28,7 +28,7 @@ const IndustryWiseClients = () => {
         try {
             const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}industry?with_client=1`);
             const { response_data } = await response.json();
-            
+
             if (response_data && response_data.length > 0) {
                 setData(response_data);
             }
@@ -44,86 +44,69 @@ const IndustryWiseClients = () => {
     }, []);
 
     return (
-        <div className={Styles.industryWiseClients}>
+        <div className={`sectionArea ${Styles.industryWiseClients}`}>
             <Container>
-                <div className={`${Styles.sectionHeader} text-center mb-5`}>
+                <div className={`section-content max-content text-center ${Styles.sectionHeader ?? ''}`}>
                     {!hasLoading ? (
                         <>
-                            <h2 className={`${Styles.sectionTitle}`}>Clients Across Industries</h2>
+                            <h2 className={`heading ${Styles.heading ?? ''}`}>Clients Across Industries</h2>
                             <p className={Styles.sectionDesc}>
                                 We have worked with leading companies across various industries
                             </p>
                         </>
                     ) : (
                         <>
-                            <div className={`skeleton ${Styles.skeletonTitle}`}></div>
-                            <div className={`skeleton ${Styles.skeletonDesc}`}></div>
+                            <div className={`heading skeleton w-75 ${Styles.heading}`}>&nbsp;</div>
+                            <div className={`skeleton skeletonText ${Styles.sectionDesc}`}></div>
                         </>
                     )}
                 </div>
 
-                {/* Industry Sections */}
-                <div className={`${Styles.industriesContainer}`}>
-                    {!hasLoading ? (
-                        data.map((industry, index) => (
-                            <>
-                            {/* Clients Grid */}
-                            {industry.clients && industry.clients.length > 0 ? (
-                                <div key={index} className={Styles.industrySection}>
-                                    {/* Industry Header */}
-                                    <div className={Styles.industryHeader}>
-                                        <div className={Styles.industryIcon}>
-                                            <Image
-                                                src={`${process.env.NEXT_PUBLIC_MEDIA_URL}${industry.industry_feature_image_path}`}
-                                                alt={industry.industry_title}
-                                                width={40}
-                                                height={40}
-                                            />
-                                        </div>
-                                        <h3 className={Styles.industryTitle}>{industry.industry_title}</h3>
+                <div className={Styles.industriesContainer}>
+                    <Stack className={Styles.clientsGrid}>
+                        {!hasLoading ? (
+                            data.map((industry, industryIndex) => (
+                                industry.clients && industry.clients.length > 0 && (
+                                    industry.clients.map((client, clientIndex) => (
+                                        <Stack 
+                                            className={Styles.clientCard}
+                                            key={
+                                                client.client_id
+                                                    ? `client-${client.client_id}`
+                                                    : `industry-${industryIndex}-client-${clientIndex}`
+                                            }
+                                        >
+                                            <div className={Styles.clientCardPoster}>
+                                                <CustomImage
+                                                    src={client.client_logo
+                                                        ? `${process.env.NEXT_PUBLIC_MEDIA_URL}${client.client_logo}`
+                                                        : "/placeholder-logo.png"
+                                                    }
+                                                    alt={client.client_name}
+                                                    className={Styles.clientLogo}
+                                                />
+                                            </div>
+                                            <div className={Styles.industryTitle}>
+                                                <span>Industry: </span>
+                                                {industry.industry_title}
+                                            </div>
+                                        </Stack>
+                                    ))
+                                )
+                            ))
+                        ) : (
+                            [...Array(12)].map((_, i) => (
+                                <Stack className={Styles.clientCard} key={i}>
+                                    <div className={Styles.clientCardPoster}>
+                                        <div className={`skeleton ${Styles.clientLogo}`}></div>
                                     </div>
-                                    <Row className={`gx-3 gy-4 ${Styles.clientsGrid}`}>
-                                        {industry.clients.map((client) => (
-                                            <Col lg={2} md={3} sm={4} xs={6} key={client.client_id || client.id}>
-                                                <div className={Styles.clientCard}>
-                                                    <div className={Styles.clientLogo}>
-                                                        <Image
-                                                            src={client.client_logo
-                                                                ? `${process.env.NEXT_PUBLIC_MEDIA_URL}${client.client_logo}`
-                                                                : "/placeholder-logo.png"
-                                                            }
-                                                            alt={client.client_name}
-                                                            fill
-                                                            style={{ objectFit: "contain" }}
-                                                            priority={false}
-                                                        />
-                                                    </div>
-                                                </div>
-                                            </Col>
-                                        ))}
-                                    </Row>
-                                </div>
-                            ) : ''}
-                            </>
+                                    <div className={`skeleton w-25 ${Styles.industryTitle ?? ''}`}>&nbsp;</div>
+                                    <div className={`skeleton ${Styles.industryTitle ?? ''}`}>&nbsp;</div>
+                                </Stack>
+                            ))
+                        )}
 
-                                
-                        ))
-                    ) : (
-                        <div className={Styles.loadingContainer}>
-                            {[...Array(3)].map((_, index) => (
-                                <div key={index} className={Styles.industrySection}>
-                                    <div className={`skeleton ${Styles.skeletonIndustryHeader}`}></div>
-                                    <Row className="gx-3 gy-4">
-                                        {[...Array(4)].map((_, i) => (
-                                            <Col lg={3} md={4} sm={6} xs={12} key={i}>
-                                                <div className={`skeleton ${Styles.skeletonClient}`}></div>
-                                            </Col>
-                                        ))}
-                                    </Row>
-                                </div>
-                            ))}
-                        </div>
-                    )}
+                    </Stack>
                 </div>
             </Container>
         </div>

@@ -29,7 +29,6 @@
     font-weight: 600;
     line-height: 1.2em;
     display: block;
-    padding-top: 6px;
 }
 @media only screen and (max-width: 1600px){
     .bannerTitle{
@@ -67,6 +66,14 @@
 @media only screen and (max-width: 767px){
     .bannerTitle{
         font-size: 36px;
+    }
+}
+@media only screen and (max-width: 575px){ 
+    .bannerTitle{
+        line-height: 1.2;
+    }
+    .bannerTitle :is(b, span){
+        font-size: .7em;
     }
 }
 @media only screen and (max-width: 479px){

@@ -9,7 +9,7 @@ import styles from "./DateTimePicker.module.css";
 import { useScheduleCallContext } from "@/context/SchuduleACallContext";
 import TimezoneDropdown from "./TimezoneDropdown";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faArrowRight} from "@fortawesome/free-solid-svg-icons";
+import { faArrowLeft, faArrowRight} from "@fortawesome/free-solid-svg-icons";
 
 const detectedTZ =
     Intl.DateTimeFormat().resolvedOptions().timeZone;
@@ -69,6 +69,21 @@ export default function DateTimePicker() {
         setTimezone
     } = useScheduleCallContext();
 
+    const [isMobile, setIsMobile] = useState(false);
+    const [showTimeView, setShowTimeView] = useState(false);
+
+    useEffect(() => {
+        const checkScreen = () => {
+            setIsMobile(window.innerWidth <= 768);
+        };
+
+        checkScreen();
+
+        window.addEventListener("resize", checkScreen);
+
+        return () => window.removeEventListener("resize", checkScreen);
+    }, []);
+
 
     
 
@@ -100,6 +115,10 @@ export default function DateTimePicker() {
         setVisibleTimeField(true);
         loadSlots(date);
 
+        if (isMobile) {
+            setShowTimeView(true);
+        }
+
         // router.replace(
         //     `?month=${format(date, "yyyy-MM")}&date=${format(date, "dd")}`
         // );
@@ -123,6 +142,80 @@ export default function DateTimePicker() {
 
     return (
         <>
+        {(isMobile &&
+            <>
+                {(!isMobile || !showTimeView) && (
+                    <div className={styles.leftPanel}>
+                        <label className="form-label fw-bold text-center">
+                            Select a Date
+                        </label>
+
+                        <DayPicker
+                            mode="single"
+                            selected={selectedDate}
+                            onSelect={onDateSelect}
+                            className={styles.calendar}
+                        />
+                        <div className={styles.timezone}>
+                            <TimezoneDropdown
+                                value={timezone}
+                                onChange={setTimezone}
+                            />
+                        </div>
+                    </div>
+                )}
+                {(!isMobile || showTimeView) && (
+                    <div className={styles.rightPanel}>
+                        {isMobile && (
+                            <button
+                            className={`btn btn-primary calenderBackButton ${styles.backButton}`}
+                            onClick={() => setShowTimeView(false)}
+                            ><FontAwesomeIcon icon={faArrowLeft }/></button>
+                        )}
+
+                        <label className="form-label fw-semibold mb-2">
+                            {selectedDate
+                            ? format(selectedDate, "EEEE, MMMM d")
+                            : "Select Time"}
+                        </label>
+
+                        {generateTimeSlots().length === 0 && selectedDate && (
+                            <p className={styles.noSlots}>No times available</p>
+                        )}
+
+                        <div className={`${styles.slotList}`}>
+                            {generateTimeSlots().map((slot) =>
+                                selectedSlot === slot ? (
+                                    <div key={slot} className="d-flex gap-2">
+                                        <button
+                                            className={`${styles.slot} ${styles.active} w-50`}
+                                        >
+                                            {slot}
+                                        </button>
+                                        <button className={`eclick-btn-connect ${styles.timeNext ?? ''}`} onClick={() => setStep(step + 1)}>
+                                            <span className={styles.phoneIcon}>
+                                                <FontAwesomeIcon icon={faArrowRight }/>
+                                            </span>
+                                            <em>Next</em>
+                                        </button>
+                                    </div>
+                                ) : (
+                                    <button
+                                        key={slot}
+                                        className={styles.slot}
+                                        onClick={() => setSelectedSlot(slot)}
+                                    >
+                                        {slot}
+                                    </button>
+                                )
+                            )}
+                        </div>
+                    </div>
+                )}
+                
+            </>
+        )}
+        {(!isMobile && <>
             <label className="form-label fw-bold text-center">Select a Date & Time</label>
             <div className={`${visibleTimeField ? `${styles.container}` : ""}`}>
                 <div>
@@ -189,6 +282,8 @@ export default function DateTimePicker() {
                     </div>
                 </div>
             </div>
+        </>
+        )}
         </>
     );
 }

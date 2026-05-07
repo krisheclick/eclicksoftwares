@@ -11,10 +11,9 @@
     margin-bottom: 16px;
 }
 .calendar {
-    --rdp-accent-color: #7a899e;
-    --rdp-accent-background-color: #799cc9;
+    --rdp-accent-color: var(--primary-color);
+    --rdp-accent-background-color: var(--primary-color);
     width: 100%;
-    max-width: 500px;
 }
 .calendar .rdp {
     width: 100%;
@@ -101,6 +100,28 @@
     color: #777;
     font-size: 14px;
 }
+.backButton {
+    --size: 40px;
+    border-radius: 100%;
+    padding: 4px;
+    display: grid;
+    place-items: center;
+    width: var(--size);
+    height: var(--size);
+    background-color: var(--primary-color);
+    color: var(--white-color);
+    border: none;
+    cursor: pointer;
+    position: absolute;
+    top: 16px;
+    transition: all 0.3s ease;
+}
+.backButton:hover {
+    background-color: var(--hover-color);
+    color: var(--white-color);
+    transform: scale(1.1);
+    box-shadow: 0 4px 8px rgba(0, 123, 255, 0.3);
+}
 @media only screen and (max-width: 767px){
     .container {
         grid-template-columns: inherit;
@@ -108,5 +129,23 @@
     }
     .timezone button{
         width: 100% !important;
+    }
+    .timeNext{
+        width: 50%;
+        max-width: 100% !important;
+    }
+}
+@media only screen and (max-width: 575px){
+    .backButton{
+        --size: 36px;
+    }
+}
+@media only screen and (max-width: 479px){
+    .slot{
+        border-radius: 4px;
+    }
+    .timeNext{
+        --size: 40px;
+        font-size: 13px;
     }
 }

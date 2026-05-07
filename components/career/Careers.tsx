@@ -221,7 +221,7 @@ const Careers = () => {
                             <div className={Styles.about_content}>
                                 {!isLoading ? (
                                     <>
-                                        {pageData?.short_description && <p >{pageData?.short_description}</p>}
+                                        {pageData?.short_description && <div className="small_title">{pageData?.short_description}</div>}
                                         <h2 className={`title fw-bold ${Styles.page_title ?? ''}`}>{pageData?.page_title}</h2>
                                         <div
                                             className="editorText"
@@ -230,6 +230,7 @@ const Careers = () => {
                                     </>
                                 ) : (
                                     <>
+                                        <div className={"small_title skeleton w-25"}>&nbsp;</div>
                                         <div className={`title skeleton ${Styles.page_title}`}>&nbsp;</div>
                                         <div className="skeleton skeletonText"></div>
                                         <div className="skeleton skeletonText"></div>
@@ -265,9 +266,9 @@ const Careers = () => {
                 <Container>
                     <Row className="gx-xl-5 justify-content-center align-items-center">
                         <Col lg={6}>
-                            <div className={`${Styles.referralContent} ${Styles.referralContentWhite}`}>
+                            <div className={`text-white ${Styles.referralContent} ${Styles.referralContentWhite}`}>
                                 <div className={Styles.referralContentInner}>
-                                    <div className={`small_title ${Styles.small_title}`}>For Freshers</div>
+                                    <div className={`small_title fw-semibold ${Styles.small_title}`}>For Freshers</div>
                                     <div className={`title fw-bold ${Styles.sectionTitle}`}>First Flush - Start Your Journey Here</div>
                                     <p>
                                         If you are fresh out of college and want to jumpstart your IT career, our First Flush program can help you explore your flair for innovation in the industry. Come and join the INT. family, and help us inspire possibilities throughout the world.
@@ -345,7 +346,7 @@ const Careers = () => {
                                         </Card>
                                     </Col>
                                 ))}
-                                <div ref={observerRef} style={{ height: "1px" }} />
+                                <div ref={observerRef} style={{ height: "1px", position: "absolute" }} />
 
                                 {isLoading && (
                                     <CardSkeleton />

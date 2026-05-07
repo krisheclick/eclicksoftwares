@@ -68,16 +68,11 @@ const OurClientsPage = () => {
             }
         }
     }, [pageData]);
-    console.log('bannerData :>> ', bannerData);
+
     return (
         <div className="our_clients_page">
-            {/* ================= CLIENTS-BANNER-STARTS ================= */} 
             <Banner hasLoading={hasLoading} data={bannerData} />
-            {/* ================= CLIENTS-BANNER-ENDS ================= */}
-
-            {/* ================= INDUSTRY-WISE-CLIENTS-STARTS ================= */}
             <IndustryWiseClients />
-            {/* ================= INDUSTRY-WISE-CLIENTS-ENDS ================= */}
         </div>
     );
 }

@@ -6,7 +6,7 @@
     margin-bottom: 50px;
 }
 .hwdtilte {
-    font: 400 45px / 1.2 var(--primary-font);
+    font: 500 45px / 1.2 var(--primary-font);
     color: var(--black-color);
     text-transform: capitalize;
     margin-bottom: 24px;
@@ -18,14 +18,16 @@
     line-height: 1.8;
     text-transform: capitalize;
 }
-.separateText .hwdtilte {
-    width: 50%;
-}
-.separateText .hwdtiltepara {
-    display: grid;
-    width: 100%;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 24px;
+@media only screen and (min-width: 992px){
+    .separateText .hwdtilte {
+        width: 50%;
+    }
+    .separateText .hwdtiltepara {
+        display: grid;
+        width: 100%;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 24px;
+    }
 }
 .techSectionsam {
     padding: 90px 0;

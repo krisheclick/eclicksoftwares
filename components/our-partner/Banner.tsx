@@ -1,4 +1,3 @@
-import Image from "next/image";
 import { Container } from "react-bootstrap";
 import Styles from "./style.module.css";
 

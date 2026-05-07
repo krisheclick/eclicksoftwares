@@ -224,7 +224,7 @@ const LetsConnectModal = ({ show, onHide, services, action }: ScheduleCallProps)
                                 <Button onClick={handleDetailsSubmit} className={`eclick-btn-connect ${styles.bannerBtn ?? ''}`} disabled={isSubmit}>
                                     {isSubmit ? (
                                         <>
-                                            <span className={styles.phoneIcon}><FontAwesomeIcon icon={faSpinner} spin className="me-2" /></span>
+                                            <span className={styles.phoneIcon}><FontAwesomeIcon icon={faSpinner} spin /></span>
                                             <em>Submitting...</em>
                                         </>
                                     ) : (

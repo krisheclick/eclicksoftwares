@@ -152,4 +152,8 @@ background:
     .serviceTab li {
         font-size: 12px;
     }
+    .subtitle{
+        padding: 10px;
+        top: 4px;
+    }
 }
