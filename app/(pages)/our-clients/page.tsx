@@ -72,9 +72,7 @@ const OurClientsPage = () => {
     return (
         <div className="our_clients_page">
             {/* ================= CLIENTS-BANNER-STARTS ================= */} 
-            {bannerData && (
-                <Banner hasLoading={hasLoading} data={bannerData} />
-            )}
+            <Banner hasLoading={hasLoading} data={bannerData} />
             {/* ================= CLIENTS-BANNER-ENDS ================= */}
 
             {/* ================= INDUSTRY-WISE-CLIENTS-STARTS ================= */}

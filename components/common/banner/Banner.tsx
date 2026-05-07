@@ -10,12 +10,13 @@ type props = {
     image?: string | null;
     short_description?: string | null;
     showButton?: boolean;
+    className?: string;
 }
-const Banner = ({ isLoading, title, subtitle, image, short_description, showButton = true }: props) => {
+const Banner = ({ isLoading, title, subtitle, image, short_description, showButton = true, className= ''}: props) => {
     const { openScheduleModal} = useScheduleCall();
     if (isLoading) {
         return (
-            <div className={`${Styles.sliderBanner} ${Styles.skeletonBanner}`}>
+            <div className={`${Styles.sliderBanner} ${Styles[className] ?? ''} ${Styles.skeletonBanner}`}>
                 <Container>
                     <Row className={`rowGap justify-content-between align-items-center ${Styles.row}`}>
                         <Col lg={6} xl={5} className={Styles.contentItem}>
@@ -55,7 +56,7 @@ const Banner = ({ isLoading, title, subtitle, image, short_description, showButt
         );
     }
     return (
-        <div className={Styles.sliderBanner}>
+        <div className={`${Styles.sliderBanner} ${Styles[className] ?? ''}`}>
             <Container>
                 <Row className={`rowGap justify-content-between align-items-center ${Styles.row}`}>
                     <Col lg={6} xl={5} className={Styles.contentItem}>

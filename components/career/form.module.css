@@ -5,15 +5,12 @@
     box-shadow: 0 5px 25px rgba(0, 0, 0, 0.08);
     border: 1px solid #e9ecef;
 }
-
 .formSection {
     margin-bottom: 40px;
 }
-
 .formSection:last-child {
     margin-bottom: 0;
 }
-
 .sectionTitle {
     font: 600 1.5rem var(--primary-font);
     color: var(--primary-title-color);
@@ -21,13 +18,11 @@
     padding-bottom: 10px;
     border-bottom: 2px solid var(--primary-color);
 }
-
 .applicationForm .form-label {
     font-weight: 600;
     color: var(--primary-title-color);
     margin-bottom: 8px;
 }
-
 .applicationForm .form-control {
     border: 2px solid #e9ecef;
     border-radius: 8px;
@@ -35,20 +30,16 @@
     font-size: 1rem;
     transition: all 0.3s ease;
 }
-
 .applicationForm .form-control:focus {
     border-color: var(--primary-color);
     box-shadow: 0 0 0 0.2rem rgba(31, 88, 203, 0.25);
 }
-
 .applicationForm .form-control::placeholder {
     color: #6c757d;
 }
-
 .fileUpload {
     position: relative;
 }
-
 .fileInput {
     position: absolute;
     width: 100%;
@@ -56,7 +47,6 @@
     opacity: 0;
     cursor: pointer;
 }
-
 .fileUploadArea {
     border: 2px dashed #dee2e6;
     border-radius: 8px;
@@ -66,30 +56,25 @@
     transition: all 0.3s ease;
     cursor: pointer;
 }
-
 .fileUploadArea:hover {
     border-color: var(--primary-color);
     background: rgba(31, 88, 203, 0.05);
 }
-
 .uploadIcon {
     font-size: 2rem;
     color: var(--primary-color);
     margin-bottom: 15px;
 }
-
 .uploadText strong {
     display: block;
     font-size: 1.1rem;
     color: var(--primary-title-color);
     margin-bottom: 5px;
 }
-
 .uploadHint {
     font-size: 0.9rem;
     color: #6c757d;
 }
-
 .selectedFile {
     margin-top: 15px;
     padding: 10px;
@@ -99,42 +84,48 @@
     font-size: 0.9rem;
     font-weight: 500;
 }
-
 .formActions {
     text-align: center;
     border-top: 1px solid #e9ecef;
 }
-
+@media only screen and (max-width: 1399px){
+    .formContainer{
+        padding: 30px;
+    }
+}
 /* Responsive Design */
-@media (max-width: 768px) {
+@media (max-width: 767px) {
     .formContainer {
         padding: 30px 20px;
     }
-
     .sectionTitle {
         font-size: 1.3rem;
     }
-
     .fileUploadArea {
         padding: 30px 15px;
     }
-
     .uploadIcon {
         font-size: 1.5rem;
     }
-
     .submitBtn {
         padding: 12px 30px;
         min-width: 180px;
     }
 }
-
-@media (max-width: 480px) {
+@media (max-width: 479px) {
     .formContainer {
         padding: 20px 15px;
     }
-
     .sectionTitle {
         font-size: 1.2rem;
+    }
+    .fileUploadArea {
+        padding: 24px 12px;
+    }
+    .uploadHint{
+        font-size: .9em;
+    }
+    .uploadText strong{
+        font-size: 1.1rem;
     }
 }

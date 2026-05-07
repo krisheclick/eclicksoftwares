@@ -89,6 +89,9 @@
 		height: 80px !important;
 		right: 4px !important;
 	}
+	.alert{
+		padding: 12px;
+	}
 }
 @media only screen and (max-width: 1199px){
 	.header_wrap{
@@ -215,6 +218,9 @@
 	}
 	.section-content {
 		margin-bottom: 30px;
+	}
+	.alert{
+		padding: 8px;
 	}
 }
 @media only screen and (max-width: 479px){

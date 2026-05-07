@@ -210,23 +210,25 @@ const JobApplyForm = ({ jobTitle, jobId, jobLocation }: JobApplyFormProps) => {
             
             <Form onSubmit={handleSubmit} className={Styles.applicationForm}>
                 <div className={Styles.formSection}>
-                    <Form.Group className="mb-3">
-                        <Form.Label>Full Name *</Form.Label>
-                        <Form.Control
-                            type="text"
-                            name="name"
-                            value={formData.name}
-                            onChange={handleInputChange}
-                            placeholder="Enter your full name"
-                            isInvalid={!!errors.name}
-                            required
-                        />
-                        <Form.Control.Feedback type="invalid">{errors.name}</Form.Control.Feedback>
-                    </Form.Group>
-                    <Row>
+                    <Row className="rowGap gx-3">
+                        <Col md={12}>
+                            <Form.Group>
+                                <Form.Label className="fw-semibold">Full Name *</Form.Label>
+                                <Form.Control
+                                    type="text"
+                                    name="name"
+                                    value={formData.name}
+                                    onChange={handleInputChange}
+                                    placeholder="Enter your full name"
+                                    isInvalid={!!errors.name}
+                                    required
+                                />
+                                <Form.Control.Feedback type="invalid">{errors.name}</Form.Control.Feedback>
+                            </Form.Group>
+                        </Col>
                         <Col md={6}>
-                            <Form.Group className="mb-3">
-                                <Form.Label>Email Address *</Form.Label>
+                            <Form.Group>
+                                <Form.Label className="fw-semibold">Email Address *</Form.Label>
                                 <Form.Control
                                     type="email"
                                     name="email"
@@ -240,8 +242,8 @@ const JobApplyForm = ({ jobTitle, jobId, jobLocation }: JobApplyFormProps) => {
                             </Form.Group>
                         </Col>
                         <Col md={6}>
-                            <Form.Group className="mb-3">
-                                <Form.Label>Phone Number *</Form.Label>
+                            <Form.Group>
+                                <Form.Label className="fw-semibold">Phone Number *</Form.Label>
                                 <Form.Control
                                     type="tel"
                                     name="phone"
@@ -255,8 +257,8 @@ const JobApplyForm = ({ jobTitle, jobId, jobLocation }: JobApplyFormProps) => {
                             </Form.Group>
                         </Col>
                         <Col md={6}>
-                            <Form.Group className="mb-3">
-                                <Form.Label>Years of Experience *</Form.Label>
+                            <Form.Group>
+                                <Form.Label className="fw-semibold">Years of Experience *</Form.Label>
                                 <Form.Control
                                     type="text"
                                     name="experience"
@@ -270,8 +272,8 @@ const JobApplyForm = ({ jobTitle, jobId, jobLocation }: JobApplyFormProps) => {
                             </Form.Group>
                         </Col>
                         <Col md={6}>
-                            <Form.Group className="mb-3">
-                                <Form.Label>Current CTC</Form.Label>
+                            <Form.Group>
+                                <Form.Label className="fw-semibold">Current CTC</Form.Label>
                                 <Form.Control
                                     type="text"
                                     name="current_ctc"
@@ -282,8 +284,8 @@ const JobApplyForm = ({ jobTitle, jobId, jobLocation }: JobApplyFormProps) => {
                             </Form.Group>
                         </Col>
                         <Col md={6}>
-                            <Form.Group className="mb-3">
-                                <Form.Label>Current Location</Form.Label>
+                            <Form.Group>
+                                <Form.Label className="fw-semibold">Current Location</Form.Label>
                                 <Select
                                     options={locations.map(location => ({ value: location, label: location }))}
                                     value={formData.current_location ? { value: formData.current_location, label: formData.current_location } : null}
@@ -320,8 +322,8 @@ const JobApplyForm = ({ jobTitle, jobId, jobLocation }: JobApplyFormProps) => {
                             </Form.Group>
                         </Col>
                         <Col md={6}>
-                            <Form.Group className="mb-3">
-                                <Form.Label>Preferred Location *</Form.Label>
+                            <Form.Group>
+                                <Form.Label className="fw-semibold">Preferred Location *</Form.Label>
                                 <Form.Control
                                     type="text"
                                     name="preferred_location"
@@ -334,86 +336,89 @@ const JobApplyForm = ({ jobTitle, jobId, jobLocation }: JobApplyFormProps) => {
                                 <Form.Control.Feedback type="invalid">{errors.preferred_location}</Form.Control.Feedback>
                             </Form.Group>
                         </Col>
+                        <Col md={12}>
+                            <Form.Group>
+                                <Form.Label className="fw-semibold">Message</Form.Label>
+                                <Form.Control
+                                    as="textarea"
+                                    rows={4}
+                                    name="message"
+                                    value={formData.message}
+                                    onChange={handleInputChange}
+                                    placeholder="Tell us why you're interested in this position..."
+                                />
+                            </Form.Group>
+                        </Col>
+                        <Col md={12}>
+                            <Form.Group>
+                                <Form.Label className="fw-semibold">Your CV/Resume *</Form.Label>
+                                <div className={Styles.fileUpload}>
+                                    <Form.Control
+                                        type="file"
+                                        id="cv"
+                                        name="cv"
+                                        onChange={handleFileChange}
+                                        accept=".pdf,.doc,.docx"
+                                        className={Styles.fileInput}
+                                        isInvalid={!!errors.cv}
+                                        required
+                                    />
+                                    <label className={`w-100 ${Styles.fileUploadArea} ${!!errors.cv?'is-invalid':''}`} htmlFor="cv">
+                                        <FontAwesomeIcon icon={faUpload} className={Styles.uploadIcon} />
+                                        <div className={Styles.uploadText}>
+                                            <strong>Choose a file</strong> or drag it here
+                                        </div>
+                                        <div className={Styles.uploadHint}>
+                                            PDF, DOC, DOCX files only (Max 5MB)
+                                        </div>
+                                        {fileName && (
+                                            <small className="text-success d-block mt-2">
+                                                ✓ File selected: {fileName}
+                                            </small>
+                                        )}
+                                    </label>
+                                </div>
+                                {errors.cv && <div className="text-danger mt-2">{errors.cv}</div>}
+                            </Form.Group>
+                        </Col>
+                        <Col md={12} className="mt-2">
+                            <Button
+                                onClick={handleSubmit}
+                                className="eclick-btn-primary lg"
+                                disabled={isSubmitting}
+                            >
+                                {isSubmitting ? (
+                                    <>
+                                        <span><FontAwesomeIcon icon={faSpinner} spin /></span>
+                                        <em>Submitting...</em>
+                                    </>
+                                ) : (
+                                    <>
+                                        <span><FontAwesomeIcon icon={faUpload} /></span>
+                                        <em>Submit Application</em>
+                                    </>
+                                )}
+                            </Button>
+                        </Col>
                     </Row>                   
 
-                    <Form.Group className="mb-3">
-                        <Form.Label>Message</Form.Label>
-                        <Form.Control
-                            as="textarea"
-                            rows={4}
-                            name="message"
-                            value={formData.message}
-                            onChange={handleInputChange}
-                            placeholder="Tell us why you're interested in this position..."
-                        />
-                    </Form.Group>
-
-                    <Form.Group className="mb-4">
-                        <Form.Label>Your CV/Resume *</Form.Label>
-                        <div className={Styles.fileUpload}>
-                            <Form.Control
-                                type="file"
-                                id="cv"
-                                name="cv"
-                                onChange={handleFileChange}
-                                accept=".pdf,.doc,.docx"
-                                className={Styles.fileInput}
-                                isInvalid={!!errors.cv}
-                                required
-                            />
-                            <label className={`w-100 ${Styles.fileUploadArea} ${!!errors.cv?'is-invalid':''}`} htmlFor="cv">
-                                <FontAwesomeIcon icon={faUpload} className={Styles.uploadIcon} />
-                                <div className={Styles.uploadText}>
-                                    <strong>Choose a file</strong> or drag it here
-                                </div>
-                                <div className={Styles.uploadHint}>
-                                    PDF, DOC, DOCX files only (Max 5MB)
-                                </div>
-                                {fileName && (
-                                    <small className="text-success d-block mt-2">
-                                        ✓ File selected: {fileName}
-                                    </small>
-                                )}
-                            </label>
-                        </div>
-                        {errors.cv && <div className="text-danger mt-2">{errors.cv}</div>}
-                    </Form.Group>
-                    <Button
-                        onClick={handleSubmit}
-                        className="eclick-btn-primary"
-                        disabled={isSubmitting}
-                    >
-                        {isSubmitting ? (
-                            <>
-                                <span><FontAwesomeIcon icon={faSpinner} spin className="me-2" /></span>
-                                <em>Submitting...</em>
-                            </>
-                        ) : (
-                            <>
-                                <span><FontAwesomeIcon icon={faUpload} className="me-2" /></span>
-                                <em>Submit Application</em>
-                            </>
-                        )}
-                    </Button>
-                    <div className="mt-4">
-                        {isSubmitting && (
-                            <Alert variant="warning" className="mb-4">
-                                Submitting your application...
-                            </Alert>
-                        )}
-                        {statusMessage && !isSubmitting && (
-                            <Alert
-                                variant={
-                                    statusType === "success" ? "success" :
-                                    statusType === "error" ? "danger" :
-                                    "warning"
-                                }
-                                className="mb-4"
-                            >
-                                {statusMessage}
-                            </Alert>
-                        )}
-                    </div>
+                    {isSubmitting && (
+                        <Alert variant="warning" className="mt-4">
+                            Submitting your application...
+                        </Alert>
+                    )}
+                    {statusMessage && !isSubmitting && (
+                        <Alert
+                            variant={
+                                statusType === "success" ? "success" :
+                                statusType === "error" ? "danger" :
+                                "warning"
+                            }
+                            className="mt-4"
+                        >
+                            {statusMessage}
+                        </Alert>
+                    )}
                 </div>
             </Form>
         </div>

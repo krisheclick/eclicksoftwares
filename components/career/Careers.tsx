@@ -1,6 +1,6 @@
 "use client";
 import { useEffect, useRef, useState } from "react";
-import { Col, Container, Row } from "react-bootstrap";
+import { Card, CardBody, CardHeader, CardText, CardTitle, Col, Container, Row, Stack } from "react-bootstrap";
 import Link from "next/link";
 import Image from "next/image";
 import Styles from "./style.module.css";
@@ -8,6 +8,7 @@ import ReferAFriendModal from "../careers/ReferAFriendModal";
 import { useReferModal } from "@/utils/useLetsConnect";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowRight } from "@fortawesome/free-solid-svg-icons";
+import CustomImage from "@/utils/CustomImage";
 
 type PageData = {
     id: number;
@@ -169,7 +170,7 @@ const Careers = () => {
     return (
         <>
             {!isLoading ? (
-                <div className={Styles.heroSection} style={{background: `url(${`${process.env.NEXT_PUBLIC_MEDIA_URL}/uploads/page_image/${bannerData?.t8vk_image}`}) no-repeat top center`}}>
+                <div className={Styles.heroSection} style={{ background: `url(${`${process.env.NEXT_PUBLIC_MEDIA_URL}/uploads/page_image/${bannerData?.t8vk_image}`}) no-repeat top center` }}>
                     <div className={Styles.bannerText}>
                         <Container>
                             <div className={Styles.bannerText_in}>
@@ -220,7 +221,7 @@ const Careers = () => {
                             <div className={Styles.about_content}>
                                 {!isLoading ? (
                                     <>
-                                        {pageData?.short_description && <p >{pageData?.short_description}</p>}                                        
+                                        {pageData?.short_description && <p >{pageData?.short_description}</p>}
                                         <h2 className={`title fw-bold ${Styles.page_title ?? ''}`}>{pageData?.page_title}</h2>
                                         <div
                                             className="editorText"
@@ -229,7 +230,10 @@ const Careers = () => {
                                     </>
                                 ) : (
                                     <>
-                                        <div className={`title ${Styles.page_title}`}>&nbsp;</div>
+                                        <div className={`title skeleton ${Styles.page_title}`}>&nbsp;</div>
+                                        <div className="skeleton skeletonText"></div>
+                                        <div className="skeleton skeletonText"></div>
+                                        <div className="skeleton skeletonText"></div>
                                         <div className="skeleton skeletonText"></div>
                                         <div className="skeleton skeletonText"></div>
                                         <div className="skeleton skeletonText"></div>
@@ -242,66 +246,65 @@ const Careers = () => {
                             </div>
                         </Col>
                         <Col lg={6}>
-                            <figure className={Styles.aboutPoster}>
-                                {!isLoading ? (
-                                    <Image
-                                        src={`${process.env.NEXT_PUBLIC_MEDIA_URL}/uploads/page_image/${pageData?.page_feature_image}`}
-                                        alt={pageData?.page_title ?? "Card Poster"}
-                                        width={800}
-                                        height={800}
-                                        className="img-fluid"
-                                        priority
-                                        style={{ objectFit: "cover" }}
-                                    />
-                                ) : (
-                                    <div className='skeleton skeletonFill'></div>
-                                )}
-                            </figure>
+                            {!isLoading ? (
+                                <CustomImage
+                                    src={`${process.env.NEXT_PUBLIC_MEDIA_URL}/uploads/page_image/${pageData?.page_feature_image}`}
+                                    alt={pageData?.page_title ?? "Card Poster"}
+                                    className={Styles.aboutPoster}
+                                />
+                            ) : (
+                                <div className={`skeleton ${Styles.aboutPoster}`}></div>
+                            )}
                         </Col>
                     </Row>
                 </Container>
             </div>
 
             {/* Referral Section */}
-            <div className={`${Styles.referralSectionsam}`}>
+            <div className={`sectionArea ${Styles.referralSectionsam}`}>
                 <Container>
-                    <Row className="justify-content-center align-items-center">
+                    <Row className="gx-xl-5 justify-content-center align-items-center">
                         <Col lg={6}>
-                            <div className={Styles.referralContent}>
-                                <div className={`small_title ${Styles.small_title}`}>For Freshers</div>
-                                <h2 className={`title fw-semibold ${Styles.sectionTitle}`}>First Flush - Start Your Journey Here</h2>
-                                <p>
-                                    If you are fresh out of college and want to jumpstart your IT career, our First Flush program can help you explore your flair for innovation in the industry. Come and join the INT. family, and help us inspire possibilities throughout the world.
-                                </p>
-                                <div className="btn_left sm">
-                                    <Link href="/contact-us" className={`eclick-btn-journey white-btn`}>
-                                        <em>Let’s start your journey</em>
-                                        <span className={Styles.icon}>
-                                            <FontAwesomeIcon icon={faArrowRight} />
-                                        </span>
-                                    </Link>
+                            <div className={`${Styles.referralContent} ${Styles.referralContentWhite}`}>
+                                <div className={Styles.referralContentInner}>
+                                    <div className={`small_title ${Styles.small_title}`}>For Freshers</div>
+                                    <div className={`title fw-bold ${Styles.sectionTitle}`}>First Flush - Start Your Journey Here</div>
+                                    <p>
+                                        If you are fresh out of college and want to jumpstart your IT career, our First Flush program can help you explore your flair for innovation in the industry. Come and join the INT. family, and help us inspire possibilities throughout the world.
+                                    </p>
+                                    <div className="btn_left sm">
+                                        <Link href="/contact-us" className={`eclick-btn-journey white-btn`}>
+                                            <em>Let’s start your journey</em>
+                                            <span className={Styles.icon}>
+                                                <FontAwesomeIcon icon={faArrowRight} />
+                                            </span>
+                                        </Link>
+                                    </div>
+
                                 </div>
                             </div>
                         </Col>
                         <Col lg={6}>
                             <div className={Styles.referralContent}>
-                                <div className={`small_title ${Styles.small_title}`}>Refer</div>
-                                <h2 className={`title fw-semibold ${Styles.sectionTitle}`}>Refer a Friend & get Rewarded!</h2>
-                                <p>
-                                    Join our “Refer a Friend and Get Rewarded” program! Invite a friend to our community and enjoy great rewards together. For each successful referral, you’ll get exclusive discounts, and your friend will receive a welcome bonus.
-                                </p>
-                                <div className="btn_left sm">
-                                    <Link href="#" onClick={openReferModal} className={`eclick-btn-refer`}>
-                                        <span>
-                                            <Image
-                                                src={`${process.env.NEXT_PUBLIC_assetPrefix}/assets/images/phone.webp`}
-                                                alt="Phone"
-                                                width={18} height={18}
-                                                loading="lazy"
-                                            />
-                                        </span>
-                                        <em>Refer a Friend</em>
-                                    </Link>
+                                <div className={Styles.referralContentInner}>
+                                    <div className={`small_title ${Styles.small_title}`}>Refer</div>
+                                    <div className={`title fw-bold ${Styles.sectionTitle}`}>Refer a Friend & get Rewarded!</div>
+                                    <p>
+                                        Join our “Refer a Friend and Get Rewarded” program! Invite a friend to our community and enjoy great rewards together. For each successful referral, you’ll get exclusive discounts, and your friend will receive a welcome bonus.
+                                    </p>
+                                    <div className="btn_left sm">
+                                        <Link href="#" onClick={openReferModal} className={`eclick-btn-refer`}>
+                                            <span>
+                                                <Image
+                                                    src={`${process.env.NEXT_PUBLIC_assetPrefix}/assets/images/phone.webp`}
+                                                    alt="Phone"
+                                                    width={18} height={18}
+                                                    loading="lazy"
+                                                />
+                                            </span>
+                                            <em>Refer a Friend</em>
+                                        </Link>
+                                    </div>
                                 </div>
                             </div>
                         </Col>
@@ -310,49 +313,42 @@ const Careers = () => {
             </div>
 
             {/* Current Openings */}
-            <div className={`${Styles.openingsSection}`}>
+            <div className={`sectionArea ${Styles.openingsSection}`}>
                 <Container>
                     <div id="job_openings" className={Styles.openingsContent}>
-                        <div className="d-flex justify-content-center align-items-center mb-4">
-                            <h2 className={Styles.sectionTitle}>Job Vacancies</h2>
+                        <div className="section-content text-center">
+                            <h3 className={`title fw-bold ${Styles.jobTitle ?? ''}`}>Job Vacancies</h3>
                         </div>
 
                         {isLoading ? (
-                            <div className={Styles.loading}>
-                                <p>Loading job openings...</p>
-                            </div>
+                            <CardSkeleton />
                         ) : vacancies.length > 0 ? (
-                            <Row className={`${Styles.jobsContainer} justify-content-center`}>
+                            <Row className={`${Styles.jobsContainer ?? ''} rowGap justify-content-center`}>
                                 {vacancies.map((job) => (
-                                    <Col key={job.career_id} className={Styles.jobCard}>
-                                        <div className={Styles.jobHeader}>
-                                            <h3 className={Styles.jobTitle}>
-                                                {job.career_name}
-                                            </h3>
-                                            <p className={Styles.jobMeta}>
-                                                <span className={Styles.jobLocation}>
-                                                    {job.career_location}
-                                                </span>
-                                                <span className={Styles.jobType}>
-                                                    Full-time
-                                                </span>
-                                            </p>
-                                        </div>
-                                        <div className={Styles.jobDescription}>
-                                            <p>{job.career_short_description}</p>
-                                        </div>
-                                        <div className={Styles.jobFooter}>
-                                            <Link
-                                                href={`/career/apply-job/${job.career_slug}`}
-                                                className="eclick-btn-primary"
-                                            >Apply Now</Link>
-                                        </div>
+                                    <Col md={6} xl={4} key={job.career_id}>
+                                        <Card className={Styles.jobCard}>
+                                            <CardHeader className={Styles.CardHeader}>
+                                                <CardTitle as="div" className={`subtitle ${Styles.jobCardTitle ?? ''}`}>{job.career_name}</CardTitle>
+                                                <Stack direction="horizontal" className={Styles.jobMeta}>
+                                                    <span className={Styles.jobLocation}>{job.career_location}</span>
+                                                    <span className={Styles.jobType}>Full-time</span>
+                                                </Stack>
+                                            </CardHeader>
+                                            <CardBody className={Styles.CardBody}>
+                                                <div className={Styles.jobDescription}>
+                                                    <CardText>{job.career_short_description}</CardText>
+                                                </div>
+                                                <div className="btn_center sm">
+                                                    <Link href={`/career/apply-job/${job.career_slug}`} className="eclick-btn-primary sm">Apply Now</Link>
+                                                </div>
+                                            </CardBody>
+                                        </Card>
                                     </Col>
                                 ))}
                                 <div ref={observerRef} style={{ height: "1px" }} />
 
                                 {isLoading && (
-                                    <p className="text-center mt-3">Loading more jobs...</p>
+                                    <CardSkeleton />
                                 )}
                             </Row>
                         ) : (
@@ -375,3 +371,37 @@ const Careers = () => {
 };
 
 export default Careers;
+
+const CardSkeleton = () => {
+    return (
+        <Row className={`${Styles.jobsContainer ?? ''} rowGap justify-content-center`}>
+            {[...Array(2)].map((_,index) => (
+                <Col md={6} xl={4} key={index}>
+                    <Card className={Styles.jobCard}>
+                        <CardHeader className={Styles.CardHeader}>
+                            <CardTitle as="div" className={`skeleton subtitle ${Styles.subtitle ?? ''}`}>&nbsp;</CardTitle>
+                            <Stack direction="horizontal" className={Styles.jobMeta}>
+                                <span className={`skeleton w-25 ${Styles.jobLocation}`}>&nbsp;</span>
+                                <span className={`skeleton w-25 ${Styles.jobType}`}>&nbsp;</span>
+                            </Stack>
+                        </CardHeader>
+                        <CardBody className={Styles.CardBody}>
+                            <div className={Styles.jobDescription}>
+                                <div className="skeleton skeletonText"></div>
+                                <div className="skeleton skeletonText"></div>
+                                <div className="skeleton skeletonText"></div>
+                                <div className="skeleton skeletonText d-sm-none"></div>
+                                <div className="skeleton skeletonText d-sm-none"></div>
+                                <div className="skeleton skeletonText w-75"></div>
+                                <div className="skeleton skeletonText w-50"></div>
+                            </div>
+                            <div className="btn_center sm">
+                                <div className="skeleton eclick-btn-primary sm w-25 mx-auto">&nbsp;</div>
+                            </div>
+                        </CardBody>
+                    </Card>
+                </Col>
+            ))}
+        </Row>
+    )
+}

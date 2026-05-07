@@ -50,19 +50,20 @@ const ApplyJob = () => {
                 image={job?.career_feature_image_path || ''}
                 short_description=""
                 showButton={false}
+                className="applyJob"
             />
 
             <div className={`sectionArea ${Styles.sectionArea}`}>
                 <Container>
-                    <Row className="justify-content-center">
+                    <Row className="rowGap justify-content-center">
                         <Col lg={6}>
-                            <div className={Styles.jobDetails}>
-                                <h2 className={Styles.jobTitle}>
+                            <div className={`pe-xl-4 ${Styles.jobDetails ?? ''}`}>
+                                <h2 className={`heading ${Styles.jobTitle ?? ''}`}>
                                     {job?.career_name || 'Job Position'}
                                 </h2>
-                                <p className={Styles.jobLocation}>
+                                <div className={Styles.jobLocation}>
                                     Location: {job?.career_location}
-                                </p>
+                                </div>
                                 <div className={Styles.jobDescription}>
                                     <div dangerouslySetInnerHTML={{ __html: job?.career_description || "" }} />
                                 </div>

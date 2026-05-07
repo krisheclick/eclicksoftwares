@@ -26,6 +26,9 @@
 	font-weight: 500;
 	margin-bottom: 12px;
 }
+.applyJob .subtitle{
+    font-weight: 600;
+}
 .bannerTitle{
     font: 400 38px / 1.25 var(--primary-font);
     color: var(--tertiary-color);
@@ -35,6 +38,9 @@
     -webkit-line-clamp: 2;
     overflow: hidden; */
 }
+.applyJob .bannerTitle{
+    font-weight: 500;
+}
 .bannerTitle  > *{
     display: block;
     font-weight: 500;
@@ -43,10 +49,10 @@
 .btn_wrap {
     margin-top: 48px;
 }
-.row {
+/* .row {
     row-gap: var(--bs-gutter-x);
     margin-top: 32px;
-}
+} */
 .usp {
     position: relative;
     z-index: 1;
@@ -152,10 +158,10 @@
     .bannerContent{
         font-size: 16px;
     }
-    .row {
+    /* .row {
         --bs-gutter-x: 10px;
         margin-top: 24px;
-    }
+    } */
     .usp {
         bottom: -48px;
     }
@@ -172,9 +178,7 @@
     }
 }
 @media only screen and (max-width: 1199px){
-    .posterBanner {
-        height: 280px;
-    }
+    .posterBanner,
     .skeletonBanner {
         height: 280px;
     }
@@ -186,11 +190,9 @@
     .row{
         flex-direction: column-reverse;
     }
-    .posterBanner {
+    .posterBanner, .skeletonBanner{
         height: 360px;
-    }
-    .skeletonBanner {
-        height: 360px;
+        max-width: 100%;
     }
     .bannerTitle{
         font-size: 28px;

@@ -129,11 +129,7 @@ const Partnerships = () => {
         <div className="about_page">
 
             {/* ================= PARTNER-BANNER-STARTS ================= */} 
-            {!hasLoading ? (
-                <Banner hasLoading={hasLoading} data={bannerData} />
-            ):(
-                <div className="skeleton skeletonFill"></div>
-            )}
+            <Banner hasLoading={hasLoading} data={bannerData} />
             {/* ================= PARTNER-BANNER-ENDS ================= */}
 
 

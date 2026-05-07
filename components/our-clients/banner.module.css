@@ -1,0 +1,84 @@
+.heroSection {
+    background: linear-gradient(135deg, var(--primary-color) 0%, var(--hover-color) 100%);
+    padding: 100px 0;
+    color: var(--black-color);
+    position: relative;
+    overflow: hidden;
+    min-height: 500px;
+    font-size: 1.1em;
+    display: grid;
+    align-content: center;
+} 
+.bannerText{
+    position: relative;
+    z-index: 1;
+}
+.bannerText p{
+    font-size: 1.35em;
+}
+.bannerTitle{
+    color: var(--black-color);
+    text-transform: capitalize;
+    margin-bottom: 20px;
+    font-size: 80px;
+    font-weight: 700;
+    line-height: 1;
+}
+.bannerTitle :is(b, span){
+    font-size: .55em;
+    font-weight: 600;
+    line-height: 1.2em;
+    display: block;
+    padding-top: 6px;
+}
+@media only screen and (max-width: 1600px){
+    .bannerTitle{
+        font-size: 66px;
+    }
+}
+@media only screen and (max-width: 1399px){
+    .bannerTitle{
+        font-size: 54px;
+    }
+    .bannerText p{
+        font-size: 1.25em;
+    }
+}
+@media only screen and (max-width: 991px){
+    .heroSection {
+        padding: 70px 0;
+        min-height: 360px;
+    }
+    .heroSection::before{
+        content: '';
+        position: absolute;
+        inset: 0;
+        background: var(--white-color);
+        opacity: 0.5;
+    }
+    .bannerTitle{
+        font-size: 48px;
+        margin-bottom: 16px;
+    }
+    .bannerText p{
+        font-size: 1.15em;
+    }
+}
+@media only screen and (max-width: 767px){
+    .bannerTitle{
+        font-size: 36px;
+    }
+}
+@media only screen and (max-width: 479px){
+    .heroSection {
+        min-height: 300px;
+        padding: 50px 0;
+    }
+    .bannerTitle{
+        font-size: 30px;
+        margin-bottom: 12px;
+    }
+    .bannerText p{
+        font-size: 1.1em;
+    }
+}

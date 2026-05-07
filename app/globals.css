@@ -883,7 +883,11 @@ label.is-invalid {
 .react-select__value-container{
 	padding-left: 16px !important;
 }
-
+.css-1jqq78o-placeholder {
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
 
 /* Wrapper */
 .custom_image {
@@ -940,6 +944,7 @@ label.is-invalid {
 .modelButton:hover{
 	opacity: 1;
 }
+
 
 /* Mobile Menu */
 .responsiveBody{
