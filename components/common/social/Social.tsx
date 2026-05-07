@@ -49,7 +49,7 @@ const Social = ({ itemSize, social, className}: Props) => {
     if (!social?.length) return null;
 
     return (
-        <div className={`${Styles.social} ${className || ""}  ${itemSize ? Styles[itemSize] : ""}`}>
+        <div className={`social ${Styles.social} ${className || ""}  ${itemSize ? Styles[itemSize] : ""}`}>
             {social.map((item, index) => {
                 const iconKey = getIconKey(item.site_social_icon);
                 const Icon = iconMap[iconKey] ?? faYoutube;

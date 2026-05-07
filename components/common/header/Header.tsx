@@ -5,6 +5,7 @@ import Image from "next/image";
 import Navigation from "./Navigation";
 import { useThemeContext } from "@/context/ThemeContext";
 import { useEffect, useState } from "react";
+import ResponsiveHeader from "./ResponsiveHeader";
 
 type MenuItem = {
     id: number;
@@ -17,11 +18,24 @@ type MenuItem = {
 type MenuData = {
     [key: string]: MenuItem;
 }
-
+type SocialItem = {
+    site_social_link_name?: string;
+    site_social_link_url?: string;
+    site_social_icon?: string;
+    site_class_name?: string;
+}
+type ResponseData = {
+    response_data?: {
+        filteredSettings?: {
+            social_media?: SocialItem[];
+        }
+    }
+}
 type MenuProps = {
+    sitedata?: ResponseData;
     menuData: MenuItem[];
 }
-const Header = ({ menuData }: MenuProps) => {
+const Header = ({ menuData, sitedata}: MenuProps) => {
     const { headerExtraClass, setCommonBanner } = useThemeContext();
 
     useEffect(() => {
@@ -54,6 +68,18 @@ const Header = ({ menuData }: MenuProps) => {
         };
     }, []);
 
+    const data = sitedata?.response_data?.filteredSettings;
+    const safeParseArray = <Text extends object>(value?: unknown): Text[] => {
+        try {
+            if (!value) return [];
+            return (typeof value === "string" ? JSON.parse(value) : value) as Text[];
+        } catch {
+            return [];
+        }
+    };
+
+    const social = safeParseArray<SocialItem>(data?.social_media);
+
     // Common Banner
     useEffect(() => {
         const fetchData = async () => {
@@ -80,12 +106,11 @@ const Header = ({ menuData }: MenuProps) => {
 
     return (
         <>
-            {/* <ResponsiveHeader
-                title={commonData?.site_title}
-                menu={menuData}
+            <ResponsiveHeader
                 show={show}
                 handleClose={handleClose}
-            /> */}
+                social={social}
+            />
             <header role="banner" className={`header_main ${Styles.mainHeader ?? ''} ${headerExtraClass ?? ''}`}>
                 <div className="container">
                     <div className="header_wrap d-flex align-items-center justify-content-between gap-3">

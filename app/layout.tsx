@@ -75,7 +75,7 @@ export default async function RootLayout({
                     className={`${primaryFont.variable} ${secondaryFont.variable} ${tertiaryFont.variable} antialiased`}
                 >
                     <RouteLoader />
-                    <Header menuData={response.response_data} />
+                    <Header sitedata={sitedata} menuData={response.response_data} />
                     <main role="main" className="mainContainer">{children}</main>
                     <Footer sitedata={sitedata} />
                     <Script
