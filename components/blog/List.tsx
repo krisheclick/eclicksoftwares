@@ -81,12 +81,12 @@ const BlogList = ({ slug }: Props) => {
         <>
             {notFoundPage ? (
                 <div className="d-flex flex-column justify-content-center align-items-center vh-60 text-center p-4">
-                    <h2 className="fw-semibold mb-3">Oops! Post Not Found 😢</h2>
+                    <h2 className="fw-semibold mb-3" style={{lineHeight: "1.35em"}}>Oops! Post Not Found 😢</h2>
                 </div>
             ) : (
                 <>
                     <div className={Styles.blogList}>
-                        <Row className="rowGap">
+                        <Row className="gx-xxl-4 gx-sm-3 gx-2 rowGap">
                             {!hasLoading ? (
                                 paginatedBlogs.map((item, index) => {
                                     const {
@@ -108,7 +108,7 @@ const BlogList = ({ slug }: Props) => {
                                         dateObj?.getFullYear();
 
                                     return (
-                                        <Col lg={4} sm={6} key={index}>
+                                        <Col xl={4} xs={6} key={index}>
                                             <div className={Styles.card}>
                                                 <Link
                                                     href={`${link}/blog/${blog_category?.blog_category_slug}/${blog_slug}`}
@@ -128,7 +128,7 @@ const BlogList = ({ slug }: Props) => {
                                                 </Link>
 
                                                 <div className={Styles.cardBody}>
-                                                    <span>{formattedDate}</span>
+                                                    <span className={Styles.cardDate}>{formattedDate}</span>
                                                     <Link
                                                         href={`${link}/blog/${blog_category?.blog_category_slug}/${blog_slug}`}
                                                         className={Styles.cardTitle}
@@ -142,13 +142,15 @@ const BlogList = ({ slug }: Props) => {
                                 })
                             ) : (
                                 [...Array(PER_PAGE)].map((_, index) => (
-                                    <Col lg={4} sm={6} key={index}>
-                                        <div className={Styles.card}>
-                                            <div className={`skeleton ${Styles.imageWrapper}`} />
+                                    <Col xl={4} xs={6} key={index}>
+                                        
+                                        <div className={`skeleton w-100 ${Styles.card}`}>
+                                            <div className={`skeleton ${Styles.imageWrapper}`}></div>
                                             <div className={Styles.cardBody}>
-                                                <div className="skeleton w-50 mb-2" style={{ height: 20 }} />
-                                                <div className="skeleton w-100 mb-2" />
-                                                <div className="skeleton w-75" />
+                                                <div className={`skeleton mb-2 ${Styles.skeletontitle}`}>&nbsp;</div>
+                                                <div className={`skeleton ${Styles.skeletontitle}`}>&nbsp;</div>
+                                                <div className={"skeleton skeletonText"}>&nbsp;</div>
+                                                <div className={"skeleton skeletonText w-75"}></div>
                                             </div>
                                         </div>
                                     </Col>

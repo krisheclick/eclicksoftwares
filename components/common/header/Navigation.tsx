@@ -25,6 +25,7 @@ const menuMaps = {
                   { title: "Client Testimonials", slug: "/our-testimonials" },
                   { title: "Our Partners", slug: "/our-partners" },
                   { title: "About the Company", slug: "/about-us" },
+                  { title: "Blog", slug: "/blog" },
                ],
                poster: "/assets/images/navigation/about-poster.jpg",
             },

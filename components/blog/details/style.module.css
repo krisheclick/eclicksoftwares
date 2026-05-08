@@ -15,10 +15,6 @@
     text-wrap: balance;
     margin-bottom: 20px;
 }
-.skeletonHeading {
-    height: 40px;
-    margin: 0 auto 20px;
-}
 .postDate{
     font-size: 1.1em;
     font-weight: 500;
@@ -35,7 +31,8 @@
 .bannerPoster figure{
     position: relative;
     z-index: 1;
-    height: 440px;
+    aspect-ratio: 16/6.5;
+    width: 100%;
     overflow: hidden;
     border-radius: var(--radius);
 }
@@ -44,7 +41,6 @@
     color: var(--black-color);
 }
 .skeleton_content :is(h2, h3, h4){
-    height: 32px;
     margin-block: 20px;
 }
 .skeleton_content h2{
@@ -55,4 +51,60 @@
 }
 .skeleton_content h4{
     width: 20%;
+}
+@media only screen and (max-width: 1399px){
+    .heading{
+        font-size: 36px;
+    }
+    .main_content :is(h2, h3, h4){
+        font-size: 28px;
+    }
+}
+@media only screen and (max-width: 991px){
+    .heading{
+        font-size: 32px;
+        margin-bottom: 16px;
+    }
+    .bannerPoster {
+        --radius: 10px;
+        max-width: 100%;
+    }
+}
+@media only screen and (max-width: 767px){
+    .banner{
+        padding-top: 60px;
+        background: linear-gradient(0deg, transparent 25%, var(--primary-color) 25%, var(--primary-color) 100%);
+    }
+    .heading {
+        font-size: 30px;
+        line-height: 1.25;
+    }
+    .main_content :is(h2, h3, h4){
+        font-size: 24px;
+    }
+}
+@media only screen and (max-width: 575px){
+    .heading{
+        font-size: 28px;
+        margin-bottom: 12px;
+    }
+    .bannerPoster{
+        margin-top: 30px;
+    }
+}
+@media only screen and (max-width: 479px){
+    .banner{
+        padding-top: 40px;
+        background: linear-gradient(0deg, transparent 20%, var(--primary-color) 20%, var(--primary-color) 100%);
+    }
+    .heading{
+        font-size: 24px;
+        margin-bottom: 8px;
+    }
+    .postDate{
+        font-size: 1em;
+    }
+    .main_content :is(h2, h3, h4){
+        font-size: 22px;
+    }
 }

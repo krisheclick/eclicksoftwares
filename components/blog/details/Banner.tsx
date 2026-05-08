@@ -26,9 +26,12 @@ const DetailsBanner = () => {
                         </>
                     ) : (
                         <>
-                            <div className={`skeleton w-75 mb-2 ${Styles.skeletonHeading}`}></div>
-                            <div className={`skeleton w-50 ${Styles.skeletonHeading}`}></div>
-                            <div className="skeleton mx-auto w-25 skeletonText"></div>
+                            <h1 className={Styles.heading}>
+                                {/* <div className="skeleton d-sm-none mb-2">&nbsp;</div> */}
+                                <div className="skeleton mx-auto w-lg-75 mb-2">&nbsp;</div>
+                                <div className="skeleton mx-auto w-lg-50 w-75">&nbsp;</div>
+                            </h1>
+                            <div className={`skeleton w-25 mx-auto ${Styles.postDate}`}>&nbsp;</div>
                         </>
                     )}
                 </div>

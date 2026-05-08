@@ -3,7 +3,7 @@
   position: relative;
   z-index: 1;
   min-height: 450px;
-  padding-block: 120px;
+  padding-block: 120px 70px;
   font-size: 1.1em;
   color: var(--black-color);
 }
@@ -132,4 +132,107 @@
   right: 6px;
   padding: 8px;
   z-index: 5;
+}
+@media only screen and (max-width:1399px) {
+  .banner {
+    min-height: 380px;
+    padding-block: 80px 50px;
+  }
+  .heading{
+    font-size: 44px;
+  }
+  .cardTitle {
+    font-size: 1rem;
+  }
+  .readMore{
+    font-size: 15px;
+  }
+  .sidebar{
+    padding-left: 0;
+  }
+  .widget_title{
+    font-size: 22px;
+  }
+}
+@media only screen and (max-width: 1199px){
+  .cardBody{
+    padding: 8px 0px 0px;
+  }
+  .banner{
+    min-height: 320px;
+  }
+  .heading{
+    font-size: 40px;
+    margin-bottom: 12px;
+  }
+}
+@media only screen and (max-width: 991px){
+  .banner {
+    min-height: 380px;
+    padding-block: 50px;
+    display: grid;
+    place-items: center;
+    min-height: 250px;
+  }
+  .banner::after{
+    opacity: 0.35;
+  }
+  .heading{
+    font-size: 36px;
+  }
+  .searchBtn{
+    top: 1px;
+  }
+  .formInput {
+    --height: 44px !important;
+  }
+}
+@media only screen and (max-width: 767px){
+  .heading{
+    font-size: 32px;
+  }
+  .bannerContent{
+    max-width: 100%;
+  }
+}
+@media only screen and (max-width: 575px){
+  .heading{
+    font-size: 30px;
+  }
+  .cardTitle {
+    font-size: 18px;
+  }
+}
+@media only screen and (max-width: 479px){
+  .banner {
+    min-height: 220px;
+    padding-block: 40px;
+  }
+  .bannerContent{
+    font-size: 1em;
+  }
+  .heading{
+    font-size: 26px;
+  }
+  .cardBody{
+    padding-top: 4px;
+  }
+  .cardTitle{
+    font-size: 15px;
+  }
+  .imageWrapper {
+    padding-top: 72%;
+    border-radius: 4px;
+  }
+  .imageWrapper img {
+    border-radius: 4px;
+  }
+  .cardDate{
+    font-size: 13px;
+  }
+}
+@media only screen and (max-width: 359px){
+  .cardTitle{
+    font-size: 13px;
+  }
 }

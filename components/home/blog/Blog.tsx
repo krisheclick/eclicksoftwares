@@ -1,8 +1,6 @@
 'use client';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Autoplay, Pagination } from 'swiper/modules';
-import 'swiper/css';
-import 'swiper/css/pagination';
 import { Container } from 'react-bootstrap';
 import Styles from './style.module.css';
 import Link from 'next/link';

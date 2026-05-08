@@ -30,3 +30,8 @@
     font-size: 13px;
     color: var(--primary-color);
 }
+@media only screen and (max-width: 1399px){
+    .title{
+        font-size: 15px;
+    }
+}

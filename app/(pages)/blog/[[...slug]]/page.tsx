@@ -42,7 +42,7 @@ const Blogpage = async({ params }: Props) => {
             
             <div className={`sectionArea ${Styles.sectionArea}`}>
                 <Container>
-                    <Row>
+                    <Row className="rowGap">
                         <Col xl={9} lg={8}>
                             <article className={`stickyContent ${Styles.stickyContent ?? ''}`}>
                                 {isListing && <BlogList slug={slug} />}
