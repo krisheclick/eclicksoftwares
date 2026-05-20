@@ -232,6 +232,10 @@
     }
 }
 @media only screen and (max-width: 479px){
+    .small_img img,
+    .slogan_list{
+        display: none;
+    }
     .sliderBanner {
         padding: 30px 0px;
     }

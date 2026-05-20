@@ -57,7 +57,7 @@ const Clients = ({ className = '' }: classProps) => {
                         breakpoints={{
                             0:{
                                 loop: true,
-                                slidesPerView: 2.5
+                                slidesPerView: 3
                             },
                             480:{
                                 loop: true,

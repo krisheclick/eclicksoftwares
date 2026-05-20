@@ -132,6 +132,7 @@ background:
     .serviceTab{
         box-shadow: none;
         padding: 0;
+        margin-bottom: 30px;
     }
 	.serviceTab ul {
         gap: 4px;
@@ -139,8 +140,10 @@ background:
         justify-content: center;
         margin: auto;
 	}
-    .serviceTab{
-        margin-bottom: 30px;
+    .serviceTab li {
+        font-size: 11px;
+        text-align: center;
+        border: 1px solid #cccccc7d;
     }
 }
 @media only screen and (max-width: 767px){
@@ -149,8 +152,13 @@ background:
     }
 }
 @media only screen and (max-width: 479px){
+    .serviceTab{
+        margin-bottom: 20px;
+    }
     .serviceTab li {
         font-size: 12px;
+        min-width: 100px;
+        padding: 10px;
     }
     .subtitle{
         padding: 10px;
