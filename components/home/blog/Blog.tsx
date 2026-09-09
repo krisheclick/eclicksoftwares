@@ -87,29 +87,35 @@ const Blog = () => {
                     }}
                 >
                     {!hasLoading ? (
-                        blogs?.map((item, index) => (
-                            <SwiperSlide key={index} className={Styles.slideCard}>
-                                <div className={Styles.card}>
-                                    <CustomImage
-                                        src={`${process.env.NEXT_PUBLIC_MEDIA_URL}${item.blog_feature_image_path}`}
-                                        alt={item.blog_title}
-                                        className={Styles.imageWrapper}
-                                    />
-                                    <div className={Styles.cardBody}>
-                                        <div className={Styles.cardTitle}>{item.blog_title}</div>
-                                        <p className={Styles.cardText}>{item.blog_short_description}</p>
+                        blogs?.map((item, index) => {
+                            const categorySlug = item?.Category?.blog_category_slug;
+                            const blogHref = categorySlug
+                                ? `/blog/${categorySlug}/${item.blog_slug}`
+                                : `/blog/${item.blog_slug}`;
+                            return (
+                                <SwiperSlide key={index} className={Styles.slideCard}>
+                                    <div className={Styles.card}>
+                                        <CustomImage
+                                            src={`${process.env.NEXT_PUBLIC_MEDIA_URL}${item.blog_feature_image_path}`}
+                                            alt={item.blog_title}
+                                            className={Styles.imageWrapper}
+                                        />
+                                        <div className={Styles.cardBody}>
+                                            <div className={Styles.cardTitle}>{item.blog_title}</div>
+                                            <p className={Styles.cardText}>{item.blog_short_description}</p>
 
-                                        <Link
-                                            href={`/blog/${item.Category.blog_category_slug}/${item.blog_slug}`}
-                                            className={`learnMore ${Styles.readMore ?? ''}`}
-                                        >
-                                            Read More
-                                            <span className="sr-only">Eclicksoftwares</span>
-                                        </Link>
+                                            <Link
+                                                href={blogHref}
+                                                className={`learnMore ${Styles.readMore ?? ''}`}
+                                            >
+                                                Read More
+                                                <span className="sr-only">Eclicksoftwares</span>
+                                            </Link>
+                                        </div>
                                     </div>
-                                </div>
-                            </SwiperSlide>
-                        ))
+                                </SwiperSlide>
+                            )
+                        })
                     ) : (
                         [...Array(4)].map((_, index) => (
                             <SwiperSlide key={index} className={Styles.slideCard}>
