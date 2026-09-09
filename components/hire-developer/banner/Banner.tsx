@@ -15,6 +15,7 @@ type BannerData  = {
 type RecommendTeam  = {
     team_feature_image_path?: string;
     team_title?: string;
+    team_expertise?: string;
     team_rating?: string;
     team_designation?: string;
 }
@@ -64,7 +65,7 @@ const Banner = ({ data, recommend_team, top_pick_team, onHireClick }: Props) => 
                                                 priority={true}
                                             />
                                             <div>
-                                                <strong>{value.team_title}</strong>
+                                                <strong>{value.team_expertise || value.team_title}</strong>
                                                 <span>{value.team_designation}</span>
                                             </div>
                                         </div>
@@ -89,7 +90,7 @@ const Banner = ({ data, recommend_team, top_pick_team, onHireClick }: Props) => 
                                         />
                                     </figure>
                                     <div>
-                                        <strong className={Styles.memberName}>{top_pick_team.team_title}</strong>
+                                        <strong className={Styles.memberName}>{top_pick_team.team_expertise || top_pick_team.team_title}</strong>
                                         {top_pick_team.team_designation && (
                                             <span className={Styles.designation}>{top_pick_team.team_designation}</span>
                                         )}

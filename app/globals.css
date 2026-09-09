@@ -9,7 +9,7 @@
   --primary-background: #E5F1FF;
   --secondary-background: #f0f0f0;
   --navigation-color: #505050;
-  --navigation-active: #121212;
+  --navigation-active: var(--primary-color);
   --submenu-color: #515151;
   --primary-title-color: #282828;
   --secondary-title-color: #024e72;

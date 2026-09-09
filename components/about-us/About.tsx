@@ -3,21 +3,18 @@ import { useEffect, useState } from "react";
 import Banner from "./banner/Banner";
 import Clients from "@/components/clients/Clients";
 import CalltoAction from "@/components/call-to-action/CalltoAction";
-import CoreServices from "../home/service/Coreservice";
 import MissionVission from "./MissionVission";
 import Counters from "@/components/counters/Counters";
 import WhatWeDo from "./WhatWeDo";
 import { Col, Container, Row } from "react-bootstrap";
 import Review_rating from "./Review_rating";
 import WhatsKeep from "./keep/WhatsKeep";
-import Teams from "../meet-team/Teams";
 import BannerSkeleton from "./banner/BannerSkeleton";
 import CustomImage from "@/utils/CustomImage";
 import WhatWeDoSkeleton from "./WhatWeDoSkeleton";
 import MissionVissionSkeleton from "./MissionVissionSkeleton";
 import SkeletonCounter from "../counters/SkeletonCounter";
 import WhatsKeepSkeleton from "./keep/WhatsKeepSkeleton";
-import TeamSkeleton from "../meet-team/TeamSkeleton";
 import Styles from "./style.module.css";
 
 type UspCategory = {
@@ -140,6 +137,8 @@ const Aboutcomponent = () => {
         aboutData?.pages_custom_field ?? "{}"
     );
 
+    const poster = aboutData?.page_feature_image;
+
     return (
         <div className="about_page">
             {!hasLoading && bannerData ? (
@@ -149,21 +148,23 @@ const Aboutcomponent = () => {
             )}
             <div className={`sectionArea pt-xxl-3 pt-xl-2 ${Styles.about_section ?? ''}`}>
                 <Container>
-                    <Row className="rowGap gx-xl-5">
-                        <Col lg={6}>
-                            {!hasLoading ? (
-                                <CustomImage
-                                    src={`${process.env.NEXT_PUBLIC_MEDIA_URL}/uploads/page_image/${aboutData?.page_feature_image}`}
-                                    alt={aboutData?.page_title}
-                                    className={`h-100 ${Styles.aboutPoster}`}
-                                    style={{ objectFit: "cover" }}
-                                />
-                            ) : (
-                                <figure className={`skeleton h-100 ${Styles.aboutPoster}`}></figure>
-                            )}
-                        </Col>
-                        <Col lg={6} className="align-self-center">
-                            <div className={Styles.about_content}>
+                    <Row className="rowGap justify-content-center gx-xl-5">
+                        {poster && (
+                            <Col lg={6}>
+                                {!hasLoading ? (
+                                    <CustomImage
+                                        src={`${process.env.NEXT_PUBLIC_MEDIA_URL}/uploads/page_image/${poster}`}
+                                        alt={aboutData?.page_title}
+                                        className={`h-100 ${Styles.aboutPoster}`}
+                                        style={{ objectFit: "cover" }}
+                                    />
+                                ) : (
+                                    <figure className={`skeleton h-100 ${Styles.aboutPoster}`}></figure>
+                                )}
+                            </Col>
+                        )}
+                        <Col lg={poster ? 6 : 10} className="align-self-center">
+                            <div className={`${Styles.about_content} ${poster ? '' : `text-center ${Styles.text_center}`}`}>
                                 {!hasLoading ? (
                                     <>
                                         <h2 className={`title fw-bold ${Styles.page_title}`}>{aboutData?.page_title}</h2>
@@ -216,7 +217,6 @@ const Aboutcomponent = () => {
             ) : (
                 <MissionVissionSkeleton />
             )}
-            <CoreServices />
             <div className={Styles.counter_section}>
                 <Container>
                     <div className={`section-content ${Styles.section_content ?? ''}`}>

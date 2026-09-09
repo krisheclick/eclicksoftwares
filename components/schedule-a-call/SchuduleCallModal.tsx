@@ -108,7 +108,7 @@ const SchuduleCallModal = ({ show, onHide, action }: ScheduleCallProps) => {
         const newErrors: {[key: string]: string} = {};
 
         if (!formData.service) newErrors.service = "Please select a service.";
-        if (!formData.requirement.trim()) newErrors.requirement = "Please describe your project.";
+        if (!formData.requirement.trim()) newErrors.requirement = "Please describe your Message.";
         if (!formData.fullName.trim()) newErrors.fullName = "Full name is required.";
         if (!formData.email.trim()) {
             newErrors.email = "Email is required.";
@@ -298,7 +298,7 @@ const SchuduleCallModal = ({ show, onHide, action }: ScheduleCallProps) => {
                     </Row>
                     <hr />
                     <div>
-                        <h6 className="text-primary mb-2">Project Details</h6>
+                        <h6 className="text-primary mb-2">Comment</h6>
                         <p className="mb-0">{formData.requirement}</p>
                     </div>
                 </Card.Body>

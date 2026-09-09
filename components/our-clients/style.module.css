@@ -1,68 +1,399 @@
-.clientsGrid{
-  --box: 260px;
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(var(--box), 1fr));
-  gap: 36px 24px;
+.industryWiseClients {
+  background: #ffffff;
 }
-.clientCardPoster {
-	text-align: center;
-  border: 2px solid #e8e8e8;
-  border-radius: 10px;
-  flex-direction: column;
-  padding: 16px;
-  box-shadow: 0 4px 12px #0000000d;
-  transition: all .4s cubic-bezier(.34, 1.56, .64, 1);
+
+.sectionHeader {
+  margin-bottom: 46px;
+}
+
+.heading {
   position: relative;
+  margin-bottom: 30px;
+  color: #050d3f;
+  font-size: 44px;
+  font-weight: 800;
+  line-height: 1.12;
+}
+
+.heading::after {
+  position: absolute;
+  left: 50%;
+  bottom: -18px;
+  width: 108px;
+  height: 4px;
+  content: "";
+  border-radius: 30px;
+  transform: translateX(-50%);
+  background: linear-gradient(
+    90deg,
+    #0877ff 0 58px,
+    transparent 58px 68px,
+    #0877ff 68px 88px,
+    transparent 88px 98px,
+    #0877ff 98px 108px
+  );
+}
+
+.sectionDesc {
+  margin: 0;
+  color: #5c6b8c;
+  font-size: 18px;
+  line-height: 1.55;
+}
+
+.clientsGrid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 24px;
+}
+
+.clientCard {
+  gap: 0;
+  min-width: 0;
+  height: 100%;
+  padding: 18px 18px 20px;
+  background: #ffffff;
+  border: 1px solid #cfe2ff;
+  border-radius: 16px;
+  box-shadow: 0 12px 30px rgba(9, 48, 114, 0.055);
+  transition: border-color 0.3s ease, box-shadow 0.3s ease, transform 0.3s ease;
+}
+
+.clientCard:hover {
+  transform: translateY(-5px);
+  border-color: #93c1ff;
+  box-shadow: 0 18px 42px rgba(8, 119, 255, 0.12);
+}
+
+.clientCardPoster {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 176px;
+  padding: 24px;
   overflow: hidden;
+  background: var(--backgroundColor, linear-gradient(145deg, #f7fbff 0%, #edf5ff 100%));
+  border-radius: 9px;
 }
-.clientCardPoster:hover {
-	border-color: var(--primary-color);
-	transform: translateY(-8px);
-	box-shadow: 0 12px 32px #007bff26;
-}
-.clientLogo{
-  padding-top: 0;
-  aspect-ratio: 18/10;
-}
-.clientLogo img {
-  object-fit: scale-down;
-}
-.industryTitle{
-  font: 500 18px / 1.35 var(--primary-font);
-  margin-top: 12px;
-  color: var(--black-color);
-  text-wrap: balance;
-}
-.industryTitle span{
-  color: var(--primary-color);
-  font-weight: 600;
-  font-size: .75em;
+
+.clientCardPoster img {
   display: block;
+  width: 100%;
+  max-width: 250px;
+  height: 116px;
+  object-fit: contain;
+  transition: transform 0.3s ease;
 }
-@media only screen and (max-width: 991px){
-  .clientsGrid{
-    --box: 210px;
-    gap: 24px 16px;
+
+.clientCard:hover .clientCardPoster img {
+  transform: scale(1.035);
+}
+
+.clientBody {
+  display: flex;
+  flex-direction: column;
+  min-height: 126px;
+  padding: 18px 4px 0;
+}
+
+.industryInfo {
+  min-width: 0;
+  margin-bottom: 18px;
+}
+
+.metaLabel {
+  display: block;
+  margin-bottom: 8px;
+  color: #607093;
+  font-size: 12px;
+  font-weight: 700;
+  line-height: 1;
+  letter-spacing: 0;
+  text-transform: uppercase;
+}
+
+.industryTitle {
+  display: -webkit-box;
+  overflow: hidden;
+  color: #061144;
+  font-size: 17px;
+  font-weight: 600;
+  line-height: 1.28;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+}
+
+.typeRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+  margin-top: auto;
+}
+
+.typeRow .metaLabel {
+  margin-bottom: 0;
+}
+
+.typeBadge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  min-width: 122px;
+  min-height: 38px;
+  padding: 8px 15px;
+  color: #0064f9;
+  background: linear-gradient(135deg, #f7fbff 0%, #eaf4ff 100%);
+  border-radius: 14px;
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 1;
+  white-space: nowrap;
+}
+
+.typeBadge svg {
+  width: 18px;
+  height: 18px;
+}
+
+.product {
+  color: #08743e;
+  background: linear-gradient(135deg, #effff2 0%, #d9f7df 100%);
+}
+
+.cms {
+  color: #6e25cf;
+  background: linear-gradient(135deg, #f9f1ff 0%, #eadcfb 100%);
+}
+
+.clientLogoSkeleton {
+  width: 100%;
+  max-width: 220px;
+  height: 100px;
+  border-radius: 10px;
+}
+
+.labelSkeleton {
+  width: 65px;
+  height: 12px;
+  margin-bottom: 10px;
+  border-radius: 4px;
+}
+
+.titleSkeleton {
+  width: 100%;
+  height: 34px;
+  border-radius: 6px;
+}
+
+.badgeSkeleton {
+  width: 86px;
+  height: 30px;
+  border-radius: 50px;
+}
+
+@media only screen and (max-width: 1199px) {
+  .clientsGrid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
   }
-  .industryTitle{
+
+  .heading {
+    font-size: 40px;
+  }
+
+  .clientCardPoster {
+    height: 164px;
+  }
+}
+
+@media only screen and (max-width: 991px) {
+  .clientsGrid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .clientCardPoster {
+    height: 168px;
+  }
+}
+
+@media only screen and (max-width: 767px) {
+  .sectionHeader {
+    margin-bottom: 38px;
+  }
+
+  .heading {
+    font-size: 34px;
+  }
+
+  .sectionDesc {
     font-size: 16px;
   }
+
+  .clientsGrid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 16px;
+  }
+
+  .clientCard {
+    padding: 14px;
+  }
+
+  .clientCardPoster {
+    height: 142px;
+    padding: 18px;
+  }
+
+  .clientBody {
+    min-height: 128px;
+    padding-top: 16px;
+  }
+
+  .industryTitle {
+    font-size: 16px;
+  }
+
+  .typeBadge {
+    min-width: 112px;
+    min-height: 36px;
+    font-size: 13px;
+  }
 }
-@media only screen and (max-width: 479px){
-  .clientsGrid{
-    --box: 142px;
+
+@media only screen and (max-width: 575px) {
+  .clientsGrid {
     gap: 12px;
   }
-  .industryTitle{
-    font-size: 15px;
-    margin-top: 8px;
+
+  .heading {
+    font-size: 30px;
   }
-  .clientCardPoster:hover {
-    transform: translateY(-4px);
+
+  .clientCard {
+    padding: 10px;
+    border-radius: 12px;
+  }
+
+  .clientCardPoster {
+    height: 112px;
+    padding: 12px;
+    border-radius: 8px;
+  }
+
+  .clientCardPoster img {
+    max-width: 130px;
+    height: 74px;
+  }
+
+  .clientBody {
+    min-height: 118px;
+    padding: 12px 2px 0;
+  }
+
+  .industryInfo {
+    margin-bottom: 12px;
+  }
+
+  .metaLabel {
+    margin-bottom: 6px;
+    font-size: 10px;
+  }
+
+  .industryTitle {
+    font-size: 13px;
+    line-height: 1.24;
+    -webkit-line-clamp: 3;
+  }
+
+  .typeRow {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 7px;
+  }
+
+  .typeBadge {
+    gap: 6px;
+    min-width: 86px;
+    min-height: 30px;
+    padding: 6px 9px;
+    border-radius: 10px;
+    font-size: 11px;
+  }
+
+  .typeBadge svg {
+    width: 14px;
+    height: 14px;
   }
 }
-@media only screen and (max-width: 359px){  
-  .industryTitle{
-    font-size: 14px;
+
+@media only screen and (max-width: 480px) {
+  .heading {
+    font-size: 28px;
+  }
+
+  .sectionDesc {
+    font-size: 15px;
+  }
+
+  .clientCardPoster {
+    height: 106px;
+  }
+
+  .clientCardPoster img {
+    max-width: 118px;
+    height: 68px;
+  }
+}
+
+@media only screen and (max-width: 359px) {
+  .heading {
+    font-size: 25px;
+  }
+
+  .clientCardPoster {
+    height: 96px;
+  }
+
+  .clientCardPoster img {
+    max-width: 105px;
+    height: 60px;
+  }
+
+  .clientCard {
+    padding: 8px;
+  }
+
+  .industryTitle {
+    font-size: 12px;
+  }
+
+  .typeBadge {
+    min-width: 78px;
+    font-size: 10px;
+  }
+}
+
+@media only screen and (max-width: 299px) {
+  .clientsGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .clientCardPoster {
+    height: 132px;
+  }
+
+  .clientCardPoster img {
+    max-width: 130px;
+    height: 74px;
+  }
+
+  .industryTitle {
+    font-size: 13px;
+  }
+
+  .typeBadge {
+    min-width: 86px;
+    font-size: 11px;
   }
 }

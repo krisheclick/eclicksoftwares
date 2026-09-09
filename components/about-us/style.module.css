@@ -5,6 +5,10 @@
     border-radius: 10px;
     overflow: hidden;
 }
+.text_center .supportRow{
+    justify-content: center;
+    margin-inline: auto;
+}
 .supportRow{
     max-width: 600px;
     display: flex;
@@ -64,6 +68,125 @@
     padding: 80px 0px;
     background: var(--primary-background);
 }
+/* Mission & Vision */
+.mission_vission {
+    position: relative;
+    overflow: hidden;
+    isolation: isolate;
+    padding: 110px 0;
+    background:
+        radial-gradient(circle at 8% 18%, rgba(40, 139, 255, 0.22) 0 34px, transparent 36px),
+        radial-gradient(circle at 100% 0%, rgba(40, 139, 255, 0.08) 0 125px, transparent 127px),
+        radial-gradient(circle at 0% 100%, rgba(40, 139, 255, 0.08) 0 95px, transparent 97px),
+        linear-gradient(180deg, #ffffff 0%, #f8fbff 46%, #ffffff 100%);
+}
+.mission_vission::before,
+.mission_vission::after {
+    content: "";
+    position: absolute;
+    z-index: -1;
+    pointer-events: none;
+    border-radius: 50%;
+}
+.mission_vission::before {
+    top: 95px;
+    left: 5%;
+    width: 120px;
+    height: 120px;
+    background: linear-gradient(135deg, rgba(21, 117, 255, 0.75), rgba(21, 117, 255, 0.08));
+    filter: blur(0.2px);
+}
+.mission_vission::after {
+    right: -90px;
+    bottom: 58px;
+    width: 260px;
+    height: 260px;
+    border: 2px solid rgba(71, 148, 255, 0.22);
+    background: rgba(235, 245, 255, 0.45);
+}
+.contentCard {
+    position: relative;
+    height: 100%;
+    min-height: 430px;
+    padding: 74px 56px 54px;
+    overflow: hidden;
+    color: #53627a;
+    font-size: 1.1em;
+    line-height: 1.7;
+    background: rgba(255, 255, 255, 0.82);
+    border: 1px solid rgba(55, 139, 255, 0.42);
+    border-radius: 28px;
+    box-shadow: 0 24px 70px rgba(18, 74, 150, 0.1);
+    backdrop-filter: blur(8px);
+    transition:
+        transform 0.35s ease,
+        box-shadow 0.35s ease,
+        border-color 0.35s ease;
+}
+.contentCard::before,
+.contentCard::after {
+    content: "";
+    position: absolute;
+    pointer-events: none;
+    border-radius: 50%;
+}
+.contentCard::before {
+    right: -58px;
+    bottom: -92px;
+    width: 215px;
+    height: 215px;
+    border: 2px solid rgba(66, 145, 255, 0.34);
+}
+.contentCard::after {
+    right: -16px;
+    bottom: -54px;
+    width: 158px;
+    height: 158px;
+    background: rgba(225, 239, 255, 0.6);
+}
+.contentCard:hover {
+    transform: translateY(-8px);
+    border-color: rgba(31, 88, 203, 0.72);
+    box-shadow: 0 28px 70px rgba(25, 65, 130, 0.16);
+}
+.topLine {
+    width: 64px;
+    height: 6px;
+    margin-bottom: 28px;
+    background: linear-gradient(90deg, #69b9ff, #1f58cb);
+    border-radius: 20px;
+}
+.cardNumber {
+    position: absolute;
+    top: 34px;
+    right: 38px;
+    color: rgba(31, 88, 203, 0.09);
+    font-size: 116px;
+    font-weight: 800;
+    line-height: 1;
+    pointer-events: none;
+}
+.mission_subtitle {
+    position: relative;
+    display: block;
+    margin-bottom: 16px;
+    color: var(--primary-color);
+    font-size: 1.2em;
+    font-weight: 700;
+}
+.mission_title {
+    color: #0c2b66;
+    position: relative;
+    max-width: 540px;
+    margin: 0 0 26px;
+    font-size: 46px;
+    font-weight: 800;
+    line-height: 1.15;
+}
+.description {
+    position: relative;
+    z-index: 1;
+}
 @media only screen and (max-width: 1399px){
     .supportRow{
         margin-top: 30px;
@@ -76,6 +199,18 @@
     }
     .counter_section{
         padding-block: 60px;
+    }
+    .mission_vission{
+        padding-block: 80px;
+    }
+    .contentCard{
+        min-height: 400px;
+        padding: 60px 40px 40px;
+    }
+    .cardNumber{
+        font-size: 90px;
+        top: 20px;
+        right: 28px;
     }
 }
 
@@ -95,6 +230,31 @@
     .counter_section{
         padding-block: 50px;
     }
+    .mission_vission{
+        padding-block: 60px;
+    }
+    .mission_vission::before {
+        left: 3%;
+        width: 96px;
+        height: 96px;
+    }
+    .mission_title {
+        font-size: 38px;
+    }
+    .contentCard{
+        min-height: 350px;
+        padding: 50px 30px 30px;
+    }
+    .topLine {
+        width: 54px;
+        height: 4px;
+        margin-bottom: 16px;
+    }
+    .cardNumber{
+        font-size: 80px;
+        top: 16px;
+        right: 20px;
+    }
 }
 @media only screen and (max-width: 991px){
     .supportRow{
@@ -103,10 +263,46 @@
     .counterDatatitle br{
         display: none;
     }
+    .mission_vission {
+        background:
+            radial-gradient(circle at 5% 12%, rgba(40, 139, 255, 0.18) 0 28px, transparent 30px),
+            radial-gradient(circle at 100% 0%, rgba(40, 139, 255, 0.07) 0 96px, transparent 98px),
+            linear-gradient(180deg, #ffffff 0%, #f8fbff 52%, #ffffff 100%);
+    }
+    .mission_vission::after {
+        width: 200px;
+        height: 200px;
+    }
+    .mission_title {
+        font-size: 32px;
+    }
 }
 @media only screen and (max-width: 767px){
     .counter_section{
         padding-block: 40px;
+    }
+    .mission_vission {
+        padding-block: 52px;
+    }
+    .mission_vission::before {
+        top: 72px;
+        left: -22px;
+    }
+    .contentCard {
+        border-radius: 22px;
+    }
+}
+@media only screen and (max-width: 575px){
+    .contentCard {
+        padding: 42px 24px 28px;
+    }
+    .cardNumber{
+        font-size: 60px;
+        top: 12px;
+        right: 12px;
+    }
+    .mission_title {
+        font-size: 28px;
     }
 }
 @media only screen and (max-width: 479px){
@@ -134,5 +330,41 @@
     }
     .counter_section{
         padding-block: 30px;
+    }
+    .mission_vission{
+        padding-block: 40px;
+    }
+    .mission_vission::before {
+        width: 74px;
+        height: 74px;
+    }
+    .mission_vission::after {
+        right: -120px;
+        bottom: 20px;
+    }
+    .contentCard{
+        min-height: 300px;
+        padding: 40px 20px 20px;
+    }
+    .topLine {
+        width: 44px;
+        height: 4px;
+        margin-bottom: 12px;
+    }
+    .cardNumber{
+        font-size: 50px;
+        top: 8px;
+        right: 8px;
+    }
+    .mission_title {
+        font-size: 25px;
+    }
+}
+@media only screen and (max-width: 359px){
+    .contentCard {
+        padding-inline: 16px;
+    }
+    .mission_title {
+        font-size: 23px;
     }
 }

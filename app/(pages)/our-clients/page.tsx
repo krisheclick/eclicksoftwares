@@ -1,4 +1,5 @@
 "use client";
+import CalltoAction from "@/components/call-to-action/CalltoAction";
 import Banner from "@/components/our-clients/Banner";
 import IndustryWiseClients from "@/components/our-clients/IndustryWiseClients";
 import { useEffect, useState } from 'react';
@@ -26,7 +27,18 @@ type Banner = {
 
 type PagesCustomField = {
     banner?: Banner;
+    "cta-section"?: {
+        "3bgm_cta_title" ?: string;
+    };
     slug: string[];
+};
+
+type CallToActionContent = {
+    "call-to-action"?: {
+        "4e3s_title"?: string;
+        "4e3s_button_name"?: string;
+        "4e3s_button_link"?: string;
+    };
 };
 
 const OurClientsPage = () => {
@@ -69,10 +81,19 @@ const OurClientsPage = () => {
         }
     }, [pageData]);
 
+    console.log('bannerData :>> ', pageCustomField);
+
+    const callToActionContent: CallToActionContent = {
+        "call-to-action": {
+            "4e3s_title": pageCustomField?.["cta-section"]?.["3bgm_cta_title"],
+        },
+    };
+
     return (
         <div className="our_clients_page">
             <Banner hasLoading={hasLoading} data={bannerData} />
             <IndustryWiseClients />
+            <CalltoAction spaceClass="sectionArea client-call-to-action" content={callToActionContent} isLoading={hasLoading} />
         </div>
     );
 }

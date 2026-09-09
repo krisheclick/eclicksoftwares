@@ -58,6 +58,8 @@ span.icon{
     align-content: center;
     position: relative;
     letter-spacing: .3px;
+    text-align: start;
+    padding-inline: var(--leave) 12px;
 }
 .cardItem:nth-child(even) .posterData{
     order: 1;

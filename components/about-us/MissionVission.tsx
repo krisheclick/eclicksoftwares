@@ -1,6 +1,5 @@
 import { Container } from 'react-bootstrap';
 import Styles from './style.module.css';
-import Card from '../common/postercard/Card';
 
 interface VisionMission {
     "96lg_vision_title"?: string;
@@ -28,19 +27,34 @@ const MissionVission = ({data }: Props) => {
     return (
         <div className={Styles.mission_vission}>
             <Container>
-                <div className={`rowCard ${Styles.rowCard}`}>
-                    <Card
-                        poster={content["96lg_vision_image"]}
-                        subtitle={content["96lg_vision_title"]}
-                        title={content["96lg_vision_heading"]}
-                        description={content["96lg_vision_description"]}
-                    />
-                    <Card
-                        poster={content["96lg_mission_image"]}
-                        subtitle={content["96lg_mission_title"]}
-                        title={content["96lg_mission_heading"]}
-                        description={content["96lg_mission_description"]}
-                    />
+                <div className={`row rowGap ${Styles.missionVisionRow}`}>
+                    {/* Vision */}
+                    <div className="col-lg-6 col-md-6">
+                        <div className={Styles.contentCard}>
+                            <span className={Styles.cardNumber}>01</span>
+                            <div className={Styles.topLine}></div>
+                            <span className={Styles.mission_subtitle}>{content["96lg_vision_title"]}</span>
+                            <h2 className={`heading ${Styles.mission_title}`}>{content["96lg_vision_heading"]}</h2>
+                            <div
+                                className={Styles.description}
+                                dangerouslySetInnerHTML={{__html: content["96lg_vision_description"] || ''}}
+                            />
+                        </div>
+                    </div>
+
+                    {/* Mission */}
+                    <div className="col-lg-6 col-md-6">
+                        <div className={Styles.contentCard}>
+                            <span className={Styles.cardNumber}>02</span>
+                            <div className={Styles.topLine}></div>
+                            <span className={Styles.mission_subtitle}>{content["96lg_mission_title"]}</span>
+                            <h2 className={`heading ${Styles.mission_title}`}>{content["96lg_mission_heading"]}</h2>
+                            <div
+                                className={Styles.description}
+                                dangerouslySetInnerHTML={{__html: content["96lg_mission_description"] || ''}}
+                            />
+                        </div>
+                    </div>
                 </div>
             </Container>
         </div>

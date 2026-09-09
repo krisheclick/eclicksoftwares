@@ -14,8 +14,22 @@ interface ImageProps {
 
 const DEFAULT_FALLBACK = "/assets/images/noimage.jpg";
 
+const isAbsoluteUrl = (src: string) => /^https?:\/\//i.test(src);
+
+const isLocalAsset = (src: string) => src.startsWith("/assets/");
+
 const imageLoader: ImageLoader = ({ src, width, quality }) => {
-    return `${process.env.NEXT_PUBLIC_MEDIA_URL}${src}?w=${width}&q=${quality || 75}`;
+    const queryString = `w=${width}&q=${quality || 75}`;
+
+    if (isAbsoluteUrl(src)) {
+        return `${src}${src.includes("?") ? "&" : "?"}${queryString}`;
+    }
+
+    if (isLocalAsset(src)) {
+        return `${process.env.NEXT_PUBLIC_assetPrefix || ""}${src}`;
+    }
+
+    return `${process.env.NEXT_PUBLIC_MEDIA_URL || ""}${src.startsWith("/") ? "" : "/"}${src}?${queryString}`;
 };
 
 const CustomImage = ({
@@ -48,6 +62,8 @@ const CustomImage = ({
                 className={`custom-image ${hasLoading ? "loading" : "loaded"}`}
                 onError={(e) => {
                     const target = e.target as HTMLImageElement;
+                    target.removeAttribute("srcset");
+                    target.removeAttribute("sizes");
                     target.src = `${process.env.NEXT_PUBLIC_assetPrefix}${imageFallback}`;
                 }}
                 style={style}

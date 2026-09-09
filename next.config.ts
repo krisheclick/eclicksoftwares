@@ -11,6 +11,11 @@ const nextConfig = {
         hostname: 'eclicksoftwaresnode.eclickprojects.com',
         pathname: '/**',
       },
+      {
+        protocol: 'https',
+        hostname: 'admin.eclicksoftwares.com',
+        pathname: '/**',
+      },
     ],
   },
   env: {

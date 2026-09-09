@@ -160,7 +160,7 @@ const DetailsForm = ({
                     </Col>
                     <Col md={12}>
                         <Form.Group>
-                            <Form.Label className="fw-semibold">Project Details *</Form.Label>
+                            <Form.Label className="fw-semibold">Comment *</Form.Label>
                             <Form.Control
                                 as="textarea"
                                 rows={3}
