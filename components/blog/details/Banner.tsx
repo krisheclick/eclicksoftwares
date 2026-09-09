@@ -12,7 +12,8 @@ const DetailsBanner = () => {
         day: "2-digit",
         month: "long"
     }) + ", " + dateObj?.getFullYear();
-    const poster = pageData?.blog_banner_image_path;
+    const poster = pageData?.blog_banner_image_path || pageData?.blog_feature_image_path;
+    console.log('poster', poster)
     return (
         <div className={Styles.banner}>
             <Container>
@@ -43,7 +44,7 @@ const DetailsBanner = () => {
                                 alt={title || "Banner Poster"}
                                 onError={(e) => {
                                     (e.target as HTMLImageElement).src =
-                                        `${process.env.NEXT_PUBLIC_assetPrefix}/assets/images/noimage.jpg`
+                                        `${process.env.NEXT_PUBLIC_assetPrefix}/assets/images/placeholder.webp`
                                 }}
                                 fill
                                 priority

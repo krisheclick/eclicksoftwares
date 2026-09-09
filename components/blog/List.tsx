@@ -97,7 +97,10 @@ const BlogList = ({ slug }: Props) => {
                                         publish_date,
                                     } = item;
 
-                                    const link = process.env.NEXT_PUBLIC_ENV_URL;
+                                    const categorySlug = blog_category?.blog_category_slug;
+                                    const blogHref = categorySlug
+                                        ? `/blog/${categorySlug}/${blog_slug}`
+                                        : `/blog/${blog_slug}`;
                                     const dateObj = publish_date ? new Date(publish_date) : null;
                                     const formattedDate =
                                         dateObj?.toLocaleDateString('en-GB', {
@@ -111,7 +114,7 @@ const BlogList = ({ slug }: Props) => {
                                         <Col xl={4} xs={6} key={index}>
                                             <div className={Styles.card}>
                                                 <Link
-                                                    href={`${link}/blog/${blog_category?.blog_category_slug}/${blog_slug}`}
+                                                    href={blogHref}
                                                     className={Styles.imageWrapper}
                                                 >
                                                     <Image
@@ -121,7 +124,7 @@ const BlogList = ({ slug }: Props) => {
                                                         priority
                                                         onError={(e) => {
                                                             (e.target as HTMLImageElement).src =
-                                                                `${process.env.NEXT_PUBLIC_assetPrefix}/assets/images/noimage.jpg`;
+                                                                `${process.env.NEXT_PUBLIC_assetPrefix}/assets/images/placeholder.webp`;
                                                         }}
                                                         className={Styles.cardImage}
                                                     />
@@ -130,7 +133,7 @@ const BlogList = ({ slug }: Props) => {
                                                 <div className={Styles.cardBody}>
                                                     <span className={Styles.cardDate}>{formattedDate}</span>
                                                     <Link
-                                                        href={`${link}/blog/${blog_category?.blog_category_slug}/${blog_slug}`}
+                                                        href={blogHref}
                                                         className={Styles.cardTitle}
                                                     >
                                                         {blog_title}

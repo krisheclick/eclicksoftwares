@@ -45,7 +45,10 @@ const PopularPost = () => {
                         <ul className="noList">
                             {recentPost?.slice(0, 5)?.map((postData, postIndex) => {
                                 const { blog_feature_image_path: blog_poster, Category: blog_category, blog_title, blog_slug, publish_date } = postData;
-                                const blogLink = `${process.env.NEXT_PUBLIC_ENV_URL}`;
+                                const categorySlug = blog_category?.blog_category_slug;
+                                const postHref = categorySlug
+                                    ? `/blog/${categorySlug}/${blog_slug}`
+                                    : `/blog/${blog_slug}`;
                                 const dateObj = publish_date ? new Date(publish_date) : null;
                                 const formattedDate = dateObj?.toLocaleDateString("en-GB", {
                                     day: "2-digit",
@@ -54,10 +57,10 @@ const PopularPost = () => {
                                 return (
                                     <li
                                         key={postIndex}
-                                        className={`${Styles.postParent} ${pathname === `/blog/${blog_category?.blog_category_slug}/${blog_slug}` ? Styles.active : ''
+                                        className={`${Styles.postParent} ${pathname === postHref ? Styles.active : ''
                                             }`}
                                     >
-                                        <Link href={`${blogLink}/blog/${blog_category?.blog_category_slug}/${blog_slug}`} className={Styles.postBox}>
+                                        <Link href={postHref} className={Styles.postBox}>
                                             <figure className={Styles.poster}>
                                                 <Image
                                                     src={`${process.env.NEXT_PUBLIC_MEDIA_URL}${blog_poster}`}
@@ -66,7 +69,7 @@ const PopularPost = () => {
                                                     priority
                                                     onError={(e) => {
                                                         (e.target as HTMLImageElement).src =
-                                                            `${process.env.NEXT_PUBLIC_assetPrefix}/assets/images/noimage.jpg`;
+                                                            `${process.env.NEXT_PUBLIC_assetPrefix}/assets/images/placeholder.webp`;
                                                     }}
                                                     className={Styles.cardImage}
                                                 />

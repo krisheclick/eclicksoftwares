@@ -9,7 +9,7 @@ type Props = {
 }
 
 const BlogDetails = ({ slug }: Props) => {
-    const blogSlug = slug[1];
+    const blogSlug = slug[1] || slug[0];
     const { pageData, setPageData, hasLoading, setHasLoading } = useBlogContext();
     const [notFoundPage, setNotFoundPage] = useState(false);
 

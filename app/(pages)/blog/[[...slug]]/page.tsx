@@ -31,9 +31,12 @@ const Blogpage = async({ params }: Props) => {
     if (slug.length > 2) return <NotFound />;
 
     const categories = await getCategories();
+    const isKnownCategory = slug.length === 1 && categories.some(
+        (category: { blog_category_slug: string }) => category.blog_category_slug === slug[0]
+    );
     
-    const isListing = slug.length <= 1;
-    const isDetails = slug.length === 2;
+    const isListing = slug.length === 0 || isKnownCategory;
+    const isDetails = slug.length === 2 || (slug.length === 1 && !isKnownCategory);
 
     return (
         <>
