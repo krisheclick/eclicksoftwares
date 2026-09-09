@@ -1,160 +1,9 @@
-.stepIndicator {
-    position: relative;
-}
-.stepCircle {
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
-    background-color: #e9ecef;
-    color: #6c757d;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-weight: bold;
-    margin: 0 auto;
-    border: 2px solid #e9ecef;
-    transition: all 0.3s ease;
-    position: relative;
-    z-index: 2;
-}
-.stepCircle.active {
-    background-color: var(--hover-color);
-    color: var(--white-color);
-    border-color: var(--hover-color);
-}
-.stepCircle.completed {
-    background-color: #28a745;
-    color: white;
-    border-color: #28a745;
-}
-.stepLabel {
-    font-size: 0.75rem;
-    color: #6c757d;
-    transition: color 0.3s ease;
-}
-.stepLabel.active {
-    color: var(--hover-color);
-}
-.stepLine {
-    position: absolute;
-    top: 20px;
-    left: 50%;
-    right: -50%;
-    height: 2px;
-    background-color: #e9ecef;
-    z-index: 1;
-    transition: background-color 0.3s ease;
-}
-.stepLine.completed {
-    background-color: #28a745;
-}
-.stepContent {
-    min-height: 300px;
-}
-.formSelectLg {
-    padding: 0.75rem 1rem;
-    font-size: 1rem;
-}
-.formControlLg {
-    padding: 0.75rem 1rem;
-    font-size: 1rem;
-}
-.btnPrimary {
-    background-color: var(--primary-color);
-    border-color: var(--primary-color);
-}
-.btnPrimary:hover {
-    background-color: var(--hover-color);
-    border-color: var(--hover-color);
-}
-/* Calendar Styles */
-.calendarView {
-    min-height: 400px;
-}
-.calendarGrid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(80px, 1fr));
-    gap: 12px;
-    max-width: 500px;
-    min-height: 400px;
-    margin: 0 auto;
-}
-.dateButton {
-    background: var(--white-color);
-    border: 2px solid #e9ecef;
-    border-radius: 8px;
-    padding: 12px 8px;
-    text-align: center;
-    cursor: pointer;
-    transition: all 0.2s ease;
-    min-height: 70px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-}
-.dateButton:hover {
-    border-color: var(--hover-color);
-    background-color: #f8f9fa;
-}
-.dayName {
-    font-size: 0.75rem;
-    color: #6c757d;
-    font-weight: 500;
-    text-transform: uppercase;
-    margin-bottom: 2px;
-}
-.dayNumber {
-    font-size: 1.25rem;
-    font-weight: bold;
-    color: #212529;
-    margin-bottom: 2px;
-}
-.monthName {
-    font-size: 0.75rem;
-    color: #6c757d;
-    font-weight: 500;
-}
-/* Time Slots Styles */
-.timeView {
-    min-height: 400px;
-}
-.timeGrid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
-    gap: 8px;
-    max-width: 500px;
-    margin: 0 auto;
-}
-.timeButton {
-    background: white;
-    border: 2px solid #e9ecef;
-    border-radius: 6px;
-    padding: 12px 16px;
-    text-align: center;
-    cursor: pointer;
-    transition: all 0.2s ease;
-    font-weight: 500;
-    color: #212529;
-}
-.timeButton:hover {
-    border-color: var(--hover-color);
-    background-color: #f8f9fa;
-    color: var(--hover-color);
-}
-/* Details View Styles */
 .detailsView {
     min-height: 500px;
 }
-/* .detailsForm{
-    max-height: 580px;
-    overflow: hidden;
-    overflow-y: scroll;
-} */
 .selectedSlot {
     margin-bottom: 2rem;
 }
-/* Confirmation View Styles */
 .confirmView {
     min-height: 400px;
 }
@@ -210,9 +59,615 @@
 .schuduleRow{
     min-height: 650px;
 }
+.scheduleModal :global(.modal-content) {
+    overflow: hidden;
+    border: 0;
+    border-radius: 18px;
+    box-shadow: 0 30px 90px rgba(0, 0, 0, 0.26);
+}
+.scheduleModal :global(.modal-body) {
+    padding: 0 !important;
+}
+.scheduleModal .schuduleRow {
+    --bs-gutter-x: 0;
+    min-height: 650px;
+}
+.scheduleModal .schuduleRow > [class*="col-"]:first-child {
+    padding: 32px;
+    background: linear-gradient(155deg, #f8fbff 0%, #e7f3ff 100%);
+}
+.scheduleModal .schuduleRow > [class*="col-"]:last-child {
+    padding: 34px 34px 28px;
+    background: #ffffff;
+}
+.scheduleModal h4 {
+    color: #061144;
+    font-weight: 800 !important;
+    line-height: 1.12;
+}
+.scheduleModal .scheduleDetails {
+    display: grid;
+    gap: 14px;
+    margin-top: 26px;
+}
+.scheduleModal .scheduleDetails p {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    min-height: 52px;
+    padding: 12px 16px;
+    color: #061144 !important;
+    background: rgba(255, 255, 255, 0.78);
+    border: 1px solid #e3eefc;
+    border-radius: 10px;
+    font-size: 15px;
+    font-weight: 700;
+}
+.scheduleModal .scheduleDetails svg {
+    color: #075fe8;
+    font-size: 20px;
+}
+.modernDetailsForm :global(.rowGap) {
+    row-gap: 18px;
+}
+.modernField :global(.form-label) {
+    margin-bottom: 8px;
+    color: #061144;
+    font-size: 13px;
+    font-weight: 800;
+    line-height: 1.2;
+}
+.modernInputWrap,
+.scheduleSelectWrap {
+    display: flex;
+    align-items: center;
+    min-height: 48px;
+    padding: 0 14px;
+    color: #48638d;
+    background: linear-gradient(180deg, #fbfdff 0%, #f6f9fd 100%);
+    border: 1px solid #d7e0ed;
+    border-radius: 7px;
+    box-shadow: inset 0 1px 2px rgba(6, 17, 68, 0.03);
+}
+.modernInputWrap:focus-within,
+.scheduleSelectWrap:focus-within {
+    border-color: #1168f4;
+    box-shadow: 0 0 0 3px rgba(17, 104, 244, 0.11);
+}
+.modernInputWrap > svg,
+.scheduleSelectIcon {
+    flex: 0 0 auto;
+    width: 18px;
+    margin-right: 12px;
+    color: #316094;
+    font-size: 17px;
+}
+.modernInputWrap :global(.form-control) {
+    min-width: 0;
+    padding: 0;
+    color: #061144;
+    background: transparent;
+    border: 0;
+    box-shadow: none !important;
+    font-size: 14px;
+}
+.modernInputWrap :global(.form-control)::placeholder {
+    color: #7d8aa5;
+}
+.modernInputWrap :global(.form-control.is-invalid) {
+    background-image: none;
+}
+.modernTextareaWrap {
+    align-items: flex-start;
+    min-height: 76px;
+    padding-top: 13px;
+    padding-bottom: 11px;
+}
+.modernTextareaWrap :global(textarea.form-control) {
+    resize: vertical;
+}
+.invalidField {
+    border-color: #dc3545 !important;
+}
+.modernField :global(.invalid-feedback) {
+    display: block;
+    margin-top: 7px;
+    color: #dc3545;
+    font-size: 12px;
+}
+.scheduleSelectWrap {
+    position: relative;
+    padding-right: 12px;
+}
+.scheduleSelectWrap > div {
+    flex: 1 1 auto;
+    min-width: 0;
+    width: 100%;
+}
+.scheduleSelectControl {
+    width: 100%;
+    min-height: 46px;
+    cursor: pointer;
+}
+.scheduleSelectValue {
+    flex: 1 1 auto;
+    min-width: 0;
+    padding: 0;
+}
+.scheduleSelectPlaceholder,
+.scheduleSelectSingleValue {
+    font-size: 14px;
+}
+.scheduleSelectPlaceholder {
+    color: #7d8aa5;
+}
+.scheduleSelectSingleValue {
+    color: #061144;
+}
+.scheduleSelectIndicators {
+    display: flex;
+    align-items: center;
+    color: #6a7892;
+    font-size: 13px;
+}
+.modernSubmitArea {
+    position: relative;
+    display: grid;
+    grid-template-columns: auto minmax(300px, 342px);
+    align-items: start;
+    justify-content: space-between;
+    gap: 12px 16px;
+    margin-top: 18px;
+}
+.modernBackLink {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+    color: #075fe8;
+    background: transparent;
+    border: 0;
+    font-size: 14px;
+    font-weight: 700;
+    line-height: 1;
+    cursor: pointer;
+}
+.modernBackLink:hover {
+    color: #0236b8;
+}
+.modernScheduleBtn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 16px;
+    width: 100%;
+    min-height: 54px;
+    padding: 7px 22px;
+    color: #ffffff;
+    background: linear-gradient(135deg, #126ef8 0%, #0752d9 100%);
+    border: 0;
+    border-radius: 8px;
+    box-shadow: 0 12px 26px rgba(7, 82, 217, 0.28);
+    font-size: 15px;
+    font-weight: 800;
+    line-height: 1;
+    letter-spacing: 0.7px;
+    text-transform: uppercase;
+    cursor: pointer;
+}
+.modernScheduleBtn:disabled {
+    cursor: not-allowed;
+    opacity: 0.72;
+}
+.modernScheduleBtn em {
+    font-style: normal;
+    text-align: center;
+}
+.modernSubmitArea p {
+    grid-column: 2;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    margin: 0;
+    color: #7d8aa5;
+    font-size: 11px;
+    line-height: 1.2;
+}
+.letsConnectModal :global(.modal-dialog) {
+    max-width: 1000px;
+}
+.letsConnectModal :global(.modal-content) {
+    overflow: hidden;
+    border: 0;
+    border-radius: 18px;
+    box-shadow: 0 30px 90px rgba(0, 0, 0, 0.28);
+}
+.letsConnectBody {
+    position: relative;
+    display: grid;
+    grid-template-columns: 330px minmax(0, 1fr);
+    padding: 0;
+    min-height: 650px;
+    background: var(--white-color);
+}
+.letsCloseBtn {
+    position: absolute;
+    top: 22px;
+    right: 22px;
+    z-index: 5;
+    display: grid;
+    place-items: center;
+    width: 46px;
+    height: 46px;
+    padding: 0;
+    color: #061144;
+    background: #f1f4fa;
+    border: 0;
+    border-radius: 50%;
+    font-size: 21px;
+    cursor: pointer;
+}
+.letsCloseBtn:hover {
+    background: #e7edf8;
+}
+.letsConnectAside {
+    position: relative;
+    overflow: hidden;
+    padding: 36px 36px 36px;
+    color: var(--white-color);
+    background: linear-gradient(155deg, #0a76ff 0%, #064fdc 52%, #0236b8 100%);
+}
+.letsConnectAside::before,
+.letsConnectAside::after {
+    position: absolute;
+    width: 220px;
+    height: 220px;
+    content: "";
+    border: 1px solid rgba(255, 255, 255, 0.42);
+    border-radius: 50%;
+    pointer-events: none;
+}
+.letsConnectAside::before {
+    right: -136px;
+    bottom: -82px;
+}
+.letsConnectAside::after {
+    left: -160px;
+    bottom: -136px;
+}
+.asideLogo {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 88px;
+    height: 82px;
+    padding: 0;
+    margin: 0 0 24px;
+    background: transparent;
+}
+.asideLogo img {
+    display: block;
+    width: 88px;
+    height: 82px;
+    object-fit: contain;
+}
+.asideMark {
+    display: block;
+    width: 36px;
+    height: 4px;
+    margin-bottom: 18px;
+    background: var(--white-color);
+    border-radius: 20px;
+}
+.letsConnectAside h3 {
+    margin: 0 0 18px;
+    color: var(--white-color);
+    font-size: 38px;
+    font-weight: 800;
+    line-height: 1.06;
+}
+.letsConnectAside p {
+    margin: 0;
+    color: rgba(255, 255, 255, 0.92);
+    font-size: 17px;
+    line-height: 1.45;
+}
+.asideList {
+    display: grid;
+    gap: 22px;
+    padding: 0;
+    margin: 34px 0 0;
+    list-style: none;
+}
+.asideList li {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+.asideList li > span {
+    flex: 0 0 auto;
+    display: grid;
+    place-items: center;
+    width: 50px;
+    height: 50px;
+    color: var(--white-color);
+    border: 1px solid rgba(255, 255, 255, 0.75);
+    border-radius: 50%;
+    font-size: 20px;
+}
+.asideList strong,
+.asideList small {
+    display: block;
+    color: var(--white-color);
+}
+.asideList strong {
+    font-size: 15px;
+    font-weight: 800;
+    line-height: 1.2;
+}
+.asideList small {
+    margin-top: 4px;
+    color: rgba(255, 255, 255, 0.82);
+    font-size: 13px;
+    line-height: 1.25;
+}
+.letsConnectFormPanel {
+    padding: 36px 38px 28px;
+}
+.letsFormHeader {
+    padding-right: 54px;
+    margin-bottom: 28px;
+}
+.letsFormHeader h4 {
+    margin: 0 0 8px;
+    color: #061144;
+    font-size: 42px;
+    font-weight: 800;
+    line-height: 1.08;
+}
+.letsFormHeader p {
+    margin: 0;
+    color: #667395;
+    font-size: 16px;
+}
+.letsForm {
+    display: grid;
+    gap: 18px;
+}
+.formGrid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 18px 20px;
+}
+.fieldGroup {
+    display: grid;
+    gap: 8px;
+    min-width: 0;
+}
+.fieldGroup > span,
+.fieldGroup > label {
+    color: #061144;
+    font-size: 15px;
+    font-weight: 600;
+    line-height: 1.2;
+    margin: 0;
+}
+.fieldGroup em,
+.selectWrap {
+    display: flex;
+    align-items: center;
+    min-height: 54px;
+    padding: 0 16px;
+    color: #4b628c;
+    background: linear-gradient(180deg, #f8fbff 0%, #f3f7fd 100%);
+    border: 1px solid #cfdcee;
+    border-radius: 11px;
+    box-shadow: inset 0 1px 2px rgba(6, 17, 68, 0.035);
+    font-style: normal;
+}
+.fieldGroup em:focus-within,
+.selectWrap:focus-within {
+    border-color: #1d68ec;
+    box-shadow: 0 0 0 3px rgba(29, 104, 236, 0.12);
+}
+.fieldGroup em > svg,
+.fieldIcon {
+    flex: 0 0 auto;
+    width: 20px;
+    margin-right: 14px;
+    color: #31588e;
+    font-size: 20px;
+}
+.fieldGroup input,
+.fieldGroup textarea {
+    width: 100%;
+    min-width: 0;
+    color: #061144;
+    background: transparent;
+    border: 0;
+    outline: 0;
+    font-size: 15px;
+    line-height: 1.4;
+}
+.fieldGroup input::placeholder,
+.fieldGroup textarea::placeholder {
+    color: #7887a5;
+}
+.fieldGroup small {
+    color: #dc3545;
+    font-size: 12px;
+    line-height: 1.2;
+}
+.textareaField {
+    align-items: flex-start !important;
+    min-height: 78px;
+    padding-top: 15px !important;
+    padding-bottom: 12px !important;
+}
+.textareaField textarea {
+    resize: vertical;
+}
+.fullField {
+    display: grid;
+}
+.selectWrap {
+    position: relative;
+    padding-right: 14px;
+}
+.selectWrap > div {
+    flex: 1 1 auto;
+    min-width: 0;
+    width: 100%;
+}
+.selectWrap.hasError {
+    border-color: #dc3545;
+}
+.selectControl {
+    width: 100%;
+    min-height: 52px;
+    cursor: pointer;
+}
+.selectValue {
+    flex: 1 1 auto;
+    min-width: 0;
+    padding: 0;
+}
+.selectPlaceholder {
+    color: #7887a5;
+    font-size: 15px;
+}
+.selectSingleValue {
+    color: #061144;
+    font-size: 15px;
+}
+.selectIndicators {
+    color: #546b95;
+    font-size: 13px;
+}
+.selectMenu {
+    z-index: 20;
+    overflow: hidden;
+    width: 100%;
+    margin-top: 8px;
+    background: var(--white-color);
+    border: 1px solid #d6e0ef;
+    border-radius: 12px;
+    box-shadow: 0 14px 36px rgba(6, 17, 68, 0.16);
+}
+.selectMenuList {
+    max-height: 280px;
+    padding: 6px 0;
+    overflow-y: auto;
+}
+.selectGroup {
+    padding: 0;
+}
+.selectGroup + .selectGroup {
+    padding-top: 8px;
+    margin-top: 6px;
+    border-top: 1px solid #edf2f8;
+}
+.selectGroupHeading {
+    padding: 7px 16px 5px;
+    color: #7b879f;
+    background: #ffffff;
+    font-size: 10px;
+    font-weight: 800;
+    line-height: 1.2;
+    letter-spacing: 0;
+    text-transform: uppercase;
+}
+.selectOption {
+    padding: 9px 16px;
+    color: #061144;
+    font-size: 13px;
+    line-height: 1.22;
+    cursor: pointer;
+}
+.focusedOption {
+    color: #064fdc;
+    background: #edf5ff;
+}
+.selectedOption {
+    color: #005bdf;
+    font-weight: 700;
+    background: #e7f0ff;
+}
+.formError {
+    margin: 0;
+    color: #dc3545;
+    font-size: 14px;
+    font-weight: 600;
+}
+.submitBtn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 14px;
+    width: 100%;
+    min-height: 56px;
+    margin-top: 4px;
+    color: var(--white-color);
+    background: linear-gradient(135deg, #126ef8 0%, #0752d9 100%);
+    border: 0;
+    border-radius: 11px;
+    box-shadow: 0 10px 24px rgba(7, 82, 217, 0.28);
+    font-size: 16px;
+    font-weight: 800;
+    line-height: 1;
+    text-transform: uppercase;
+}
+.submitBtn:disabled {
+    cursor: not-allowed;
+    opacity: 0.7;
+}
+.safeText {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    margin: 0;
+    color: #7887a5;
+    font-size: 13px;
+    line-height: 1.3;
+}
+.safeText svg {
+    color: #6f82a5;
+}
 @media only screen and (max-width: 1199px){
     .scheduleDetails{
         margin-top: 0;
+    }
+    .letsConnectModal :global(.modal-dialog) {
+        max-width: 920px;
+    }
+    .letsConnectBody {
+        grid-template-columns: 300px minmax(0, 1fr);
+    }
+    .letsConnectAside {
+        padding: 34px 34px 38px;
+    }
+    .letsConnectAside h3 {
+        font-size: 34px;
+    }
+    .letsFormHeader h4 {
+        font-size: 38px;
+    }
+}
+@media only screen and (max-width: 991px){
+    .letsConnectModal :global(.modal-dialog) {
+        max-width: calc(100% - 28px);
+    }
+    .letsConnectBody {
+        grid-template-columns: 1fr;
+        min-height: 0;
+    }
+    .letsConnectAside {
+        display: none;
+    }
+    .letsConnectFormPanel {
+        padding: 34px 28px 26px;
     }
 }
 @media only screen and (max-width: 767px){
@@ -222,6 +677,29 @@
     .borderRight{
         border: none;
     }
+    .letsConnectFormPanel {
+        padding: 30px 20px 22px;
+    }
+    .letsFormHeader {
+        padding-right: 50px;
+        margin-bottom: 22px;
+    }
+    .letsFormHeader h4 {
+        font-size: 32px;
+    }
+    .formGrid {
+        grid-template-columns: 1fr;
+        gap: 16px;
+    }
+    .letsCloseBtn {
+        top: 16px;
+        right: 16px;
+        width: 42px;
+        height: 42px;
+    }
+    .modernScheduleBtn{
+        min-height: 48px;
+    }
 }
 @media only screen and (max-width: 575px){
     .backButton{
@@ -229,5 +707,73 @@
     }
     .backButton{
         margin-bottom: 12px;
+    }
+    .letsConnectModal :global(.modal-dialog) {
+        max-width: calc(100% - 18px);
+    }
+    .letsConnectModal :global(.modal-content) {
+        border-radius: 14px;
+    }
+    .letsConnectFormPanel {
+        padding: 26px 14px 18px;
+    }
+    .letsFormHeader h4 {
+        font-size: 29px;
+    }
+    .letsFormHeader p {
+        font-size: 14px;
+    }
+    .fieldGroup > span,
+    .fieldGroup > label {
+        font-size: 13px;
+    }
+    .fieldGroup em,
+    .selectWrap {
+        min-height: 50px;
+        padding-right: 12px;
+        padding-left: 12px;
+    }
+    .fieldGroup input,
+    .fieldGroup textarea,
+    .selectPlaceholder,
+    .selectSingleValue {
+        font-size: 14px;
+    }
+    .submitBtn {
+        min-height: 52px;
+        font-size: 14px;
+    }
+    .modernScheduleBtn {
+        min-width: 230px;
+    }
+    .modernSubmitArea {
+        grid-template-columns: 1fr;
+        row-gap: 14px;
+    }
+    .modernSubmitArea p {
+        grid-column: 1;
+    }
+}
+@media only screen and (max-width: 480px){
+    .letsForm {
+        gap: 15px;
+    }
+    .fieldGroup em > svg,
+    .fieldIcon {
+        width: 17px;
+        margin-right: 10px;
+        font-size: 17px;
+    }
+}
+@media only screen and (max-width: 359px){
+    .letsConnectFormPanel {
+        padding-right: 10px;
+        padding-left: 10px;
+    }
+    .letsFormHeader {
+        padding-right: 44px;
+    }
+    .letsFormHeader h4 {
+        font-size: 26px;
     }
 }

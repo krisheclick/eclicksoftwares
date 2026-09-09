@@ -1,6 +1,6 @@
 "use client";
 import { useEffect, useState } from "react";
-import { Alert, Button, Card, Col, Form, Image, Modal, Row } from "react-bootstrap";
+import { Alert, Button, Card, Col, Form, Modal, Row } from "react-bootstrap";
 import styles from './ScheduleCall.module.css';
 import { useScheduleCallContext } from "@/context/SchuduleACallContext";
 import DateTimePicker from "./DateTimePicker";
@@ -8,7 +8,6 @@ import DetailsForm from "./DetailsForm";
 import { faXmark, faClock, faGlobe, faArrowLeft, faCalendarDays,faCheck, faCalendarAlt, faSpinner} from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useRouter } from "next/navigation";
-import Select from "react-select";
 import { formatDate, formatTime24 } from "@/utils/timezoneUtils";
 
 
@@ -93,15 +92,41 @@ const SchuduleCallModal = ({ show, onHide, action }: ScheduleCallProps) => {
         setSelectedDate(undefined);
         setSelectedSlot(null);
         setTimezone(Intl.DateTimeFormat().resolvedOptions().timeZone);
+        setErrors({});
+    };
+
+    const validateField = (name: string, value: string) => {
+        if (name === "service" && !value) return "Please select a service.";
+        if (name === "requirement" && !value.trim()) return "Please describe your Message.";
+        if (name === "fullName" && !value.trim()) return "Full name is required.";
+        if (name === "email") {
+            if (!value.trim()) return "Email is required.";
+            if (!/^\S+@\S+\.\S+$/.test(value)) return "Please enter a valid email.";
+        }
+        if (name === "phone" && !value.trim()) return "Phone number is required.";
+        if (name === "company" && !value.trim()) return "Company name is required.";
+        return "";
     };
 
     const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
         const { name, value, type } = e.target;
         const checked = (e.target as HTMLInputElement).checked;
+        const nextValue = type === 'checkbox' ? checked : value;
         setFormData(prev => ({
             ...prev,
-            [name]: type === 'checkbox' ? checked : value
+            [name]: nextValue
         }));
+        setErrors(prev => {
+            if (!prev[name]) return prev;
+            const fieldError = validateField(name, String(nextValue));
+            const nextErrors = { ...prev };
+            if (fieldError) {
+                nextErrors[name] = fieldError;
+            } else {
+                delete nextErrors[name];
+            }
+            return nextErrors;
+        });
     };
 
     const validateDetails = () => {
@@ -117,10 +142,6 @@ const SchuduleCallModal = ({ show, onHide, action }: ScheduleCallProps) => {
         }
         if (!formData.phone.trim()) newErrors.phone = "Phone number is required.";
         if (!formData.company.trim()) newErrors.company = "Company name is required.";
-        if (!formData.privacyConsent) {
-            newErrors.privacyConsent = "Please accept the terms and conditions.";
-        }
-
         setErrors(newErrors);
         return Object.keys(newErrors).length === 0;
     };
@@ -176,8 +197,8 @@ const SchuduleCallModal = ({ show, onHide, action }: ScheduleCallProps) => {
                 router.push('/schedule-a-call/thank-you');
                 onHide();
             }
-        } catch (err: any) {
-            setStatusMessage(err.message || "Something went wrong");
+        } catch (err: unknown) {
+            setStatusMessage(err instanceof Error ? err.message : "Something went wrong");
         } finally {
             setIsSubmit(false);
         }
@@ -190,9 +211,9 @@ const SchuduleCallModal = ({ show, onHide, action }: ScheduleCallProps) => {
         const match = time.match(/(\d+):(\d+)(am|pm)/i);
         if (!match) return time;
 
-        let [, hr, min, period] = match;
+        const [, hr, min, period] = match;
         let hours = parseInt(hr, 10);
-        let minutes = parseInt(min, 10);
+        const minutes = parseInt(min, 10);
 
         // convert to 24h
         if (period.toLowerCase() === "pm" && hours !== 12) hours += 12;
@@ -349,7 +370,10 @@ const SchuduleCallModal = ({ show, onHide, action }: ScheduleCallProps) => {
                         errors={errors}
                         handleInputChange={handleInputChange}
                         handleDetailsSubmit={handleDetailsSubmit}
+                        handleBack={() => setStep(step - 1)}
                         setFormData={setFormData}
+                        setErrors={setErrors}
+                        validateField={validateField}
                         serviceOptions={serviceOptions}
                         heading={
                             <div className="text-center mb-4">
@@ -357,7 +381,7 @@ const SchuduleCallModal = ({ show, onHide, action }: ScheduleCallProps) => {
                                 <p className="text-muted">Tell us about your project and contact information</p>
                             </div>
                         }
-                        buttonText="Schedule a Call"
+                        buttonText="Confirm & Schedule"
                         isSubmitting={isSubmit}
                     />
                 );

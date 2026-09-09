@@ -1,8 +1,8 @@
 "use client";
-import { Row, Col, Form, Image } from "react-bootstrap";
+import { Row, Col, Form } from "react-bootstrap";
 import styles from './ScheduleCall.module.css';
 import Select from "react-select";
-import { faSpinner } from "@fortawesome/free-solid-svg-icons";
+import { faArrowRight, faBuilding, faChevronDown, faEnvelope, faFileLines, faList, faLock, faPhone, faSpinner, faUser } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 interface FormData {
@@ -25,21 +25,15 @@ interface ServiceOption {
     }[];
 }
 
-interface ServiceCategory {
-    service_category_slug: string;
-    service_category_title: string;
-    services: {
-        service_slug: string;
-        service_title: string;
-    }[];
-}
-
 interface DetailsFormProps {
     formData: FormData;
     errors: {[key: string]: string};
     handleInputChange: (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => void;
     handleDetailsSubmit: () => void;
+    handleBack?: () => void;
     setFormData: React.Dispatch<React.SetStateAction<FormData>>;
+    setErrors: React.Dispatch<React.SetStateAction<{[key: string]: string}>>;
+    validateField: (name: string, value: string) => string;
     serviceOptions: ServiceOption[];
     heading?: React.ReactNode;
     buttonComponent?: React.ReactNode;
@@ -52,7 +46,10 @@ const DetailsForm = ({
     errors,
     handleInputChange,
     handleDetailsSubmit,
+    handleBack,
     setFormData,
+    setErrors,
+    validateField,
     serviceOptions,
     heading = (
         <div className="text-center mb-4">
@@ -67,125 +64,145 @@ const DetailsForm = ({
     return (
         <div className={styles.detailsView}>
             {heading}
-            <Form className={styles.detailsForm}>
+            <Form className={`${styles.detailsForm} ${styles.modernDetailsForm}`}>
                 <Row className="rowGap gx-3">
                     <Col md={6}>
-                        <Form.Group>
-                            <Form.Label className="fw-semibold">Full Name *</Form.Label>
-                            <Form.Control
-                                type="text"
-                                name="fullName"
-                                value={formData.fullName}
-                                onChange={handleInputChange}
-                                isInvalid={!!errors.fullName}
-                                placeholder="Your full name"
-                            />
+                        <Form.Group className={styles.modernField}>
+                            <Form.Label>Full Name *</Form.Label>
+                            <div className={`${styles.modernInputWrap} ${errors.fullName ? styles.invalidField : ""}`}>
+                                <FontAwesomeIcon icon={faUser} />
+                                <Form.Control
+                                    type="text"
+                                    name="fullName"
+                                    value={formData.fullName}
+                                    onChange={handleInputChange}
+                                    isInvalid={!!errors.fullName}
+                                    placeholder="Your full name"
+                                />
+                            </div>
                             <Form.Control.Feedback type="invalid">{errors.fullName}</Form.Control.Feedback>
                         </Form.Group>
                     </Col>
                     <Col md={6}>
-                        <Form.Group>
-                            <Form.Label className="fw-semibold">Company *</Form.Label>
-                            <Form.Control
-                                type="text"
-                                name="company"
-                                value={formData.company}
-                                onChange={handleInputChange}
-                                isInvalid={!!errors.company}
-                                placeholder="Your company name"
-                            />
+                        <Form.Group className={styles.modernField}>
+                            <Form.Label>Company *</Form.Label>
+                            <div className={`${styles.modernInputWrap} ${errors.company ? styles.invalidField : ""}`}>
+                                <FontAwesomeIcon icon={faBuilding} />
+                                <Form.Control
+                                    type="text"
+                                    name="company"
+                                    value={formData.company}
+                                    onChange={handleInputChange}
+                                    isInvalid={!!errors.company}
+                                    placeholder="Your company name"
+                                />
+                            </div>
                             <Form.Control.Feedback type="invalid">{errors.company}</Form.Control.Feedback>
                         </Form.Group>
                     </Col>
                     <Col md={6}>
-                        <Form.Group>
-                            <Form.Label className="fw-semibold">Email Address *</Form.Label>
-                            <Form.Control
-                                type="email"
-                                name="email"
-                                value={formData.email}
-                                onChange={handleInputChange}
-                                isInvalid={!!errors.email}
-                                placeholder="your.email@company.com"
-                            />
+                        <Form.Group className={styles.modernField}>
+                            <Form.Label>Email Address *</Form.Label>
+                            <div className={`${styles.modernInputWrap} ${errors.email ? styles.invalidField : ""}`}>
+                                <FontAwesomeIcon icon={faEnvelope} />
+                                <Form.Control
+                                    type="email"
+                                    name="email"
+                                    value={formData.email}
+                                    onChange={handleInputChange}
+                                    isInvalid={!!errors.email}
+                                    placeholder="your.email@company.com"
+                                />
+                            </div>
                             <Form.Control.Feedback type="invalid">{errors.email}</Form.Control.Feedback>
                         </Form.Group>
                     </Col>
                     <Col md={6}>
-                        <Form.Group>
-                            <Form.Label className="fw-semibold">Phone Number *</Form.Label>
-                            <Form.Control
-                                type="tel"
-                                name="phone"
-                                value={formData.phone}
-                                onChange={handleInputChange}
-                                isInvalid={!!errors.phone}
-                                placeholder="+1 (555) 123-4567"
-                            />
+                        <Form.Group className={styles.modernField}>
+                            <Form.Label>Phone Number *</Form.Label>
+                            <div className={`${styles.modernInputWrap} ${errors.phone ? styles.invalidField : ""}`}>
+                                <FontAwesomeIcon icon={faPhone} />
+                                <Form.Control
+                                    type="tel"
+                                    name="phone"
+                                    value={formData.phone}
+                                    onChange={handleInputChange}
+                                    isInvalid={!!errors.phone}
+                                    placeholder="+1 (555) 123-4567"
+                                />
+                            </div>
                             <Form.Control.Feedback type="invalid">{errors.phone}</Form.Control.Feedback>
                         </Form.Group>
                     </Col>
                     <Col md={12}>
-                        <Form.Group>
-                            <Form.Label className="fw-semibold">What service are you interested in? *</Form.Label>
-                            <Select
-                                options={serviceOptions}
-                                placeholder="Select a service..."
-                                isSearchable
-                                onChange={(selected) =>
-                                    setFormData(prev => ({
-                                        ...prev,
-                                        service: selected?.value || "",
-                                    }))
-                                }
-                                value={serviceOptions
-                                    .flatMap(group => group.options)
-                                    .find(opt => opt.value === formData.service)}
-                                className={`react-select ${errors.service ? 'is-invalid' : ''}`}
-                                classNamePrefix="react-select"
-                                styles={{
-                                    menu: base => ({ ...base, zIndex: 9999 }),
-                                    control: (base, state) => ({
-                                        ...base,
-                                        borderColor: errors.service ? '#dc3545' : base.borderColor,
-                                        '&:hover': {
-                                            borderColor: errors.service ? '#dc3545' : base.borderColor,
-                                        },
-                                        boxShadow: state.isFocused && errors.service ? '0 0 0 0.2rem rgba(220, 53, 69, 0.25)' : base.boxShadow,
-                                    }),
-                                }}
+                        <Form.Group className={styles.modernField}>
+                            <Form.Label>What service are you interested in? *</Form.Label>
+                            <div className={`${styles.scheduleSelectWrap} ${errors.service ? styles.invalidField : ""}`}>
+                                <FontAwesomeIcon icon={faList} className={styles.scheduleSelectIcon} />
+                                <Select
+                                    options={serviceOptions}
+                                    placeholder="Select a service..."
+                                    isSearchable
+                                    unstyled
+                                    onChange={(selected) => {
+                                        const value = selected?.value || "";
+                                        setFormData(prev => ({
+                                            ...prev,
+                                            service: value,
+                                        }));
+                                        setErrors(prev => {
+                                            if (!prev.service) return prev;
+                                            const nextErrors = { ...prev };
+                                            const fieldError = validateField("service", value);
+                                            if (fieldError) {
+                                                nextErrors.service = fieldError;
+                                            } else {
+                                                delete nextErrors.service;
+                                            }
+                                            return nextErrors;
+                                        });
+                                    }}
+                                    value={serviceOptions
+                                        .flatMap(group => group.options)
+                                        .find(opt => opt.value === formData.service)}
+                                    classNamePrefix="schedule-select"
+                                    classNames={{
+                                        control: () => styles.scheduleSelectControl,
+                                        valueContainer: () => styles.scheduleSelectValue,
+                                        placeholder: () => styles.scheduleSelectPlaceholder,
+                                        singleValue: () => styles.scheduleSelectSingleValue,
+                                        indicatorsContainer: () => styles.scheduleSelectIndicators,
+                                        group: () => styles.selectGroup,
+                                        groupHeading: () => styles.selectGroupHeading,
+                                        menu: () => styles.selectMenu,
+                                        menuList: () => styles.selectMenuList,
+                                        option: ({ isFocused, isSelected }) => `${styles.selectOption} ${isFocused ? styles.focusedOption : ""} ${isSelected ? styles.selectedOption : ""}`,
+                                    }}
+                                    components={{
+                                        DropdownIndicator: () => <FontAwesomeIcon icon={faChevronDown} />,
+                                        IndicatorSeparator: null,
+                                    }}
                                 />
+                            </div>
                             <Form.Control.Feedback type="invalid">{errors.service}</Form.Control.Feedback>
                         </Form.Group>
                     </Col>
                     <Col md={12}>
-                        <Form.Group>
-                            <Form.Label className="fw-semibold">Comment *</Form.Label>
-                            <Form.Control
-                                as="textarea"
-                                rows={3}
-                                name="requirement"
-                                placeholder="Tell us briefly about your project, goals, challenges, and timeline..."
-                                value={formData.requirement}
-                                onChange={handleInputChange}
-                                isInvalid={!!errors.requirement}
-                            />
+                        <Form.Group className={styles.modernField}>
+                            <Form.Label>Project details *</Form.Label>
+                            <div className={`${styles.modernInputWrap} ${styles.modernTextareaWrap} ${errors.requirement ? styles.invalidField : ""}`}>
+                                <FontAwesomeIcon icon={faFileLines} />
+                                <Form.Control
+                                    as="textarea"
+                                    rows={3}
+                                    name="requirement"
+                                    placeholder="Tell us briefly about your goals, challenges and timeline..."
+                                    value={formData.requirement}
+                                    onChange={handleInputChange}
+                                    isInvalid={!!errors.requirement}
+                                />
+                            </div>
                             <Form.Control.Feedback type="invalid">{errors.requirement}</Form.Control.Feedback>
-                        </Form.Group>
-                    </Col>
-                    <Col md={12}>
-                        <Form.Group className="mb-2">
-                            <Form.Check
-                                type="checkbox"
-                                label="I agree to the Privacy Policy and Terms & Conditions *"
-                                name="privacyConsent"
-                                checked={formData.privacyConsent}
-                                onChange={handleInputChange}
-                                isInvalid={!!errors.privacyConsent}
-                                className="mb-0 d-flex align-items-center fw-medium"
-                                style={{lineHeight: "normal"}}
-                            />
-                            <Form.Control.Feedback type="invalid">{errors.privacyConsent}</Form.Control.Feedback>
                         </Form.Group>
                     </Col>
                 </Row>
@@ -193,26 +210,35 @@ const DetailsForm = ({
             {buttonComponent ? (
                 buttonComponent
             ) : (
-                <div className="text-center mt-4">
+                <div className={styles.modernSubmitArea}>
+                    {handleBack && (
+                        <button
+                            type="button"
+                            className={styles.modernBackLink}
+                            onClick={handleBack}
+                        >
+                            Back
+                        </button>
+                    )}
                     <button
+                        type="button"
                         onClick={handleDetailsSubmit}
-                        className={`eclick-btn-connect ${styles.bannerBtn ?? ''}`}
+                        className={styles.modernScheduleBtn}
                         disabled={isSubmitting}
                     >
-                        <span className={styles.phoneIcon}>
-                            {isSubmitting ? (
+                        {isSubmitting ? (
+                            <>
                                 <FontAwesomeIcon icon={faSpinner} className="fa-spin" />
-                            ) : (
-                                <Image
-                                    src={`${process.env.NEXT_PUBLIC_assetPrefix}/assets/images/phone.webp`}
-                                    alt="Conversation"
-                                    width={22} height={21}
-                                    loading="lazy"
-                                />
-                            )}
-                        </span>
-                        <em>{isSubmitting ? 'Submitting...' : buttonText}</em>
+                                <em>Scheduling...</em>
+                            </>
+                        ) : (
+                            <>
+                                <em>{buttonText}</em>
+                                <FontAwesomeIcon icon={faArrowRight} />
+                            </>
+                        )}
                     </button>
+                    <p><FontAwesomeIcon icon={faLock} /> Your information is secure.</p>
                 </div>
             )}
 

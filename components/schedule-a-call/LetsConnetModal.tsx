@@ -1,13 +1,12 @@
 "use client";
 import { useEffect, useState } from "react";
-import { Alert, Button, Modal } from "react-bootstrap";
+import { Modal } from "react-bootstrap";
 import styles from './ScheduleCall.module.css';
-import DetailsForm from "./DetailsForm";
-import { faXmark, faCheck, faSpinner} from "@fortawesome/free-solid-svg-icons";
+import { faArrowRight, faBolt, faBuilding, faChevronDown, faEnvelope, faFileLines, faLock, faPhone, faShieldHalved, faSpinner, faTableCellsLarge, faUser, faUserGroup, faXmark } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useRouter } from "next/navigation";
-import Select from "react-select";
 import Image from "next/image";
+import Select from "react-select";
 
 
 interface ScheduleCallProps {
@@ -39,7 +38,7 @@ interface ServiceCategory {
 }
 
 
-const LetsConnectModal = ({ show, onHide, services, action }: ScheduleCallProps) => {
+const LetsConnectModal = ({ show, onHide, action }: ScheduleCallProps) => {
     const router = useRouter();
 
     const [formData, setFormData] = useState<FormData>({
@@ -71,15 +70,41 @@ const LetsConnectModal = ({ show, onHide, services, action }: ScheduleCallProps)
             skipDateTime: false,
             privacyConsent: false
         });
+        setErrors({});
+    };
+
+    const validateField = (name: string, value: string) => {
+        if (name === "service" && !value) return "Please select a service.";
+        if (name === "requirement" && !value.trim()) return "Please describe your project.";
+        if (name === "fullName" && !value.trim()) return "Full name is required.";
+        if (name === "email") {
+            if (!value.trim()) return "Email is required.";
+            if (!/^\S+@\S+\.\S+$/.test(value)) return "Please enter a valid email.";
+        }
+        if (name === "phone" && !value.trim()) return "Phone number is required.";
+        if (name === "company" && !value.trim()) return "Company name is required.";
+        return "";
     };
 
     const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
         const { name, value, type } = e.target;
         const checked = (e.target as HTMLInputElement).checked;
+        const nextValue = type === 'checkbox' ? checked : value;
         setFormData(prev => ({
             ...prev,
-            [name]: type === 'checkbox' ? checked : value
+            [name]: nextValue
         }));
+        setErrors(prev => {
+            if (!prev[name]) return prev;
+            const fieldError = validateField(name, String(nextValue));
+            const nextErrors = { ...prev };
+            if (fieldError) {
+                nextErrors[name] = fieldError;
+            } else {
+                delete nextErrors[name];
+            }
+            return nextErrors;
+        });
     };
 
     const validateDetails = () => {
@@ -95,18 +120,8 @@ const LetsConnectModal = ({ show, onHide, services, action }: ScheduleCallProps)
         }
         if (!formData.phone.trim()) newErrors.phone = "Phone number is required.";
         if (!formData.company.trim()) newErrors.company = "Company name is required.";
-        if (!formData.privacyConsent) {
-            newErrors.privacyConsent = "Please accept the terms and conditions.";
-        }
-
         setErrors(newErrors);
         return Object.keys(newErrors).length === 0;
-    };
-
-    const handleDetailsSubmit = async () => {
-        if (validateDetails()) {
-            await handleSubmit({ preventDefault: () => {} } as React.FormEvent);
-        }
     };
 
     const handleSubmit = async (e: React.FormEvent) => {
@@ -150,8 +165,8 @@ const LetsConnectModal = ({ show, onHide, services, action }: ScheduleCallProps)
                 router.push('/lets-connect/thank-you');
                 onHide();
             }
-        } catch (err: any) {
-            setStatusMessage(err.message || "Something went wrong");
+        } catch (err: unknown) {
+            setStatusMessage(err instanceof Error ? err.message : "Something went wrong");
         } finally {
             setIsSubmit(false);
         }
@@ -197,56 +212,181 @@ const LetsConnectModal = ({ show, onHide, services, action }: ScheduleCallProps)
         }));
 
 
-
-
-
     return (
-        <Modal show={show} onHide={()=>{resetAllFormData();onHide();}} size="lg" backdrop="static" keyboard={false} centered className={styles.scheduleModal} scrollable={false}>
-            <Modal.Body className="px-4">
-                <a className={`${styles.modalCloseBtn} position-absolute`} onClick={()=>{resetAllFormData();onHide();}}  aria-label="Close"><FontAwesomeIcon icon={faXmark} /></a>
+        <Modal show={show} onHide={()=>{resetAllFormData();onHide();}} size="xl" backdrop="static" keyboard={false} centered className={`${styles.scheduleModal} ${styles.letsConnectModal}`} scrollable={false}>
+            <Modal.Body className={styles.letsConnectBody}>
+                <button className={styles.letsCloseBtn} type="button" onClick={()=>{resetAllFormData();onHide();}}  aria-label="Close">
+                    <FontAwesomeIcon icon={faXmark} />
+                </button>
 
-                <div className="mb-30" style={{ minHeight: "650px" }}>
-                    <DetailsForm
-                        formData={formData}
-                        errors={errors}
-                        handleInputChange={handleInputChange}
-                        handleDetailsSubmit={handleDetailsSubmit}
-                        setFormData={setFormData}
-                        serviceOptions={serviceOptions}
-                        heading={
-                            <div className="text-center mb-4">
-                                <h4 className="title fw-bold mb-2">Let&apos;s Connect</h4>
-                                <p className="text-muted">Fill in your details and we&apos;ll get back to you</p>
+                <aside className={styles.letsConnectAside}>
+                    <figure className={styles.asideLogo}>
+                        <Image
+                            src={`${process.env.NEXT_PUBLIC_assetPrefix}/assets/images/favicon.webp`}
+                            alt="Eclick Softwares"
+                            width={88}
+                            height={82}
+                            priority
+                        />
+                    </figure>
+                    <span className={styles.asideMark}></span>
+                    <h3>Let&apos;s build something great.</h3>
+                    <p>Tell us about your project and our team will get back to you shortly.</p>
+
+                    <ul className={styles.asideList}>
+                        <li>
+                            <span><FontAwesomeIcon icon={faBolt} /></span>
+                            <div>
+                                <strong>Quick response</strong>
+                                <small>We value your time.</small>
                             </div>
-                        }
-                        buttonComponent={
-                            <div className="d-flex justify-content-center gap-1 mt-4">
-                                <Button onClick={handleDetailsSubmit} className={`eclick-btn-connect ${styles.bannerBtn ?? ''}`} disabled={isSubmit}>
-                                    {isSubmit ? (
-                                        <>
-                                            <span className={styles.phoneIcon}><FontAwesomeIcon icon={faSpinner} spin /></span>
-                                            <em>Submitting...</em>
-                                        </>
-                                    ) : (
-                                        <>
-                                            <span className={styles.phoneIcon}>
-                                                <Image
-                                                    src={`${process.env.NEXT_PUBLIC_assetPrefix}/assets/images/chat.png`}
-                                                    alt="Conversation"
-                                                    width={22} height={21}
-                                                    loading="lazy"
-                                                />
-                                            </span>
-                                            <em>Submit</em>
-                                        </>
-                                    )}
-                                </Button>
+                        </li>
+                        <li>
+                            <span><FontAwesomeIcon icon={faUserGroup} /></span>
+                            <div>
+                                <strong>Expert consultation</strong>
+                                <small>Get the right guidance.</small>
                             </div>
-                        }
-                        isSubmitting={isSubmit}
-                    />
+                        </li>
+                        <li>
+                            <span><FontAwesomeIcon icon={faShieldHalved} /></span>
+                            <div>
+                                <strong>No obligation</strong>
+                                <small>Just a conversation.</small>
+                            </div>
+                        </li>
+                    </ul>
+                </aside>
+
+                <div className={styles.letsConnectFormPanel}>
+                    <div className={styles.letsFormHeader}>
+                        <h4>Let&apos;s Connect</h4>
+                        <p>Share a few details and we&apos;ll take it from here.</p>
+                    </div>
+
+                    <form className={styles.letsForm} onSubmit={handleSubmit}>
+                        <div className={styles.formGrid}>
+                            <label className={styles.fieldGroup}>
+                                <span>Full Name *</span>
+                                <em>
+                                    <FontAwesomeIcon icon={faUser} />
+                                    <input type="text" name="fullName" value={formData.fullName} onChange={handleInputChange} placeholder="Your full name" />
+                                </em>
+                                {errors.fullName && <small>{errors.fullName}</small>}
+                            </label>
+
+                            <label className={styles.fieldGroup}>
+                                <span>Company *</span>
+                                <em>
+                                    <FontAwesomeIcon icon={faBuilding} />
+                                    <input type="text" name="company" value={formData.company} onChange={handleInputChange} placeholder="Your company name" />
+                                </em>
+                                {errors.company && <small>{errors.company}</small>}
+                            </label>
+
+                            <label className={styles.fieldGroup}>
+                                <span>Email Address *</span>
+                                <em>
+                                    <FontAwesomeIcon icon={faEnvelope} />
+                                    <input type="email" name="email" value={formData.email} onChange={handleInputChange} placeholder="your.email@company.com" />
+                                </em>
+                                {errors.email && <small>{errors.email}</small>}
+                            </label>
+
+                            <label className={styles.fieldGroup}>
+                                <span>Phone Number *</span>
+                                <em>
+                                    <FontAwesomeIcon icon={faPhone} />
+                                    <input type="tel" name="phone" value={formData.phone} onChange={handleInputChange} placeholder="+1 (555) 123-4567" />
+                                </em>
+                                {errors.phone && <small>{errors.phone}</small>}
+                            </label>
+                        </div>
+
+                        <div className={`${styles.fieldGroup} ${styles.fullField}`}>
+                            <label htmlFor="lets-connect-service">What service are you interested in? *</label>
+                            <div className={`${styles.selectWrap} ${errors.service ? styles.hasError : ""}`}>
+                                <FontAwesomeIcon icon={faTableCellsLarge} className={styles.fieldIcon} />
+                                <Select
+                                    inputId="lets-connect-service"
+                                    options={serviceOptions}
+                                    placeholder="Select a service"
+                                    isSearchable
+                                    unstyled
+                                    onChange={(selected) => {
+                                        const value = selected?.value || "";
+                                        setFormData(prev => ({
+                                            ...prev,
+                                            service: value,
+                                        }));
+                                        setErrors(prev => {
+                                            if (!prev.service) return prev;
+                                            const nextErrors = { ...prev };
+                                            const fieldError = validateField("service", value);
+                                            if (fieldError) {
+                                                nextErrors.service = fieldError;
+                                            } else {
+                                                delete nextErrors.service;
+                                            }
+                                            return nextErrors;
+                                        });
+                                    }}
+                                    value={serviceOptions
+                                        .flatMap(group => group.options)
+                                        .find(opt => opt.value === formData.service)}
+                                    classNamePrefix="lets-select"
+                                    classNames={{
+                                        control: () => styles.selectControl,
+                                        valueContainer: () => styles.selectValue,
+                                        placeholder: () => styles.selectPlaceholder,
+                                        singleValue: () => styles.selectSingleValue,
+                                        indicatorsContainer: () => styles.selectIndicators,
+                                        group: () => styles.selectGroup,
+                                        groupHeading: () => styles.selectGroupHeading,
+                                        menu: () => styles.selectMenu,
+                                        menuList: () => styles.selectMenuList,
+                                        option: ({ isFocused, isSelected }) => `${styles.selectOption} ${isFocused ? styles.focusedOption : ""} ${isSelected ? styles.selectedOption : ""}`,
+                                    }}
+                                    components={{
+                                        DropdownIndicator: () => <FontAwesomeIcon icon={faChevronDown} />,
+                                        IndicatorSeparator: null,
+                                    }}
+                                />
+                            </div>
+                            {errors.service && <small>{errors.service}</small>}
+                        </div>
+
+                        <label className={`${styles.fieldGroup} ${styles.fullField}`}>
+                            <span>Comment *</span>
+                            <em className={styles.textareaField}>
+                                <FontAwesomeIcon icon={faFileLines} />
+                                <textarea name="requirement" value={formData.requirement} onChange={handleInputChange} placeholder="Briefly describe your project, goals, challenges, and timeline..." rows={3}></textarea>
+                            </em>
+                            {errors.requirement && <small>{errors.requirement}</small>}
+                        </label>
+
+                        {statusMessage && <p className={styles.formError}>{statusMessage}</p>}
+
+                        <button className={styles.submitBtn} type="submit" disabled={isSubmit}>
+                            {isSubmit ? (
+                                <>
+                                    <FontAwesomeIcon icon={faSpinner} spin />
+                                    Submitting...
+                                </>
+                            ) : (
+                                <>
+                                    Send Enquiry
+                                    <FontAwesomeIcon icon={faArrowRight} />
+                                </>
+                            )}
+                        </button>
+
+                        <p className={styles.safeText}>
+                            <FontAwesomeIcon icon={faLock} />
+                            Your information is safe with us.
+                        </p>
+                    </form>
                 </div>
-
             </Modal.Body>
         </Modal>
     );
