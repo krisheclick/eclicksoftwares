@@ -11,8 +11,9 @@ type props = {
     short_description?: string | null;
     showButton?: boolean;
     className?: string;
+    defaultService?: string;
 }
-const Banner = ({ isLoading, title, subtitle, image, short_description, showButton = true, className= ''}: props) => {
+const Banner = ({ isLoading, title, subtitle, image, short_description, showButton = true, className= '', defaultService = ''}: props) => {
     const { openScheduleModal} = useScheduleCall();
     if (isLoading) {
         return (
@@ -83,7 +84,7 @@ const Banner = ({ isLoading, title, subtitle, image, short_description, showButt
                             </div>
                             {showButton && (
                             <div className={Styles.btn_wrap}>
-                                <button type="button" onClick={() => openScheduleModal('general_schedule_a_call')} className={`eclick-btn-connect ${Styles.bannerBtn ?? ''}`}>
+                                <button type="button" onClick={() => openScheduleModal('general_schedule_a_call', defaultService)} className={`eclick-btn-connect ${Styles.bannerBtn ?? ''}`}>
                                     <span className={Styles.phoneIcon}>
                                         <Image
                                             src={`${process.env.NEXT_PUBLIC_assetPrefix}/assets/images/phone.webp`}

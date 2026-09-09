@@ -1,0 +1,100 @@
+.cmsBanner {
+    position: relative;
+    isolation: isolate;
+    display: flex;
+    align-items: center;
+    min-height: 440px;
+    padding: 70px 0px;
+    overflow: hidden;
+}
+.cmsBanner::before {
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    content: "";
+    background: linear-gradient(90deg, #f9f9f9e0 0%, #04163b00 46%, #051c4600 100%);
+}
+/* .cmsBanner::after {
+    position: absolute;
+    inset: auto 0 0;
+    z-index: -1;
+    height: 38%;
+    content: "";
+    background: linear-gradient(0deg, rgba(3, 13, 42, 0.32) 0%, rgba(3, 13, 42, 0) 100%);
+} */
+.bannerText {
+    max-width: 720px;
+}
+.bannerText .title {
+    font-size: 64px;
+}
+.description {
+    max-width: 530px;
+    font-size: 18px;
+    line-height: 1.7;
+}
+@media only screen and (max-width: 1199px) {
+    .bannerText .title {
+        font-size: 58px;
+    }
+    .description {
+        font-size: 17px;
+        max-width: 400px;
+    }
+}
+@media only screen and (max-width: 991px) {
+    .cmsBanner {
+        min-height: 320px;
+    }
+    .cmsBanner::before {
+        background: linear-gradient(90deg, #f9f9f9e0 0%, #fffffff0 46%, #051c4600 100%);
+    }
+    .bannerText {
+        max-width: 620px;
+    }
+    .bannerText .title {
+        font-size: 50px;
+    }
+}
+@media only screen and (max-width: 767px) {
+    .cmsBanner {
+        padding: 50px 0;
+        min-height: 250px;
+        background-position: center right !important;
+    }
+    .bannerText .title {
+        font-size: 42px;
+    }
+    .description {
+        max-width: 520px;
+        font-size: 16px;
+    }
+}
+@media only screen and (max-width: 575px) {
+    .bannerText .title {
+        font-size: 36px;
+    }
+    .description {
+        font-size: 15px;
+    }
+}
+@media only screen and (max-width: 480px) {
+    .cmsBanner {
+        min-height: 220px;
+        padding-block: 40px;
+    }
+    .cmsBanner::before {
+        background: linear-gradient(90deg, #f9f9f9c9 0%, #ffffffad 46%, #051c4600 100%);
+    }
+    .bannerText .title {
+        font-size: 32px;
+    }
+}
+@media only screen and (max-width: 359px) {
+    .cmsBanner {
+        min-height: 200px;
+    }
+    .bannerText .title {
+        font-size: 28px;
+    }
+}

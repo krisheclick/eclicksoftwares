@@ -21,6 +21,9 @@ type ThemeData = {
     clickFrom: string | null;
     setClickFrom: (clickFrom: string | null) => void;
 
+    selectedService: string;
+    setSelectedService: (selectedService: string) => void;
+
     selectedUsp: string | '';
     setSelectedUsp: (selectedUsp: string | '') => void;
 
@@ -36,6 +39,7 @@ export const ThemeProvider = ({children} : {children: ReactNode}) => {
     // Modal states
     const [showScheduleModal, setShowScheduleModal] = useState(false);
     const [clickFrom, setClickFrom] = useState<string | null>(null);
+    const [selectedService, setSelectedService] = useState('');
     const [showLetsConnectModal, setShowLetsConnectModal] = useState(false);
     const [showHireModal, setShowHireModal] = useState(false);
     const [showReferModal, setShowReferModal] = useState(false);
@@ -52,6 +56,8 @@ export const ThemeProvider = ({children} : {children: ReactNode}) => {
             setShowScheduleModal,
             clickFrom, 
             setClickFrom,
+            selectedService,
+            setSelectedService,
             showLetsConnectModal,
             setShowLetsConnectModal,
             showHireModal,

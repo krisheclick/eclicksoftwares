@@ -189,7 +189,7 @@ const DetailsForm = ({
                     </Col>
                     <Col md={12}>
                         <Form.Group className={styles.modernField}>
-                            <Form.Label>Project details *</Form.Label>
+                            <Form.Label>Comment *</Form.Label>
                             <div className={`${styles.modernInputWrap} ${styles.modernTextareaWrap} ${errors.requirement ? styles.invalidField : ""}`}>
                                 <FontAwesomeIcon icon={faFileLines} />
                                 <Form.Control

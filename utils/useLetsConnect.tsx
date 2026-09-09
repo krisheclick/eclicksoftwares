@@ -2,10 +2,11 @@
 import { useThemeContext } from "@/context/ThemeContext";
 
 export const useScheduleCall = () => {
-    const { showScheduleModal, setShowScheduleModal, setClickFrom, clickFrom } = useThemeContext();
+    const { showScheduleModal, setShowScheduleModal, setClickFrom, clickFrom, setSelectedService } = useThemeContext();
 
-    const openScheduleModal = (action?: string) => {
+    const openScheduleModal = (action?: string, serviceSlug?: string) => {
         setShowScheduleModal(true);
+        setSelectedService(serviceSlug || '');
         if (action) {
             setClickFrom(action);
         }
@@ -15,10 +16,11 @@ export const useScheduleCall = () => {
 };
 
 export const useLetsConnect = () => {
-    const { showLetsConnectModal, setShowLetsConnectModal, setClickFrom, clickFrom } = useThemeContext();
+    const { showLetsConnectModal, setShowLetsConnectModal, setClickFrom, clickFrom, setSelectedService } = useThemeContext();
 
-    const openLetsConnectModal = (action?: string) => {
+    const openLetsConnectModal = (action?: string, serviceSlug?: string) => {
         setShowLetsConnectModal(true);
+        setSelectedService(serviceSlug || '');
         if (action) {
             setClickFrom(action);
         }

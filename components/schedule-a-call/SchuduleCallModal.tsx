@@ -1,14 +1,15 @@
 "use client";
 import { useEffect, useState } from "react";
-import { Alert, Button, Card, Col, Form, Modal, Row } from "react-bootstrap";
+import { Alert, Button, Col, Form, Modal, Row } from "react-bootstrap";
 import styles from './ScheduleCall.module.css';
 import { useScheduleCallContext } from "@/context/SchuduleACallContext";
 import DateTimePicker from "./DateTimePicker";
 import DetailsForm from "./DetailsForm";
-import { faXmark, faClock, faGlobe, faArrowLeft, faCalendarDays,faCheck, faCalendarAlt, faSpinner} from "@fortawesome/free-solid-svg-icons";
+import { faXmark, faClock, faGlobe, faArrowLeft, faCalendarDays,faCheck, faCalendarAlt, faSpinner, faEnvelope, faPhone, faBuilding, faUser, faFileLines, faLock} from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useRouter } from "next/navigation";
 import { formatDate, formatTime24 } from "@/utils/timezoneUtils";
+import { useThemeContext } from "@/context/ThemeContext";
 
 
 interface ScheduleCallProps {
@@ -41,6 +42,7 @@ interface ServiceCategory {
 
 const SchuduleCallModal = ({ show, onHide, action }: ScheduleCallProps) => {
     const router = useRouter();
+    const { selectedService, setSelectedService } = useThemeContext();
 
     const {
         visibleTimeField,
@@ -93,6 +95,7 @@ const SchuduleCallModal = ({ show, onHide, action }: ScheduleCallProps) => {
         setSelectedSlot(null);
         setTimezone(Intl.DateTimeFormat().resolvedOptions().timeZone);
         setErrors({});
+        setSelectedService('');
     };
 
     const validateField = (name: string, value: string) => {
@@ -262,6 +265,21 @@ const SchuduleCallModal = ({ show, onHide, action }: ScheduleCallProps) => {
         
     },[]);
 
+    useEffect(() => {
+        if (!show || !selectedService) return;
+
+        setFormData(prev => ({
+            ...prev,
+            service: selectedService,
+        }));
+        setErrors(prev => {
+            if (!prev.service) return prev;
+            const nextErrors = { ...prev };
+            delete nextErrors.service;
+            return nextErrors;
+        });
+    }, [show, selectedService]);
+
     const getServiceName = (serviceId: string) => {
         for (const category of serviceCategories) {
             const service = category.services.find(s => s.service_slug.toString() === serviceId);
@@ -281,79 +299,101 @@ const SchuduleCallModal = ({ show, onHide, action }: ScheduleCallProps) => {
 
     const renderConfirmation = () => (
         <div className={styles.confirmView}>
-            <div className="text-center mb-4">
-                <h4 className="mb-2">Confirm Your Appointment</h4>
-                <p className="text-muted">Please review your booking details</p>
+            <div className={styles.confirmHeader}>
+                <span>
+                    <FontAwesomeIcon icon={faCheck} />
+                </span>
+                <h4>Confirm Your Appointment</h4>
+                <p>Please review your booking details before we lock this in.</p>
             </div>
 
-            <Card className="mb-4 border-0 shadow-sm">
-                <Card.Body>
-                    <Row>
-                        <Col md={6}>
-                            <h6 className="text-primary mb-3">
-                                <FontAwesomeIcon icon={faCalendarAlt} className="me-2" />
-                                Appointment Details
-                            </h6>
-                            <p className="mb-1"><strong>Date:</strong> {
+            <div className={styles.confirmGrid}>
+                <section className={styles.confirmCard}>
+                    <div className={styles.confirmCardTitle}>
+                        <FontAwesomeIcon icon={faCalendarAlt} />
+                        <h5>Appointment Details</h5>
+                    </div>
+                    <dl className={styles.confirmList}>
+                        <div>
+                            <dt>Date</dt>
+                            <dd>{
                                 selectedDate?.toLocaleDateString('en-US', {
                                     weekday: 'long',
                                     year: 'numeric',
                                     month: 'long',
                                     day: 'numeric'
                                 })
-                            }</p>
-                            <p className="mb-1"><strong>Time:</strong> {selectedSlot}</p>
-                            <p className="mb-1"><strong>Duration:</strong> 30 minutes</p>
-                            <p className="mb-0"><strong>Service:</strong> {getServiceName(formData.service)}</p>
-                        </Col>
-                        <Col md={6}>
-                            <h6 className="text-primary mb-3">
-                                <FontAwesomeIcon icon={faCheck} className="me-2" />
-                                Contact Information
-                            </h6>
-                            <p className="mb-1"><strong>Name:</strong> {formData.fullName}</p>
-                            <p className="mb-1"><strong>Email:</strong> {formData.email}</p>
-                            <p className="mb-1"><strong>Phone:</strong> {formData.phone}</p>
-                            <p className="mb-0"><strong>Company:</strong> {formData.company}</p>
-                        </Col>
-                    </Row>
-                    <hr />
-                    <div>
-                        <h6 className="text-primary mb-2">Comment</h6>
-                        <p className="mb-0">{formData.requirement}</p>
+                            }</dd>
+                        </div>
+                        <div>
+                            <dt>Time</dt>
+                            <dd>{selectedSlot}</dd>
+                        </div>
+                        <div>
+                            <dt>Duration</dt>
+                            <dd>30 minutes</dd>
+                        </div>
+                        <div>
+                            <dt>Service</dt>
+                            <dd>{getServiceName(formData.service)}</dd>
+                        </div>
+                    </dl>
+                </section>
+
+                <section className={styles.confirmCard}>
+                    <div className={styles.confirmCardTitle}>
+                        <FontAwesomeIcon icon={faUser} />
+                        <h5>Contact Information</h5>
                     </div>
-                </Card.Body>
-            </Card>
+                    <ul className={styles.contactList}>
+                        <li>
+                            <FontAwesomeIcon icon={faUser} />
+                            <span>{formData.fullName}</span>
+                        </li>
+                        <li>
+                            <FontAwesomeIcon icon={faEnvelope} />
+                            <span>{formData.email}</span>
+                        </li>
+                        <li>
+                            <FontAwesomeIcon icon={faPhone} />
+                            <span>{formData.phone}</span>
+                        </li>
+                        <li>
+                            <FontAwesomeIcon icon={faBuilding} />
+                            <span>{formData.company}</span>
+                        </li>
+                    </ul>
+                </section>
+            </div>
+
+            <section className={styles.commentCard}>
+                <div className={styles.confirmCardTitle}>
+                    <FontAwesomeIcon icon={faFileLines} />
+                    <h5>Project Details</h5>
+                </div>
+                <p>{formData.requirement}</p>
+            </section>
 
             <Form onSubmit={handleSubmit}>
                 {statusMessage && (
-                    <Alert variant={statusMessage.includes('error') ? 'danger' : 'success'} className="text-center mb-4">
+                    <Alert variant={statusMessage.includes('error') ? 'danger' : 'success'} className={styles.confirmAlert}>
                         {statusMessage}
                     </Alert>
                 )}
 
-                <div className="d-flex justify-content-between">
-                    <Button type="submit" className={`eclick-btn-connect ${styles.bannerBtn ?? ''}`} disabled={isSubmit}>
-                        {
-                            !isSubmit ?
+                <div className={styles.confirmSubmitArea}>
+                    <button type="submit" className={styles.modernScheduleBtn} disabled={isSubmit}>
+                        {!isSubmit ?
                             <>
-                                <span className={styles.phoneIcon}>
-                                    <FontAwesomeIcon icon={faCheck} className="ms-2" />
-                                </span>
+                                <FontAwesomeIcon icon={faCheck} />
                                 <em>Confirm & Schedule</em>
                             </>:<>
-                                <span className={styles.phoneIcon}>
-                                    <FontAwesomeIcon icon={faSpinner} className="ms-2" />
-                                </span>
+                                <FontAwesomeIcon icon={faSpinner} className="fa-spin" />
                                 <em>Scheduling...</em>
                             </>
                         }
-                        
-                    </Button>
-                    {/* <Button type="submit" disabled={isSubmit} className="btn-primary">
-                        {isSubmit ? 'Scheduling...' : 'Confirm & Schedule'}
-                        {!isSubmit ?<FontAwesomeIcon icon={faCheck} className="ms-2" />:null}
-                    </Button> */}
+                    </button>
+                    <p><FontAwesomeIcon icon={faLock} /> Your information is secure.</p>
                 </div>
             </Form>
         </div>

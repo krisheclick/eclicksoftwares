@@ -5,7 +5,7 @@ const Contact = () => {
     return (
         <div className={`stickyContent ${Styles.contentArea}`}>
             <div className={`section-content ${Styles.sectionContent ?? ''}`}>
-                <h1 className="heading">Talk To Our Experts</h1>
+                <h2 className="heading">Talk To Our Experts</h2>
                 <p>Tell us about your inquiry and we’ll get back to you as soon as we can.</p>
             </div>
             <Form />

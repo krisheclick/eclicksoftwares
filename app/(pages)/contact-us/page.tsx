@@ -4,6 +4,7 @@ import Styles from "@/components/contact-us/style.module.css";
 import Information from "@/components/contact-us/Information";
 import { Metadata } from "next";
 import seoData from "@/data/seo.json";
+import ContactHero from "@/components/contact-us/ContactHero";
 
 export async function generateMetadata(): Promise<Metadata> {
     const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/page/contact-us/seo`, {
@@ -65,21 +66,42 @@ export async function generateMetadata(): Promise<Metadata> {
     };
 }
 
-const page = () => {
-    return (
-        <div className={`sectionArea ${Styles.sectionArea ?? ''}`}>
-            <Container>
-                <Row className="gx-xxl-5 rowGap">
-                    <Col lg={6}>
-                        <Contact />
-                    </Col>
-                    <Col lg={6}>
-                        <Information />
-                    </Col>
-                </Row>
-            </Container>
-        </div>
-    )
-}
+const ContactUsPage = async () => {
+    const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/page/contact-us`);
+    const { response_data } = await response.json();
 
-export default page
+    const pagesCustomField = typeof response_data.pages_custom_field === 'string' 
+        ? JSON.parse(response_data.pages_custom_field)
+        : response_data.pages_custom_field;
+
+    const bannerData = pagesCustomField?.group_name?.["banner-section"];
+
+    return (
+        <div className="case-study-page">
+            <ContactHero
+                title={bannerData?.a5w7_banner_title}
+                description={
+                    bannerData?.a5w7_banner_short_description ||
+                    bannerData?.a5w7_banner_description ||
+                    response_data?.short_description
+                }
+                image={bannerData?.a5w7_banner_image}
+            />
+            <div className={`sectionArea ${Styles.sectionArea ?? ''}`}>
+                <Container>
+                    <Row className="gx-xxl-5 rowGap">
+                        <Col lg={6}>
+                            <Contact />
+                        </Col>
+                        <Col lg={6}>
+                            <Information />
+                        </Col>
+                    </Row>
+                </Container>
+            </div>
+        </div>
+    );
+};
+
+
+export default ContactUsPage;

@@ -14,9 +14,10 @@ type props = {
   isLoading: boolean;
   title: string;
   technologies: Technology[];
+  defaultService?: string;
 }
 
-const Technologies = ({ isLoading, title, technologies }: props) => {
+const Technologies = ({ isLoading, title, technologies, defaultService = '' }: props) => {
   const { openLetsConnectModal} = useLetsConnect();
   return (
     <div className={Styles.sectionArea}>
@@ -58,7 +59,7 @@ const Technologies = ({ isLoading, title, technologies }: props) => {
         </div>
         <div className="btn_center">
           {!isLoading ? (
-            <button type="button"  onClick={()=>openLetsConnectModal('general_lets_connect')} className={`eclick-btn-connect lg ${Styles.bannerBtn ?? ''}`}>
+            <button type="button"  onClick={()=>openLetsConnectModal('general_lets_connect', defaultService)} className={`eclick-btn-connect lg ${Styles.bannerBtn ?? ''}`}>
               <span className={Styles.phoneIcon}>
                 <Image
                   src={`${process.env.NEXT_PUBLIC_assetPrefix}/assets/images/chat.png`}

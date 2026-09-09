@@ -208,6 +208,7 @@ export default function Page({ params }: { params: Promise<{ category: string, s
                     subtitle={data?.service_sub_title} 
                     image={data?.service_banner_image_path} 
                     short_description={data?.service_short_description}
+                    defaultService={data?.service_slug}
                 />
 
                 <div className={`sectionArea ${Styles.aboutArea ?? ''}`}>
@@ -295,8 +296,8 @@ export default function Page({ params }: { params: Promise<{ category: string, s
                     value_points={data?.value_points ?? []}
                 />
                 {/* <Portfolio isLoading={isLoading} title={data?.heading_portfolio ?? ''} projects={data?.projects} /> */}
-                <Technologies isLoading={isLoading} title={data?.heading_technology ?? ''} technologies={data?.technologies ?? []} />
-                <Trustownership isLoading={isLoading} {...(data?.service_cta ?? { cta_title: '', cta_description: '', cta_image: '' })} />
+                <Technologies isLoading={isLoading} title={data?.heading_technology ?? ''} technologies={data?.technologies ?? []} defaultService={data?.service_slug} />
+                <Trustownership isLoading={isLoading} {...(data?.service_cta ?? { cta_title: '', cta_description: '', cta_image: '' })} defaultService={data?.service_slug} />
                 {data?.wcp && data.wcp.length > 0 && <WhatWeDo isLoading={isLoading} data={data} title={data?.service_title} services={data.wcp} />}
                 <CalltoAction spaceClass='callToAction' content={{ 'tpdc_title': data?.service_tagline }} isLoading={isLoading} />
                 <Process

@@ -5,7 +5,160 @@
     margin-bottom: 2rem;
 }
 .confirmView {
+    display: grid;
+    gap: 18px;
     min-height: 400px;
+}
+.confirmHeader {
+    max-width: 520px;
+    margin: 0 auto 4px;
+    text-align: center;
+}
+.confirmHeader span {
+    display: inline-grid;
+    place-items: center;
+    width: 48px;
+    height: 48px;
+    margin-bottom: 14px;
+    color: #ffffff;
+    background: linear-gradient(135deg, #126ef8 0%, #0752d9 100%);
+    border-radius: 50%;
+    box-shadow: 0 12px 28px rgba(7, 82, 217, 0.25);
+}
+.confirmHeader h4 {
+    margin: 0 0 8px;
+    color: #061144;
+    font-size: 26px;
+    font-weight: 800;
+    line-height: 1.14;
+}
+.confirmHeader p {
+    margin: 0;
+    color: #667395;
+    font-size: 15px;
+    line-height: 1.45;
+}
+.confirmGrid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 16px;
+}
+.confirmCard,
+.commentCard {
+    min-width: 0;
+    padding: 18px;
+    background: linear-gradient(180deg, #fbfdff 0%, #f6f9fd 100%);
+    border: 1px solid #dbe6f5;
+    border-radius: 12px;
+    box-shadow: 0 10px 26px rgba(6, 17, 68, 0.07);
+}
+.confirmCardTitle {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 16px;
+    color: #075fe8;
+}
+.confirmCardTitle svg {
+    flex: 0 0 auto;
+    width: 17px;
+    font-size: 17px;
+}
+.confirmCardTitle h5 {
+    margin: 0;
+    color: #061144;
+    font-size: 15px;
+    font-weight: 800;
+    line-height: 1.25;
+}
+.confirmList {
+    display: grid;
+    gap: 10px;
+    margin: 0;
+}
+.confirmList div {
+    display: grid;
+    grid-template-columns: 92px minmax(0, 1fr);
+    gap: 12px;
+    align-items: start;
+}
+.confirmList dt {
+    color: #6c7894;
+    font-size: 12px;
+    font-weight: 800;
+    line-height: 1.35;
+    text-transform: uppercase;
+}
+.confirmList dd {
+    min-width: 0;
+    margin: 0;
+    color: #061144;
+    font-size: 14px;
+    font-weight: 700;
+    line-height: 1.35;
+    overflow-wrap: anywhere;
+}
+.contactList {
+    display: grid;
+    gap: 11px;
+    padding: 0;
+    margin: 0;
+    list-style: none;
+}
+.contactList li {
+    display: flex;
+    align-items: flex-start;
+    gap: 11px;
+    min-width: 0;
+    color: #061144;
+    font-size: 14px;
+    font-weight: 700;
+    line-height: 1.35;
+}
+.contactList li svg {
+    flex: 0 0 auto;
+    width: 16px;
+    margin-top: 1px;
+    color: #31588e;
+    font-size: 15px;
+}
+.contactList li span {
+    min-width: 0;
+    overflow-wrap: anywhere;
+}
+.commentCard {
+    padding: 18px 20px;
+}
+.commentCard .confirmCardTitle {
+    margin-bottom: 10px;
+}
+.commentCard p {
+    margin: 0;
+    color: #263656;
+    font-size: 14px;
+    line-height: 1.55;
+    overflow-wrap: anywhere;
+}
+.confirmAlert {
+    margin-bottom: 14px;
+    text-align: center;
+}
+.confirmSubmitArea {
+    display: grid;
+    grid-template-columns: minmax(260px, 360px);
+    justify-content: end;
+    gap: 10px;
+    margin-top: 2px;
+}
+.confirmSubmitArea p {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    margin: 0;
+    color: #7d8aa5;
+    font-size: 12px;
+    line-height: 1.25;
 }
 .modalCloseBtn {
     position: absolute;
@@ -639,6 +792,12 @@
     .scheduleDetails{
         margin-top: 0;
     }
+    .confirmHeader h4 {
+        font-size: 24px;
+    }
+    .confirmGrid {
+        gap: 14px;
+    }
     .letsConnectModal :global(.modal-dialog) {
         max-width: 920px;
     }
@@ -656,6 +815,12 @@
     }
 }
 @media only screen and (max-width: 991px){
+    .confirmGrid {
+        grid-template-columns: 1fr;
+    }
+    .confirmSubmitArea {
+        justify-content: stretch;
+    }
     .letsConnectModal :global(.modal-dialog) {
         max-width: calc(100% - 28px);
     }
@@ -676,6 +841,27 @@
     }
     .borderRight{
         border: none;
+    }
+    .confirmView {
+        gap: 15px;
+    }
+    .confirmHeader {
+        text-align: left;
+    }
+    .confirmHeader span {
+        width: 42px;
+        height: 42px;
+        margin-bottom: 12px;
+    }
+    .confirmHeader h4 {
+        font-size: 22px;
+    }
+    .confirmHeader p {
+        font-size: 14px;
+    }
+    .confirmCard,
+    .commentCard {
+        padding: 16px;
     }
     .letsConnectFormPanel {
         padding: 30px 20px 22px;
@@ -707,6 +893,16 @@
     }
     .backButton{
         margin-bottom: 12px;
+    }
+    .confirmHeader h4 {
+        font-size: 20px;
+    }
+    .confirmList div {
+        grid-template-columns: 1fr;
+        gap: 3px;
+    }
+    .confirmSubmitArea {
+        grid-template-columns: 1fr;
     }
     .letsConnectModal :global(.modal-dialog) {
         max-width: calc(100% - 18px);
@@ -755,6 +951,14 @@
     }
 }
 @media only screen and (max-width: 480px){
+    .confirmCardTitle h5 {
+        font-size: 14px;
+    }
+    .confirmList dd,
+    .contactList li,
+    .commentCard p {
+        font-size: 13px;
+    }
     .letsForm {
         gap: 15px;
     }
@@ -766,6 +970,13 @@
     }
 }
 @media only screen and (max-width: 359px){
+    .confirmCard,
+    .commentCard {
+        padding: 14px;
+    }
+    .confirmHeader h4 {
+        font-size: 19px;
+    }
     .letsConnectFormPanel {
         padding-right: 10px;
         padding-left: 10px;

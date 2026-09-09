@@ -9,8 +9,9 @@ type ServiceCta = {
     cta_description: string;
     cta_image: string;
     isLoading: boolean;
+    defaultService?: string;
 }
-const Trustownership = ({ isLoading, cta_title, cta_description, cta_image }: ServiceCta) => {
+const Trustownership = ({ isLoading, cta_title, cta_description, cta_image, defaultService = '' }: ServiceCta) => {
     const { openScheduleModal} = useScheduleCall();
     return (
         <div className={Styles.callToAction}>
@@ -34,7 +35,7 @@ const Trustownership = ({ isLoading, cta_title, cta_description, cta_image }: Se
                                                 .trim(),
                                         }} />
                                         <div className="btn_left">
-                                            <button type="button" onClick={() => openScheduleModal('general_schedule_a_call')} className={`eclick-btn-connect ${Styles.bannerBtn ?? ''}`}>
+                                            <button type="button" onClick={() => openScheduleModal('general_schedule_a_call', defaultService)} className={`eclick-btn-connect ${Styles.bannerBtn ?? ''}`}>
                                                 <span className={Styles.phoneIcon}>
                                                     <Image
                                                         src={`${process.env.NEXT_PUBLIC_assetPrefix}/assets/images/phone.webp`}

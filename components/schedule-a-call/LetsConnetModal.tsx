@@ -7,6 +7,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
 import Select from "react-select";
+import { useThemeContext } from "@/context/ThemeContext";
 
 
 interface ScheduleCallProps {
@@ -40,6 +41,7 @@ interface ServiceCategory {
 
 const LetsConnectModal = ({ show, onHide, action }: ScheduleCallProps) => {
     const router = useRouter();
+    const { selectedService, setSelectedService } = useThemeContext();
 
     const [formData, setFormData] = useState<FormData>({
         fullName: '',
@@ -71,6 +73,7 @@ const LetsConnectModal = ({ show, onHide, action }: ScheduleCallProps) => {
             privacyConsent: false
         });
         setErrors({});
+        setSelectedService('');
     };
 
     const validateField = (name: string, value: string) => {
@@ -199,6 +202,21 @@ const LetsConnectModal = ({ show, onHide, action }: ScheduleCallProps) => {
         fetchServiceCategories();
         
     },[]);
+
+    useEffect(() => {
+        if (!show || !selectedService) return;
+
+        setFormData(prev => ({
+            ...prev,
+            service: selectedService,
+        }));
+        setErrors(prev => {
+            if (!prev.service) return prev;
+            const nextErrors = { ...prev };
+            delete nextErrors.service;
+            return nextErrors;
+        });
+    }, [show, selectedService]);
 
 
     const serviceOptions = serviceCategories.map(category => ({
