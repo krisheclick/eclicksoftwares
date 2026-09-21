@@ -6,12 +6,44 @@ import Link from 'next/link';
 import { Col, Row } from 'react-bootstrap';
 import Styles from './style.module.css';
 import { useBlogContext } from '@/context/Blogcontext';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faAngleLeft, faAngleRight } from '@fortawesome/free-solid-svg-icons';
 
 type Props = {
     slug: string[];
 };
 
 const PER_PAGE = 9;
+const ELLIPSIS = 'ellipsis';
+
+const getPaginationItems = (currentPage: number, totalPages: number) => {
+    if (totalPages <= 4) {
+        return Array.from({ length: totalPages }, (_, index) => index + 1);
+    }
+
+    const pages = new Set<number>([
+        currentPage,
+        Math.min(currentPage + 1, totalPages),
+        Math.max(totalPages - 1, 1),
+        totalPages,
+    ]);
+
+    const sortedPages = [...pages].sort((a, b) => a - b);
+
+    return sortedPages.reduce<(number | typeof ELLIPSIS)[]>((items, pageNumber) => {
+        const previousPage = items[items.length - 1];
+
+        if (
+            typeof previousPage === 'number' &&
+            pageNumber - previousPage > 1
+        ) {
+            items.push(ELLIPSIS);
+        }
+
+        items.push(pageNumber);
+        return items;
+    }, []);
+};
 
 const BlogList = ({ slug }: Props) => {
     const [notFoundPage, setNotFoundPage] = useState(false);
@@ -72,6 +104,7 @@ const BlogList = ({ slug }: Props) => {
 
     const blogs = allBlogs ?? [];
     const totalPages = Math.ceil(blogs.length / PER_PAGE);
+    const paginationItems = getPaginationItems(page, totalPages);
     const paginatedBlogs = blogs.slice(
         (page - 1) * PER_PAGE,
         page * PER_PAGE
@@ -171,31 +204,43 @@ const BlogList = ({ slug }: Props) => {
                                     <span
                                         className="page-link"
                                         onClick={() => page > 1 && setPage(page - 1)}
+                                        aria-label="Previous page"
                                     >
-                                        Prev
+                                        <FontAwesomeIcon icon={faAngleLeft} />
                                     </span>
                                 </li>
 
-                                {[...Array(totalPages)].map((_, i) => (
-                                    <li
-                                        key={i}
-                                        className={`page-item ${page === i + 1 ? 'active' : ''}`}
-                                    >
-                                        <span
-                                            className="page-link"
-                                            onClick={() => setPage(i + 1)}
+                                {paginationItems.map((item, index) => {
+                                    if (item === ELLIPSIS) {
+                                        return (
+                                            <li key={`${item}-${index}`} className="page-item disabled">
+                                                <span className="page-link">...</span>
+                                            </li>
+                                        );
+                                    }
+
+                                    return (
+                                        <li
+                                            key={item}
+                                            className={`page-item ${page === item ? 'active' : ''}`}
                                         >
-                                            {i + 1}
-                                        </span>
-                                    </li>
-                                ))}
+                                            <span
+                                                className="page-link"
+                                                onClick={() => setPage(item)}
+                                            >
+                                                {item}
+                                            </span>
+                                        </li>
+                                    );
+                                })}
 
                                 <li className={`page-item ${page === totalPages ? 'disabled' : ''}`}>
                                     <span
                                         className="page-link"
                                         onClick={() => page < totalPages && setPage(page + 1)}
+                                        aria-label="Next page"
                                     >
-                                        Next
+                                        <FontAwesomeIcon icon={faAngleRight} />
                                     </span>
                                 </li>
                             </ul>

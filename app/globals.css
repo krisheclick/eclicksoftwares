@@ -957,3 +957,6 @@ label.is-invalid {
 .modelButton:hover{
 	opacity: 1;
 }
+.pagination .page-item {
+    margin: 0;
+}
