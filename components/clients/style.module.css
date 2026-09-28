@@ -22,6 +22,8 @@
 .box{
     padding: 0;
     aspect-ratio: 18/10;
+    border: 1px solid #ececec;
+    border-radius: 4px;
 }
 .box img{
     object-fit: contain;
