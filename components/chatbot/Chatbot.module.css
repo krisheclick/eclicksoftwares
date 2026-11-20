@@ -1,0 +1,47 @@
+.widget { position: fixed; right: 24px; bottom: 84px; z-index: 1040; font-family: var(--secondary-font), sans-serif; color: #202c45; font-size: 16px; }
+.launcher { position: relative; display: grid; place-items: center; width: 104px; height: 104px; margin-left: auto; border: 0; border-radius: 50%; padding: 0; background: #fff; box-shadow: 0 8px 30px #16377530; cursor: pointer; transition: transform .2s, box-shadow .2s; }
+.launcher:hover { transform: translateY(-3px); box-shadow: 0 12px 32px #16377545; }
+.launcher img { display: block; width: 100%; height: 100%; }
+.launcher[aria-expanded="false"]::before { content: ""; position: absolute; inset: 4px; border: 2px solid #6ca6f1; border-radius: 50%; pointer-events: none; animation: ripple 3s ease-out infinite; }
+.greeting { position: absolute; right: calc(100% + 12px); bottom: 28px; width: max-content; max-width: calc(100vw - 140px); padding: 10px 14px; border: 1px solid #dbe7fc; border-radius: 16px 16px 0 16px; background: white; color: #174ba9; box-shadow: 0 5px 20px #16377520; font-size: 14px; font-weight: 500; line-height: 1.5; text-align: left; animation: greetingBounce 4s ease-in-out infinite; }
+.panel { transform-origin: bottom right; animation: panelEnter .25s ease-out both; }
+.assistant, .user { animation: messageEnter .2s ease-out both; }
+@keyframes ripple { 0% { transform: scale(1); opacity: .6; } 80%,100% { transform: scale(1.35); opacity: 0; } }
+@keyframes greetingBounce { 0%,20%,50%,80%,100% { transform: translateY(0); } 40% { transform: translateY(-4px); } 60% { transform: translateY(-2px); } }
+@keyframes panelEnter { from { opacity: 0; transform: translateY(14px) scale(.97); } to { opacity: 1; transform: translateY(0) scale(1); } }
+@keyframes messageEnter { from { opacity: 0; transform: translateY(5px); } to { opacity: 1; transform: translateY(0); } }
+.closeBadge { position: absolute; top: 0; right: 0; display: grid; place-items: center; width: 26px; height: 26px; border: 2px solid white; border-radius: 50%; background: #1f58cb; color: white; font-size: 22px; line-height: 1; }
+.panel { width: 390px; height: min(660px, calc(100dvh - 228px)); min-height: 300px; margin-bottom: 16px; display: flex; flex-direction: column; overflow: hidden; background: white; border: 1px solid #e0e6f0; border-radius: 22px; box-shadow: 0 16px 64px #142c5540; }
+.header { display: flex; align-items: center; gap: 12px; padding: 22px 18px; background: linear-gradient(125deg, #1f58cb, #123777); color: white; }
+.avatar { display: grid; place-items: center; flex-shrink: 0; width: 64px; height: 64px; border-radius: 50%; background: white; }
+.avatar img { display: block; width: 100%; height: 100%; }
+.header h2 { margin: 0 0 4px; font-size: 18px; color: white; font-weight: 600; }
+.header p { margin: 0; font-size: 13px; color: #e3ecff; }
+.iconButton { margin-left: auto; border: 0; background: transparent; color: white; font-size: 28px; line-height: 1; padding: 8px; cursor: pointer; }
+.intro { padding: 15px 18px 0; color: #63708a; letter-spacing: 1px; font-size: 11px; font-weight: 600; }
+.messages { flex: 1; min-height: 0; overflow-y: auto; padding: 18px; overscroll-behavior: contain; background: linear-gradient(white, #f8faff); }
+.assistant, .user { padding: 12px 14px; margin-bottom: 14px; border-radius: 14px 14px 14px 3px; background: #edf2fa; max-width: 92%; overflow-wrap: anywhere; }
+.user { margin-left: auto; border-radius: 14px 14px 3px 14px; background: #1f58cb; color: white; }
+.author { display: block; margin-bottom: 5px; font-size: 12px; font-weight: 700; }
+.messages p { margin: 0; font-size: 15px; line-height: 1.6; white-space: pre-wrap; }
+.messages .status { color: #63708a; font-size: 14px; }
+.messages .error { background: #fff3e4; color: #754512; padding: 12px; border-radius: 10px; font-size: 14px; }
+.solutions { flex-shrink: 0; margin: 10px 18px 0; border-bottom: 1px solid #e6ebf3; }
+.solutions summary { padding: 10px 0; color: #174ba9; cursor: pointer; font-size: 14px; font-weight: 600; }
+.solutions summary:focus-visible { outline: 3px solid #7aa5ff; outline-offset: 3px; }
+.shortcuts { display: flex; flex-wrap: wrap; gap: 8px; padding: 4px 3px 12px; max-height: 150px; overflow-y: auto; overscroll-behavior: contain; }
+.panel > :not(.messages) { flex-shrink: 0; }
+.shortcuts a { display: inline-block; border: 1px solid #d8e2f4; background: white; color: #174ba9; border-radius: 20px; padding: 7px 10px; font: inherit; font-size: 14px; text-decoration: none; }
+.shortcuts a:hover { background: #edf2fa; border-color: #1f58cb; }
+.actions { display: flex; gap: 10px; padding: 0 18px 12px; }
+.actions button { flex: 1; background: #eff4fd; color: #174ba9; border: 0; border-radius: 8px; padding: 10px; font: inherit; font-size: 14px; font-weight: 600; cursor: pointer; }
+.form { display: flex; gap: 8px; padding: 14px 16px 8px; border-top: 1px solid #e6ebf3; }
+.form input { width: 0; flex: 1; border: 1px solid #dce3ee; border-radius: 10px; padding: 11px; background: white; color: #202c45; font: inherit; font-size: 16px; }
+.form button { border: 0; border-radius: 10px; padding: 10px 14px; background: #1f58cb; color: white; font: inherit; font-size: 14px; cursor: pointer; }
+.widget button:disabled { opacity: .55; cursor: default; }
+.widget button:focus-visible, .widget a:focus-visible, .form input:focus-visible { outline: 3px solid #7aa5ff; outline-offset: 3px; }
+.note { margin: 0; padding: 0 16px 12px; color: #63708a; font-size: 12px; text-align: center; }
+.srOnly { position: absolute; width: 1px; height: 1px; padding: 0; overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0; }
+@media (max-width: 480px) { .widget { right: 12px; bottom: 80px; } .panel { width: calc(100vw - 24px); height: min(620px, calc(100dvh - 190px)); margin-bottom: 10px; border-radius: 18px; } .header { padding: 16px; } .launcher { width: 80px; height: 80px; } .avatar { width: 52px; height: 52px; } }
+@media (prefers-reduced-motion: reduce) { .launcher { transition: none; } .launcher:hover { transform: none; } .launcher::before, .greeting, .panel, .assistant, .user { animation: none; } }
+

@@ -1,0 +1,47 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="160" height="160" viewBox="-14 -14 188 188" fill="none">
+  <style>
+    .orbit { transform-origin: 82px 86px; animation: orbit 12s linear infinite; }
+    .robot { animation: float 3.2s ease-in-out infinite; }
+    .greeting { transform-origin: 34px 55px; animation: hello 4s ease-in-out infinite; }
+    .eyes { transform-origin: 83px 71px; animation: blink 5.5s infinite; }
+    @keyframes orbit { to { transform: rotate(360deg); } }
+    @keyframes float { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-4px); } }
+    @keyframes hello { 0%,70%,100% { transform: rotate(0); } 76% { transform: rotate(-8deg); } 84% { transform: rotate(6deg); } 92% { transform: rotate(-3deg); } }
+    @keyframes blink { 0%,43%,47%,100% { transform: scaleY(1); } 45% { transform: scaleY(.12); } }
+    @media (prefers-reduced-motion: reduce) { .orbit,.robot,.greeting,.eyes { animation: none; } }
+  </style>
+  <defs>
+    <linearGradient id="ring" x1="25" y1="30" x2="138" y2="147" gradientUnits="userSpaceOnUse"><stop stop-color="#65B9FA"/><stop offset="1" stop-color="#497BEA"/></linearGradient>
+    <linearGradient id="head" x1="59" y1="54" x2="106" y2="97" gradientUnits="userSpaceOnUse"><stop stop-color="#AB9BFF"/><stop offset=".5" stop-color="#7662EC"/><stop offset="1" stop-color="#4134BA"/></linearGradient>
+    <linearGradient id="body" x1="67" y1="98" x2="101" y2="128" gradientUnits="userSpaceOnUse"><stop stop-color="#9B8AFF"/><stop offset="1" stop-color="#5742D5"/></linearGradient>
+    <path id="title" d="M20 91 A64 64 0 1 1 145 91"/>
+  </defs>
+  <circle cx="82" cy="86" r="59" fill="white"/>
+  <circle cx="82" cy="86" r="56" stroke="url(#ring)" stroke-width="7"/>
+  <text class="orbit" fill="#25314A" font-family="Arial,sans-serif" font-size="12" font-weight="600" letter-spacing="2.6"><textPath href="#title" startOffset="50%" text-anchor="middle">Your AI Assistant</textPath></text>
+  <ellipse cx="83" cy="130" rx="29" ry="5" fill="#DBE7FB"/>
+  <g class="robot">
+  <path d="M81 45V36" stroke="#7662EC" stroke-width="3" stroke-linecap="round"/>
+  <circle cx="81" cy="34" r="3" fill="#9D89FF"/>
+  <rect x="53" y="65" width="9" height="19" rx="4.5" fill="#8371EF"/>
+  <rect x="103" y="65" width="9" height="19" rx="4.5" fill="#8371EF"/>
+  <rect x="58" y="47" width="49" height="44" rx="19" fill="url(#head)"/>
+  <path d="M66 53c5-4 13-5 19-4" stroke="#CEC4FF" stroke-width="2" stroke-linecap="round"/>
+  <rect x="63" y="62" width="39" height="20" rx="10" fill="#202B65"/>
+  <g class="eyes">
+  <circle cx="74" cy="71" r="4.5" fill="#D9FBFF"/><circle cx="92" cy="71" r="4.5" fill="#D9FBFF"/>
+  <circle cx="75" cy="71" r="2.3" fill="#4542AE"/><circle cx="91" cy="71" r="2.3" fill="#4542AE"/>
+  </g>
+  <path d="M78 84q5 4 9 0" stroke="white" stroke-width="2" stroke-linecap="round"/>
+  <rect x="76" y="91" width="13" height="7" rx="3" fill="#6551DB"/>
+  <path d="M65 99q17-8 35 0l-4 18q-14 12-27 0Z" fill="url(#body)"/>
+  <path d="m68 101-9 10M99 101l8 10" stroke="#9382F7" stroke-width="8" stroke-linecap="round"/>
+  <path d="m76 121-2 5m15-5 2 5" stroke="#7060DC" stroke-width="7" stroke-linecap="round"/>
+  <circle cx="83" cy="106" r="4" fill="#C6F6FF"/>
+  </g>
+  <g class="greeting">
+  <path d="M10 48a11 11 0 0 1 11-11h27a11 11 0 0 1 11 11v8a11 11 0 0 1-11 11h-3l5 7-15-7H21A11 11 0 0 1 10 56Z" fill="#7959F4" stroke="white" stroke-width="2"/>
+  <text x="34" y="57" fill="#83FFD4" font-family="Arial,sans-serif" font-size="13" font-weight="700" text-anchor="middle">Hello!</text>
+  </g>
+  <path d="m120 108 2-6 2 6 6 2-6 2-2 6-2-6-6-2Z" fill="#8F7AF4"/>
+</svg>
