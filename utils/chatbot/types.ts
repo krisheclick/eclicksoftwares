@@ -31,6 +31,13 @@ export type Catalogue = {
     email: string;
     phone: string;
     locations: string[];
+    offices?: {
+        title: string;
+        address: string;
+        phone: string;
+        email: string;
+    }[];
+    journey?: string;
     privacyUrl?: string;
     updatedAt: string;
     welcomeDelay: number;

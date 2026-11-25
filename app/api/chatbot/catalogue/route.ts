@@ -6,6 +6,7 @@ import {
     getCaseStudies,
     getCaseStudy,
 } from "@/utils/chatbot/catalogue";
+export const dynamic = "force-dynamic";
 export async function GET(request: NextRequest) {
     if (process.env.CHATBOT_ENABLED === "false")
         return NextResponse.json(
@@ -41,6 +42,6 @@ export async function GET(request: NextRequest) {
             { status: 503 },
         );
     return NextResponse.json(data, {
-        headers: { "Cache-Control": "public, max-age=60, s-maxage=300" },
+        headers: { "Cache-Control": "no-store, max-age=0" },
     });
 }

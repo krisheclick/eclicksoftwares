@@ -10,6 +10,12 @@ async function get(query = "") {
 const data = await get();
 const services = data.categories.flatMap((c) => c.services);
 assert.ok(services.length);
+assert.ok(data.offices?.length, "Office details come from the location API");
+for (const office of data.offices) {
+    assert.ok(office.title);
+    assert.ok(office.address);
+    assert.ok(!office.phone || /^\+?[\d ()-]{7,30}$/.test(office.phone));
+}
 const results = [];
 for (let offset = 0; offset < services.length; offset += 4) {
     await Promise.all(

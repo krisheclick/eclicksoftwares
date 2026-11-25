@@ -12,7 +12,7 @@ export async function cms(path: string): Promise<unknown> {
     if (!base) return null;
     try {
         const r = await fetch(`${base.replace(/\/+$/, "")}/${path}`, {
-            next: { revalidate: 300 },
+            cache: "no-store",
             signal: AbortSignal.timeout(8000),
         });
         if (!r.ok) return null;
@@ -58,16 +58,25 @@ export function project(v: unknown, category = ""): Project | null {
     };
 }
 export async function getCatalogue(): Promise<Catalogue> {
-    const [raw, groups, industry, about, settings, locations, privacy] =
-        await Promise.all([
-            cms("category/with-service"),
-            cms("group"),
-            cms("industry"),
-            cms("page/about-us"),
-            cms("site-setting"),
-            cms("location"),
-            cms("page/privacy-policy"),
-        ]);
+    const [
+        raw,
+        groups,
+        industry,
+        about,
+        settings,
+        locations,
+        privacy,
+        journey,
+    ] = await Promise.all([
+        cms("category/with-service"),
+        cms("group"),
+        cms("industry"),
+        cms("page/about-us"),
+        cms("site-setting"),
+        cms("location"),
+        cms("page/privacy-policy"),
+        cms("page/our-journey"),
+    ]);
     const site = row(row(settings).filteredSettings);
     const company = row(about);
     let mission = "";
@@ -110,6 +119,21 @@ export async function getCatalogue(): Promise<Catalogue> {
         industries: names(industry, "industry_title"),
         about: text(company.description),
         mission,
+        journey: text(
+            row(journey).description || row(journey).short_description,
+        ),
+        offices: rows(locations).map((location) => ({
+            title: text(location.location_title),
+            address: text(location.location_address),
+            phone: /^\+?[\d ()-]{7,30}$/.test(text(location.location_phone))
+                ? text(location.location_phone)
+                : "",
+            email: /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(
+                text(location.location_email),
+            )
+                ? text(location.location_email)
+                : "",
+        })),
         email: /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(text(site.site_footer_email))
             ? text(site.site_footer_email)
             : "",

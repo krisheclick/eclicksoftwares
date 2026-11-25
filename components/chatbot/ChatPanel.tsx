@@ -76,6 +76,7 @@ function msg(
 }
 async function getData<T>(query = ""): Promise<T> {
     const r = await fetch(`/api/chatbot/catalogue${query}`, {
+        cache: "no-store",
         signal: AbortSignal.timeout(20000),
     });
     if (!r.ok)
@@ -98,6 +99,7 @@ export default function ChatPanel({
     const seenWebsiteSubmission = useRef(chatEnquirySubmitted);
     const pathname = usePathname();
     const [catalogue, setCatalogue] = useState<Catalogue | null>(null);
+    const catalogueReady = catalogue !== null;
     const [state, setState] = useState<FlowState>(initialState);
     const stateRef = useRef(state);
     const [messages, setMessages] = useState<Message[]>([]);
@@ -839,9 +841,15 @@ export default function ChatPanel({
                     });
                     break;
                 case "JOURNEY":
-                    append("Explore the published story of Eclick Softwares.", {
-                        links: [{ title: "Our Journey", url: "/our-journey" }],
-                    });
+                    append(
+                        catalogue.journey?.slice(0, 2200) ||
+                            "Explore the published story of Eclick Softwares.",
+                        {
+                            links: [
+                                { title: "Our Journey", url: "/our-journey" },
+                            ],
+                        },
+                    );
                     break;
                 case "TECHNOLOGIES":
                     update(go(snapshot, "TECHNOLOGIES"));
@@ -922,6 +930,16 @@ export default function ChatPanel({
                                           },
                                       ]
                                     : []),
+                                ...(catalogue.offices || [])
+                                    .filter(
+                                        (office) =>
+                                            office.phone &&
+                                            office.phone !== catalogue.phone,
+                                    )
+                                    .map((office) => ({
+                                        title: `Call ${office.title}: ${office.phone}`,
+                                        url: `tel:${office.phone.replace(/[^+0-9]/g, "")}`,
+                                    })),
                                 {
                                     title: "Visit Contact Page",
                                     url: "/contact-us",
@@ -947,7 +965,20 @@ export default function ChatPanel({
                     break;
                 case "LOCATIONS":
                     append(
-                        catalogue.locations.join("\n\n") ||
+                        (catalogue.offices?.length
+                            ? catalogue.offices
+                                  .map((office) =>
+                                      [
+                                          office.title,
+                                          office.address,
+                                          office.phone,
+                                          office.email,
+                                      ]
+                                          .filter(Boolean)
+                                          .join("\n"),
+                                  )
+                                  .join("\n\n")
+                            : catalogue.locations.join("\n\n")) ||
                             "Please contact our team for office information.",
                         {
                             links: [
@@ -1137,6 +1168,85 @@ export default function ChatPanel({
             }
         }
     }
+    useEffect(() => {
+        if (!open || !catalogueReady) return;
+        let alive = true;
+        let refreshing = false;
+        async function refreshCatalogue() {
+            if (refreshing || document.visibilityState === "hidden") return;
+            refreshing = true;
+            try {
+                const fresh = await getData<Catalogue>();
+                if (!alive) return;
+                setCatalogue(fresh);
+                setChoices((previous) =>
+                    previous.flatMap((option) => {
+                        const entry = ["CATEGORY", "TECH_CATEGORY"].includes(
+                            option.action,
+                        )
+                            ? fresh.categories.find(
+                                  (category) => category.id === option.value,
+                              )
+                            : [
+                                    "SERVICE",
+                                    "TECH_SERVICE",
+                                    "SELECT_SERVICE",
+                                ].includes(option.action)
+                              ? fresh.categories
+                                    .flatMap((category) => category.services)
+                                    .find(
+                                        (service) =>
+                                            service.id === option.value,
+                                    )
+                              : option.action === "PROJECT_GROUP"
+                                ? fresh.portfolio.find(
+                                      (group) => group.id === option.value,
+                                  )
+                                : undefined;
+                        const dynamicOption = [
+                            "CATEGORY",
+                            "TECH_CATEGORY",
+                            "SERVICE",
+                            "TECH_SERVICE",
+                            "SELECT_SERVICE",
+                            "PROJECT_GROUP",
+                        ].includes(option.action);
+                        return entry
+                            ? [{ ...option, label: entry.title }]
+                            : dynamicOption
+                              ? []
+                              : [option];
+                    }),
+                );
+                for (const [id, detail] of serviceCache.current) {
+                    const latest = fresh.categories
+                        .flatMap((category) => category.services)
+                        .find((service) => service.id === id);
+                    if (latest)
+                        serviceCache.current.set(id, {
+                            ...detail,
+                            title: latest.title,
+                        });
+                    else serviceCache.current.delete(id);
+                }
+            } catch {
+                // Keep the current conversation usable if a background refresh fails.
+            } finally {
+                refreshing = false;
+            }
+        }
+        void refreshCatalogue();
+        const timer = window.setInterval(() => void refreshCatalogue(), 15000);
+        const refresh = () => void refreshCatalogue();
+        window.addEventListener("focus", refresh);
+        document.addEventListener("visibilitychange", refresh);
+        return () => {
+            alive = false;
+            window.clearInterval(timer);
+            window.removeEventListener("focus", refresh);
+            document.removeEventListener("visibilitychange", refresh);
+        };
+    }, [open, catalogueReady]);
     const collecting = Boolean(stepById[state.step]);
     return (
         <section
