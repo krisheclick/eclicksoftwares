@@ -10,6 +10,13 @@
 .widget [hidden] {
     display: none !important;
 }
+.widgetOpen {
+    bottom: max(16px, env(safe-area-inset-bottom));
+}
+.widgetOpen .panel,
+.widgetOpen .loading {
+    bottom: 0;
+}
 .launcher {
     position: relative;
     display: grid;
@@ -83,10 +90,10 @@
 .loading {
     position: absolute;
     right: 0;
-    bottom: 92px;
-    width: 420px;
+    bottom: 102px;
+    width: 460px;
     max-width: calc(100vw - 32px);
-    height: min(650px, calc(100dvh - 190px));
+    height: min(700px, calc(100dvh - 32px));
     min-height: 260px;
     display: flex;
     flex-direction: column;
@@ -197,13 +204,13 @@
 }
 .messages p {
     font-size: 14px;
-    line-height: 1.6;
+    line-height: 1.5;
     margin: 0;
     white-space: pre-wrap;
 }
 .messages time {
     display: block;
-    font-size: 10px;
+    font-size: 11px;
     opacity: 0.8;
     margin-top: 7px;
     text-align: right;
@@ -225,7 +232,7 @@
 .choices {
     display: flex;
     flex-wrap: wrap;
-    gap: 8px;
+    gap: 6px;
     margin: 8px 0 4px;
     clear: both;
 }
@@ -233,12 +240,12 @@
 .project button {
     border: 1px solid #c6d6f0;
     border-radius: 12px;
-    padding: 9px 12px;
-    min-height: 40px;
+    padding: 7px;
+    min-height: 30px;
     background: white;
     color: #174ba9;
     font: inherit;
-    font-size: 14px;
+    font-size: 13px;
     text-align: left;
     cursor: pointer;
     line-height: 1.4;
@@ -304,6 +311,8 @@
 .choices button:hover {
     transform: translateY(-2px);
     box-shadow: 0 4px 12px #1f58cb12;
+    background: #e6efff;
+    color: #1f58cb;
 }
 .choices button:active {
     transform: translateY(0);
@@ -327,6 +336,72 @@
         transform: translateY(0);
     }
 }
+.carousel {
+    min-width: 0;
+    max-width: 100%;
+    margin-top: 10px;
+}
+.carouselTrack {
+    position: relative;
+    display: flex;
+    gap: 10px;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scroll-padding-inline: 0;
+    overscroll-behavior-x: contain;
+    scrollbar-width: none;
+    padding-bottom: 2px;
+}
+.carouselTrack::-webkit-scrollbar {
+    display: none;
+}
+.carouselTrack .project {
+    flex: 0 0 88%;
+    min-width: 0;
+    scroll-snap-align: start;
+    margin-top: 0;
+}
+.carouselTrack::after {
+    content: "";
+    flex: 0 0 calc(12% - 10px);
+}
+.carouselTrack .project > p {
+    display: -webkit-box;
+    -webkit-line-clamp: 4;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+.carouselControls {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 14px;
+    padding-top: 10px;
+}
+.carouselControls span {
+    font-size: 12px;
+    color: #4d5e79;
+}
+.carouselControls button {
+    display: grid;
+    place-items: center;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    border: 1px solid #c6d6f0;
+    background: white;
+    color: #174ba9;
+    cursor: pointer;
+    box-shadow: 0 2px 6px #20375912;
+}
+.carouselControls button:disabled {
+    opacity: 0.4;
+    cursor: default;
+}
+.carouselControls button:focus-visible {
+    outline: 2px solid #1f58cb;
+    outline-offset: 2px;
+}
 .project {
     display: flex;
     flex-direction: column;
@@ -347,6 +422,44 @@
 .project small {
     font-size: 12px;
     color: #4d5e79;
+}
+.restartOverlay {
+    position: absolute;
+    inset: 0;
+    z-index: 5;
+    display: grid;
+    place-items: center;
+    padding: 20px;
+    background: #14234466;
+    backdrop-filter: blur(3px);
+}
+.restartPopup {
+    width: 100%;
+    max-width: 340px;
+    padding: 22px;
+    border-radius: 16px;
+    background: white;
+    box-shadow: 0 12px 40px #14234433;
+    animation: enter 0.2s ease;
+}
+.restartPopup h3 {
+    margin: 0 0 10px;
+    font-size: 18px;
+    line-height: 1.35;
+}
+.restartPopup p {
+    margin: 0 0 18px;
+    font-size: 14px;
+    line-height: 1.5;
+    color: #4d5e79;
+}
+.restartPopup .choices {
+    margin: 0;
+}
+.restartPopup .restartConfirm {
+    background: #1f58cb;
+    color: white;
+    border-color: #1f58cb;
 }
 .review {
     padding: 14px;
@@ -381,7 +494,7 @@
     display: flex;
     flex-wrap: wrap;
     gap: 4px;
-    padding: 6px 12px;
+    padding: 2px 10px;
     border-top: 1px solid #e6ebf3;
     flex-shrink: 0;
 }
@@ -391,54 +504,99 @@
     border: 0;
     background: transparent;
     color: #174ba9;
-    padding: 6px;
-    min-height: 36px;
+    padding: 4px 7px;
+    min-height: 28px;
     cursor: pointer;
     text-decoration: underline;
 }
 .form {
     display: flex;
-    gap: 8px;
-    padding: 8px 12px;
+    align-items: center;
+    gap: 6px;
+    padding: 4px 12px;
     flex-shrink: 0;
 }
 .form textarea {
     width: 0;
     flex: 1;
-    min-height: 46px;
-    max-height: 90px;
-    resize: vertical;
+    height: 42px;
+    min-height: 42px;
+    max-height: 42px;
+    resize: none;
     border: 1px solid #cbd7e9;
     border-radius: 12px;
-    padding: 11px;
+    padding: 10px 11px;
     background: white;
     color: #202c45;
     font: inherit;
-    font-size: 16px;
+    font-size: 14px;
     line-height: 1.4;
 }
 .form button {
     border: 0;
     border-radius: 12px;
-    padding: 10px 14px;
+    min-height: 42px;
+    padding: 9px 12px;
     background: #1f58cb;
     color: white;
     font: inherit;
     font-size: 14px;
     cursor: pointer;
 }
-.note,
-.disclosure {
+.footerMeta {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+    padding: 0 12px 6px;
+    flex-shrink: 0;
+}
+.note {
+    flex: 1;
+    min-width: 0;
     margin: 0;
-    text-align: center;
+    text-align: left;
     font-size: 12px;
-    padding: 0 12px 10px;
+    padding: 0;
     color: #53627a;
     line-height: 1.5;
     flex-shrink: 0;
 }
-.disclosure {
-    padding-bottom: 4px;
+.privacy {
+    position: relative;
+    flex-shrink: 0;
+    font-size: 12px;
+    color: #53627a;
+}
+.privacy summary {
+    cursor: pointer;
+    list-style: none;
+    text-decoration: underline;
+    padding: 2px;
+}
+.privacy summary::-webkit-details-marker {
+    display: none;
+}
+.privacy p {
+    position: absolute;
+    right: 0;
+    bottom: calc(100% + 8px);
+    width: 230px;
+    max-width: calc(100vw - 48px);
+    margin: 0;
+    padding: 12px;
+    border: 1px solid #dce5f5;
+    border-radius: 10px;
+    background: white;
+    color: #202c45;
+    font-size: 13px;
+    line-height: 1.5;
+    box-shadow: 0 6px 24px #142c5526;
+    z-index: 2;
+}
+.privacy summary:focus-visible {
+    outline: 3px solid #7aa5ff;
+    outline-offset: 2px;
 }
 .error {
     background: #fff3e4;
@@ -579,6 +737,10 @@
     }
     .messages {
         padding: 12px;
+    }
+    .form textarea {
+        font-size: 16px;
+        padding-top: 9px;
     }
 }
 @media (prefers-reduced-motion: reduce) {

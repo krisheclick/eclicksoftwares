@@ -31,6 +31,7 @@ import styles from "./Chatbot.module.css";
 import { useScheduleCall, useLetsConnect } from "@/utils/useLetsConnect";
 import { websiteEnquiryPrefill } from "@/utils/chatbot/websiteEnquiry";
 import AnimatedReply from "./AnimatedReply";
+import ProjectCarousel from "./ProjectCarousel";
 import { useThemeContext } from "@/context/ThemeContext";
 
 const labels: Record<string, string> = {
@@ -100,9 +101,23 @@ export default function ChatPanel({
     const [state, setState] = useState<FlowState>(initialState);
     const stateRef = useRef(state);
     const [messages, setMessages] = useState<Message[]>([]);
+    const [completedReplies, setCompletedReplies] = useState<Set<string>>(
+        () => new Set(),
+    );
+    const activeReplyIndex = messages.findIndex(
+        (message) =>
+            message.role === "assistant" && !completedReplies.has(message.id),
+    );
+    const activeReplyId =
+        activeReplyIndex < 0 ? null : messages[activeReplyIndex].id;
+    const visibleMessages =
+        activeReplyIndex < 0
+            ? messages
+            : messages.slice(0, activeReplyIndex + 1);
     const [choices, setChoices] = useState<Option[]>([]);
     const [input, setInput] = useState("");
     const [busy, setBusy] = useState(true);
+    const responding = busy || activeReplyId !== null;
     const [error, setError] = useState("");
     const [questionMode, setQuestionMode] = useState(false);
     const [currentService, setCurrentService] = useState<Service | null>(null);
@@ -114,6 +129,8 @@ export default function ChatPanel({
     const [projectOffset, setProjectOffset] = useState(0);
     const [restartCheck, setRestartCheck] = useState(false);
     const [lastQuestion, setLastQuestion] = useState("");
+    const restartPopup = useRef<HTMLDivElement>(null);
+    const restartTrigger = useRef<HTMLButtonElement>(null);
     const field = useRef<HTMLTextAreaElement>(null);
     const panel = useRef<HTMLElement>(null);
     const log = useRef<HTMLDivElement>(null);
@@ -176,8 +193,17 @@ export default function ChatPanel({
         }
     }, []);
     useEffect(() => {
-        if (open) field.current?.focus();
-    }, [open, busy]);
+        if (open && !responding && !restartCheck) field.current?.focus();
+    }, [open, responding, restartCheck]);
+    useEffect(() => {
+        if (!restartCheck) return;
+        restartPopup.current
+            ?.querySelector<HTMLButtonElement>("[data-keep-conversation]")
+            ?.focus();
+        return () => {
+            restartTrigger.current?.focus();
+        };
+    }, [restartCheck]);
     useEffect(() => {
         if (!open) return;
         const viewport = window.visualViewport;
@@ -211,7 +237,7 @@ export default function ChatPanel({
             top: log.current.scrollHeight,
             behavior: "instant",
         });
-    }, [messages, choices, busy, error, open]);
+    }, [messages, choices, busy, error, open, activeReplyId]);
     useEffect(() => {
         let alive = true;
         getData<Catalogue>()
@@ -461,7 +487,7 @@ export default function ChatPanel({
         ]);
     }
     async function act(option: Option) {
-        if (pending.current || !catalogue) return;
+        if (pending.current || activeReplyId || !catalogue) return;
         pending.current = true;
         setBusy(true);
         setError("");
@@ -1048,7 +1074,7 @@ export default function ChatPanel({
     async function send(e: FormEvent) {
         e.preventDefault();
         const text = input.trim();
-        if (!text || pending.current) return;
+        if (!text || pending.current || activeReplyId) return;
         if (!questionMode && !state.suspended && stepById[state.step]) {
             await act({ label: text, action: "ANSWER", value: text });
             return;
@@ -1070,6 +1096,7 @@ export default function ChatPanel({
     }
     function restart() {
         generation.current++;
+        setCompletedReplies(new Set());
         update(initialState());
         setMessages([
             msg("assistant", "Welcome back! How can we assist you today?"),
@@ -1087,12 +1114,16 @@ export default function ChatPanel({
     function keys(e: KeyboardEvent<HTMLElement>) {
         if (e.key === "Escape") {
             e.preventDefault();
-            onClose();
+            if (restartCheck) setRestartCheck(false);
+            else onClose();
         }
         if (e.key === "Tab") {
             const focusable = Array.from(
-                panel.current?.querySelectorAll<HTMLElement>(
-                    "button:not(:disabled),a[href],textarea:not(:disabled)",
+                (restartCheck
+                    ? restartPopup.current
+                    : panel.current
+                )?.querySelectorAll<HTMLElement>(
+                    "button:not(:disabled),a[href],textarea:not(:disabled),summary",
                 ) || [],
             ).filter((el) => el.offsetParent !== null);
             const first = focusable[0],
@@ -1143,8 +1174,9 @@ export default function ChatPanel({
                 </div>
                 <button
                     type="button"
+                    ref={restartTrigger}
                     onClick={() => setRestartCheck(true)}
-                    disabled={busy}
+                    disabled={responding}
                     aria-label="Restart conversation"
                     title="Restart"
                 >
@@ -1175,7 +1207,7 @@ export default function ChatPanel({
                 aria-live="polite"
                 aria-label="Conversation"
             >
-                {messages.map((m) => (
+                {visibleMessages.map((m) => (
                     <div
                         key={m.id}
                         className={
@@ -1188,6 +1220,20 @@ export default function ChatPanel({
                         {m.role === "assistant" ? (
                             <AnimatedReply
                                 text={m.text}
+                                onComplete={() =>
+                                    setCompletedReplies((previous) => {
+                                        const retained = new Set(
+                                            [...previous].filter((id) =>
+                                                messages.some(
+                                                    (message) =>
+                                                        message.id === id,
+                                                ),
+                                            ),
+                                        );
+                                        retained.add(m.id);
+                                        return retained;
+                                    })
+                                }
                                 onProgress={() => {
                                     const area = log.current;
                                     if (
@@ -1203,7 +1249,7 @@ export default function ChatPanel({
                         ) : (
                             <p>{m.text}</p>
                         )}
-                        {m.links?.length ? (
+                        {m.links?.length && completedReplies.has(m.id) ? (
                             <div className={styles.links}>
                                 {m.links.map((l) =>
                                     l.url.startsWith("/") ? (
@@ -1218,68 +1264,13 @@ export default function ChatPanel({
                                 )}
                             </div>
                         ) : null}
-                        {m.projects?.map((p) => (
-                            <article key={p.id} className={styles.project}>
-                                {/* eslint-disable-next-line @next/next/no-img-element */}
-                                {p.image && (
-                                    <img
-                                        src={p.image}
-                                        alt=""
-                                        loading="lazy"
-                                        width="280"
-                                        height="150"
-                                    />
-                                )}
-                                <strong>{p.title}</strong>
-                                <small>{p.category}</small>
-                                <p>{p.description}</p>
-                                {p.technologies.length > 0 && (
-                                    <small>{p.technologies.join(", ")}</small>
-                                )}
-                                {p.kind === "case-study" && !p.sections && (
-                                    <button
-                                        type="button"
-                                        disabled={busy}
-                                        onClick={() =>
-                                            void act({
-                                                label: `Details: ${p.title}`,
-                                                action: "CASE_STUDY_DETAIL",
-                                                value: p.id,
-                                            })
-                                        }
-                                    >
-                                        View Case Study Details
-                                    </button>
-                                )}
-                                {p.sections?.map((section, index) => (
-                                    <details
-                                        key={`${section.title}-${index}`}
-                                        className={styles.caseDetails}
-                                    >
-                                        <summary>{section.title}</summary>
-                                        <p>{section.content}</p>
-                                    </details>
-                                ))}
-                                <Link href={p.url}>
-                                    {p.kind === "case-study"
-                                        ? "Read Full Case Study"
-                                        : "View Project"}
-                                </Link>
-                                <button
-                                    type="button"
-                                    disabled={busy}
-                                    onClick={() =>
-                                        void act({
-                                            label: `Select ${p.title} as inspiration`,
-                                            action: "SELECT_PROJECT",
-                                            value: p.id,
-                                        })
-                                    }
-                                >
-                                    Use as Inspiration
-                                </button>
-                            </article>
-                        ))}
+                        {completedReplies.has(m.id) && m.projects?.length ? (
+                            <ProjectCarousel
+                                projects={m.projects}
+                                disabled={responding}
+                                onAction={(option) => void act(option)}
+                            />
+                        ) : null}
                         <time dateTime={new Date(m.time).toISOString()}>
                             {new Date(m.time).toLocaleTimeString([], {
                                 hour: "2-digit",
@@ -1288,7 +1279,7 @@ export default function ChatPanel({
                         </time>
                     </div>
                 ))}
-                {state.step === "REVIEW_ENQUIRY" && (
+                {state.step === "REVIEW_ENQUIRY" && !responding && (
                     <div className={styles.review}>
                         <h3>Your project enquiry</h3>
                         <dl>
@@ -1313,26 +1304,7 @@ export default function ChatPanel({
                         </dl>
                     </div>
                 )}
-                {restartCheck && (
-                    <div className={styles.review} role="alert">
-                        <p>
-                            Start a new conversation? This clears your current
-                            draft and messages.
-                        </p>
-                        <div className={styles.choices}>
-                            <button type="button" onClick={restart}>
-                                Start New Conversation
-                            </button>
-                            <button
-                                type="button"
-                                onClick={() => setRestartCheck(false)}
-                            >
-                                Keep Conversation
-                            </button>
-                        </div>
-                    </div>
-                )}
-                {busy && (
+                {busy && !activeReplyId && (
                     <div
                         className={styles.typingRow}
                         role="status"
@@ -1366,7 +1338,7 @@ export default function ChatPanel({
                         )}
                     </div>
                 )}
-                {!busy && !restartCheck && (
+                {!responding && !restartCheck && (
                     <div className={styles.choices}>
                         {choices.map((o, i) => (
                             <button
@@ -1380,50 +1352,68 @@ export default function ChatPanel({
                     </div>
                 )}
             </div>
-            <nav className={styles.nav} aria-label="Conversation navigation">
-                <button
-                    type="button"
-                    disabled={busy || !state.history.length}
-                    onClick={() => void act({ label: "Back", action: "BACK" })}
+            {(state.history.length > 0 ||
+                state.enquiry ||
+                state.step !== "MAIN_MENU") && (
+                <nav
+                    className={styles.nav}
+                    aria-label="Conversation navigation"
                 >
-                    Back
-                </button>
-                <button
-                    type="button"
-                    disabled={busy}
-                    onClick={() =>
-                        void act({ label: "Main Menu", action: "MAIN_MENU" })
-                    }
-                >
-                    Main Menu
-                </button>
-                {state.enquiry && (
                     <button
                         type="button"
-                        disabled={busy}
+                        disabled={responding || !state.history.length}
                         onClick={() =>
-                            show({
-                                ...state,
-                                step: resumeStep.current,
-                                suspended: false,
+                            void act({ label: "Back", action: "BACK" })
+                        }
+                    >
+                        Back
+                    </button>
+                    <button
+                        type="button"
+                        disabled={responding}
+                        aria-label="Main Menu"
+                        onClick={() =>
+                            void act({
+                                label: "Main Menu",
+                                action: "MAIN_MENU",
                             })
                         }
                     >
-                        Continue Enquiry
+                        Menu
                     </button>
-                )}
-                {collecting && (
-                    <button
-                        type="button"
-                        disabled={busy}
-                        onClick={() =>
-                            void act({ label: "Ask a Question", action: "ASK" })
-                        }
-                    >
-                        Ask a Question
-                    </button>
-                )}
-            </nav>
+                    {state.enquiry && (
+                        <button
+                            type="button"
+                            disabled={responding}
+                            aria-label="Continue Enquiry"
+                            onClick={() =>
+                                show({
+                                    ...state,
+                                    step: resumeStep.current,
+                                    suspended: false,
+                                })
+                            }
+                        >
+                            Resume
+                        </button>
+                    )}
+                    {collecting && (
+                        <button
+                            type="button"
+                            disabled={responding}
+                            aria-label="Ask a Question"
+                            onClick={() =>
+                                void act({
+                                    label: "Ask a Question",
+                                    action: "ASK",
+                                })
+                            }
+                        >
+                            Ask AI
+                        </button>
+                    )}
+                </nav>
+            )}
             <form className={styles.form} onSubmit={send}>
                 <label className={styles.srOnly} htmlFor="eclick-message">
                     {questionMode
@@ -1438,14 +1428,14 @@ export default function ChatPanel({
                     rows={1}
                     value={input}
                     onChange={(e) => setInput(e.target.value)}
-                    disabled={busy || !catalogue}
+                    disabled={responding || !catalogue}
                     maxLength={collecting && !questionMode ? 4000 : 2000}
                     placeholder={
                         questionMode
                             ? "Ask your question…"
                             : collecting
                               ? "Type your answer…"
-                              : "Ask us anything about Eclick…"
+                              : "Type a message…"
                     }
                     onKeyDown={(e) => {
                         if (
@@ -1460,20 +1450,58 @@ export default function ChatPanel({
                 />
                 <button
                     type="submit"
-                    disabled={busy || !input.trim() || !catalogue}
+                    disabled={responding || !input.trim() || !catalogue}
                     aria-label="Send message"
                 >
                     Send
                 </button>
             </form>
-            <p className={styles.disclosure}>
-                {questionMode || !collecting
-                    ? "Questions use AI. Please avoid sharing personal details."
-                    : "Your draft stays in this conversation until you submit."}
-            </p>
-            <p className={styles.note}>
-                Powered by Eclick Softwares · Gemini AI
-            </p>
+            <div className={styles.footerMeta}>
+                <p className={styles.note}>
+                    Powered by Eclick Softwares · Eclick AI
+                </p>
+                <details className={styles.privacy}>
+                    <summary>Privacy</summary>
+                    <p>
+                        {questionMode || !collecting
+                            ? "Questions use AI. Please avoid sharing personal details."
+                            : "Your draft stays in this conversation until you submit."}
+                    </p>
+                </details>
+            </div>
+            {restartCheck && (
+                <div className={styles.restartOverlay}>
+                    <div
+                        ref={restartPopup}
+                        className={styles.restartPopup}
+                        role="alertdialog"
+                        aria-modal="true"
+                        aria-labelledby="restart-title"
+                        aria-describedby="restart-description"
+                    >
+                        <h3 id="restart-title">Start a new conversation?</h3>
+                        <p id="restart-description">
+                            This clears your current draft and messages.
+                        </p>
+                        <div className={styles.choices}>
+                            <button
+                                type="button"
+                                data-keep-conversation
+                                onClick={() => setRestartCheck(false)}
+                            >
+                                Keep Conversation
+                            </button>
+                            <button
+                                type="button"
+                                className={styles.restartConfirm}
+                                onClick={restart}
+                            >
+                                Start New Conversation
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            )}
         </section>
     );
 }

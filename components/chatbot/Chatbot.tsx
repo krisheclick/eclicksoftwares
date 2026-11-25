@@ -34,10 +34,10 @@ export default function Chatbot({ delay = 5000 }: { delay?: number }) {
     }
     function close() {
         setOpen(false);
-        launcher.current?.focus();
+        requestAnimationFrame(() => launcher.current?.focus());
     }
     return (
-        <div className={styles.widget}>
+        <div className={`${styles.widget} ${open ? styles.widgetOpen : ""}`}>
             {loaded && (
                 <div hidden={!open}>
                     <ChatPanel open={open} onClose={close} />
@@ -66,6 +66,7 @@ export default function Chatbot({ delay = 5000 }: { delay?: number }) {
             )}
             <button
                 ref={launcher}
+                hidden={open}
                 type="button"
                 className={styles.launcher}
                 aria-label={

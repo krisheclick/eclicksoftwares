@@ -6,29 +6,40 @@ import styles from "./Chatbot.module.css";
 export default function AnimatedReply({
     text,
     onProgress,
+    onComplete,
 }: {
     text: string;
     onProgress: () => void;
+    onComplete: () => void;
 }) {
     const [visible, setVisible] = useState(0);
     const progress = useRef(onProgress);
+    const complete = useRef(onComplete);
     const characters = Array.from(text);
 
     useEffect(() => {
         progress.current = onProgress;
-    }, [onProgress]);
+        complete.current = onComplete;
+    }, [onProgress, onComplete]);
     useEffect(() => {
         const motion = window.matchMedia("(prefers-reduced-motion: reduce)");
         const length = Array.from(text).length;
         let timer: ReturnType<typeof setInterval> | undefined;
+        let completionFrame = 0;
+        let finished = false;
         const finish = () => {
+            if (finished) return;
+            finished = true;
             clearInterval(timer);
             setVisible(length);
-            requestAnimationFrame(() => progress.current());
+            completionFrame = requestAnimationFrame(() => {
+                progress.current();
+                complete.current();
+            });
         };
-        if (motion.matches) {
+        if (motion.matches || length === 0) {
             finish();
-            return;
+            return () => cancelAnimationFrame(completionFrame);
         }
         setVisible(0);
         let count = 0;
@@ -38,7 +49,7 @@ export default function AnimatedReply({
             count = Math.min(length, count + stride);
             setVisible(count);
             requestAnimationFrame(() => progress.current());
-            if (count === length) clearInterval(timer);
+            if (count === length) finish();
         }, 18);
         const onMotionChange = () => {
             if (motion.matches) finish();
@@ -46,12 +57,13 @@ export default function AnimatedReply({
         motion.addEventListener("change", onMotionChange);
         return () => {
             clearInterval(timer);
+            cancelAnimationFrame(completionFrame);
             motion.removeEventListener("change", onMotionChange);
         };
     }, [text]);
 
     return (
-        <p className={styles.replyText}>
+        <p className={styles.replyText} aria-busy={visible < characters.length}>
             <span className={styles.srOnly}>{text}</span>
             <span aria-hidden="true">
                 {characters.slice(0, visible).join("")}
