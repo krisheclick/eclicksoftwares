@@ -4,6 +4,8 @@ Use the existing Next.js project; no independent application or admin panel was 
 
 ## Run locally
 
+On the first visitor action or typed message, the chatbot pauses and displays an inline name, mobile, email and privacy consent form. `POST /api/chatbot/contact` validates it and forwards the website's contact field names to `${NEXT_PUBLIC_API_URL}/contact-us`. No newsletter signup is requested. Budget is marked `Not specified`; the original selection supplies the contact message. Only an explicit successful API response unlocks the saved action. Failed submissions preserve the form; reopening the chat preserves the session, while a confirmed restart clears it. Contact details stay in component memory and are not added to AI messages. Browser tests intercept contact writes; they do not create public test contacts.
+
 1. Use Node 22+ and `npm ci`.
 2. Merge the chatbot variables from `.env.example` into the existing environment. Preserve all other existing website settings. Do not replace the current `.env` wholesale or commit it.
 3. Set server-only `GEMINI_API_KEY` and an accessible stable model in `GEMINI_MODEL`. The default is `gemini-3.8-flash`, listed as stable in Google's [model documentation](https://ai.google.dev/gemini-api/docs/models) on 2026-11-24. The existing local model override is respected. The integration uses the [official Google Gen AI JavaScript SDK](https://googleapis.github.io/js-genai/) and [structured output](https://ai.google.dev/gemini-api/docs/structured-output).

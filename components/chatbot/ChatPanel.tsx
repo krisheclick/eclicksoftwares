@@ -31,6 +31,7 @@ import styles from "./Chatbot.module.css";
 import { useScheduleCall, useLetsConnect } from "@/utils/useLetsConnect";
 import { websiteEnquiryPrefill } from "@/utils/chatbot/websiteEnquiry";
 import AnimatedReply from "./AnimatedReply";
+import ContactGate, { type ContactDetails } from "./ContactGate";
 import ProjectCarousel from "./ProjectCarousel";
 import { useThemeContext } from "@/context/ThemeContext";
 
@@ -118,6 +119,9 @@ export default function ChatPanel({
             : messages.slice(0, activeReplyIndex + 1);
     const [choices, setChoices] = useState<Option[]>([]);
     const [input, setInput] = useState("");
+    const contactSaved = useRef(false);
+    const [contactIntent, setContactIntent] = useState<Option | null>(null);
+    const [savingContact, setSavingContact] = useState(false);
     const [busy, setBusy] = useState(true);
     const responding = busy || activeReplyId !== null;
     const [error, setError] = useState("");
@@ -249,10 +253,8 @@ export default function ChatPanel({
                 if (introStarted.current) return;
                 introStarted.current = true;
                 for (const text of [
-                    "Hi there! 👋",
-                    "Welcome to Eclick Softwares!",
-                    "I'm your AI assistant. I'm here to help you explore our services and find the right digital solution for your business.",
-                    "How can we assist you today?",
+                    "Hi there! \u{1F44B} Welcome to Eclick Softwares!",
+                    "I'm your AI assistant. How can I help you today?",
                 ]) {
                     await new Promise((r) =>
                         setTimeout(
@@ -488,15 +490,50 @@ export default function ChatPanel({
             },
         ]);
     }
-    async function act(option: Option) {
-        if (pending.current || activeReplyId || !catalogue) return;
+    function requestContact(option: Option) {
+        setInput("");
+        setMessages((previous) => [
+            ...previous.slice(-98),
+            msg("user", option.label),
+            msg("assistant", "Please share your contact details to continue."),
+        ]);
+        setContactIntent(option);
+        setChoices([]);
+    }
+    function continueAfterContact(contact: ContactDetails) {
+        contactSaved.current = true;
+        const intent = contactIntent;
+        setContactIntent(null);
+        update({
+            ...stateRef.current,
+            draft: {
+                ...stateRef.current.draft,
+                name: contact.name,
+                phone: contact.phone,
+                email: contact.email,
+            },
+        });
+        if (intent) void act(intent, true);
+    }
+    async function act(option: Option, alreadyShown = false) {
+        if (
+            pending.current ||
+            activeReplyId ||
+            !catalogue ||
+            (contactIntent && !alreadyShown)
+        )
+            return;
+        if (!contactSaved.current && option.action !== "RESTART") {
+            requestContact(option);
+            return;
+        }
         pending.current = true;
         setBusy(true);
         setError("");
         setInput("");
         const { action, value, label } = option;
         const snapshot = stateRef.current;
-        if (!["BACK", "RESUME"].includes(action))
+        if (!alreadyShown && !["BACK", "RESUME"].includes(action))
             setMessages((prev) => [...prev.slice(-99), msg("user", label)]);
         try {
             if (!["RESTART", "SCHEDULE"].includes(action)) {
@@ -511,6 +548,9 @@ export default function ChatPanel({
                 );
             }
             switch (action) {
+                case "ASK_AFTER_CONTACT":
+                    await ask(value || label);
+                    break;
                 case "MAIN_MENU":
                     show(go(snapshot, "MAIN_MENU"));
                     break;
@@ -1105,7 +1145,15 @@ export default function ChatPanel({
     async function send(e: FormEvent) {
         e.preventDefault();
         const text = input.trim();
-        if (!text || pending.current || activeReplyId) return;
+        if (!text || pending.current || activeReplyId || contactIntent) return;
+        if (!contactSaved.current) {
+            requestContact({
+                label: text,
+                action: "ASK_AFTER_CONTACT",
+                value: text,
+            });
+            return;
+        }
         if (!questionMode && !state.suspended && stepById[state.step]) {
             await act({ label: text, action: "ANSWER", value: text });
             return;
@@ -1126,6 +1174,8 @@ export default function ChatPanel({
         }
     }
     function restart() {
+        contactSaved.current = false;
+        setContactIntent(null);
         generation.current++;
         setCompletedReplies(new Set());
         update(initialState());
@@ -1154,7 +1204,7 @@ export default function ChatPanel({
                     ? restartPopup.current
                     : panel.current
                 )?.querySelectorAll<HTMLElement>(
-                    "button:not(:disabled),a[href],textarea:not(:disabled),summary",
+                    "button:not(:disabled),a[href],textarea:not(:disabled),input:not(:disabled),summary",
                 ) || [],
             ).filter((el) => el.offsetParent !== null);
             const first = focusable[0],
@@ -1286,7 +1336,7 @@ export default function ChatPanel({
                     type="button"
                     ref={restartTrigger}
                     onClick={() => setRestartCheck(true)}
-                    disabled={responding}
+                    disabled={responding || savingContact}
                     aria-label="Restart conversation"
                     title="Restart"
                 >
@@ -1389,6 +1439,13 @@ export default function ChatPanel({
                         </time>
                     </div>
                 ))}
+                {contactIntent && !responding && (
+                    <ContactGate
+                        interest={contactIntent.label}
+                        onSaved={continueAfterContact}
+                        onBusy={setSavingContact}
+                    />
+                )}
                 {state.step === "REVIEW_ENQUIRY" && !responding && (
                     <div className={styles.review}>
                         <h3>Your project enquiry</h3>
@@ -1448,7 +1505,7 @@ export default function ChatPanel({
                         )}
                     </div>
                 )}
-                {!responding && !restartCheck && (
+                {!responding && !restartCheck && !contactIntent && (
                     <div className={styles.choices}>
                         {choices.map((o, i) => (
                             <button
@@ -1524,7 +1581,11 @@ export default function ChatPanel({
                     )}
                 </nav>
             )}
-            <form className={styles.form} onSubmit={send}>
+            <form
+                className={styles.form}
+                onSubmit={send}
+                hidden={Boolean(contactIntent)}
+            >
                 <label className={styles.srOnly} htmlFor="eclick-message">
                     {questionMode
                         ? "Your question"
@@ -1538,7 +1599,9 @@ export default function ChatPanel({
                     rows={1}
                     value={input}
                     onChange={(e) => setInput(e.target.value)}
-                    disabled={responding || !catalogue}
+                    disabled={
+                        responding || !catalogue || Boolean(contactIntent)
+                    }
                     maxLength={collecting && !questionMode ? 4000 : 2000}
                     placeholder={
                         questionMode
@@ -1560,7 +1623,12 @@ export default function ChatPanel({
                 />
                 <button
                     type="submit"
-                    disabled={responding || !input.trim() || !catalogue}
+                    disabled={
+                        responding ||
+                        !input.trim() ||
+                        !catalogue ||
+                        Boolean(contactIntent)
+                    }
                     aria-label="Send message"
                 >
                     Send

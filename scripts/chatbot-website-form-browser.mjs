@@ -1,3 +1,4 @@
+import { mockContactSave, completeContactGate } from "./chatbot-contact-browser-helper.mjs";
 import { chromium } from "playwright";
 import assert from "node:assert/strict";
 const browser = await chromium.launch({
@@ -25,6 +26,7 @@ await page.route(/\/schedule-a-call(?:\?.*)?$/, async (route) => {
     });
 });
 try {
+    await mockContactSave(page);
     await page.goto(process.env.CHATBOT_TEST_URL || "http://localhost:3000/", {
         waitUntil: "domcontentloaded",
         timeout: 90000,
@@ -45,6 +47,7 @@ try {
     await chat
         .getByRole("button", { name: "Explore Our Services", exact: true })
         .click();
+    await completeContactGate(chat);
     await chat
         .getByRole("button", { name: "Web Development", exact: true })
         .click();

@@ -1,3 +1,4 @@
+import { mockContactSave, completeContactGate } from "./chatbot-contact-browser-helper.mjs";
 import { chromium } from "playwright";
 import assert from "node:assert/strict";
 const browser = await chromium.launch({
@@ -8,6 +9,7 @@ const browser = await chromium.launch({
 });
 try {
     const page = await browser.newPage();
+    await mockContactSave(page);
     await page.goto(process.env.CHATBOT_TEST_URL || "http://localhost:3000/", {
         waitUntil: "domcontentloaded",
         timeout: 90000,
@@ -58,11 +60,12 @@ try {
     await chat
         .getByRole("button", { name: "View Case Studies", exact: true })
         .waitFor({ timeout: 30000 });
-    assert.equal(await chat.locator("p[aria-busy]").count(), 4);
+    assert.equal(await chat.locator("p[aria-busy]").count(), 2);
     assert.equal(await chat.locator('p[aria-busy="true"]').count(), 0);
     await chat
         .getByRole("button", { name: "View Case Studies", exact: true })
         .click();
+    await completeContactGate(chat);
     await chat.locator('p[aria-busy="true"]').waitFor();
     assert.equal(
         await chat.locator("article").count(),

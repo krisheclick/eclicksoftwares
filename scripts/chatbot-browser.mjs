@@ -1,3 +1,4 @@
+import { mockContactSave, completeContactGate } from "./chatbot-contact-browser-helper.mjs";
 import { chromium } from "playwright";
 import assert from "node:assert/strict";
 import { mkdir } from "node:fs/promises";
@@ -57,6 +58,7 @@ await page.route("**/api/chat", async (route) => {
     });
 });
 try {
+    await mockContactSave(page);
     const r = await page.goto(
         process.env.CHATBOT_TEST_URL || "http://localhost:3000/",
         { waitUntil: "domcontentloaded", timeout: 90000 },
@@ -91,6 +93,7 @@ try {
     await chat
         .getByRole("button", { name: "Explore Our Services", exact: true })
         .click();
+    await completeContactGate(chat);
     await chat
         .getByRole("button", { name: "Web Development", exact: true })
         .click();
@@ -253,6 +256,7 @@ try {
         .click();
     assert.equal(await chat.locator("dl").count(), 0);
     await chat.getByRole('button',{name:'Get a Free Quote',exact:true}).click();
+    await completeContactGate(chat);
     await chat.getByRole('button',{name:'Main Menu',exact:true}).click();
     await chat.getByRole('button',{name:'Continue Enquiry',exact:true}).click();
     await chat.getByRole('button',{name:'Web Development',exact:true}).click();

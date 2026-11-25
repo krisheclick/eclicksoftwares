@@ -7,7 +7,7 @@
     "build": "next build --turbopack",
     "start": "next start",
     "lint": "eslint",
-    "test:chatbot": "tsx --test scripts/chatbot-flow.test.ts scripts/chatbot-api.test.ts scripts/chatbot-website-api.test.ts",
+    "test:chatbot": "tsx --test scripts/chatbot-flow.test.ts scripts/chatbot-api.test.ts scripts/chatbot-website-api.test.ts scripts/chatbot-contact-api.test.ts",
     "test:chatbot:browser": "node scripts/chatbot-browser.mjs"
   },
   "dependencies": {

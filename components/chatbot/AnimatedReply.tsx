@@ -13,9 +13,22 @@ export default function AnimatedReply({
     onComplete: () => void;
 }) {
     const [visible, setVisible] = useState(0);
+    const [expanded, setExpanded] = useState(false);
+    const [overflowing, setOverflowing] = useState(false);
+    const preview = useRef<HTMLSpanElement>(null);
     const progress = useRef(onProgress);
     const complete = useRef(onComplete);
     const characters = Array.from(text);
+    useEffect(() => {
+        const node = preview.current;
+        if (!node || expanded) return;
+        const measure = () =>
+            setOverflowing(node.scrollHeight > node.clientHeight + 1);
+        measure();
+        const observer = new ResizeObserver(measure);
+        observer.observe(node);
+        return () => observer.disconnect();
+    }, [visible, expanded]);
 
     useEffect(() => {
         progress.current = onProgress;
@@ -63,14 +76,36 @@ export default function AnimatedReply({
     }, [text]);
 
     return (
-        <p className={styles.replyText} aria-busy={visible < characters.length}>
-            <span className={styles.srOnly}>{text}</span>
-            <span aria-hidden="true">
-                {characters.slice(0, visible).join("")}
-                {visible < characters.length && (
-                    <span className={styles.typeCursor} />
-                )}
-            </span>
-        </p>
+        <>
+            <p
+                className={styles.replyText}
+                aria-busy={visible < characters.length}
+            >
+                <span className={styles.srOnly}>{text}</span>
+                <span
+                    ref={preview}
+                    className={expanded ? undefined : styles.replyPreview}
+                    aria-hidden="true"
+                >
+                    {characters.slice(0, visible).join("")}
+                    {visible < characters.length && (
+                        <span className={styles.typeCursor} />
+                    )}
+                </span>
+            </p>
+            {visible >= characters.length && (overflowing || expanded) && (
+                <button
+                    type="button"
+                    className={styles.readMore}
+                    aria-expanded={expanded}
+                    onClick={() => {
+                        setExpanded((value) => !value);
+                        requestAnimationFrame(() => progress.current());
+                    }}
+                >
+                    {expanded ? "Show less" : "Read more"}
+                </button>
+            )}
+        </>
     );
 }

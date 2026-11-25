@@ -182,15 +182,18 @@
 }
 .assistant,
 .user {
-    padding: 11px 13px;
-    margin-bottom: 12px;
-    border-radius: 14px 14px 14px 3px;
-    background: #edf2fa;
-    max-width: 94%;
+    padding: 8px 12px;
+    margin-bottom: 8px;
+    border-radius: 14px 14px 14px 5px;
+    background: #f0f4fb;
+    border: 1px solid #e5ecf7;
+    max-width: 100%;
     overflow-wrap: anywhere;
     animation: enter 0.2s ease-out;
 }
 .user {
+    width: fit-content;
+    max-width: 88%;
     margin-left: auto;
     background: #1f58cb;
     color: white;
@@ -200,7 +203,8 @@
     display: block;
     font-size: 12px;
     font-weight: 700;
-    margin-bottom: 4px;
+    margin-bottom: 3px;
+    line-height: 1.3;
 }
 .messages p {
     font-size: 14px;
@@ -212,7 +216,8 @@
     display: block;
     font-size: 11px;
     opacity: 0.8;
-    margin-top: 7px;
+    margin-top: 3px;
+    line-height: 1.2;
     text-align: right;
 }
 .links {
@@ -256,7 +261,132 @@
     border-color: #1f58cb;
 }
 .replyText {
-    min-height: 1.6em;
+    min-height: 0;
+}
+.contactGate {
+    padding: 20px;
+    margin: 10px 0 14px;
+    border: 1px solid #d7e3f6;
+    border-radius: 14px;
+    background: white;
+    box-shadow: 0 6px 18px #2037590d;
+}
+.contactGate fieldset {
+    border: 0;
+    margin: 0;
+    padding: 0;
+    min-width: 0;
+}
+.contactGate label {
+    display: block;
+    margin-bottom: 5px;
+    font-size: 13px;
+    font-weight: 600;
+}
+.contactGate input:not([type="checkbox"]) {
+    display: block;
+    width: 100%;
+    min-height: 40px;
+    margin-bottom: 14px;
+    padding: 9px 11px;
+    border: 1px solid #dce2ec;
+    border-radius: 6px;
+    background: white;
+    color: #202c45;
+    font: inherit;
+    font-size: 14px;
+}
+.contactGate input:focus-visible {
+    outline: 2px solid #85aafa;
+    outline-offset: 1px;
+}
+.contactGate .contactConsent {
+    display: flex;
+    gap: 8px;
+    align-items: flex-start;
+    font-size: 12px;
+    font-weight: 400;
+    line-height: 1.5;
+    margin-bottom: 14px;
+    cursor: pointer;
+}
+.contactGate .contactConsent input[type="checkbox"] {
+    appearance: none;
+    -webkit-appearance: none;
+    display: grid;
+    place-content: center;
+    flex: 0 0 16px;
+    width: 16px;
+    height: 16px;
+    min-width: 16px;
+    min-height: 16px;
+    margin: 1px 0 0;
+    padding: 0;
+    border: 1px solid #a7b7cf;
+    border-radius: 4px;
+    background: white;
+    cursor: pointer;
+    transition: background .15s ease, border-color .15s ease;
+}
+.contactGate .contactConsent input[type="checkbox"]::before {
+    content: "";
+    width: 8px;
+    height: 4px;
+    margin-top: -2px;
+    border-left: 2px solid white;
+    border-bottom: 2px solid white;
+    transform: rotate(-45deg) scale(0);
+}
+.contactGate .contactConsent input[type="checkbox"]:checked {
+    background: #1f58cb;
+    border-color: #1f58cb;
+}
+.contactGate .contactConsent input[type="checkbox"]:checked::before {
+    transform: rotate(-45deg) scale(1);
+}
+.contactGate .contactConsent input[type="checkbox"]:disabled {
+    opacity: .6;
+    cursor: default;
+}
+.contactConsent a {
+    color: #174ba9;
+    text-decoration: underline;
+}
+.contactGate button {
+    width: 100%;
+    min-height: 40px;
+    border: 0;
+    border-radius: 6px;
+    background: #1f58cb;
+    color: white;
+    font: inherit;
+    font-size: 14px;
+    cursor: pointer;
+}
+.contactGate button:disabled {
+    opacity: 0.6;
+}
+.contactGate .contactError {
+    color: #ac2435;
+    font-size: 12px;
+    margin-bottom: 12px;
+}
+.replyPreview {
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+.readMore {
+    padding: 3px 0 0;
+    border: 0;
+    background: transparent;
+    color: #174ba9;
+    font: inherit;
+    font-size: 12px;
+    cursor: pointer;
+    text-decoration: underline;
+    text-underline-offset: 2px;
 }
 .caseDetails {
     border-top: 1px solid #e0e8f5;
@@ -365,9 +495,9 @@
     content: "";
     flex: 0 0 calc(12% - 10px);
 }
-.carouselTrack .project > p {
+.project > p {
     display: -webkit-box;
-    -webkit-line-clamp: 4;
+    -webkit-line-clamp: 2;
     -webkit-box-orient: vertical;
     overflow: hidden;
 }
