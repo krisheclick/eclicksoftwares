@@ -75,10 +75,10 @@ export default async function RootLayout({
                     className={`${primaryFont.variable} ${secondaryFont.variable} ${tertiaryFont.variable} antialiased`}
                 >
                     <RouteLoader />
-                    <Header sitedata={sitedata} menuData={response.response_data} />
+                    <Header sitedata={sitedata} menuData={response?.response_data} />
                     <main role="main" className="mainContainer">{children}</main>
                     <Footer sitedata={sitedata} />
-                    <Chatbot />
+                    {process.env.CHATBOT_ENABLED !== 'false' && <Chatbot delay={Math.max(0, Math.min(60000, Number(process.env.CHATBOT_WELCOME_DELAY) || 5000))} />}
                 </body>
             </html>
         </ThemeProvider>

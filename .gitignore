@@ -43,3 +43,5 @@ next-env.d.ts
 
 #zip files
 *.zip
+.npm-cache/
+test-results/

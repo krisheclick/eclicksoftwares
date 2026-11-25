@@ -2,39 +2,13 @@ This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-
 
 ## Website assistant
 
-The site-wide assistant includes service shortcuts, a quote form, and call booking.
-Free-text AI replies use Google's Gemini API through the server-side `/api/chat`
-route. Create a key at https://aistudio.google.com/apikey and set these variables
-in `.env` locally, or in your hosting environment, then restart/redeploy:
-
-```env
-GEMINI_API_KEY=your_google_ai_studio_key
-GEMINI_MODEL=gemini-3.5-flash-lite
-```
-
-Do not use a `NEXT_PUBLIC_` variable for the key. `CHATBOT_API_KEY` is no longer
-used. The default model is Gemini 3.5 Flash-Lite, which supports Google's limited
-free tier; actual access and quotas depend on your Google project. Quota errors
-show a friendly message and never automatically switch to a paid model.
-
-Without a valid key, service shortcuts and contact actions still work and the
-chat explains that AI replies are unavailable. Business guidance is defined in
-`app/api/chat/route.ts`. The server retrieves public CMS pages, all listed service
-details, office locations, portfolio summaries, blog listings, products, careers,
-testimonials and policies through `utils/chatbotKnowledge.ts`. The index refreshes
-after 10 minutes. Relevant excerpts (up to 30,000 characters) and the last eight
-chat messages are sent to Gemini for follow-up questions. Private enquiries,
-applicants, payments and credentials are not indexed. Blog, project, product and
-career listings follow pagination (up to 100 pages per collection, deduplicated).
-Full article bodies, project/product details, job descriptions and all portfolio
-groups are retrieved, not just listing summaries. Individual document text is
-retained in the index; only the relevant excerpts are sent per question. Index
-creation uses eight concurrent CMS reads and is shared between requests. A cold
-index may take longer to load. Coverage is limited to available public CMS data;
-unavailable sources are skipped and the assistant must acknowledge missing facts.
-Chat messages remain in memory and clear on reload.
-See https://ai.google.dev/gemini-api/docs/pricing for current quotas/pricing and
-data-use terms. Google's free-tier content may be used to improve its products.
+The assistant now uses a CMS-backed guided conversation engine alongside Gemini.
+See [chatbot setup and current integration limits](docs/chatbot/SETUP.md) and
+[reference analysis, flow map and backend contract](docs/chatbot/IMPLEMENTATION.md).
+Chat enquiries reuse the website's existing Let's Connect form and
+`schedule-a-call` API. The existing handler manages storage and notifications;
+success is shown only after its response confirms acceptance. A separate chatbot
+admin module and durable sessions still require the CMS backend source.
 
 ## Getting Started
 

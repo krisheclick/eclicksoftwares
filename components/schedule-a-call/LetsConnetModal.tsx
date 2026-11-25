@@ -1,14 +1,29 @@
 "use client";
 import { useEffect, useState } from "react";
 import { Modal } from "react-bootstrap";
-import styles from './ScheduleCall.module.css';
-import { faArrowRight, faBolt, faBuilding, faChevronDown, faEnvelope, faFileLines, faLock, faPhone, faShieldHalved, faSpinner, faTableCellsLarge, faUser, faUserGroup, faXmark } from "@fortawesome/free-solid-svg-icons";
+import styles from "./ScheduleCall.module.css";
+import {
+    faArrowRight,
+    faBolt,
+    faBuilding,
+    faChevronDown,
+    faEnvelope,
+    faFileLines,
+    faLock,
+    faPhone,
+    faShieldHalved,
+    faSpinner,
+    faTableCellsLarge,
+    faUser,
+    faUserGroup,
+    faXmark,
+} from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
 import Select from "react-select";
 import { useThemeContext } from "@/context/ThemeContext";
-
+import { websiteEnquiryPayload } from "@/utils/chatbot/websiteEnquiry";
 
 interface ScheduleCallProps {
     show: boolean;
@@ -38,66 +53,82 @@ interface ServiceCategory {
     }[];
 }
 
-
 const LetsConnectModal = ({ show, onHide, action }: ScheduleCallProps) => {
     const router = useRouter();
-    const { selectedService, setSelectedService } = useThemeContext();
+    const {
+        selectedService,
+        setSelectedService,
+        enquiryPrefill,
+        setEnquiryPrefill,
+        setChatEnquirySubmitted,
+    } = useThemeContext();
 
     const [formData, setFormData] = useState<FormData>({
-        fullName: '',
-        email: '',
-        phone: '',
-        company: '',
-        service: '',
-        requirement: '',
-        preferredDateTime: '',
+        fullName: "",
+        email: "",
+        phone: "",
+        company: "",
+        service: "",
+        requirement: "",
+        preferredDateTime: "",
         skipDateTime: false,
-        privacyConsent: false
+        privacyConsent: false,
     });
-    const [errors, setErrors] = useState<{[key: string]: string}>({});
-    const [statusMessage, setStatusMessage] = useState('');
+    const [errors, setErrors] = useState<{ [key: string]: string }>({});
+    const [statusMessage, setStatusMessage] = useState("");
     const [isSubmit, setIsSubmit] = useState(false);
-    const [serviceCategories, setServiceCategories] = useState<ServiceCategory[]>([]);
-
+    const [serviceCategories, setServiceCategories] = useState<
+        ServiceCategory[]
+    >([]);
 
     const resetAllFormData = () => {
         setFormData({
-            fullName: '',
-            email: '',
-            phone: '',
-            company: '',
-            service: '',
-            requirement: '',
-            preferredDateTime: '',
+            fullName: "",
+            email: "",
+            phone: "",
+            company: "",
+            service: "",
+            requirement: "",
+            preferredDateTime: "",
             skipDateTime: false,
-            privacyConsent: false
+            privacyConsent: false,
         });
         setErrors({});
-        setSelectedService('');
+        setSelectedService("");
+        setEnquiryPrefill(null);
     };
 
     const validateField = (name: string, value: string) => {
         if (name === "service" && !value) return "Please select a service.";
-        if (name === "requirement" && !value.trim()) return "Please describe your project.";
-        if (name === "fullName" && !value.trim()) return "Full name is required.";
+        if (name === "requirement" && !value.trim())
+            return "Please describe your project.";
+        if (name === "fullName" && !value.trim())
+            return "Full name is required.";
         if (name === "email") {
             if (!value.trim()) return "Email is required.";
-            if (!/^\S+@\S+\.\S+$/.test(value)) return "Please enter a valid email.";
+            if (!/^\S+@\S+\.\S+$/.test(value))
+                return "Please enter a valid email.";
         }
-        if (name === "phone" && !value.trim()) return "Phone number is required.";
-        if (name === "company" && !value.trim()) return "Company name is required.";
+        if (name === "phone" && !value.trim())
+            return "Phone number is required.";
+        if (name === "company" && !value.trim())
+            return "Company name is required.";
         return "";
     };
 
-    const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
+    const handleInputChange = (
+        e: React.ChangeEvent<
+            HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement
+        >,
+    ) => {
         const { name, value, type } = e.target;
         const checked = (e.target as HTMLInputElement).checked;
-        const nextValue = type === 'checkbox' ? checked : value;
-        setFormData(prev => ({
+        const nextValue = type === "checkbox" ? checked : value;
+        setFormData((prev) => ({
             ...prev,
-            [name]: nextValue
+            [name]: nextValue,
         }));
-        setErrors(prev => {
+        setErrors((prev) => {
             if (!prev[name]) return prev;
             const fieldError = validateField(name, String(nextValue));
             const nextErrors = { ...prev };
@@ -111,65 +142,68 @@ const LetsConnectModal = ({ show, onHide, action }: ScheduleCallProps) => {
     };
 
     const validateDetails = () => {
-        const newErrors: {[key: string]: string} = {};
+        const newErrors: { [key: string]: string } = {};
 
         if (!formData.service) newErrors.service = "Please select a service.";
-        if (!formData.requirement.trim()) newErrors.requirement = "Please describe your project.";
-        if (!formData.fullName.trim()) newErrors.fullName = "Full name is required.";
+        if (!formData.requirement.trim())
+            newErrors.requirement = "Please describe your project.";
+        if (!formData.fullName.trim())
+            newErrors.fullName = "Full name is required.";
         if (!formData.email.trim()) {
             newErrors.email = "Email is required.";
         } else if (!/^\S+@\S+\.\S+$/.test(formData.email)) {
             newErrors.email = "Please enter a valid email.";
         }
-        if (!formData.phone.trim()) newErrors.phone = "Phone number is required.";
-        if (!formData.company.trim()) newErrors.company = "Company name is required.";
+        if (!formData.phone.trim())
+            newErrors.phone = "Phone number is required.";
+        if (!formData.company.trim())
+            newErrors.company = "Company name is required.";
+        if (enquiryPrefill && !formData.privacyConsent)
+            newErrors.privacyConsent =
+                "Please confirm privacy consent before sending your enquiry.";
         setErrors(newErrors);
         return Object.keys(newErrors).length === 0;
     };
 
     const handleSubmit = async (e: React.FormEvent) => {
-            
         e.preventDefault();
         if (!validateDetails()) return;
 
         setIsSubmit(true);
-        setStatusMessage('');
-        const payload = {
-            service: formData.service, // OR map service → ID
-            sc_full_name: formData.fullName,
-            sc_business_email: formData.email,
-            sc_phone_number: formData.phone,
-            sc_message: formData.requirement,
-            sc_flag: action,
-        };
-
-        console.log("payload", payload)
+        setStatusMessage("");
+        const payload = websiteEnquiryPayload(formData, action);
 
         try {
-            const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}schedule-a-call`, {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
+            const res = await fetch(
+                `${process.env.NEXT_PUBLIC_API_URL}schedule-a-call`,
+                {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify(payload),
                 },
-                body: JSON.stringify(payload),
-            });
+            );
 
             const data = await res.json();
 
             if (!res.ok) {
                 throw new Error(data.message || "Submission failed");
             }
-            if(data.status !== 'success'){
+            if (data.status !== "success") {
                 throw new Error(data.msg || "Submission failed");
-            }else{
+            } else {
+                if (enquiryPrefill) setChatEnquirySubmitted(Date.now());
                 resetAllFormData();
                 sessionStorage.setItem("lets_connect_success", "true");
                 // Navigate to success page
-                router.push('/lets-connect/thank-you');
+                router.push("/lets-connect/thank-you");
                 onHide();
             }
         } catch (err: unknown) {
-            setStatusMessage(err instanceof Error ? err.message : "Something went wrong");
+            setStatusMessage(
+                err instanceof Error ? err.message : "Something went wrong",
+            );
         } finally {
             setIsSubmit(false);
         }
@@ -190,27 +224,28 @@ const LetsConnectModal = ({ show, onHide, action }: ScheduleCallProps) => {
     useEffect(() => {
         const fetchServiceCategories = async () => {
             try {
-                const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}category/with-service`);
+                const response = await fetch(
+                    `${process.env.NEXT_PUBLIC_API_URL}category/with-service`,
+                );
                 if (response.ok) {
                     const data = await response.json();
                     setServiceCategories(data.response_data);
                 }
             } catch (error) {
-                console.error('Failed to fetch service categories:', error);
+                console.error("Failed to fetch service categories:", error);
             }
         };
         fetchServiceCategories();
-        
-    },[]);
+    }, []);
 
     useEffect(() => {
         if (!show || !selectedService) return;
 
-        setFormData(prev => ({
+        setFormData((prev) => ({
             ...prev,
             service: selectedService,
         }));
-        setErrors(prev => {
+        setErrors((prev) => {
             if (!prev.service) return prev;
             const nextErrors = { ...prev };
             delete nextErrors.service;
@@ -218,22 +253,52 @@ const LetsConnectModal = ({ show, onHide, action }: ScheduleCallProps) => {
         });
     }, [show, selectedService]);
 
+    useEffect(() => {
+        if (show && enquiryPrefill) {
+            setFormData((prev) => ({
+                ...prev,
+                ...enquiryPrefill,
+                privacyConsent: false,
+            }));
+            setErrors({});
+            setStatusMessage("");
+        }
+    }, [show, enquiryPrefill]);
 
-    const serviceOptions = serviceCategories.map(category => ({
+    const serviceOptions = serviceCategories.map((category) => ({
         label: category.service_category_title,
         options: category.services
-            .filter(service => service?.service_slug)
-            .map(service => ({
+            .filter((service) => service?.service_slug)
+            .map((service) => ({
                 value: service.service_slug,
                 label: service.service_title,
             })),
-        }));
-
+    }));
 
     return (
-        <Modal show={show} onHide={()=>{resetAllFormData();onHide();}} size="xl" backdrop="static" keyboard={false} centered className={`${styles.scheduleModal} ${styles.letsConnectModal}`} scrollable={false}>
+        <Modal
+            show={show}
+            onHide={() => {
+                resetAllFormData();
+                onHide();
+            }}
+            size="xl"
+            backdrop="static"
+            keyboard={false}
+            centered
+            className={`${styles.scheduleModal} ${styles.letsConnectModal}`}
+            scrollable={false}
+        >
             <Modal.Body className={styles.letsConnectBody}>
-                <button className={styles.letsCloseBtn} type="button" onClick={()=>{resetAllFormData();onHide();}}  aria-label="Close">
+                <button
+                    className={styles.letsCloseBtn}
+                    type="button"
+                    onClick={() => {
+                        resetAllFormData();
+                        onHide();
+                    }}
+                    aria-label="Close"
+                >
                     <FontAwesomeIcon icon={faXmark} />
                 </button>
 
@@ -249,25 +314,34 @@ const LetsConnectModal = ({ show, onHide, action }: ScheduleCallProps) => {
                     </figure>
                     <span className={styles.asideMark}></span>
                     <h3>Let&apos;s build something great.</h3>
-                    <p>Tell us about your project and our team will get back to you shortly.</p>
+                    <p>
+                        Tell us about your project and our team will get back to
+                        you shortly.
+                    </p>
 
                     <ul className={styles.asideList}>
                         <li>
-                            <span><FontAwesomeIcon icon={faBolt} /></span>
+                            <span>
+                                <FontAwesomeIcon icon={faBolt} />
+                            </span>
                             <div>
                                 <strong>Quick response</strong>
                                 <small>We value your time.</small>
                             </div>
                         </li>
                         <li>
-                            <span><FontAwesomeIcon icon={faUserGroup} /></span>
+                            <span>
+                                <FontAwesomeIcon icon={faUserGroup} />
+                            </span>
                             <div>
                                 <strong>Expert consultation</strong>
                                 <small>Get the right guidance.</small>
                             </div>
                         </li>
                         <li>
-                            <span><FontAwesomeIcon icon={faShieldHalved} /></span>
+                            <span>
+                                <FontAwesomeIcon icon={faShieldHalved} />
+                            </span>
                             <div>
                                 <strong>No obligation</strong>
                                 <small>Just a conversation.</small>
@@ -279,7 +353,10 @@ const LetsConnectModal = ({ show, onHide, action }: ScheduleCallProps) => {
                 <div className={styles.letsConnectFormPanel}>
                     <div className={styles.letsFormHeader}>
                         <h4>Let&apos;s Connect</h4>
-                        <p>Share a few details and we&apos;ll take it from here.</p>
+                        <p>
+                            Share a few details and we&apos;ll take it from
+                            here.
+                        </p>
                     </div>
 
                     <form className={styles.letsForm} onSubmit={handleSubmit}>
@@ -288,25 +365,47 @@ const LetsConnectModal = ({ show, onHide, action }: ScheduleCallProps) => {
                                 <span>Full Name *</span>
                                 <em>
                                     <FontAwesomeIcon icon={faUser} />
-                                    <input type="text" name="fullName" value={formData.fullName} onChange={handleInputChange} placeholder="Your full name" />
+                                    <input
+                                        type="text"
+                                        name="fullName"
+                                        value={formData.fullName}
+                                        onChange={handleInputChange}
+                                        placeholder="Your full name"
+                                    />
                                 </em>
-                                {errors.fullName && <small>{errors.fullName}</small>}
+                                {errors.fullName && (
+                                    <small>{errors.fullName}</small>
+                                )}
                             </label>
 
                             <label className={styles.fieldGroup}>
                                 <span>Company *</span>
                                 <em>
                                     <FontAwesomeIcon icon={faBuilding} />
-                                    <input type="text" name="company" value={formData.company} onChange={handleInputChange} placeholder="Your company name" />
+                                    <input
+                                        type="text"
+                                        name="company"
+                                        value={formData.company}
+                                        onChange={handleInputChange}
+                                        placeholder="Your company name"
+                                    />
                                 </em>
-                                {errors.company && <small>{errors.company}</small>}
+                                {errors.company && (
+                                    <small>{errors.company}</small>
+                                )}
                             </label>
 
                             <label className={styles.fieldGroup}>
                                 <span>Email Address *</span>
                                 <em>
                                     <FontAwesomeIcon icon={faEnvelope} />
-                                    <input type="email" name="email" value={formData.email} onChange={handleInputChange} placeholder="your.email@company.com" />
+                                    <input
+                                        type="email"
+                                        name="email"
+                                        value={formData.email}
+                                        onChange={handleInputChange}
+                                        placeholder="your.email@company.com"
+                                    />
                                 </em>
                                 {errors.email && <small>{errors.email}</small>}
                             </label>
@@ -315,16 +414,31 @@ const LetsConnectModal = ({ show, onHide, action }: ScheduleCallProps) => {
                                 <span>Phone Number *</span>
                                 <em>
                                     <FontAwesomeIcon icon={faPhone} />
-                                    <input type="tel" name="phone" value={formData.phone} onChange={handleInputChange} placeholder="+1 (555) 123-4567" />
+                                    <input
+                                        type="tel"
+                                        name="phone"
+                                        value={formData.phone}
+                                        onChange={handleInputChange}
+                                        placeholder="+1 (555) 123-4567"
+                                    />
                                 </em>
                                 {errors.phone && <small>{errors.phone}</small>}
                             </label>
                         </div>
 
-                        <div className={`${styles.fieldGroup} ${styles.fullField}`}>
-                            <label htmlFor="lets-connect-service">What service are you interested in? *</label>
-                            <div className={`${styles.selectWrap} ${errors.service ? styles.hasError : ""}`}>
-                                <FontAwesomeIcon icon={faTableCellsLarge} className={styles.fieldIcon} />
+                        <div
+                            className={`${styles.fieldGroup} ${styles.fullField}`}
+                        >
+                            <label htmlFor="lets-connect-service">
+                                What service are you interested in? *
+                            </label>
+                            <div
+                                className={`${styles.selectWrap} ${errors.service ? styles.hasError : ""}`}
+                            >
+                                <FontAwesomeIcon
+                                    icon={faTableCellsLarge}
+                                    className={styles.fieldIcon}
+                                />
                                 <Select
                                     inputId="lets-connect-service"
                                     options={serviceOptions}
@@ -333,14 +447,17 @@ const LetsConnectModal = ({ show, onHide, action }: ScheduleCallProps) => {
                                     unstyled
                                     onChange={(selected) => {
                                         const value = selected?.value || "";
-                                        setFormData(prev => ({
+                                        setFormData((prev) => ({
                                             ...prev,
                                             service: value,
                                         }));
-                                        setErrors(prev => {
+                                        setErrors((prev) => {
                                             if (!prev.service) return prev;
                                             const nextErrors = { ...prev };
-                                            const fieldError = validateField("service", value);
+                                            const fieldError = validateField(
+                                                "service",
+                                                value,
+                                            );
                                             if (fieldError) {
                                                 nextErrors.service = fieldError;
                                             } else {
@@ -350,23 +467,36 @@ const LetsConnectModal = ({ show, onHide, action }: ScheduleCallProps) => {
                                         });
                                     }}
                                     value={serviceOptions
-                                        .flatMap(group => group.options)
-                                        .find(opt => opt.value === formData.service)}
+                                        .flatMap((group) => group.options)
+                                        .find(
+                                            (opt) =>
+                                                opt.value === formData.service,
+                                        )}
                                     classNamePrefix="lets-select"
                                     classNames={{
                                         control: () => styles.selectControl,
-                                        valueContainer: () => styles.selectValue,
-                                        placeholder: () => styles.selectPlaceholder,
-                                        singleValue: () => styles.selectSingleValue,
-                                        indicatorsContainer: () => styles.selectIndicators,
+                                        valueContainer: () =>
+                                            styles.selectValue,
+                                        placeholder: () =>
+                                            styles.selectPlaceholder,
+                                        singleValue: () =>
+                                            styles.selectSingleValue,
+                                        indicatorsContainer: () =>
+                                            styles.selectIndicators,
                                         group: () => styles.selectGroup,
-                                        groupHeading: () => styles.selectGroupHeading,
+                                        groupHeading: () =>
+                                            styles.selectGroupHeading,
                                         menu: () => styles.selectMenu,
                                         menuList: () => styles.selectMenuList,
-                                        option: ({ isFocused, isSelected }) => `${styles.selectOption} ${isFocused ? styles.focusedOption : ""} ${isSelected ? styles.selectedOption : ""}`,
+                                        option: ({ isFocused, isSelected }) =>
+                                            `${styles.selectOption} ${isFocused ? styles.focusedOption : ""} ${isSelected ? styles.selectedOption : ""}`,
                                     }}
                                     components={{
-                                        DropdownIndicator: () => <FontAwesomeIcon icon={faChevronDown} />,
+                                        DropdownIndicator: () => (
+                                            <FontAwesomeIcon
+                                                icon={faChevronDown}
+                                            />
+                                        ),
                                         IndicatorSeparator: null,
                                     }}
                                 />
@@ -374,18 +504,61 @@ const LetsConnectModal = ({ show, onHide, action }: ScheduleCallProps) => {
                             {errors.service && <small>{errors.service}</small>}
                         </div>
 
-                        <label className={`${styles.fieldGroup} ${styles.fullField}`}>
+                        <label
+                            className={`${styles.fieldGroup} ${styles.fullField}`}
+                        >
                             <span>Comment *</span>
                             <em className={styles.textareaField}>
                                 <FontAwesomeIcon icon={faFileLines} />
-                                <textarea name="requirement" value={formData.requirement} onChange={handleInputChange} placeholder="Briefly describe your project, goals, challenges, and timeline..." rows={3}></textarea>
+                                <textarea
+                                    name="requirement"
+                                    value={formData.requirement}
+                                    onChange={handleInputChange}
+                                    placeholder="Briefly describe your project, goals, challenges, and timeline..."
+                                    rows={3}
+                                ></textarea>
                             </em>
-                            {errors.requirement && <small>{errors.requirement}</small>}
+                            {errors.requirement && (
+                                <small>{errors.requirement}</small>
+                            )}
                         </label>
 
-                        {statusMessage && <p className={styles.formError}>{statusMessage}</p>}
+                        {enquiryPrefill && (
+                            <div
+                                className={`${styles.fieldGroup} ${styles.fullField}`}
+                            >
+                                <label>
+                                    <input
+                                        type="checkbox"
+                                        name="privacyConsent"
+                                        checked={formData.privacyConsent}
+                                        onChange={handleInputChange}
+                                    />{" "}
+                                    I agree to the{" "}
+                                    <a
+                                        href="/privacy-policy"
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                    >
+                                        Privacy Policy
+                                    </a>{" "}
+                                    and consent to being contacted about this
+                                    enquiry.
+                                </label>
+                                {errors.privacyConsent && (
+                                    <small>{errors.privacyConsent}</small>
+                                )}
+                            </div>
+                        )}
+                        {statusMessage && (
+                            <p className={styles.formError}>{statusMessage}</p>
+                        )}
 
-                        <button className={styles.submitBtn} type="submit" disabled={isSubmit}>
+                        <button
+                            className={styles.submitBtn}
+                            type="submit"
+                            disabled={isSubmit}
+                        >
                             {isSubmit ? (
                                 <>
                                     <FontAwesomeIcon icon={faSpinner} spin />

@@ -6,7 +6,9 @@
     "dev": "next dev --turbopack",
     "build": "next build --turbopack",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "test:chatbot": "tsx --test scripts/chatbot-flow.test.ts scripts/chatbot-api.test.ts scripts/chatbot-website-api.test.ts",
+    "test:chatbot:browser": "node scripts/chatbot-browser.mjs"
   },
   "dependencies": {
     "@fancyapps/ui": "^6.1.7",
@@ -15,6 +17,7 @@
     "@fortawesome/free-regular-svg-icons": "^7.1.0",
     "@fortawesome/free-solid-svg-icons": "^7.1.0",
     "@fortawesome/react-fontawesome": "^3.1.0",
+    "@google/genai": "^1.52.0",
     "@paypal/react-paypal-js": "^8.9.2",
     "bootstrap": "^5.3.8",
     "date-fns": "^4.1.0",
@@ -40,6 +43,8 @@
     "@types/react-dom": "^19",
     "eslint": "^9",
     "eslint-config-next": "15.5.5",
+    "playwright": "^1.65.1",
+    "tsx": "^4.23.15",
     "typescript": "^5"
   }
 }

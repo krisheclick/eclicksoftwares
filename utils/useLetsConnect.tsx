@@ -1,36 +1,66 @@
 // Utility hook to easily trigger modals from any component
 import { useThemeContext } from "@/context/ThemeContext";
+import type { WebsiteEnquiryPrefill } from "@/utils/chatbot/websiteEnquiry";
 
 export const useScheduleCall = () => {
-    const { showScheduleModal, setShowScheduleModal, setClickFrom, clickFrom, setSelectedService } = useThemeContext();
+    const {
+        showScheduleModal,
+        setShowScheduleModal,
+        setClickFrom,
+        clickFrom,
+        setSelectedService,
+    } = useThemeContext();
 
     const openScheduleModal = (action?: string, serviceSlug?: string) => {
         setShowScheduleModal(true);
-        setSelectedService(serviceSlug || '');
+        setSelectedService(serviceSlug || "");
         if (action) {
             setClickFrom(action);
         }
     };
 
-    return { openScheduleModal, showScheduleModal, setShowScheduleModal, clickFrom };
+    return {
+        openScheduleModal,
+        showScheduleModal,
+        setShowScheduleModal,
+        clickFrom,
+    };
 };
 
 export const useLetsConnect = () => {
-    const { showLetsConnectModal, setShowLetsConnectModal, setClickFrom, clickFrom, setSelectedService } = useThemeContext();
+    const {
+        showLetsConnectModal,
+        setShowLetsConnectModal,
+        setClickFrom,
+        clickFrom,
+        setSelectedService,
+        setEnquiryPrefill,
+    } = useThemeContext();
 
-    const openLetsConnectModal = (action?: string, serviceSlug?: string) => {
+    const openLetsConnectModal = (
+        action?: string,
+        serviceSlug?: string,
+        prefill?: WebsiteEnquiryPrefill,
+    ) => {
+        setEnquiryPrefill(prefill || null);
         setShowLetsConnectModal(true);
-        setSelectedService(serviceSlug || '');
+        setSelectedService(serviceSlug || "");
         if (action) {
             setClickFrom(action);
         }
     };
 
-    return { openLetsConnectModal, showLetsConnectModal, setShowLetsConnectModal, clickFrom };
+    return {
+        openLetsConnectModal,
+        showLetsConnectModal,
+        setShowLetsConnectModal,
+        clickFrom,
+    };
 };
 
 export const useHireModal = () => {
-    const { showHireModal, setShowHireModal, selectedUsp,setSelectedUsp } = useThemeContext();
+    const { showHireModal, setShowHireModal, selectedUsp, setSelectedUsp } =
+        useThemeContext();
 
     const openHireModal = () => {
         setShowHireModal(true);
@@ -40,7 +70,14 @@ export const useHireModal = () => {
         setShowHireModal(false);
     };
 
-    return { openHireModal, closeHireModal, showHireModal, setShowHireModal, selectedUsp, setSelectedUsp };
+    return {
+        openHireModal,
+        closeHireModal,
+        showHireModal,
+        setShowHireModal,
+        selectedUsp,
+        setSelectedUsp,
+    };
 };
 export const useReferModal = () => {
     const { showReferModal, setShowReferModal } = useThemeContext();
@@ -53,5 +90,10 @@ export const useReferModal = () => {
         setShowReferModal(false);
     };
 
-    return { openReferModal, closeReferModal, showReferModal, setShowReferModal };
+    return {
+        openReferModal,
+        closeReferModal,
+        showReferModal,
+        setShowReferModal,
+    };
 };
